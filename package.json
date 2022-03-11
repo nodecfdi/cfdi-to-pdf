@@ -54,7 +54,7 @@
     "dependencies": {
         "@nodecfdi/cfdi-expresiones": "^1.1.1",
         "@nodecfdi/cfdiutils-common": "^1.0.1",
-        "@nodecfdi/cfdiutils-core": "^0.6.1",
+        "@nodecfdi/cfdiutils-core": "^0.6.2",
         "pdfmake": "^0.2.4"
     }
 }
