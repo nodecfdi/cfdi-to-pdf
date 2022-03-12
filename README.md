@@ -21,10 +21,136 @@
 
 [discord]: https://discord.gg/aFGYXvX
 
-> 
+> Create a generic PDF file from a CFDI 3.3, and Retenciones 1.0
 
 :us: The documentation of this project is in spanish as this is the natural language for intended audience.
 
 :mexico: La documentación del proyecto está en español porque ese es el lenguaje principal de los usuarios.
 
 ## Acerca de @nodecfdi/cfdi-to-pdf
+
+En algunos casos necesitas generar un archivo PDF desde un CFDI (Comprobante fiscal Digital por Internet), o constancia
+de retenciones. Esta librería te ayuda a crear un pdf genérico. Además puedes crear un boceto a tu gusto y acomodarlo a
+como lo requieras. Inspirada por la versión de php https://github.com/phpcfdi/cfditopdf
+
+## Instalación
+
+```shell
+npm i @nodecfdi/cfdi-to-pdf --save
+```
+
+o
+
+```shell
+yarn add @nodecfdi/cfdi-to-pdf
+```
+
+## Uso básico en NodeJS
+
+### CFDI 33
+
+```typescript
+import {readFileSync} from 'fs';
+import {
+    Converter,
+    CfdiDataBuilder,
+    GenericCfdiTranslator,
+    PdfMakerBuilder,
+} from '@nodecfdi/cfdi-to-pdf';
+import {XmlResolver} from '@nodecfdi/cfdiutils-core';
+
+// Accedemos al contenido en nuestro archivo XML
+const xml = readFileSync('archivo-cfdi.xml', 'utf-8');
+const cfdiData = await new CfdiDataBuilder()
+    .withXmlResolver(new XmlResolver('my-custom-path'))
+    .buildFromString(xml);
+
+const builder = new PdfMakerBuilder(new GenericCfdiTranslator());
+const converter = new Converter(builder);
+
+// Salida base64 CFDI
+const base64 = await converter.createPdfOnBase64(cfdiData);
+console.log(base64);
+
+// salida file save CFDI
+await converter.createPdfOnPath(cfdiData, 'myCfdi.pdf')
+```
+
+### Retenciones
+
+```typescript
+import {readFileSync} from 'fs';
+import {
+    Converter,
+    RetencionesDataBuilder,
+    GenericRetencionesTranslator,
+    PdfMakerBuilder,
+} from '@nodecfdi/cfdi-to-pdf';
+import {XmlResolver} from '@nodecfdi/cfdiutils-core';
+
+// Accedemos al contenido en nuestro archivo XML
+const xml = readFileSync('archivo-retenciones.xml', 'utf-8');
+const retencionesData = await new RetencionesDataBuilder()
+    .withXmlResolver(new XmlResolver('my-custom-path'))
+    .buildFromString(xml);
+
+const builder = new PdfMakerBuilder(new GenericRetencionesTranslator());
+const converter = new Converter(builder);
+
+// Salida base64 retenciones
+const base64 = await converter.createPdfOnBase64(retencionesData);
+console.log(base64);
+
+// salida file save retenciones
+await converter.createPdfOnPath(retencionesData, 'myRetenciones.pdf')
+```
+
+## Uso básico en Browser y VanillaJS
+
+### CFDI 33
+
+```typescript
+import {
+    GenericCfdiTranslator,
+    PdfMakerBrowserBuilder,
+    CfdiData,
+} from '@nodecfdi/cfdi-to-pdf';
+import {XmlNodeUtils} from '@nodecfdi/cfdiutils-common';
+
+// Salida base64 CFDI
+// Accedemos al contenido en nuestro archivo XML
+const xml = '...xmlstring data...';
+const comprobante = XmlNodeUtils.nodeFromXmlString(xml);
+const cfdiData = new CfdiData(comprobante, 'urlCode', 'cadenaOrigen', 'myLogoImageBase64');
+
+const builder = new PdfMakerBrowserBuilder(new GenericCfdiTranslator());
+const base64 = await builder.buildBase64(cfdiData);
+console.log(base64);
+```
+
+### Retenciones
+
+```typescript
+import {
+    GenericRetencionesTranslator,
+    PdfMakerBrowserBuilder,
+    RetencionesData
+} from '@nodecfdi/cfdi-to-pdf';
+import {XmlNodeUtils} from '@nodecfdi/cfdiutils-common';
+
+// Salida base64 Retenciones
+// Accedemos al contenido en nuestro archivo XML
+const xml = '...xmlstring data...';
+const retenciones = XmlNodeUtils.nodeFromXmlString(xml);
+const retencionesData = new RetencionesData(retenciones, 'urlCode', 'cadenaOrigen', 'myLogoImageBase64');
+
+const builder = new PdfMakerBrowserBuilder(new GenericRetencionesTranslator());
+
+const base64 = await builder.buildBase64(retencionesData);
+console.log(base64);
+```
+
+## Requisitos si se usa pretende usar en NodeJS
+
+Asegúrate de que tengas los requerimientos para [node-gyp](https://github.com/TooTallNate/node-gyp#installation). No
+necesitas instalar manualmente node-gyp, viene dentro de las dependencias de node.

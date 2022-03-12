@@ -1,11 +1,9 @@
 import { BuilderInterface } from './builder-interface';
 import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
+import 'pdfmake/build/vfs_fonts';
 import { DocumentTranslatorInterface } from '../templates/document-translator-interface';
 import { TDocumentDefinitions } from 'pdfmake/interfaces';
 import { AbstractInvoiceData } from '../abstract-invoice-data';
-
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 export class PdfMakerBrowserBuilder<T extends AbstractInvoiceData> implements BuilderInterface<T> {
     private _documentTranslator: DocumentTranslatorInterface<T>;
