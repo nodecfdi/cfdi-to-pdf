@@ -1,6 +1,6 @@
 import { XmlNodeUtils } from '@nodecfdi/cfdiutils-common';
 import { TestCase } from '../test-case';
-import { RetencionesDataBuilder } from '../../src/retenciones-data-builder';
+import { RetencionesDataBuilder } from '../../src';
 
 describe('RetencionesDataBuilder', () => {
     test('create tfd source string without timbre fiscal digital', async () => {

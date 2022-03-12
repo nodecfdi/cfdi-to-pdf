@@ -1,16 +1,10 @@
 import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { AbstractInvoiceData } from './abstract-invoice-data';
 
-export class RetencionesData {
+export class RetencionesData extends AbstractInvoiceData {
     private readonly _retenciones: CNodeInterface;
-    private readonly _emisor: CNodeInterface;
-    private readonly _receptor: CNodeInterface;
     private readonly _periodo: CNodeInterface;
     private readonly _totales: CNodeInterface;
-    private readonly _timbreFiscalDigital: CNodeInterface;
-    private readonly _qrUrl: string;
-    private readonly _tfdSourceString: string;
-    private readonly _logo: string | undefined;
-    private readonly _additionalFields: { title: string; value: string }[] | undefined;
 
     constructor(
         retenciones: CNodeInterface,
@@ -19,6 +13,7 @@ export class RetencionesData {
         logo?: string,
         additionalFields?: { title: string; value: string }[]
     ) {
+        super();
         const emisor = retenciones.searchNode('retenciones:Emisor');
         if (!emisor) {
             throw new Error('La factura de retenciones no contiene nodo emisor');
@@ -56,39 +51,11 @@ export class RetencionesData {
         return this._retenciones;
     }
 
-    public emisor(): CNodeInterface {
-        return this._emisor;
-    }
-
-    public receptor(): CNodeInterface {
-        return this._receptor;
-    }
-
     public periodo(): CNodeInterface {
         return this._periodo;
     }
 
     public totales(): CNodeInterface {
         return this._totales;
-    }
-
-    public timbreFiscalDigital(): CNodeInterface {
-        return this._timbreFiscalDigital;
-    }
-
-    public qrUrl(): string {
-        return this._qrUrl;
-    }
-
-    public tfdSourceString(): string {
-        return this._tfdSourceString;
-    }
-
-    public logo(): string | undefined {
-        return this._logo;
-    }
-
-    public additionalFields(): { title: string; value: string }[] | undefined {
-        return this._additionalFields;
     }
 }

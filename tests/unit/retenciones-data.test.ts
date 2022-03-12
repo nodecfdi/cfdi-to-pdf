@@ -1,6 +1,6 @@
 import { XmlNodeUtils } from '@nodecfdi/cfdiutils-common';
 import { TestCase } from '../test-case';
-import { RetencionesData } from '../../src/retenciones-data';
+import { RetencionesData } from '../../src';
 
 describe('RetencionesData', () => {
     test('construct using valid content', () => {

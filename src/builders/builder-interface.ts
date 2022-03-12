@@ -1,7 +1,7 @@
-import { CfdiData } from '../cfdi-data';
+import { AbstractInvoiceData } from '../abstract-invoice-data';
 
-export interface BuilderInterface {
-    build(data: CfdiData, destination: string): Promise<void>;
+export interface BuilderInterface<T extends AbstractInvoiceData> {
+    build(data: T, destination: string): Promise<void>;
 
-    buildBase64(data: CfdiData): Promise<string>;
+    buildBase64(data: T): Promise<string>;
 }

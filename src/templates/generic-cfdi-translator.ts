@@ -3,8 +3,9 @@ import { CfdiData } from '../cfdi-data';
 import { Column, Content, ContentColumns, ContentTable, TableCell, TDocumentDefinitions } from 'pdfmake/interfaces';
 import { CNodeInterface, CNodes } from '@nodecfdi/cfdiutils-common';
 import { toCurrency } from '../utils/currency';
+import { breakEveryNCharacters } from '../utils/break-characters';
 
-export class GenericTranslator implements DocumentTranslatorInterface {
+export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiData> {
     protected generateFooter(version: string, uuid: string, currentPage: number, pageCount: number): Content {
         return {
             style: 'tableContent',
@@ -72,7 +73,7 @@ export class GenericTranslator implements DocumentTranslatorInterface {
             ],
         };
         if (logo) {
-            (header.columns[0] as ContentTable).table.body[0][0] = { image: logo, fit: [150, 150] };
+            (header.columns[0] as ContentTable).table.body[0][0] = { image: logo, fit: [80, 80] };
             (header.columns[0] as ContentTable).table.widths = ['*'];
         }
         return header;
@@ -334,6 +335,7 @@ export class GenericTranslator implements DocumentTranslatorInterface {
                     widths: ['*'],
                     body: [['CFDIS RELACIONADOS'], ...uuidsArray],
                 },
+                layout: 'lightHorizontalLines',
             });
         }
         contentColumns.push(relatedInfoAndImport);
@@ -456,21 +458,6 @@ export class GenericTranslator implements DocumentTranslatorInterface {
         return ([] as Content[]).concat.apply([], paymentContent);
     }
 
-    protected breakEveryNCharacters(str = '', n = 86): string {
-        const arr = str.match(new RegExp(`.{1,${n}}`, 'g'));
-        let result = str;
-        if (arr) {
-            result = arr.reduce((a, b) => {
-                const check = b.substring(0, Math.floor(n / 3));
-                if (a.length + b.length < n || check.includes('+') || check.includes('|')) {
-                    return `${a}${b}`;
-                }
-                return `${a}\n${b}`;
-            });
-        }
-        return result;
-    }
-
     protected generateStampContent(cfdiData: CfdiData): Content {
         const comprobante = cfdiData.comprobante();
         const tfd = cfdiData.timbreFiscalDigital();
@@ -484,7 +471,7 @@ export class GenericTranslator implements DocumentTranslatorInterface {
                         colSpan: 1,
                         rowSpan: 8,
                         qr: qrUrl,
-                        fit: 140,
+                        fit: 120,
                     },
                     '',
                     '',
@@ -493,15 +480,15 @@ export class GenericTranslator implements DocumentTranslatorInterface {
                 ['', 'NUMERO SERIE CERTIFICADO EMISOR', comprobante.get('NoCertificado')],
                 ['', 'FECHA HORA CERTIFICACIÓN', tfd.get('FechaTimbrado')],
                 ['', 'FOLIO FISCAL UUID', tfd.get('UUID')],
-                ['', 'SELLO DIGITAL', this.breakEveryNCharacters(tfd.get('SelloCFD'), 86)],
-                ['', 'SELLO DEL SAT', this.breakEveryNCharacters(tfd.get('SelloSAT'), 86)]
+                ['', 'SELLO DIGITAL', breakEveryNCharacters(tfd.get('SelloCFD'), 86)],
+                ['', 'SELLO DEL SAT', breakEveryNCharacters(tfd.get('SelloSAT'), 86)]
             );
         }
         tfdCellsTable.push([
             '',
             'CADENA ORIGINAL CC:',
             {
-                text: this.breakEveryNCharacters(tfdSourceString, 86),
+                text: breakEveryNCharacters(tfdSourceString, 86),
             },
         ]);
         return {

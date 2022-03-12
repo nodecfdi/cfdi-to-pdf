@@ -1,18 +1,19 @@
 import { BuilderInterface } from './builders/builder-interface';
 import { CfdiData } from './cfdi-data';
+import { RetencionesData } from './retenciones-data';
 
 export class Converter {
-    private _builder: BuilderInterface;
+    private _builder: BuilderInterface<CfdiData | RetencionesData>;
 
-    constructor(builder: BuilderInterface) {
+    constructor(builder: BuilderInterface<CfdiData | RetencionesData>) {
         this._builder = builder;
     }
 
-    public createPdfOnPath(cfdiData: CfdiData, destination: string): Promise<void> {
-        return this._builder.build(cfdiData, destination);
+    public createPdfOnPath(data: CfdiData | RetencionesData, destination: string): Promise<void> {
+        return this._builder.build(data, destination);
     }
 
-    public createPdfOnBase64(cfdiData: CfdiData): Promise<string> {
-        return this._builder.buildBase64(cfdiData);
+    public createPdfOnBase64(data: CfdiData | RetencionesData): Promise<string> {
+        return this._builder.buildBase64(data);
     }
 }

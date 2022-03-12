@@ -1,16 +1,15 @@
 import { BuilderInterface } from './builder-interface';
-import { CfdiData } from '../cfdi-data';
 import PdfPrinter from 'pdfmake';
 import { createWriteStream } from 'fs';
 import { DocumentTranslatorInterface } from '../templates/document-translator-interface';
-import { GenericTranslator } from '../templates/generic-translator';
 import { TDocumentDefinitions } from 'pdfmake/interfaces';
+import { AbstractInvoiceData } from '../abstract-invoice-data';
 
-export class PdfMakerBuilder implements BuilderInterface {
+export class PdfMakerBuilder<T extends AbstractInvoiceData> implements BuilderInterface<T> {
     private _printer: PdfPrinter;
-    private _documentTranslator: DocumentTranslatorInterface;
+    private _documentTranslator: DocumentTranslatorInterface<T>;
 
-    constructor(printer: PdfPrinter | null = null, documentTranslator: DocumentTranslatorInterface | null = null) {
+    constructor(documentTranslator: DocumentTranslatorInterface<T>, printer: PdfPrinter | null = null) {
         if (!printer) {
             const fonts = {
                 Courier: {
@@ -41,15 +40,11 @@ export class PdfMakerBuilder implements BuilderInterface {
             printer = new PdfPrinter(fonts);
         }
 
-        if (!documentTranslator) {
-            documentTranslator = new GenericTranslator();
-        }
-
         this._documentTranslator = documentTranslator;
         this._printer = printer;
     }
 
-    public build(data: CfdiData, destination: string): Promise<void> {
+    public build(data: T, destination: string): Promise<void> {
         return new Promise<void>((resolve, reject) => {
             const pdfTemplate = this.buildPdf(data);
             const pdfStream = this._printer.createPdfKitDocument(pdfTemplate, {});
@@ -64,7 +59,7 @@ export class PdfMakerBuilder implements BuilderInterface {
         });
     }
 
-    public buildBase64(data: CfdiData): Promise<string> {
+    public buildBase64(data: T): Promise<string> {
         return new Promise<string>((resolve, reject) => {
             const pdfTemplate = this.buildPdf(data);
             const pdfStream = this._printer.createPdfKitDocument(pdfTemplate, {});
@@ -82,7 +77,7 @@ export class PdfMakerBuilder implements BuilderInterface {
         });
     }
 
-    public buildPdf(data: CfdiData): TDocumentDefinitions {
+    public buildPdf(data: T): TDocumentDefinitions {
         return this._documentTranslator.translate(data);
     }
 }

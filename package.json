@@ -26,7 +26,7 @@
         "generate": "rimraf build && rimraf dist && yarn build && yarn build:types && yarn docs && rimraf build",
         "build:types": "tsc -p ./tsconfig.json --outDir build --declaration true && api-extractor run",
         "lint": "eslint --ext .js,.ts .",
-        "test": "jest --maxWorkers=1",
+        "test": "jest",
         "docs": "typedoc src --out docs"
     },
     "devDependencies": {
@@ -39,7 +39,7 @@
         "@types/pdfmake": "^0.1.20",
         "@typescript-eslint/eslint-plugin": "^5.14.0",
         "@typescript-eslint/parser": "^5.14.0",
-        "eslint": "^8.10.0",
+        "eslint": "^8.11.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-prettier": "^4.0.0",
         "jest": "^27.5.1",
