@@ -6,6 +6,7 @@ export * from './utils/break-characters';
 export * from './builders/builder-interface';
 export * from './templates/document-translator-interface';
 export * from './builders/pdf-maker-builder';
+export * from './builders/pdf-maker-browser-builder';
 export * from './templates/generic-cfdi-translator';
 export * from './templates/generic-retenciones-translator';
 export * from './cfdi-data-builder';
