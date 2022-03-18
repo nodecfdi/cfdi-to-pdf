@@ -480,15 +480,15 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                 ['', 'NUMERO SERIE CERTIFICADO EMISOR', comprobante.get('NoCertificado')],
                 ['', 'FECHA HORA CERTIFICACIÓN', tfd.get('FechaTimbrado')],
                 ['', 'FOLIO FISCAL UUID', tfd.get('UUID')],
-                ['', 'SELLO DIGITAL', breakEveryNCharacters(tfd.get('SelloCFD'), 86, false)],
-                ['', 'SELLO DEL SAT', breakEveryNCharacters(tfd.get('SelloSAT'), 86, false)]
+                ['', 'SELLO DIGITAL', breakEveryNCharacters(tfd.get('SelloCFD'), 86)],
+                ['', 'SELLO DEL SAT', breakEveryNCharacters(tfd.get('SelloSAT'), 86)]
             );
         }
         tfdCellsTable.push([
             '',
             'CADENA ORIGINAL CC:',
             {
-                text: breakEveryNCharacters(tfdSourceString, 86, false),
+                text: breakEveryNCharacters(tfdSourceString, 86),
             },
         ]);
         return {
