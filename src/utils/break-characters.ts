@@ -3,8 +3,7 @@ const breakEveryNCharacters = (str = '', n = 86): string => {
     let result = str;
     if (arr) {
         result = arr.reduce((a, b) => {
-            const check = b.substring(0, Math.floor(n / 3));
-            if (a.length + b.length < n || check.includes('+') || check.includes('|')) {
+            if (a.length + b.length < n) {
                 return `${a}${b}`;
             }
             return `${a}\n${b}`;
