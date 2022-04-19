@@ -97,8 +97,3 @@ await builder.build(retencionesData, destPath);
 
 console.log(base64);
 ```
-
-## Requisitos si se usa pretende usar en NodeJS
-
-Asegúrate de que tengas los requerimientos para [node-gyp](https://github.com/TooTallNate/node-gyp#installation). No
-necesitas instalar manualmente node-gyp, viene dentro de las dependencias de node.
