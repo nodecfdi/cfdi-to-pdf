@@ -8,6 +8,3 @@ export * from './templates/document-translator-interface';
 export * from './builders/pdf-maker-builder';
 export * from './templates/generic-cfdi-translator';
 export * from './templates/generic-retenciones-translator';
-export * from './cfdi-data-builder';
-export * from './retenciones-data-builder';
-export * from './converter';

@@ -1,68 +1,52 @@
-import { XmlNodeUtils } from '@nodecfdi/cfdiutils-common';
-import { TestCase } from '../test-case';
+import {XmlNodeUtils} from '@nodecfdi/cfdiutils-common';
+import {TestCase} from '../test-case';
 import {
-    Converter,
-    CfdiDataBuilder,
+    CfdiData,
     GenericCfdiTranslator,
     GenericRetencionesTranslator,
-    PdfMakerBuilder,
-    RetencionesDataBuilder,
+    PdfMakerBuilder, RetencionesData,
 } from '../../src';
-import { existsSync, unlinkSync } from 'fs';
+import {existsSync, unlinkSync} from 'fs';
 
 describe('Converter', () => {
     test('converter to base64 cfdi', async () => {
         const cfdi = TestCase.fileContents('cfdi33-valid.xml');
-        const cfdiData = await new CfdiDataBuilder()
-            .withXmlResolver(TestCase.createXmlResolver())
-            .buildFromString(cfdi);
+        const comprobante = XmlNodeUtils.nodeFromXmlString(cfdi);
+        const cfdiData = new CfdiData(comprobante, 'urlCode', 'cadenaOrigen', TestCase.nodeCfdiLogo());
 
         const builder = new PdfMakerBuilder(new GenericCfdiTranslator());
-        const converter = new Converter(builder);
-
-        const base64 = await converter.createPdfOnBase64(cfdiData);
+        const base64 = await builder.buildBase64(cfdiData);
         expect(typeof base64).toBe('string');
     }, 30000);
 
     test('convert to file cfdi', async () => {
         const cfdi = XmlNodeUtils.nodeFromXmlString(TestCase.fileContents('cfdi33-valid.xml'));
-        const cfdiData = await new CfdiDataBuilder()
-            .withXmlResolver(TestCase.createXmlResolver())
-            .build(cfdi, TestCase.nodeCfdiLogo());
+        const cfdiData = new CfdiData(cfdi, 'urlCode', 'cadenaOrigen', TestCase.nodeCfdiLogo());
 
         const builder = new PdfMakerBuilder(new GenericCfdiTranslator());
-        const converter = new Converter(builder);
-
         const created = TestCase.filePath('cfdi33-valid.pdf');
-        await converter.createPdfOnPath(cfdiData, created);
+        await builder.build(cfdiData, created);
         expect(existsSync(created)).toBeTruthy();
         unlinkSync(created);
     }, 30000);
 
     test('converter to base64 retenciones', async () => {
         const retenciones = TestCase.fileContents('retenciones-valid.xml');
-        const retencionesData = await new RetencionesDataBuilder()
-            .withXmlResolver(TestCase.createXmlResolver())
-            .buildFromString(retenciones);
+        const comprobante = XmlNodeUtils.nodeFromXmlString(retenciones);
+        const retencionesData = new RetencionesData(comprobante, 'urlCode', 'cadenaOrigen', TestCase.nodeCfdiLogo());
 
         const builder = new PdfMakerBuilder(new GenericRetencionesTranslator());
-        const converter = new Converter(builder);
-
-        const base64 = await converter.createPdfOnBase64(retencionesData);
+        const base64 = await builder.buildBase64(retencionesData);
         expect(typeof base64).toBe('string');
     }, 30000);
 
     test('convert to file retenciones', async () => {
         const retenciones = XmlNodeUtils.nodeFromXmlString(TestCase.fileContents('retenciones-valid.xml'));
-        const retencionesData = await new RetencionesDataBuilder()
-            .withXmlResolver(TestCase.createXmlResolver())
-            .build(retenciones, TestCase.nodeCfdiLogo());
+        const retencionesData = new RetencionesData(retenciones, 'urlCode', 'cadenaOrigen', TestCase.nodeCfdiLogo());
 
         const builder = new PdfMakerBuilder(new GenericRetencionesTranslator());
-        const converter = new Converter(builder);
-
         const created = TestCase.filePath('retenciones-valid.pdf');
-        await converter.createPdfOnPath(retencionesData, created);
+        await builder.build(retencionesData, created);
         expect(existsSync(created)).toBeTruthy();
         unlinkSync(created);
     });
