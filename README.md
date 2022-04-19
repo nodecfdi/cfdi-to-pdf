@@ -45,67 +45,7 @@ o
 yarn add @nodecfdi/cfdi-to-pdf
 ```
 
-## Uso básico en NodeJS
-
-### CFDI 33
-
-```typescript
-import {readFileSync} from 'fs';
-import {
-    Converter,
-    CfdiDataBuilder,
-    GenericCfdiTranslator,
-    PdfMakerBuilder,
-} from '@nodecfdi/cfdi-to-pdf';
-import {XmlResolver} from '@nodecfdi/cfdiutils-core';
-
-// Accedemos al contenido en nuestro archivo XML
-const xml = readFileSync('archivo-cfdi.xml', 'utf-8');
-const cfdiData = await new CfdiDataBuilder()
-    .withXmlResolver(new XmlResolver('my-custom-path'))
-    .buildFromString(xml);
-
-const builder = new PdfMakerBuilder(new GenericCfdiTranslator());
-const converter = new Converter(builder);
-
-// Salida base64 CFDI
-const base64 = await converter.createPdfOnBase64(cfdiData);
-console.log(base64);
-
-// salida file save CFDI
-await converter.createPdfOnPath(cfdiData, 'myCfdi.pdf')
-```
-
-### Retenciones
-
-```typescript
-import {readFileSync} from 'fs';
-import {
-    Converter,
-    RetencionesDataBuilder,
-    GenericRetencionesTranslator,
-    PdfMakerBuilder,
-} from '@nodecfdi/cfdi-to-pdf';
-import {XmlResolver} from '@nodecfdi/cfdiutils-core';
-
-// Accedemos al contenido en nuestro archivo XML
-const xml = readFileSync('archivo-retenciones.xml', 'utf-8');
-const retencionesData = await new RetencionesDataBuilder()
-    .withXmlResolver(new XmlResolver('my-custom-path'))
-    .buildFromString(xml);
-
-const builder = new PdfMakerBuilder(new GenericRetencionesTranslator());
-const converter = new Converter(builder);
-
-// Salida base64 retenciones
-const base64 = await converter.createPdfOnBase64(retencionesData);
-console.log(base64);
-
-// salida file save retenciones
-await converter.createPdfOnPath(retencionesData, 'myRetenciones.pdf')
-```
-
-## Uso básico en Browser y VanillaJS
+## Uso básico
 
 ### CFDI 33
 
@@ -125,6 +65,10 @@ const cfdiData = new CfdiData(comprobante, 'urlCode', 'cadenaOrigen', 'myLogoIma
 
 const builder = new PdfMakerBrowserBuilder(new GenericCfdiTranslator());
 const base64 = await builder.buildBase64(cfdiData);
+
+// O en NodeJS tambien se puede guardar en un archivo
+await builder.build(cfdiData, destPath);
+
 console.log(base64);
 ```
 
@@ -147,6 +91,10 @@ const retencionesData = new RetencionesData(retenciones, 'urlCode', 'cadenaOrige
 const builder = new PdfMakerBrowserBuilder(new GenericRetencionesTranslator());
 
 const base64 = await builder.buildBase64(retencionesData);
+
+// O en NodeJS tambien se puede guardar en un archivo
+await builder.build(retencionesData, destPath);
+
 console.log(base64);
 ```
 

@@ -40,9 +40,7 @@ export default [
         ],
         plugins: [typescript({ tsconfig: './tsconfig.json' })],
         external: [
-            '@nodecfdi/cfdi-expresiones',
             '@nodecfdi/cfdiutils-common',
-            '@nodecfdi/cfdiutils-core',
             'pdfmake',
             'fs',
         ],
