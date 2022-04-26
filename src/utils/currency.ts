@@ -151,4 +151,10 @@ const toCurrency = (num: number, moneda?: string): string => {
     }
 };
 
-export { toCurrency };
+const formatCurrency = (currency: number | string): string => {
+    return Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', currencyDisplay: 'symbol' }).format(
+        Number(currency)
+    );
+};
+
+export { toCurrency, formatCurrency };
