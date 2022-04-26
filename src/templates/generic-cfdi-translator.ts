@@ -2,8 +2,10 @@ import { DocumentTranslatorInterface } from './document-translator-interface';
 import { CfdiData } from '../cfdi-data';
 import { Column, Content, ContentColumns, ContentTable, TableCell, TDocumentDefinitions } from 'pdfmake/interfaces';
 import { CNodeInterface, CNodes } from '@nodecfdi/cfdiutils-common';
-import { toCurrency } from '../utils/currency';
+import { formatCurrency, toCurrency } from '../utils/currency';
 import { breakEveryNCharacters } from '../utils/break-characters';
+import { usePago10Complement } from './complements/pago10-complement';
+import { usePago20Complement } from './complements/pago20-complement';
 
 export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiData> {
     protected generateFooter(version: string, uuid: string, currentPage: number, pageCount: number): Content {
@@ -165,6 +167,36 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
         return receptorContent;
     }
 
+    protected useGlobalInformation(comprobante: CNodeInterface, currentContent: Content[]): void {
+        const globalInformation = comprobante.searchNode('cfdi:InformacionGlobal');
+        if (globalInformation === undefined) return;
+        currentContent.push({
+            style: 'tableContent',
+            table: {
+                widths: ['*', '*', '*'],
+                body: [
+                    [
+                        {
+                            text: 'INFORMACIÓN GLOBAL',
+                            style: 'tableHeader',
+                            colSpan: 3,
+                            alignment: 'center',
+                        },
+                        {},
+                        {},
+                    ],
+                    [
+                        `Periodicidad: ${globalInformation.get('Periodicidad')}`,
+                        `Meses: ${globalInformation.get('Meses')}`,
+                        `Año: ${globalInformation.get('Año')}`,
+                    ],
+                ],
+            },
+            layout: 'lightHorizontalLines',
+        });
+        currentContent.push('\n');
+    }
+
     protected generateGeneralInvoiceInfoContent(comprobante: CNodeInterface): Content {
         return {
             style: 'tableContent',
@@ -184,7 +216,7 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                     ],
                     ['MONEDA:', comprobante.get('Moneda'), 'FORMA PAGO:', comprobante.get('FormaPago')],
                     [
-                        'METODO DE PAGO;',
+                        'METODO DE PAGO:',
                         comprobante.get('MetodoPago'),
                         'CONDICIONES DE PAGO:',
                         comprobante.get('CondicionesDePago'),
@@ -193,12 +225,6 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
             },
             layout: 'lightHorizontalLines',
         };
-    }
-
-    protected formatCurrency(currency: number | string): string {
-        return Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', currencyDisplay: 'symbol' }).format(
-            Number(currency)
-        );
     }
 
     protected generateImpuestos(concepto: CNodeInterface): Content[] {
@@ -210,9 +236,7 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
             const contentT = traslados.map<TableCell[]>((traslado) => {
                 return [
                     traslado.get('Impuesto'),
-                    traslado.get('TipoFactor') === 'Exento'
-                        ? 'EXENTO'
-                        : this.formatCurrency(traslado.get('Importe') || '0'),
+                    traslado.get('TipoFactor') === 'Exento' ? 'EXENTO' : formatCurrency(traslado.get('Importe') || '0'),
                 ];
             });
             impuestosContent.push({
@@ -225,7 +249,7 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
         if (retenciones.length > 0) {
             impuestosContent.push('Retenciones');
             const contentR = retenciones.map<TableCell[]>((retencion) => {
-                return [retencion.get('Impuesto'), this.formatCurrency(retencion.get('Importe') || '0')];
+                return [retencion.get('Impuesto'), formatCurrency(retencion.get('Importe') || '0')];
             });
             impuestosContent.push({
                 table: {
@@ -245,14 +269,14 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                 concepto.get('ClaveUnidad'),
                 concepto.get('NoIdentificacion') || '(Ninguno)',
                 concepto.get('Descripcion'),
-                this.formatCurrency(concepto.get('ValorUnitario') || '0'),
-                this.formatCurrency(concepto.get('Descuento') || '0'),
+                formatCurrency(concepto.get('ValorUnitario') || '0'),
+                formatCurrency(concepto.get('Descuento') || '0'),
                 {
                     colSpan: 2,
                     stack: this.generateImpuestos(concepto),
                 },
                 '',
-                this.formatCurrency(concepto.get('Importe') || '0'),
+                formatCurrency(concepto.get('Importe') || '0'),
             ];
         });
 
@@ -286,176 +310,109 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
         };
     }
 
-    protected generateCurrencyRelatedInfo(comprobante: CNodeInterface, relacionados?: CNodeInterface): Content {
+    protected generateCurrencyRelatedInfo(comprobante: CNodeInterface): Content {
         const totalImpuestosTrasladados = comprobante.searchAttribute('cfdi:Impuestos', 'TotalImpuestosTrasladados');
         const totalImpuestosRetenidos = comprobante.searchAttribute('cfdi:Impuestos', 'TotalImpuestosRetenidos');
         const contentColumns: Column[] = [];
         const relatedInfoAndImport: Column[] = [];
-        relatedInfoAndImport.push({
-            fontSize: 7,
-            margin: [0, 5, 0, 0],
-            columns: [
-                { width: 'auto', text: 'IMPORTE CON LETRA:', margin: [0, 0, 5, 0] },
-                {
-                    width: 'auto',
-                    text: toCurrency(parseFloat(comprobante.get('Total') || '0'), comprobante.get('Moneda')),
-                },
-                { width: '*', text: '' },
-            ],
-        });
-        if (relacionados) {
-            relatedInfoAndImport.push({
-                fontSize: 7,
-                margin: [0, 10, 0, 0],
-                columns: [
-                    {
-                        width: 'auto',
-                        text: 'TIPO RELACION:',
-                        margin: [0, 0, 5, 0],
-                    },
-                    {
-                        width: 'auto',
-                        text: relacionados.get('TipoRelacion'),
-                    },
-                    {
-                        width: '*',
-                        text: '',
-                    },
-                ],
-            });
-
-            const uuidsArray = relacionados.searchNodes('cfdi:CfdiRelacionado').map((relacionado) => {
-                return [`UUID: ${relacionado.get('UUID')}`];
-            });
-
+        if (comprobante.get('TipoDeComprobante') !== 'P') {
             relatedInfoAndImport.push({
                 fontSize: 7,
                 margin: [0, 5, 0, 0],
+                columns: [
+                    { width: 'auto', text: 'IMPORTE CON LETRA:', margin: [0, 0, 5, 0] },
+                    {
+                        width: 'auto',
+                        text: toCurrency(parseFloat(comprobante.get('Total') || '0'), comprobante.get('Moneda')),
+                    },
+                    { width: '*', text: '' },
+                ],
+            });
+        }
+        if (comprobante.get('Version') === '3.3') {
+            const relacionados = comprobante.searchNode('cfdi:CfdiRelacionados');
+            if (relacionados) {
+                const uuidsArray = relacionados.searchNodes('cfdi:CfdiRelacionado').map((relacionado) => {
+                    return [`UUID: ${relacionado.get('UUID')}`];
+                });
+
+                relatedInfoAndImport.push({
+                    fontSize: 7,
+                    margin: [0, 5, 0, 0],
+                    table: {
+                        widths: ['*'],
+                        body: [
+                            [
+                                {
+                                    text: `CFDIS RELACIONADOS - TIPO RELACIÓN ${relacionados.get('TipoRelacion')}`,
+                                    fillColor: '#CCCCCC',
+                                },
+                            ],
+                            ...uuidsArray,
+                        ],
+                    },
+                });
+            }
+        } else {
+            const relacionados = comprobante.searchNodes('cfdi:CfdiRelacionados');
+            if (relacionados.length > 0) {
+                for (const relacionadosNode of relacionados) {
+                    const uuidsArray = relacionadosNode.searchNodes('cfdi:CfdiRelacionado').map((relacionado) => {
+                        return [`UUID: ${relacionado.get('UUID')}`];
+                    });
+
+                    relatedInfoAndImport.push({
+                        fontSize: 7,
+                        margin: [0, 5, 0, 0],
+                        table: {
+                            widths: ['*'],
+                            body: [
+                                [
+                                    {
+                                        text: `CFDIS RELACIONADOS - TIPO RELACIÓN ${relacionadosNode.get(
+                                            'TipoRelacion'
+                                        )}`,
+                                        fillColor: '#CCCCCC',
+                                    },
+                                ],
+                                ...uuidsArray,
+                            ],
+                        },
+                    });
+                }
+            }
+        }
+        contentColumns.push(relatedInfoAndImport);
+        if (comprobante.get('TipoDeComprobante') !== 'P') {
+            contentColumns.push({
+                width: 'auto',
+                alignment: 'right',
+                style: 'tableContent',
+                margin: [10, 0, 0, 0],
                 table: {
-                    widths: ['*'],
-                    body: [['CFDIS RELACIONADOS'], ...uuidsArray],
+                    widths: ['auto', 'auto'],
+                    body: [
+                        ['SUBTOTAL:', { text: formatCurrency(comprobante.get('SubTotal') || '0'), fontSize: 9 }],
+                        ['DESCUENTO:', formatCurrency(comprobante.get('Descuento'))],
+                        ['TOTAL IMP. TRASLADADOS:', formatCurrency(totalImpuestosTrasladados || '0')],
+                        ['TOTAL IMP. RETENIDOS:', formatCurrency(totalImpuestosRetenidos || '0')],
+                        [
+                            {
+                                text: 'TOTAL:',
+                                fontSize: 11,
+                                bold: true,
+                            },
+                            { text: formatCurrency(comprobante.get('Total') || '0'), fontSize: 11, bold: true },
+                        ],
+                    ],
                 },
                 layout: 'lightHorizontalLines',
             });
         }
-        contentColumns.push(relatedInfoAndImport);
-        contentColumns.push({
-            width: 'auto',
-            alignment: 'right',
-            style: 'tableContent',
-            margin: [10, 0, 0, 0],
-            table: {
-                widths: ['auto', 'auto'],
-                body: [
-                    ['SUBTOTAL:', { text: this.formatCurrency(comprobante.get('SubTotal') || '0'), fontSize: 9 }],
-                    ['DESCUENTO:', this.formatCurrency(comprobante.get('Descuento'))],
-                    ['TOTAL IMP. TRASLADADOS:', this.formatCurrency(totalImpuestosTrasladados || '0')],
-                    ['TOTAL IMP. RETENIDOS:', this.formatCurrency(totalImpuestosRetenidos || '0')],
-                    [
-                        {
-                            text: 'TOTAL:',
-                            fontSize: 11,
-                            bold: true,
-                        },
-                        { text: this.formatCurrency(comprobante.get('Total') || '0'), fontSize: 11, bold: true },
-                    ],
-                ],
-            },
-            layout: 'lightHorizontalLines',
-        });
 
         return {
             columns: contentColumns,
         };
-    }
-
-    protected generateRelatedDocsContent(doctoRelacionados: CNodes): TableCell[][] {
-        const relatedDocsCells = doctoRelacionados.map<TableCell[]>((doc) => {
-            return [
-                doc.get('IdDocumento'),
-                doc.get('MetodoDePagoDR'),
-                doc.get('MonedaDR'),
-                doc.get('TipoCambioDR'),
-                doc.get('NumParcialidad'),
-                this.formatCurrency(doc.get('ImpSaldoAnt') || '0'),
-                this.formatCurrency(doc.get('ImpPagado') || '0'),
-                this.formatCurrency(doc.get('ImpSaldoInsoluto') || '0'),
-            ];
-        });
-        relatedDocsCells.unshift([
-            'UUID',
-            'Método de Pago',
-            'Moneda',
-            'Tipo de Cambio',
-            'Num. Parcialidad',
-            'Importe Saldo Anterior',
-            'Importe Pagado',
-            'Importe Saldo Insoluto',
-        ]);
-        relatedDocsCells.unshift([
-            {
-                text: 'DOCUMENTOS RELACIONADOS',
-                style: 'tableHeader',
-                colSpan: 8,
-                alignment: 'center',
-            },
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-        ]);
-        return relatedDocsCells;
-    }
-
-    protected generatePaymentsContent(pagos: CNodes): Content[] {
-        const paymentContent = pagos.map<Content>((pago) => {
-            const doctoRelacionados = pago.searchNodes('pago10:DoctoRelacionado');
-            return [
-                {
-                    style: 'tableContent',
-                    table: {
-                        widths: [95, '*', 95, '*'],
-                        body: [
-                            [
-                                {
-                                    text: 'INFORMACIÓN DE PAGO',
-                                    style: 'tableHeader',
-                                    colSpan: 4,
-                                    alignment: 'center',
-                                },
-                                {},
-                                {},
-                                {},
-                            ],
-                            ['FECHA:', pago.get('FechaPago'), 'FORMA PAGO:', pago.get('FormaDePagoP')],
-                            ['MONEDA:', pago.get('MonedaP'), 'MONTO:', this.formatCurrency(pago.get('Monto') || '0')],
-                            pago.offsetExists('TipoCambioP')
-                                ? ['TIPO DE CAMBIO:', pago.get('TipoCambioP'), '', '']
-                                : ['', '', '', ''],
-                        ],
-                    },
-                    layout: 'lightHorizontalLines',
-                },
-                '\n',
-                {
-                    style: 'tableList',
-                    table: {
-                        widths: ['*', 'auto', 'auto', 30, 20, 'auto', 'auto', 'auto'],
-                        body: this.generateRelatedDocsContent(doctoRelacionados),
-                    },
-                    layout: {
-                        fillColor(i: number): string | null {
-                            return i % 2 !== 0 ? '#CCCCCC' : null;
-                        },
-                    },
-                },
-                '\n',
-            ];
-        });
-        return ([] as Content[]).concat.apply([], paymentContent);
     }
 
     protected generateStampContent(cfdiData: CfdiData): Content {
@@ -505,31 +462,31 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
         const comprobante = cfdiData.comprobante();
         const emisor = cfdiData.emisor();
         const receptor = cfdiData.receptor();
-        const relacionados = comprobante.searchNode('cfdi:CfdiRelacionados');
         const conceptos = comprobante.searchNodes('cfdi:Conceptos', 'cfdi:Concepto');
-        const pagos = comprobante.searchNodes('cfdi:Complemento', 'pago10:Pagos', 'pago10:Pago');
         const additionalFields = cfdiData.additionalFields();
 
-        let content: Content[] = [];
+        const content: Content[] = [];
         content.push(this.generateTopContent(comprobante, cfdiData.logo()));
         content.push('\n');
         content.push(this.generateEmisorContent(emisor));
         content.push('\n');
         content.push(this.generateReceptorContent(receptor, cfdiData.address()));
         content.push('\n');
-        if (comprobante.get('TipoDeComprobante') === 'I' || comprobante.get('TipoDeComprobante') === 'E') {
+        if (comprobante.get('TipoDeComprobante') !== 'P') {
+            this.useGlobalInformation(comprobante, content);
             content.push(this.generateGeneralInvoiceInfoContent(comprobante));
             content.push('\n');
         }
         content.push(this.generateConceptsContent(conceptos));
         content.push('\n');
-        if (comprobante.get('TipoDeComprobante') === 'I' || comprobante.get('TipoDeComprobante') === 'E') {
-            content.push(this.generateCurrencyRelatedInfo(comprobante, relacionados));
-            content.push('\n');
-        }
-        if (comprobante.get('TipoDeComprobante') === 'P') {
-            content = content.concat(this.generatePaymentsContent(pagos));
-        }
+        content.push(this.generateCurrencyRelatedInfo(comprobante));
+        content.push('\n');
+
+        /** Area of complements */
+        usePago10Complement(comprobante, content);
+        usePago20Complement(comprobante, content);
+        /** **/
+
         if (additionalFields) {
             additionalFields.forEach((element) => {
                 content.push({
