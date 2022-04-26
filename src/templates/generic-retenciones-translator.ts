@@ -43,7 +43,7 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                 body: [
                     [
                         {
-                            text: `Este documento es una representación impresa de una constancia de retenciones e información de pagos versión ${version}`,
+                            text: `Este documento es una representación impresa de un Comprobante Fiscal Digital por Internet que ampara Retenciones e Información de Pagos versión ${version}`,
                             style: 'tableList',
                             colSpan: 4,
                             alignment: 'center',
