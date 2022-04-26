@@ -1,5 +1,10 @@
 # @nodecfdi/cfdi-to-pdf ChangeLog
 
+## 1.1.1
+- Added support for dual version cfdi 3.3 and 4.0
+- Added Información Global Node for cfdi 4.0
+- Added Complements Pago10 and Pago20 in generic template.
+
 ## 1.1.0
 - Remove builders for compatibility with browser generator and aws lambda
 - Refactor for tests

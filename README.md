@@ -21,7 +21,7 @@
 
 [discord]: https://discord.gg/aFGYXvX
 
-> Create a generic PDF file from a CFDI 3.3, and Retenciones 1.0
+> Create a generic PDF file from a CFDI 3.3, CFDI 4.0, and Retenciones 1.0
 
 :us: The documentation of this project is in spanish as this is the natural language for intended audience.
 
@@ -47,7 +47,7 @@ yarn add @nodecfdi/cfdi-to-pdf
 
 ## Uso básico
 
-### CFDI 33
+### CFDI 33 / CFDI 40
 
 ```typescript
 import {

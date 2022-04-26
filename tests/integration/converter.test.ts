@@ -1,12 +1,13 @@
-import {XmlNodeUtils} from '@nodecfdi/cfdiutils-common';
-import {TestCase} from '../test-case';
+import { XmlNodeUtils } from '@nodecfdi/cfdiutils-common';
+import { TestCase } from '../test-case';
 import {
     CfdiData,
     GenericCfdiTranslator,
     GenericRetencionesTranslator,
-    PdfMakerBuilder, RetencionesData,
+    PdfMakerBuilder,
+    RetencionesData,
 } from '../../src';
-import {existsSync, unlinkSync} from 'fs';
+import { existsSync, unlinkSync } from 'fs';
 
 describe('Converter', () => {
     test('converter to base64 cfdi', async () => {
