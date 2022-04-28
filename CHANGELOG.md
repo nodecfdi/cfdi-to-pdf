@@ -1,5 +1,10 @@
 # @nodecfdi/cfdi-to-pdf ChangeLog
 
+## 1.1.2
+- Fixed problem on complement pago20 with totales info
+- Reduce size on totales info for best table responsive
+- Minor update on template complement pago20 for best presentation
+
 ## 1.1.1
 - Added support for dual version cfdi 3.3 and 4.0
 - Added Información Global Node for cfdi 4.0
