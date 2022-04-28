@@ -45,7 +45,10 @@ const generateRelatedDocsContent = (doctoRelacionados: CNodes): TableCell[][] =>
 
 const checkAndAddTotal = (totales: CNodeInterface, attribute: string, rowToInsert: TableCell[]): void => {
     if (totales.offsetExists(attribute)) {
-        rowToInsert.push(`${attribute}: ${totales.get(attribute)}`);
+        rowToInsert.push({
+            text: `${attribute}: ${totales.get(attribute)}`,
+            fontSize: 7,
+        });
     }
 };
 
@@ -77,7 +80,7 @@ const generateTotalesInfoContent = (totales: CNodeInterface): TableCell[][] => {
         },
         {},
         {
-            text: 'Monto Total:',
+            text: `Monto Total: ${formatCurrency(totales.get('MontoTotalPagos'))}`,
             colSpan: 3,
             alignment: 'center',
             bold: true,
@@ -88,15 +91,17 @@ const generateTotalesInfoContent = (totales: CNodeInterface): TableCell[][] => {
     ]);
 
     if (firstRow.length > 0) {
-        for (let i = 0; i < 5 - firstRow.length; i++) {
-            firstRow.push('');
+        const limit = 5 - firstRow.length;
+        for (let i = 0; i < limit; i++) {
+            firstRow.push({});
         }
         totalesCells.push(firstRow);
     }
 
     if (secondRow.length > 0) {
-        for (let i = 0; i < 5 - secondRow.length; i++) {
-            secondRow.push('');
+        const limit = 5 - secondRow.length;
+        for (let i = 0; i < limit; i++) {
+            secondRow.push({});
         }
         totalesCells.push(secondRow);
     }
@@ -116,10 +121,11 @@ const usePago20Complement = (comprobante: CNodeInterface, currentContent: Conten
         currentContent.push({
             style: 'tableContent',
             table: {
-                widths: ['*', '*', '*', '*', '*'],
+                widths: ['20%', '20%', '20%', '20%', '20%'],
                 body: generateTotalesInfoContent(totales),
             },
         });
+        currentContent.push('\n');
         for (const pago of pagos) {
             const doctoRelacionados = pago.searchNodes('pago20:DoctoRelacionado');
             currentContent.push({
@@ -147,13 +153,10 @@ const usePago20Complement = (comprobante: CNodeInterface, currentContent: Conten
                 },
                 layout: 'lightHorizontalLines',
             });
-
-            currentContent.push('\n');
-
             currentContent.push({
                 style: 'tableList',
                 table: {
-                    widths: ['*', 'auto', 'auto', 30, 20, 'auto', 'auto', 'auto'],
+                    widths: ['*', 'auto', 'auto', 25, 20, 'auto', 'auto', 'auto'],
                     body: generateRelatedDocsContent(doctoRelacionados),
                 },
                 layout: {
@@ -162,6 +165,7 @@ const usePago20Complement = (comprobante: CNodeInterface, currentContent: Conten
                     },
                 },
             });
+            currentContent.push('\n');
             currentContent.push('\n');
         }
     }
