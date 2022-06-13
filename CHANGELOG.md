@@ -1,5 +1,9 @@
 # @nodecfdi/cfdi-to-pdf ChangeLog
 
+## 1.1.3
+- Added support for dual version retenciones1.0 and 2.0
+- Small fix on retenciones pdf qr code (big on sometimes case)
+
 ## 1.1.2
 - Fixed problem on complement pago20 with totales info
 - Reduce size on totales info for best table responsive
