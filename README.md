@@ -21,7 +21,7 @@
 
 [discord]: https://discord.gg/aFGYXvX
 
-> Create a generic PDF file from a CFDI 3.3, CFDI 4.0, and Retenciones 1.0
+> Create a generic PDF file from a CFDI 3.3, CFDI 4.0, Retenciones 1.0 and Retenciones 2.0
 
 :us: The documentation of this project is in spanish as this is the natural language for intended audience.
 
@@ -63,6 +63,7 @@ const xml = '...xmlstring data...';
 const comprobante = XmlNodeUtils.nodeFromXmlString(xml);
 const cfdiData = new CfdiData(comprobante, 'urlCode', 'cadenaOrigen', 'myLogoImageBase64');
 
+// const builder = new PdfMakerBuilder(...);
 const builder = new PdfMakerBrowserBuilder(new GenericCfdiTranslator());
 const base64 = await builder.buildBase64(cfdiData);
 
@@ -72,7 +73,7 @@ await builder.build(cfdiData, destPath);
 console.log(base64);
 ```
 
-### Retenciones
+### Retenciones10 / Retenciones20
 
 ```typescript
 import {
@@ -88,6 +89,7 @@ const xml = '...xmlstring data...';
 const retenciones = XmlNodeUtils.nodeFromXmlString(xml);
 const retencionesData = new RetencionesData(retenciones, 'urlCode', 'cadenaOrigen', 'myLogoImageBase64');
 
+// const builder = new PdfMakerBuilder(...);
 const builder = new PdfMakerBrowserBuilder(new GenericRetencionesTranslator());
 
 const base64 = await builder.buildBase64(retencionesData);
