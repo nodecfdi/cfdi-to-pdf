@@ -236,7 +236,7 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
             const contentT = traslados.map<TableCell[]>((traslado) => {
                 return [
                     traslado.get('Impuesto'),
-                    traslado.get('TipoFactor') === 'Exento' ? 'EXENTO' : formatCurrency(traslado.get('Importe') || '0'),
+                    traslado.get('TipoFactor') === 'Exento' ? 'EXENTO' : formatCurrency(traslado.get('Importe')),
                 ];
             });
             impuestosContent.push({
@@ -249,7 +249,7 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
         if (retenciones.length > 0) {
             impuestosContent.push('Retenciones');
             const contentR = retenciones.map<TableCell[]>((retencion) => {
-                return [retencion.get('Impuesto'), formatCurrency(retencion.get('Importe') || '0')];
+                return [retencion.get('Impuesto'), formatCurrency(retencion.get('Importe'))];
             });
             impuestosContent.push({
                 table: {
@@ -269,14 +269,14 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                 concepto.get('ClaveUnidad'),
                 concepto.get('NoIdentificacion') || '(Ninguno)',
                 concepto.get('Descripcion'),
-                formatCurrency(concepto.get('ValorUnitario') || '0'),
-                formatCurrency(concepto.get('Descuento') || '0'),
+                formatCurrency(concepto.get('ValorUnitario')),
+                formatCurrency(concepto.get('Descuento')),
                 {
                     colSpan: 2,
                     stack: this.generateImpuestos(concepto),
                 },
                 '',
-                formatCurrency(concepto.get('Importe') || '0'),
+                formatCurrency(concepto.get('Importe')),
             ];
         });
 
@@ -392,17 +392,17 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                 table: {
                     widths: ['auto', 'auto'],
                     body: [
-                        ['SUBTOTAL:', { text: formatCurrency(comprobante.get('SubTotal') || '0'), fontSize: 9 }],
+                        ['SUBTOTAL:', { text: formatCurrency(comprobante.get('SubTotal')), fontSize: 9 }],
                         ['DESCUENTO:', formatCurrency(comprobante.get('Descuento'))],
-                        ['TOTAL IMP. TRASLADADOS:', formatCurrency(totalImpuestosTrasladados || '0')],
-                        ['TOTAL IMP. RETENIDOS:', formatCurrency(totalImpuestosRetenidos || '0')],
+                        ['TOTAL IMP. TRASLADADOS:', formatCurrency(totalImpuestosTrasladados)],
+                        ['TOTAL IMP. RETENIDOS:', formatCurrency(totalImpuestosRetenidos)],
                         [
                             {
                                 text: 'TOTAL:',
                                 fontSize: 11,
                                 bold: true,
                             },
-                            { text: formatCurrency(comprobante.get('Total') || '0'), fontSize: 11, bold: true },
+                            { text: formatCurrency(comprobante.get('Total')), fontSize: 11, bold: true },
                         ],
                     ],
                 },

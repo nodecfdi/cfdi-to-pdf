@@ -10,6 +10,7 @@ import {
 } from 'pdfmake/interfaces';
 import { CNodeInterface, CNodes } from '@nodecfdi/cfdiutils-common';
 import { breakEveryNCharacters } from '../utils/break-characters';
+import { formatCurrency } from '../utils/currency';
 
 export class GenericRetencionesTranslator implements DocumentTranslatorInterface<RetencionesData> {
     public version = '1.0';
@@ -275,7 +276,7 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
             rowsRetenciones.push([
                 impuestoRetenido.get(this.version === '1.0' ? 'Impuesto' : 'ImpuestoRet'),
                 impuestoRetenido.get('TipoPagoRet'),
-                impuestoRetenido.get(this.version === '1.0' ? 'montoRet' : 'MontoRet'),
+                formatCurrency(impuestoRetenido.get(this.version === '1.0' ? 'montoRet' : 'MontoRet')),
             ]);
         });
         return rowsRetenciones;
@@ -327,10 +328,10 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                         },
                     ],
                     [
-                        totales.get(this.version === '1.0' ? 'montoTotOperacion' : 'MontoTotOperacion'),
-                        totales.get(this.version === '1.0' ? 'montoTotGrav' : 'MontoTotGrav'),
-                        totales.get(this.version === '1.0' ? 'montoTotExent' : 'MontoTotExent'),
-                        totales.get(this.version === '1.0' ? 'montoTotRet' : 'MontoTotRet'),
+                        formatCurrency(totales.get(this.version === '1.0' ? 'montoTotOperacion' : 'MontoTotOperacion')),
+                        formatCurrency(totales.get(this.version === '1.0' ? 'montoTotGrav' : 'MontoTotGrav')),
+                        formatCurrency(totales.get(this.version === '1.0' ? 'montoTotExent' : 'MontoTotExent')),
+                        formatCurrency(totales.get(this.version === '1.0' ? 'montoTotRet' : 'MontoTotRet')),
                     ],
                     [
                         {
@@ -446,7 +447,7 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
             service.get('FormaPagoServ'),
             service.get('TipoDeServ'),
             service.get('FechaServ'),
-            service.get('PrecioServSinIVA'),
+            formatCurrency(service.get('PrecioServSinIVA')),
         ]);
         if (service.offsetExists('SubTipServ') || service.offsetExists('RFCTerceroAutorizado')) {
             tableService.push([
@@ -526,11 +527,11 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                                 },
                             ],
                             [
-                                impuestosTrasladadosDelServicio.get('Base'),
+                                formatCurrency(impuestosTrasladadosDelServicio.get('Base')),
                                 impuestosTrasladadosDelServicio.get('Impuesto'),
                                 impuestosTrasladadosDelServicio.get('TipoFactor'),
                                 impuestosTrasladadosDelServicio.get('TasaCuota'),
-                                impuestosTrasladadosDelServicio.get('Importe'),
+                                formatCurrency(impuestosTrasladadosDelServicio.get('Importe')),
                             ],
                         ],
                     },
@@ -576,7 +577,7 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                             ],
                             [
                                 contribucionGubernamental.get('EntidadDondePagaLaContribucion'),
-                                contribucionGubernamental.get('ImpContrib'),
+                                formatCurrency(contribucionGubernamental.get('ImpContrib')),
                             ],
                         ],
                     },
@@ -628,9 +629,9 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                                 },
                             ],
                             [
-                                comisionDelServicio.get('Base'),
+                                formatCurrency(comisionDelServicio.get('Base')),
                                 comisionDelServicio.get('Porcentaje'),
-                                comisionDelServicio.get('Importe'),
+                                formatCurrency(comisionDelServicio.get('Importe')),
                             ],
                         ],
                     },
@@ -728,8 +729,8 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
             plataformasTecnologicas.get('Version'),
             plataformasTecnologicas.get('Periodicidad'),
             plataformasTecnologicas.get('NumServ'),
-            plataformasTecnologicas.get('MonTotServSIVA'),
-            plataformasTecnologicas.get('TotalIVATrasladado'),
+            formatCurrency(plataformasTecnologicas.get('MonTotServSIVA')),
+            formatCurrency(plataformasTecnologicas.get('TotalIVATrasladado')),
         ]);
         bodyPlataformasTecnologicas.push([
             {
@@ -764,11 +765,13 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
             },
         ]);
         bodyPlataformasTecnologicas.push([
-            plataformasTecnologicas.get('TotalIVARetenido'),
-            plataformasTecnologicas.get('TotalISRRetenido'),
-            plataformasTecnologicas.get('DifIVAEntregadoPrestServ'),
-            plataformasTecnologicas.get('MonTotalporUsoPlataforma'),
-            plataformasTecnologicas.get('MonTotalContribucionGubernamental'),
+            formatCurrency(plataformasTecnologicas.get('TotalIVARetenido')),
+            formatCurrency(plataformasTecnologicas.get('TotalISRRetenido')),
+            formatCurrency(plataformasTecnologicas.get('DifIVAEntregadoPrestServ')),
+            formatCurrency(plataformasTecnologicas.get('MonTotalporUsoPlataforma')),
+            plataformasTecnologicas.get('MonTotalContribucionGubernamental') !== ''
+                ? formatCurrency(plataformasTecnologicas.get('MonTotalContribucionGubernamental'))
+                : '',
         ]);
 
         if (servicios.length > 0) {

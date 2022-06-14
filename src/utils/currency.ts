@@ -152,9 +152,8 @@ const toCurrency = (num: number, moneda?: string): string => {
 };
 
 const formatCurrency = (currency: number | string): string => {
-    return Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', currencyDisplay: 'symbol' }).format(
-        Number(currency)
-    );
+    const number = Number.isNaN(currency) ? 0 : Number(currency);
+    return Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', currencyDisplay: 'symbol' }).format(number);
 };
 
 export { toCurrency, formatCurrency };
