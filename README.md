@@ -61,7 +61,10 @@ import {XmlNodeUtils} from '@nodecfdi/cfdiutils-common';
 // Accedemos al contenido en nuestro archivo XML
 const xml = '...xmlstring data...';
 const comprobante = XmlNodeUtils.nodeFromXmlString(xml);
-const cfdiData = new CfdiData(comprobante, 'urlCode', 'cadenaOrigen', 'myLogoImageBase64');
+const cfdiData = new CfdiData(comprobante, 'urlCodeQR or empty for auto generate', 'cadenaOrigen', 'myLogoImageBase64');
+
+// Tambien puedes generar el codigo QR llamando al metodo:
+// cfdiData.buildUrlQr(cfdiData.comprobante());
 
 // const builder = new PdfMakerBuilder(...);
 const builder = new PdfMakerBrowserBuilder(new GenericCfdiTranslator());
@@ -87,7 +90,10 @@ import {XmlNodeUtils} from '@nodecfdi/cfdiutils-common';
 // Accedemos al contenido en nuestro archivo XML
 const xml = '...xmlstring data...';
 const retenciones = XmlNodeUtils.nodeFromXmlString(xml);
-const retencionesData = new RetencionesData(retenciones, 'urlCode', 'cadenaOrigen', 'myLogoImageBase64');
+const retencionesData = new RetencionesData(retenciones, 'urlCodeQR or empty for auto generate', 'cadenaOrigen', 'myLogoImageBase64');
+
+// Tambien puedes generar el codigo QR llamando al metodo:
+// retencionesData.buildUrlQr(retencionesData.retenciones());
 
 // const builder = new PdfMakerBuilder(...);
 const builder = new PdfMakerBrowserBuilder(new GenericRetencionesTranslator());

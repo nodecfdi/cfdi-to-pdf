@@ -15,15 +15,14 @@ export default [
             file: pkg.browser,
             format: 'umd',
             globals: {
-                '@nodecfdi/cfdiutils-common': 'cfdiutils-common',
+                '@nodecfdi/cfdi-expresiones': '@nodecfdi/cfdi-expresiones',
+                '@nodecfdi/cfdiutils-common': '@nodecfdi/cfdiutils-common',
                 'pdfmake': 'pdfmake',
+                '@xmldom/xmldom': '@xmldom/xmldom',
             },
         },
         plugins: [resolve(), commonjs(), typescript({ tsconfig: './tsconfig.json' })],
-        external: [
-            '@nodecfdi/cfdiutils-common',
-            'pdfmake',
-        ],
+        external: ['@nodecfdi/cfdi-expresiones', '@nodecfdi/cfdiutils-common', 'pdfmake', '@xmldom/xmldom'],
     },
 
     // CommonJS (for Node) and ES module (for bundlers) build.
@@ -39,10 +38,6 @@ export default [
             { file: pkg.module, format: 'es' },
         ],
         plugins: [typescript({ tsconfig: './tsconfig.json' })],
-        external: [
-            '@nodecfdi/cfdiutils-common',
-            'pdfmake',
-            'fs',
-        ],
+        external: ['@nodecfdi/cfdi-expresiones', '@nodecfdi/cfdiutils-common', 'pdfmake', 'fs', '@xmldom/xmldom'],
     },
 ];
