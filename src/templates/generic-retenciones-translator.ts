@@ -356,6 +356,7 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
     protected generateStampContent(data: RetencionesData): Content {
         const retenciones = data.retenciones();
         const tfd = data.timbreFiscalDigital();
+        const tfdVersion = tfd.get(this.version === '1.0' ? 'version' : 'Version');
         const tfdSourceString = data.tfdSourceString();
         const qrUrl = data.qrUrl();
         const tfdCellsTable: TableCell[][] = [];
@@ -371,12 +372,28 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                     '',
                     '',
                 ],
-                ['', 'NUMERO SERIE CERTIFICADO SAT', tfd.get('noCertificadoSAT')],
-                ['', 'NUMERO SERIE CERTIFICADO EMISOR', retenciones.get('NumCert')],
+                [
+                    '',
+                    'NUMERO SERIE CERTIFICADO SAT',
+                    tfd.get(tfdVersion === '1.0' ? 'noCertificadoSAT' : 'NoCertificadoSAT'),
+                ],
+                [
+                    '',
+                    'NUMERO SERIE CERTIFICADO EMISOR',
+                    retenciones.get(this.version === '1.0' ? 'NumCert' : 'NoCertificado'),
+                ],
                 ['', 'FECHA HORA CERTIFICACIÓN', tfd.get('FechaTimbrado')],
                 ['', 'FOLIO FISCAL UUID', tfd.get('UUID')],
-                ['', 'SELLO DIGITAL', breakEveryNCharacters(tfd.get('selloCFD'), 86)],
-                ['', 'SELLO DEL SAT', breakEveryNCharacters(tfd.get('selloSAT'), 86)]
+                [
+                    '',
+                    'SELLO DIGITAL',
+                    breakEveryNCharacters(tfd.get(tfdVersion === '1.0' ? 'selloCFD' : 'SelloCFD'), 86),
+                ],
+                [
+                    '',
+                    'SELLO DEL SAT',
+                    breakEveryNCharacters(tfd.get(tfdVersion === '1.0' ? 'selloSAT' : 'SelloSAT'), 86),
+                ]
             );
         }
         tfdCellsTable.push([
