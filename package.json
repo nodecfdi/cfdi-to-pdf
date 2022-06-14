@@ -56,7 +56,9 @@
         "typescript": "^4.6.3"
     },
     "dependencies": {
+        "@nodecfdi/cfdi-expresiones": "^2.0.0",
         "@nodecfdi/cfdiutils-common": "^1.0.1",
+        "@xmldom/xmldom": "^0.8.2",
         "pdfmake": "^0.2.5"
     }
 }

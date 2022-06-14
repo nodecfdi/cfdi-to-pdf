@@ -45,6 +45,9 @@ export class RetencionesData extends AbstractInvoiceData {
         this._tfdSourceString = tfdSourceString;
         this._logo = logo;
         this._additionalFields = additionalFields;
+        if (this._qrUrl.trim().length === 0) {
+            this.buildUrlQr(this._retenciones);
+        }
     }
 
     public retenciones(): CNodeInterface {

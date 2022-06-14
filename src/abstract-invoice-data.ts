@@ -1,4 +1,6 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { DiscoverExtractor } from '@nodecfdi/cfdi-expresiones';
+import { CNodeInterface, XmlNodeUtils } from '@nodecfdi/cfdiutils-common';
+import { DOMParser } from '@xmldom/xmldom';
 
 export abstract class AbstractInvoiceData {
     protected _emisor!: CNodeInterface;
@@ -35,5 +37,15 @@ export abstract class AbstractInvoiceData {
 
     public additionalFields(): { title: string; value: string }[] | undefined {
         return this._additionalFields;
+    }
+
+    public buildUrlQr(node: CNodeInterface): void {
+        const rawString = XmlNodeUtils.nodeToXmlString(node, true);
+        const document = new DOMParser().parseFromString(rawString, 'text/xml');
+        try {
+            this._qrUrl = new DiscoverExtractor().extract(document);
+        } catch (e) {
+            // not generated qrURL
+        }
     }
 }

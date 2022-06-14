@@ -17,6 +17,15 @@ describe('RetencionesData', () => {
         expect(retencionesData.timbreFiscalDigital().get('UUID')).toBe('F25F9852-6F4C-4782-9D47-3119EB3FAD3A');
     });
 
+    test('construct using empty qrUrl', () => {
+        const retenciones = XmlNodeUtils.nodeFromXmlString(TestCase.fileContents('retenciones-valid.xml'));
+        const retencionesData = new RetencionesData(retenciones, '', 'tfd');
+
+        expect(retencionesData.qrUrl()).toBe(
+            'https://prodretencionverificacion.clouda.sat.gob.mx/?re=EKU9003173C9&rr=AAA010101AAA&tt=0000008092.240000&id=F25F9852-6F4C-4782-9D47-3119EB3FAD3A'
+        );
+    });
+
     test('construct without emisor', () => {
         const retenciones = XmlNodeUtils.nodeFromXmlString(TestCase.fileContents('retenciones-valid.xml'));
         const emisor = retenciones.searchNode('retenciones:Emisor');
