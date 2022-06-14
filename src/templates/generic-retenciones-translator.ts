@@ -165,7 +165,7 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                     'NOMBRE:',
                     extranjero.get('NomDenRazSocR'),
                     'NUM. REG. ID TRIB.:',
-                    extranjero.get('NumRegIdTrib')
+                    extranjero.get(this.version === '1.0' ? 'NumRegIdTrib' : 'NumRegIdTribR')
                 );
             }
         }
@@ -184,8 +184,8 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
         body.push([
             'NACIONALIDAD:',
             nacionalidad,
-            this.version === '2.0' ? 'DOMICILIO FISCAL:' : '',
-            this.version === '2.0' ? domicilioFiscal : '',
+            this.version === '2.0' && nacionalidad === 'Nacional' ? 'DOMICILIO FISCAL:' : '',
+            this.version === '2.0' && nacionalidad === 'Nacional' ? domicilioFiscal : '',
         ]);
         body.push(infoReceptor);
         return {
