@@ -1,5 +1,10 @@
 # @nodecfdi/cfdi-to-pdf ChangeLog
 
+## 1.1.5
+- Reduce margin on retenciones template, more cleare show info
+- Best format to represent emisor, receptor info on cfdi and retenciones template
+- Update version of expresiones, fixed retenciones2.0 expression and retenciones1.0 
+
 ## 1.1.4
 - Fix on TemplateGenericRetenciones, TFD version is upgraded on retenciones 2.0 from 1.0 to 1.1
 - Fix on TemplateGenericRetenciones, Format currency and remove unused convertion on zero values
