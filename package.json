@@ -1,6 +1,6 @@
 {
     "name": "@nodecfdi/cfdi-to-pdf",
-    "version": "1.1.4",
+    "version": "1.1.5",
     "description": "Librería para crear un pdf basado en un XML CFDI o Retenciones",
     "main": "dist/cfdi-to-pdf.cjs.js",
     "module": "dist/cfdi-to-pdf.esm.js",
@@ -56,7 +56,7 @@
         "typescript": "^4.6.3"
     },
     "dependencies": {
-        "@nodecfdi/cfdi-expresiones": "^2.0.0",
+        "@nodecfdi/cfdi-expresiones": "^2.0.1",
         "@nodecfdi/cfdiutils-common": "^1.0.1",
         "@xmldom/xmldom": "^0.8.2",
         "pdfmake": "^0.2.5"

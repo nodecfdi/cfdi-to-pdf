@@ -19,12 +19,12 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
         return {
             hLineWidth: (i, node): number => {
                 if (i === 0 || i === node.table.body.length) {
-                    return 1;
+                    return 0.8;
                 }
-                return i === node.table.headerRows ? 2 : 1;
+                return i === node.table.headerRows ? 0.8 : 0.5;
             },
             vLineWidth: (i, node): number => {
-                return i === 0 || i === node.table.widths?.length ? 1 : 0;
+                return i === 0 || i === node.table.widths?.length ? 0.8 : 0;
             },
             hLineColor: (i, node): string => {
                 return i === 0 || i === node.table.body.length ? 'black' : 'gray';
@@ -116,7 +116,7 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                 text: 'EMISOR',
                 style: 'tableHeader',
                 colSpan: 4,
-                alignment: 'center',
+                alignment: 'left',
             },
             {},
             {},
@@ -175,7 +175,7 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                 text: 'RECEPTOR',
                 style: 'tableHeader',
                 colSpan: 4,
-                alignment: 'center',
+                alignment: 'left',
             },
             {},
             {},
