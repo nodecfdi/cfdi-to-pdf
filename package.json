@@ -54,8 +54,10 @@
         "@commitlint/config-conventional": "^17.0.3",
         "@types/jest": "^28.1.4",
         "@types/node": "^18.0.0",
+        "@types/pdfmake": "^0.1.21",
         "@typescript-eslint/eslint-plugin": "^5.30.3",
         "@typescript-eslint/parser": "^5.30.3",
+        "@xmldom/xmldom": "^0.8.2",
         "babel-plugin-dev-expression": "^0.2.3",
         "babel-plugin-transform-define": "^2.0.1",
         "cross-env": "^7.0.3",
@@ -81,7 +83,6 @@
     "dependencies": {
         "@nodecfdi/cfdi-expresiones": "^2.1.1",
         "@nodecfdi/cfdiutils-common": "^1.2.0",
-        "@xmldom/xmldom": "^0.8.2",
         "pdfmake": "^0.2.5"
     },
     "engines": {
