@@ -1,16 +1,16 @@
-import { DocumentTranslatorInterface } from './document-translator-interface';
-import { RetencionesData } from '../retenciones-data';
 import {
     Content,
     ContentColumns,
     ContentTable,
     TableCell,
     TableLayout,
-    TDocumentDefinitions,
+    TDocumentDefinitions
 } from 'pdfmake/interfaces';
 import { CNodeInterface, CNodes } from '@nodecfdi/cfdiutils-common';
-import { breakEveryNCharacters } from '../utils/break-characters';
-import { formatCurrency } from '../utils/currency';
+import { DocumentTranslatorInterface } from './document-translator-interface';
+import { RetencionesData } from '~/retenciones-data';
+import { breakEveryNCharacters } from '~/utils/break-characters';
+import { formatCurrency } from '~/utils/currency';
 
 export class GenericRetencionesTranslator implements DocumentTranslatorInterface<RetencionesData> {
     public version = '1.0';
@@ -21,6 +21,7 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                 if (i === 0 || i === node.table.body.length) {
                     return 0.8;
                 }
+
                 return i === node.table.headerRows ? 0.8 : 0.5;
             },
             vLineWidth: (i, node): number => {
@@ -34,7 +35,7 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
             },
             paddingRight(i, node): number {
                 return i === (node.table.widths?.length || 0) - 1 ? 0 : 8;
-            },
+            }
         };
     }
 
@@ -49,26 +50,26 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                             text: `Este documento es una representación impresa de un Comprobante Fiscal Digital por Internet que ampara Retenciones e Información de Pagos versión ${version}`,
                             style: 'tableList',
                             colSpan: 4,
-                            alignment: 'center',
+                            alignment: 'center'
                         },
                         {},
                         {},
-                        {},
+                        {}
                     ],
                     [
                         {
                             text: `UUID: ${uuid} - Página ${currentPage} de ${pageCount}`,
                             style: 'tableList',
                             colSpan: 4,
-                            alignment: 'center',
+                            alignment: 'center'
                         },
                         {},
                         {},
-                        {},
-                    ],
-                ],
+                        {}
+                    ]
+                ]
             },
-            layout: 'noBorders',
+            layout: 'noBorders'
         };
     }
 
@@ -81,9 +82,9 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                     style: 'tableContent',
                     table: {
                         widths: ['*'],
-                        body: [['']],
+                        body: [['']]
                     },
-                    layout: 'lightHorizontalLines',
+                    layout: 'lightHorizontalLines'
                 },
                 {
                     width: 'auto',
@@ -95,17 +96,18 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                             ['FOLIO:', retenciones.get('FolioInt')],
                             ['FECHA:', retenciones.get('FechaExp')],
                             ['COMPROBANTE:', 'RETENCIÓN'],
-                            ['VERSIÓN:', this.version],
-                        ],
+                            ['VERSIÓN:', this.version]
+                        ]
                     },
-                    layout: 'lightHorizontalLines',
-                },
-            ],
+                    layout: 'lightHorizontalLines'
+                }
+            ]
         };
         if (logo) {
             (header.columns[0] as ContentTable).table.body[0][0] = { image: logo, fit: [80, 80] };
             (header.columns[0] as ContentTable).table.widths = ['*'];
         }
+
         return header;
     }
 
@@ -116,17 +118,17 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                 text: 'EMISOR',
                 style: 'tableHeader',
                 colSpan: 4,
-                alignment: 'left',
+                alignment: 'left'
             },
             {},
             {},
-            {},
+            {}
         ]);
         body.push([
             'NOMBRE:',
             emisor.get('NomDenRazSocE'),
             'RFC:',
-            emisor.get(this.version === '1.0' ? 'RFCEmisor' : 'RfcE'),
+            emisor.get(this.version === '1.0' ? 'RFCEmisor' : 'RfcE')
         ]);
 
         if (this.version === '2.0') {
@@ -137,9 +139,9 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
             style: 'tableContent',
             table: {
                 widths: ['auto', '*', 'auto', 'auto'],
-                body: body,
+                body: body
             },
-            layout: this.tableLayoutBordered(),
+            layout: this.tableLayoutBordered()
         };
     }
 
@@ -175,26 +177,27 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                 text: 'RECEPTOR',
                 style: 'tableHeader',
                 colSpan: 4,
-                alignment: 'left',
+                alignment: 'left'
             },
             {},
             {},
-            {},
+            {}
         ]);
         body.push([
             'NACIONALIDAD:',
             nacionalidad,
             this.version === '2.0' && nacionalidad === 'Nacional' ? 'DOMICILIO FISCAL:' : '',
-            this.version === '2.0' && nacionalidad === 'Nacional' ? domicilioFiscal : '',
+            this.version === '2.0' && nacionalidad === 'Nacional' ? domicilioFiscal : ''
         ]);
         body.push(infoReceptor);
+
         return {
             style: 'tableContent',
             table: {
                 widths: ['auto', '*', 'auto', 'auto'],
-                body: body,
+                body: body
             },
-            layout: this.tableLayoutBordered(),
+            layout: this.tableLayoutBordered()
         };
     }
 
@@ -208,33 +211,33 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                         {
                             text: 'PERIODO MES INICIAL',
                             style: 'tableHeader',
-                            alignment: 'left',
+                            alignment: 'left'
                         },
                         {
                             text: 'PERIODO MES FINAL',
                             style: 'tableHeader',
-                            alignment: 'left',
+                            alignment: 'left'
                         },
                         {
                             text: 'PERIODO EJERCICIO ANUAL',
                             style: 'tableHeader',
-                            alignment: 'left',
+                            alignment: 'left'
                         },
                         {
                             text: 'TIPO DE RETENCION',
                             style: 'tableHeader',
-                            alignment: 'left',
-                        },
+                            alignment: 'left'
+                        }
                     ],
                     [
                         periodo.get('MesIni'),
                         periodo.get('MesFin'),
                         periodo.get(this.version === '1.0' ? 'Ejerc' : 'Ejercicio'),
-                        claveRet,
-                    ],
-                ],
+                        claveRet
+                    ]
+                ]
             },
-            layout: this.tableLayoutBordered(),
+            layout: this.tableLayoutBordered()
         };
     }
 
@@ -246,45 +249,47 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                     text: 'IMPUESTOS RETENIDOS',
                     style: 'tableHeader',
                     colSpan: 3,
-                    alignment: 'center',
+                    alignment: 'center'
                 },
                 {},
-                {},
+                {}
             ]);
             rowsRetenciones.push([
                 {
                     text: 'TIPO DE IMPUESTO',
                     style: 'tableSubHeader',
                     fillColor: '#eeeeff',
-                    alignment: 'left',
+                    alignment: 'left'
                 },
                 {
                     text: 'TIPO DE PAGO',
                     style: 'tableSubHeader',
                     fillColor: '#eeeeff',
-                    alignment: 'left',
+                    alignment: 'left'
                 },
                 {
                     text: 'MONTO RETENIDO',
                     style: 'tableSubHeader',
                     fillColor: '#eeeeff',
-                    alignment: 'left',
-                },
+                    alignment: 'left'
+                }
             ]);
         }
         impuestosRetenidos.forEach((impuestoRetenido) => {
             rowsRetenciones.push([
                 impuestoRetenido.get(this.version === '1.0' ? 'Impuesto' : 'ImpuestoRet'),
                 impuestoRetenido.get('TipoPagoRet'),
-                formatCurrency(impuestoRetenido.get(this.version === '1.0' ? 'montoRet' : 'MontoRet')),
+                formatCurrency(impuestoRetenido.get(this.version === '1.0' ? 'montoRet' : 'MontoRet'))
             ]);
         });
+
         return rowsRetenciones;
     }
 
     protected generateTotales(totales: CNodeInterface): Content {
         const impuestosRetenidos = totales.searchNodes('retenciones:ImpRetenidos');
         const impuestosRetenidosBody: TableCell[][] = this.generateImpuestosRetenidos(impuestosRetenidos);
+
         return {
             style: 'tableContent',
             table: {
@@ -295,43 +300,43 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                             text: 'TOTALES',
                             style: 'tableHeader',
                             colSpan: 4,
-                            alignment: 'center',
+                            alignment: 'center'
                         },
                         {},
                         {},
-                        {},
+                        {}
                     ],
                     [
                         {
                             text: 'MONTO TOTAL DE OPERACIÓN',
                             style: 'tableSubHeader',
                             fillColor: '#eeeeff',
-                            alignment: 'left',
+                            alignment: 'left'
                         },
                         {
                             text: 'MONTO TOTAL GRAVADO',
                             style: 'tableSubHeader',
                             fillColor: '#eeeeff',
-                            alignment: 'left',
+                            alignment: 'left'
                         },
                         {
                             text: 'MONTO TOTAL EXENTO',
                             style: 'tableSubHeader',
                             fillColor: '#eeeeff',
-                            alignment: 'left',
+                            alignment: 'left'
                         },
                         {
                             text: 'MONTO TOTAL RETENIDO',
                             style: 'tableSubHeader',
                             fillColor: '#eeeeff',
-                            alignment: 'left',
-                        },
+                            alignment: 'left'
+                        }
                     ],
                     [
                         formatCurrency(totales.get(this.version === '1.0' ? 'montoTotOperacion' : 'MontoTotOperacion')),
                         formatCurrency(totales.get(this.version === '1.0' ? 'montoTotGrav' : 'MontoTotGrav')),
                         formatCurrency(totales.get(this.version === '1.0' ? 'montoTotExent' : 'MontoTotExent')),
-                        formatCurrency(totales.get(this.version === '1.0' ? 'montoTotRet' : 'MontoTotRet')),
+                        formatCurrency(totales.get(this.version === '1.0' ? 'montoTotRet' : 'MontoTotRet'))
                     ],
                     [
                         {
@@ -340,17 +345,17 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                             colSpan: 4,
                             table: {
                                 widths: ['*', '*', '*'],
-                                body: impuestosRetenidosBody,
+                                body: impuestosRetenidosBody
                             },
-                            layout: this.tableLayoutBordered(),
+                            layout: this.tableLayoutBordered()
                         },
                         {},
                         {},
-                        {},
-                    ],
-                ],
+                        {}
+                    ]
+                ]
             },
-            layout: this.tableLayoutBordered(),
+            layout: this.tableLayoutBordered()
         };
     }
 
@@ -368,32 +373,32 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                         colSpan: 1,
                         rowSpan: 8,
                         qr: qrUrl,
-                        fit: 100,
+                        fit: 100
                     },
                     '',
-                    '',
+                    ''
                 ],
                 [
                     '',
                     'NUMERO SERIE CERTIFICADO SAT',
-                    tfd.get(tfdVersion === '1.0' ? 'noCertificadoSAT' : 'NoCertificadoSAT'),
+                    tfd.get(tfdVersion === '1.0' ? 'noCertificadoSAT' : 'NoCertificadoSAT')
                 ],
                 [
                     '',
                     'NUMERO SERIE CERTIFICADO EMISOR',
-                    retenciones.get(this.version === '1.0' ? 'NumCert' : 'NoCertificado'),
+                    retenciones.get(this.version === '1.0' ? 'NumCert' : 'NoCertificado')
                 ],
                 ['', 'FECHA HORA CERTIFICACIÓN', tfd.get('FechaTimbrado')],
                 ['', 'FOLIO FISCAL UUID', tfd.get('UUID')],
                 [
                     '',
                     'SELLO DIGITAL',
-                    breakEveryNCharacters(tfd.get(tfdVersion === '1.0' ? 'selloCFD' : 'SelloCFD'), 86),
+                    breakEveryNCharacters(tfd.get(tfdVersion === '1.0' ? 'selloCFD' : 'SelloCFD'), 86)
                 ],
                 [
                     '',
                     'SELLO DEL SAT',
-                    breakEveryNCharacters(tfd.get(tfdVersion === '1.0' ? 'selloSAT' : 'SelloSAT'), 86),
+                    breakEveryNCharacters(tfd.get(tfdVersion === '1.0' ? 'selloSAT' : 'SelloSAT'), 86)
                 ]
             );
         }
@@ -401,16 +406,17 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
             '',
             'CADENA ORIGINAL CC:',
             {
-                text: breakEveryNCharacters(tfdSourceString, 86),
-            },
+                text: breakEveryNCharacters(tfdSourceString, 86)
+            }
         ]);
+
         return {
             style: 'tableSat',
             table: {
                 widths: ['auto', 'auto', '*'],
-                body: tfdCellsTable,
+                body: tfdCellsTable
             },
-            layout: 'lightHorizontalLines',
+            layout: 'lightHorizontalLines'
         };
     }
 
@@ -422,32 +428,32 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                 text: 'FORMA DE PAGO',
                 style: 'tableSubHeader',
                 fillColor: '#eeeeff',
-                alignment: 'left',
+                alignment: 'left'
             },
             {
                 text: 'TIPO DE SERVICIO',
                 style: 'tableSubHeader',
                 fillColor: '#eeeeff',
-                alignment: 'left',
+                alignment: 'left'
             },
             {
                 text: 'FECHA DE PAGO',
                 style: 'tableSubHeader',
                 fillColor: '#eeeeff',
-                alignment: 'left',
+                alignment: 'left'
             },
             {
                 text: 'PRECIO DE SERVICIO',
                 style: 'tableSubHeader',
                 fillColor: '#eeeeff',
-                alignment: 'left',
-            },
+                alignment: 'left'
+            }
         ]);
         tableService.push([
             service.get('FormaPagoServ'),
             service.get('TipoDeServ'),
             service.get('FechaServ'),
-            formatCurrency(service.get('PrecioServSinIVA')),
+            formatCurrency(service.get('PrecioServSinIVA'))
         ]);
         if (service.offsetExists('SubTipServ') || service.offsetExists('RFCTerceroAutorizado')) {
             tableService.push([
@@ -455,16 +461,16 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                     text: 'SUBTIPO DE SERVICIO',
                     style: 'tableSubHeader',
                     fillColor: '#eeeeff',
-                    alignment: 'left',
+                    alignment: 'left'
                 },
                 {
                     text: 'RFC TERCERO AUTORIZADO',
                     style: 'tableSubHeader',
                     fillColor: '#eeeeff',
-                    alignment: 'left',
+                    alignment: 'left'
                 },
                 '',
-                '',
+                ''
             ]);
             tableService.push([service.get('SubTipServ'), service.get('RFCTerceroAutorizado'), '', '']);
         }
@@ -487,60 +493,60 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                                     text: 'IMPUESTOS TRASLADADOS DEL SERVICIO',
                                     style: 'tableHeader',
                                     colSpan: 5,
-                                    alignment: 'center',
+                                    alignment: 'center'
                                 },
                                 {},
                                 {},
                                 {},
-                                {},
+                                {}
                             ],
                             [
                                 {
                                     text: 'IMPUESTO BASE',
                                     style: 'tableSubHeader',
                                     fillColor: '#eeeeff',
-                                    alignment: 'left',
+                                    alignment: 'left'
                                 },
                                 {
                                     text: 'IMPUESTO',
                                     style: 'tableSubHeader',
                                     fillColor: '#eeeeff',
-                                    alignment: 'left',
+                                    alignment: 'left'
                                 },
                                 {
                                     text: 'TIPO FACTOR',
                                     style: 'tableSubHeader',
                                     fillColor: '#eeeeff',
-                                    alignment: 'left',
+                                    alignment: 'left'
                                 },
                                 {
                                     text: 'TASA O CUOTA',
                                     style: 'tableSubHeader',
                                     fillColor: '#eeeeff',
-                                    alignment: 'left',
+                                    alignment: 'left'
                                 },
                                 {
                                     text: 'IMPORTE',
                                     style: 'tableSubHeader',
                                     fillColor: '#eeeeff',
-                                    alignment: 'left',
-                                },
+                                    alignment: 'left'
+                                }
                             ],
                             [
                                 formatCurrency(impuestosTrasladadosDelServicio.get('Base')),
                                 impuestosTrasladadosDelServicio.get('Impuesto'),
                                 impuestosTrasladadosDelServicio.get('TipoFactor'),
                                 impuestosTrasladadosDelServicio.get('TasaCuota'),
-                                formatCurrency(impuestosTrasladadosDelServicio.get('Importe')),
-                            ],
-                        ],
+                                formatCurrency(impuestosTrasladadosDelServicio.get('Importe'))
+                            ]
+                        ]
                     },
                     layout: this.tableLayoutBordered(),
-                    colSpan: 4,
+                    colSpan: 4
                 },
                 {},
                 {},
-                {},
+                {}
             ]);
         }
 
@@ -557,36 +563,36 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                                     text: 'CONTRIBUCIÓN GUBERNAMENTAL',
                                     style: 'tableHeader',
                                     colSpan: 2,
-                                    alignment: 'center',
+                                    alignment: 'center'
                                 },
-                                {},
+                                {}
                             ],
                             [
                                 {
                                     text: 'ESTADO',
                                     style: 'tableSubHeader',
                                     fillColor: '#eeeeff',
-                                    alignment: 'left',
+                                    alignment: 'left'
                                 },
                                 {
                                     text: 'IMPORTE',
                                     style: 'tableSubHeader',
                                     fillColor: '#eeeeff',
-                                    alignment: 'left',
-                                },
+                                    alignment: 'left'
+                                }
                             ],
                             [
                                 contribucionGubernamental.get('EntidadDondePagaLaContribucion'),
-                                formatCurrency(contribucionGubernamental.get('ImpContrib')),
-                            ],
-                        ],
+                                formatCurrency(contribucionGubernamental.get('ImpContrib'))
+                            ]
+                        ]
                     },
                     layout: this.tableLayoutBordered(),
-                    colSpan: 4,
+                    colSpan: 4
                 },
                 {},
                 {},
-                {},
+                {}
             ]);
         }
 
@@ -603,46 +609,47 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                                     text: 'COMISIÓN DEL SERVICIO',
                                     style: 'tableHeader',
                                     colSpan: 3,
-                                    alignment: 'center',
+                                    alignment: 'center'
                                 },
                                 {},
-                                {},
+                                {}
                             ],
                             [
                                 {
                                     text: 'BASE',
                                     style: 'tableSubHeader',
                                     fillColor: '#eeeeff',
-                                    alignment: 'left',
+                                    alignment: 'left'
                                 },
                                 {
                                     text: 'PORCENTAJE',
                                     style: 'tableSubHeader',
                                     fillColor: '#eeeeff',
-                                    alignment: 'left',
+                                    alignment: 'left'
                                 },
                                 {
                                     text: 'IMPORTE',
                                     style: 'tableSubHeader',
                                     fillColor: '#eeeeff',
-                                    alignment: 'left',
-                                },
+                                    alignment: 'left'
+                                }
                             ],
                             [
                                 formatCurrency(comisionDelServicio.get('Base')),
                                 comisionDelServicio.get('Porcentaje'),
-                                formatCurrency(comisionDelServicio.get('Importe')),
-                            ],
-                        ],
+                                formatCurrency(comisionDelServicio.get('Importe'))
+                            ]
+                        ]
                     },
                     layout: this.tableLayoutBordered(),
-                    colSpan: 4,
+                    colSpan: 4
                 },
                 {},
                 {},
-                {},
+                {}
             ]);
         }
+
         return tableService;
     }
 
@@ -653,8 +660,8 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
             {
                 text: 'SERVICIOS',
                 style: 'tableHeader',
-                alignment: 'center',
-            },
+                alignment: 'center'
+            }
         ]);
         // Per Services
         servicios.forEach((servicio) => {
@@ -664,12 +671,13 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                     style: 'tableContent',
                     table: {
                         widths: ['*', '*', '*', '*'],
-                        body: this.contentService(servicio),
+                        body: this.contentService(servicio)
                     },
-                    layout: this.tableLayoutBordered(),
-                },
+                    layout: this.tableLayoutBordered()
+                }
             ]);
         });
+
         return tableServices;
     }
 
@@ -685,12 +693,12 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                 text: 'SERVICIO MEDIANTE PLATAFORMAS TECNOLÓGICAS',
                 style: 'tableHeader',
                 colSpan: 5,
-                alignment: 'center',
+                alignment: 'center'
             },
             {},
             {},
             {},
-            {},
+            {}
         ]);
         // SubHeaders of global
         bodyPlataformasTecnologicas.push([
@@ -698,71 +706,71 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                 text: 'VERSION',
                 fillColor: '#eeeeff',
                 style: 'tableSubHeader',
-                alignment: 'left',
+                alignment: 'left'
             },
             {
                 text: 'PERIODICIDAD',
                 fillColor: '#eeeeff',
                 style: 'tableSubHeader',
-                alignment: 'left',
+                alignment: 'left'
             },
             {
                 text: 'NUMERO SERVICIOS',
                 fillColor: '#eeeeff',
                 style: 'tableSubHeader',
-                alignment: 'left',
+                alignment: 'left'
             },
             {
                 text: 'SUBTOTAL OPERACIONES',
                 fillColor: '#eeeeff',
                 style: 'tableSubHeader',
-                alignment: 'left',
+                alignment: 'left'
             },
             {
                 text: 'TOTAL IVA',
                 fillColor: '#eeeeff',
                 style: 'tableSubHeader',
-                alignment: 'left',
-            },
+                alignment: 'left'
+            }
         ]);
         bodyPlataformasTecnologicas.push([
             plataformasTecnologicas.get('Version'),
             plataformasTecnologicas.get('Periodicidad'),
             plataformasTecnologicas.get('NumServ'),
             formatCurrency(plataformasTecnologicas.get('MonTotServSIVA')),
-            formatCurrency(plataformasTecnologicas.get('TotalIVATrasladado')),
+            formatCurrency(plataformasTecnologicas.get('TotalIVATrasladado'))
         ]);
         bodyPlataformasTecnologicas.push([
             {
                 text: 'TOTAL IVA RETENIDO',
                 fillColor: '#eeeeff',
                 style: 'tableSubHeader',
-                alignment: 'left',
+                alignment: 'left'
             },
             {
                 text: 'TOTAL ISR RETENIDO',
                 fillColor: '#eeeeff',
                 style: 'tableSubHeader',
-                alignment: 'left',
+                alignment: 'left'
             },
             {
                 text: 'DIFERENCIA IVA',
                 fillColor: '#eeeeff',
                 style: 'tableSubHeader',
-                alignment: 'left',
+                alignment: 'left'
             },
             {
                 text: 'TOTAL USO DE PLATAFORMA',
                 fillColor: '#eeeeff',
                 style: 'tableSubHeader',
-                alignment: 'left',
+                alignment: 'left'
             },
             {
                 text: 'TOTAL CONTRIBUCIÓN GUBERNAMENTAL',
                 fillColor: '#eeeeff',
                 style: 'tableSubHeader',
-                alignment: 'left',
-            },
+                alignment: 'left'
+            }
         ]);
         bodyPlataformasTecnologicas.push([
             formatCurrency(plataformasTecnologicas.get('TotalIVARetenido')),
@@ -771,7 +779,7 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
             formatCurrency(plataformasTecnologicas.get('MonTotalporUsoPlataforma')),
             plataformasTecnologicas.get('MonTotalContribucionGubernamental') !== ''
                 ? formatCurrency(plataformasTecnologicas.get('MonTotalContribucionGubernamental'))
-                : '',
+                : ''
         ]);
 
         if (servicios.length > 0) {
@@ -781,15 +789,15 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                     margin: 3,
                     table: {
                         widths: ['*'],
-                        body: this.generateContentPerService(servicios),
+                        body: this.generateContentPerService(servicios)
                     },
                     layout: this.tableLayoutBordered(),
-                    colSpan: 5,
+                    colSpan: 5
                 },
                 {},
                 {},
                 {},
-                {},
+                {}
             ]);
         }
 
@@ -797,9 +805,9 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
             style: 'tableContent',
             table: {
                 widths: ['*', '*', '*', '*', '*'],
-                body: bodyPlataformasTecnologicas,
+                body: bodyPlataformasTecnologicas
             },
-            layout: this.tableLayoutBordered(),
+            layout: this.tableLayoutBordered()
         };
     }
 
@@ -836,14 +844,15 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                     style: 'tableContent',
                     table: {
                         widths: ['*'],
-                        body: [[{ text: element.title, style: 'tableHeader' }], [element.value]],
+                        body: [[{ text: element.title, style: 'tableHeader' }], [element.value]]
                     },
-                    layout: 'lightHorizontalLines',
+                    layout: 'lightHorizontalLines'
                 });
                 content.push('\n');
             });
         }
         content.push(this.generateStampContent(data));
+
         return content;
     }
 
@@ -851,40 +860,41 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
         const retenciones = data.retenciones();
         const tfd = data.timbreFiscalDigital();
         this.version = retenciones.get('Version');
+
         return {
             content: this.generateContent(data),
             styles: {
                 tableHeader: {
                     bold: true,
                     fontSize: 10,
-                    color: 'black',
+                    color: 'black'
                 },
                 tableSubHeader: {
                     bold: true,
                     fontSize: 9,
-                    color: 'black',
+                    color: 'black'
                 },
                 tableContent: {
                     fontSize: 8,
                     color: 'black',
-                    alignment: 'left',
+                    alignment: 'left'
                 },
                 tableList: {
                     fontSize: 7,
                     color: 'black',
-                    alignment: 'center',
+                    alignment: 'center'
                 },
                 tableSat: {
                     fontSize: 5,
                     color: 'black',
-                    alignment: 'left',
-                },
+                    alignment: 'left'
+                }
             },
             defaultStyle: {
-                font: 'Helvetica',
+                font: 'Roboto'
             },
             footer: (currentPage, pageCount) =>
-                this.generateFooter(this.version, tfd.get('UUID'), currentPage, pageCount),
+                this.generateFooter(this.version, tfd.get('UUID'), currentPage, pageCount)
         };
     }
 }

@@ -1,4 +1,4 @@
-import { formatCurrency, toCurrency } from '../../../src';
+import { formatCurrency, toCurrency } from '~/index';
 
 describe('Currency', () => {
     test('number to currency letters', () => {

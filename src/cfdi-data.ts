@@ -3,6 +3,7 @@ import { AbstractInvoiceData } from './abstract-invoice-data';
 
 export class CfdiData extends AbstractInvoiceData {
     private readonly _comprobante: CNodeInterface;
+
     private readonly _address: string | undefined;
 
     constructor(

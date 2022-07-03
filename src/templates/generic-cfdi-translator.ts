@@ -1,9 +1,9 @@
-import { DocumentTranslatorInterface } from './document-translator-interface';
-import { CfdiData } from '../cfdi-data';
 import { Column, Content, ContentColumns, ContentTable, TableCell, TDocumentDefinitions } from 'pdfmake/interfaces';
 import { CNodeInterface, CNodes } from '@nodecfdi/cfdiutils-common';
-import { formatCurrency, toCurrency } from '../utils/currency';
-import { breakEveryNCharacters } from '../utils/break-characters';
+import { DocumentTranslatorInterface } from './document-translator-interface';
+import { CfdiData } from '~/cfdi-data';
+import { formatCurrency, toCurrency } from '~/utils/currency';
+import { breakEveryNCharacters } from '~/utils/break-characters';
 import { usePago10Complement } from './complements/pago10-complement';
 import { usePago20Complement } from './complements/pago20-complement';
 
@@ -19,26 +19,26 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                             text: `Este documento es una representación impresa de un Comprobante Fiscal Digital a través de Internet versión ${version}`,
                             style: 'tableList',
                             colSpan: 4,
-                            alignment: 'center',
+                            alignment: 'center'
                         },
                         {},
                         {},
-                        {},
+                        {}
                     ],
                     [
                         {
                             text: `UUID: ${uuid} - Página ${currentPage} de ${pageCount}`,
                             style: 'tableList',
                             colSpan: 4,
-                            alignment: 'center',
+                            alignment: 'center'
                         },
                         {},
                         {},
-                        {},
-                    ],
-                ],
+                        {}
+                    ]
+                ]
             },
-            layout: 'noBorders',
+            layout: 'noBorders'
         };
     }
 
@@ -51,9 +51,9 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                     style: 'tableContent',
                     table: {
                         widths: ['*'],
-                        body: [['']],
+                        body: [['']]
                     },
-                    layout: 'lightHorizontalLines',
+                    layout: 'lightHorizontalLines'
                 },
                 {
                     width: 'auto',
@@ -67,17 +67,18 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                             ['FECHA:', comprobante.get('Fecha')],
                             ['EXPEDICIÓN:', comprobante.get('LugarExpedicion')],
                             ['COMPROBANTE:', comprobante.get('TipoDeComprobante')],
-                            ['VERSIÓN:', comprobante.get('Version')],
-                        ],
+                            ['VERSIÓN:', comprobante.get('Version')]
+                        ]
                     },
-                    layout: 'lightHorizontalLines',
-                },
-            ],
+                    layout: 'lightHorizontalLines'
+                }
+            ]
         };
         if (logo) {
             (header.columns[0] as ContentTable).table.body[0][0] = { image: logo, fit: [80, 80] };
             (header.columns[0] as ContentTable).table.widths = ['*'];
         }
+
         return header;
     }
 
@@ -92,17 +93,17 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                             text: 'EMISOR',
                             style: 'tableHeader',
                             colSpan: 4,
-                            alignment: 'left',
+                            alignment: 'left'
                         },
                         {},
                         {},
-                        {},
+                        {}
                     ],
                     ['NOMBRE:', emisor.get('Nombre'), 'RFC:', emisor.get('Rfc')],
-                    ['REGIMEN FISCAL:', { colSpan: 3, text: emisor.get('RegimenFiscal') }, {}, {}],
-                ],
+                    ['REGIMEN FISCAL:', { colSpan: 3, text: emisor.get('RegimenFiscal') }, {}, {}]
+                ]
             },
-            layout: 'lightHorizontalLines',
+            layout: 'lightHorizontalLines'
         };
     }
 
@@ -114,7 +115,7 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
         }
         cellAddress.push('USO CFDI', {
             colSpan: address || receptor.offsetExists('DomicilioFiscalReceptor') ? 1 : 3,
-            text: receptor.get('UsoCFDI'),
+            text: receptor.get('UsoCFDI')
         });
         tableCell.push(cellAddress);
         if (receptor.offsetExists('ResidenciaFiscal') && receptor.offsetExists('NumRegIdTrib')) {
@@ -122,9 +123,10 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                 'RESIDENCIA FISCAL:',
                 receptor.get('ResidenciaFiscal'),
                 'NUMERO ID TRIB.:',
-                receptor.get('NumRegIdTrib'),
+                receptor.get('NumRegIdTrib')
             ]);
         }
+
         return tableCell;
     }
 
@@ -139,17 +141,17 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                             text: 'RECEPTOR',
                             style: 'tableHeader',
                             colSpan: 4,
-                            alignment: 'left',
+                            alignment: 'left'
                         },
                         {},
                         {},
-                        {},
+                        {}
                     ],
                     ['NOMBRE:', receptor.get('Nombre'), 'RFC:', receptor.get('Rfc')],
-                    ...this.generateAddress(receptor, address),
-                ],
+                    ...this.generateAddress(receptor, address)
+                ]
             },
-            layout: 'lightHorizontalLines',
+            layout: 'lightHorizontalLines'
         };
 
         if (receptor.offsetExists('RegimenFiscalReceptor')) {
@@ -157,10 +159,10 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                 'REGIMEN FISCAL',
                 {
                     colSpan: 3,
-                    text: receptor.get('RegimenFiscalReceptor'),
+                    text: receptor.get('RegimenFiscalReceptor')
                 },
                 {},
-                {},
+                {}
             ]);
         }
 
@@ -180,19 +182,19 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                             text: 'INFORMACIÓN GLOBAL',
                             style: 'tableHeader',
                             colSpan: 3,
-                            alignment: 'left',
+                            alignment: 'left'
                         },
                         {},
-                        {},
+                        {}
                     ],
                     [
                         `Periodicidad: ${globalInformation.get('Periodicidad')}`,
                         `Meses: ${globalInformation.get('Meses')}`,
-                        `Año: ${globalInformation.get('Año')}`,
-                    ],
-                ],
+                        `Año: ${globalInformation.get('Año')}`
+                    ]
+                ]
             },
-            layout: 'lightHorizontalLines',
+            layout: 'lightHorizontalLines'
         });
         currentContent.push('\n');
     }
@@ -208,22 +210,22 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                             text: 'DATOS GENERALES DEL COMPROBANTE',
                             style: 'tableHeader',
                             colSpan: 4,
-                            alignment: 'left',
+                            alignment: 'left'
                         },
                         {},
                         {},
-                        {},
+                        {}
                     ],
                     ['MONEDA:', comprobante.get('Moneda'), 'FORMA PAGO:', comprobante.get('FormaPago')],
                     [
                         'METODO DE PAGO:',
                         comprobante.get('MetodoPago'),
                         'CONDICIONES DE PAGO:',
-                        comprobante.get('CondicionesDePago'),
-                    ],
-                ],
+                        comprobante.get('CondicionesDePago')
+                    ]
+                ]
             },
-            layout: 'lightHorizontalLines',
+            layout: 'lightHorizontalLines'
         };
     }
 
@@ -236,14 +238,14 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
             const contentT = traslados.map<TableCell[]>((traslado) => {
                 return [
                     traslado.get('Impuesto'),
-                    traslado.get('TipoFactor') === 'Exento' ? 'EXENTO' : formatCurrency(traslado.get('Importe')),
+                    traslado.get('TipoFactor') === 'Exento' ? 'EXENTO' : formatCurrency(traslado.get('Importe'))
                 ];
             });
             impuestosContent.push({
                 table: {
-                    body: contentT,
+                    body: contentT
                 },
-                layout: 'noBorders',
+                layout: 'noBorders'
             });
         }
         if (retenciones.length > 0) {
@@ -253,11 +255,12 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
             });
             impuestosContent.push({
                 table: {
-                    body: contentR,
+                    body: contentR
                 },
-                layout: 'noBorders',
+                layout: 'noBorders'
             });
         }
+
         return impuestosContent;
     }
 
@@ -273,10 +276,10 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                 formatCurrency(concepto.get('Descuento')),
                 {
                     colSpan: 2,
-                    stack: this.generateImpuestos(concepto),
+                    stack: this.generateImpuestos(concepto)
                 },
                 '',
-                formatCurrency(concepto.get('Importe')),
+                formatCurrency(concepto.get('Importe'))
             ];
         });
 
@@ -290,23 +293,23 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
             'Descuento',
             {
                 colSpan: 2,
-                text: 'Impuesto',
+                text: 'Impuesto'
             },
             '',
-            'Importe',
+            'Importe'
         ]);
 
         return {
             style: 'tableList',
             table: {
                 widths: ['auto', 'auto', 'auto', 'auto', '*', 'auto', 'auto', 'auto', 'auto', 'auto'],
-                body: rowsConceptos,
+                body: rowsConceptos
             },
             layout: {
                 fillColor(i): string | null {
                     return i === 0 ? '#CCCCCC' : null;
-                },
-            },
+                }
+            }
         };
     }
 
@@ -323,10 +326,10 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                     { width: 'auto', text: 'IMPORTE CON LETRA:', margin: [0, 0, 5, 0] },
                     {
                         width: 'auto',
-                        text: toCurrency(parseFloat(comprobante.get('Total') || '0'), comprobante.get('Moneda')),
+                        text: toCurrency(parseFloat(comprobante.get('Total') || '0'), comprobante.get('Moneda'))
                     },
-                    { width: '*', text: '' },
-                ],
+                    { width: '*', text: '' }
+                ]
             });
         }
         if (comprobante.get('Version') === '3.3') {
@@ -345,12 +348,12 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                             [
                                 {
                                     text: `CFDIS RELACIONADOS - TIPO RELACIÓN ${relacionados.get('TipoRelacion')}`,
-                                    fillColor: '#CCCCCC',
-                                },
+                                    fillColor: '#CCCCCC'
+                                }
                             ],
-                            ...uuidsArray,
-                        ],
-                    },
+                            ...uuidsArray
+                        ]
+                    }
                 });
             }
         } else {
@@ -372,12 +375,12 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                                         text: `CFDIS RELACIONADOS - TIPO RELACIÓN ${relacionadosNode.get(
                                             'TipoRelacion'
                                         )}`,
-                                        fillColor: '#CCCCCC',
-                                    },
+                                        fillColor: '#CCCCCC'
+                                    }
                                 ],
-                                ...uuidsArray,
-                            ],
-                        },
+                                ...uuidsArray
+                            ]
+                        }
                     });
                 }
             }
@@ -400,18 +403,18 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                             {
                                 text: 'TOTAL:',
                                 fontSize: 11,
-                                bold: true,
+                                bold: true
                             },
-                            { text: formatCurrency(comprobante.get('Total')), fontSize: 11, bold: true },
-                        ],
-                    ],
+                            { text: formatCurrency(comprobante.get('Total')), fontSize: 11, bold: true }
+                        ]
+                    ]
                 },
-                layout: 'lightHorizontalLines',
+                layout: 'lightHorizontalLines'
             });
         }
 
         return {
-            columns: contentColumns,
+            columns: contentColumns
         };
     }
 
@@ -428,10 +431,10 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                         colSpan: 1,
                         rowSpan: 8,
                         qr: qrUrl,
-                        fit: 120,
+                        fit: 120
                     },
                     '',
-                    '',
+                    ''
                 ],
                 ['', 'NUMERO SERIE CERTIFICADO SAT', tfd.get('NoCertificadoSAT')],
                 ['', 'NUMERO SERIE CERTIFICADO EMISOR', comprobante.get('NoCertificado')],
@@ -445,16 +448,17 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
             '',
             'CADENA ORIGINAL CC:',
             {
-                text: breakEveryNCharacters(tfdSourceString, 86),
-            },
+                text: breakEveryNCharacters(tfdSourceString, 86)
+            }
         ]);
+
         return {
             style: 'tableSat',
             table: {
                 widths: ['auto', 'auto', '*'],
-                body: tfdCellsTable,
+                body: tfdCellsTable
             },
-            layout: 'lightHorizontalLines',
+            layout: 'lightHorizontalLines'
         };
     }
 
@@ -493,9 +497,9 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                     style: 'tableContent',
                     table: {
                         widths: ['*'],
-                        body: [[{ text: element.title, style: 'tableHeader' }], [element.value]],
+                        body: [[{ text: element.title, style: 'tableHeader' }], [element.value]]
                     },
-                    layout: 'lightHorizontalLines',
+                    layout: 'lightHorizontalLines'
                 });
                 content.push('\n');
             });
@@ -509,35 +513,36 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
     public translate(cfdiData: CfdiData): TDocumentDefinitions {
         const comprobante = cfdiData.comprobante();
         const tfd = cfdiData.timbreFiscalDigital();
+
         return {
             content: this.generateContent(cfdiData),
             styles: {
                 tableHeader: {
                     bold: true,
                     fontSize: 10,
-                    color: 'black',
+                    color: 'black'
                 },
                 tableContent: {
                     fontSize: 8,
                     color: 'black',
-                    alignment: 'left',
+                    alignment: 'left'
                 },
                 tableList: {
                     fontSize: 7,
                     color: 'black',
-                    alignment: 'center',
+                    alignment: 'center'
                 },
                 tableSat: {
                     fontSize: 5,
                     color: 'black',
-                    alignment: 'left',
-                },
+                    alignment: 'left'
+                }
             },
             defaultStyle: {
-                font: 'Helvetica',
+                font: 'Roboto'
             },
             footer: (currentPage, pageCount) =>
-                this.generateFooter(comprobante.get('Version'), tfd.get('UUID'), currentPage, pageCount),
+                this.generateFooter(comprobante.get('Version'), tfd.get('UUID'), currentPage, pageCount)
         };
     }
 }

@@ -6,9 +6,11 @@ const breakEveryNCharacters = (str = '', n = 86): string => {
             if (a.length + b.length < n) {
                 return `${a}${b}`;
             }
+
             return `${a}\n${b}`;
         });
     }
+
     return result;
 };
 
