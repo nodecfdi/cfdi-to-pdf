@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { Style, TDocumentDefinitions } from 'pdfmake/interfaces';
 import { BuilderInterface } from './builder-interface';
 import { DocumentTranslatorInterface } from '~/templates/document-translator-interface';
