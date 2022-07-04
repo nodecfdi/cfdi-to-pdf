@@ -16,6 +16,7 @@ module.exports = {
     },
     collectCoverageFrom: [
         '<rootDir>/src/**',
+        '!<rootDir>/src/templates/**',
         '!<rootDir>/src/index.ts',
         '!<rootDir>/src/types.ts',
         '!<rootDir>/src/**.d.ts',

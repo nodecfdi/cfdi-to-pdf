@@ -28,7 +28,7 @@
         "lint": "eslint --fix \"src/**/\"",
         "lint:check": "eslint \"src/**/\"",
         "lint:ci": "pnpm lint:check",
-        "test": "jest --verbose --coverage",
+        "test": "jest --verbose --coverage --detectOpenHandles",
         "test:watch": "jest --watch",
         "test:ci": "jest --runInBand --ci",
         "test:ci:coverage": "jest --runInBand --ci --coverage --coverageDirectory=coverage",

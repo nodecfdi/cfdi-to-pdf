@@ -68,4 +68,25 @@ describe('Converter', () => {
         expect(existsSync(created)).toBeTruthy();
         unlinkSync(created);
     });
+
+    test('convert thrown error on not write file', async () => {
+        const cfdi = XmlNodeUtils.nodeFromXmlString(TestCase.fileContents('cfdi33-valid.xml'));
+        const cfdiData = new CfdiData(cfdi, '', 'cadenaOrigen', TestCase.nodeCfdiLogo());
+        const builder = new PdfMakerBuilder(new GenericCfdiTranslator());
+
+        await expect(builder.build(cfdiData, '/usr/bin/cfdi33.pdf')).rejects.toHaveProperty('code', 'EACCES');
+        expect(existsSync('/usr/bin/cfdi33.pdf')).toBeFalsy();
+    }, 5000);
+
+    test('convert thrown error on bad styles', async () => {
+        const cfdi = XmlNodeUtils.nodeFromXmlString(TestCase.fileContents('cfdi33-valid.xml'));
+        const cfdiData = new CfdiData(cfdi, '', 'cadenaOrigen', TestCase.nodeCfdiLogo());
+
+        const builder = new PdfMakerBuilder(new GenericCfdiTranslator(), { font: 'Calibri' });
+
+        await expect(builder.build(cfdiData, 'retenciones-valid.pdf')).rejects.toEqual(
+            new Error("Font 'Calibri' in style 'normal' is not defined in the font section of the document definition.")
+        );
+        expect(existsSync('retenciones-valid.pdf')).toBeFalsy();
+    }, 5000);
 });
