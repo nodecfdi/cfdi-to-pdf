@@ -1,4 +1,4 @@
-import { TDocumentDefinitions } from 'pdfmake/interfaces';
+import { Style, TDocumentDefinitions } from 'pdfmake/interfaces';
 import { createWriteStream } from 'fs';
 import { BuilderInterface } from './builder-interface';
 import { DocumentTranslatorInterface } from '~/templates/document-translator-interface';
@@ -6,10 +6,18 @@ import { AbstractInvoiceData } from '~/abstract-invoice-data';
 import { getPdfMake, PdfMakeNode } from '~/pdfmake-builder';
 
 export class PdfMakerBuilder<T extends AbstractInvoiceData> implements BuilderInterface<T> {
-    private _documentTranslator: DocumentTranslatorInterface<T>;
+    private readonly _documentTranslator: DocumentTranslatorInterface<T>;
 
-    constructor(documentTranslator: DocumentTranslatorInterface<T>) {
+    private readonly _defaultStyle: Style;
+
+    constructor(documentTranslator: DocumentTranslatorInterface<T>, defaultStyle?: Style) {
         this._documentTranslator = documentTranslator;
+        if (!defaultStyle) {
+            defaultStyle = {
+                font: 'Roboto'
+            };
+        }
+        this._defaultStyle = defaultStyle;
     }
 
     public build(data: T, destination: string): Promise<void> {
@@ -46,6 +54,6 @@ export class PdfMakerBuilder<T extends AbstractInvoiceData> implements BuilderIn
     }
 
     public buildPdf(data: T): TDocumentDefinitions {
-        return this._documentTranslator.translate(data);
+        return this._documentTranslator.translate(data, this._defaultStyle);
     }
 }

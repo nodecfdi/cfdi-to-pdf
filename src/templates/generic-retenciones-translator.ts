@@ -2,6 +2,7 @@ import {
     Content,
     ContentColumns,
     ContentTable,
+    Style,
     TableCell,
     TableLayout,
     TDocumentDefinitions
@@ -856,7 +857,7 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
         return content;
     }
 
-    public translate(data: RetencionesData): TDocumentDefinitions {
+    public translate(data: RetencionesData, defaultStyle: Style): TDocumentDefinitions {
         const retenciones = data.retenciones();
         const tfd = data.timbreFiscalDigital();
         this.version = retenciones.get('Version');
@@ -890,9 +891,7 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
                     alignment: 'left'
                 }
             },
-            defaultStyle: {
-                font: 'Roboto'
-            },
+            defaultStyle,
             footer: (currentPage, pageCount) =>
                 this.generateFooter(this.version, tfd.get('UUID'), currentPage, pageCount)
         };

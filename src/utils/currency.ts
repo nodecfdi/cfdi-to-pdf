@@ -102,6 +102,7 @@ const toCurrency = (num: number, moneda?: string): string => {
             const group = integers.substring(0, integers.length - 9);
             thousandsOfMillions = true;
             switch (parseInt(group, 10)) {
+                /* istanbul ignore next */
                 case 0:
                     break;
                 case 1:
@@ -152,6 +153,10 @@ const toCurrency = (num: number, moneda?: string): string => {
 };
 
 const formatCurrency = (currency: number | string): string => {
+    if (typeof currency === 'string') {
+        currency = Number(currency);
+    }
+
     const number = Number.isNaN(currency) ? 0 : Number(currency);
 
     return Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', currencyDisplay: 'symbol' }).format(number);

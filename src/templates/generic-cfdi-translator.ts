@@ -1,4 +1,12 @@
-import { Column, Content, ContentColumns, ContentTable, TableCell, TDocumentDefinitions } from 'pdfmake/interfaces';
+import {
+    Column,
+    Content,
+    ContentColumns,
+    ContentTable,
+    Style,
+    TableCell,
+    TDocumentDefinitions
+} from 'pdfmake/interfaces';
 import { CNodeInterface, CNodes } from '@nodecfdi/cfdiutils-common';
 import { DocumentTranslatorInterface } from './document-translator-interface';
 import { CfdiData } from '~/cfdi-data';
@@ -510,7 +518,7 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
         return content;
     }
 
-    public translate(cfdiData: CfdiData): TDocumentDefinitions {
+    public translate(cfdiData: CfdiData, defaultStyle: Style): TDocumentDefinitions {
         const comprobante = cfdiData.comprobante();
         const tfd = cfdiData.timbreFiscalDigital();
 
@@ -538,9 +546,7 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                     alignment: 'left'
                 }
             },
-            defaultStyle: {
-                font: 'Roboto'
-            },
+            defaultStyle,
             footer: (currentPage, pageCount) =>
                 this.generateFooter(comprobante.get('Version'), tfd.get('UUID'), currentPage, pageCount)
         };
