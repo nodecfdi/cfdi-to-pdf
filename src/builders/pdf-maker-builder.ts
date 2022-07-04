@@ -24,11 +24,19 @@ export class PdfMakerBuilder<T extends AbstractInvoiceData> implements BuilderIn
         return new Promise<void>((resolve, reject) => {
             const pdfTemplate = this.buildPdf(data);
             const pdfStream = getPdfMake<PdfMakeNode>().createPdfKitDocument(pdfTemplate, {});
-            pdfStream.pipe(createWriteStream(destination));
+            const fileWriteStream = createWriteStream(destination);
+            fileWriteStream.on('error', (err) => {
+                fileWriteStream.end();
+
+                return reject(err);
+            });
+
+            pdfStream.pipe(fileWriteStream);
             pdfStream.on('end', () => {
                 return resolve();
             });
-            pdfStream.on('error', (err: Error) => {
+            pdfStream.on('error', (err) => {
+                /* istanbul ignore next */
                 return reject(err);
             });
             pdfStream.end();
@@ -47,6 +55,7 @@ export class PdfMakerBuilder<T extends AbstractInvoiceData> implements BuilderIn
                 return resolve(Buffer.concat(chunks).toString('base64'));
             });
             pdfStream.on('error', (err) => {
+                /* istanbul ignore next */
                 return reject(err);
             });
             pdfStream.end();
