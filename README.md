@@ -1,25 +1,16 @@
-# @nodecfdi/cfdi-to-pdf
+# `@nodecfdi/cfdi-to-pdf`
 
 [![Source Code][badge-source]][source]
-[![Software License][badge-license]][license]
-[![Latest Version][badge-release]][release]
+[![Npm Node Version Support][badge-node-version]][node-version]
 [![Discord][badge-discord]][discord]
-
-[source]: https://github.com/nodecfdi/cfdi-to-pdf
-
-[badge-source]: https://img.shields.io/badge/source-nodecfdi%2Fcfdi--to--pdf-blue?logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMTIgMTIgNDAgNDAiPjxwYXRoIGZpbGw9IiMzMzMzMzMiIGQ9Ik0zMiwxMy40Yy0xMC41LDAtMTksOC41LTE5LDE5YzAsOC40LDUuNSwxNS41LDEzLDE4YzEsMC4yLDEuMy0wLjQsMS4zLTAuOWMwLTAuNSwwLTEuNywwLTMuMiBjLTUuMywxLjEtNi40LTIuNi02LjQtMi42QzIwLDQxLjYsMTguOCw0MSwxOC44LDQxYy0xLjctMS4yLDAuMS0xLjEsMC4xLTEuMWMxLjksMC4xLDIuOSwyLDIuOSwyYzEuNywyLjksNC41LDIuMSw1LjUsMS42IGMwLjItMS4yLDAuNy0yLjEsMS4yLTIuNmMtNC4yLTAuNS04LjctMi4xLTguNy05LjRjMC0yLjEsMC43LTMuNywyLTUuMWMtMC4yLTAuNS0wLjgtMi40LDAuMi01YzAsMCwxLjYtMC41LDUuMiwyIGMxLjUtMC40LDMuMS0wLjcsNC44LTAuN2MxLjYsMCwzLjMsMC4yLDQuNywwLjdjMy42LTIuNCw1LjItMiw1LjItMmMxLDIuNiwwLjQsNC42LDAuMiw1YzEuMiwxLjMsMiwzLDIsNS4xYzAsNy4zLTQuNSw4LjktOC43LDkuNCBjMC43LDAuNiwxLjMsMS43LDEuMywzLjVjMCwyLjYsMCw0LjYsMCw1LjJjMCwwLjUsMC40LDEuMSwxLjMsMC45YzcuNS0yLjYsMTMtOS43LDEzLTE4LjFDNTEsMjEuOSw0Mi41LDEzLjQsMzIsMTMuNHoiLz48L3N2Zz4%3D
-
-[license]: https://github.com/nodecfdi/cfdi-to-pdf/blob/main/LICENSE.md
-
-[badge-license]: https://img.shields.io/github/license/nodecfdi/cfdi-to-pdf?logo=open-source-initiative&style=flat-square
-
-[badge-release]: https://img.shields.io/npm/v/@nodecfdi/cfdi-to-pdf
-
-[release]: https://www.npmjs.com/package/@nodecfdi/cfdi-to-pdf
-
-[badge-discord]: https://img.shields.io/discord/459860554090283019?logo=discord&style=flat-square
-
-[discord]: https://discord.gg/aFGYXvX
+[![Latest Version][badge-release]][release]
+[![Software License][badge-license]][license]
+[![Build Status][badge-build]][build]
+[![Reliability][badge-reliability]][reliability]
+[![Maintainability][badge-maintainability]][maintainability]
+[![Code Coverage][badge-coverage]][coverage]
+[![Violations][badge-violations]][violations]
+[![Total Downloads][badge-downloads]][downloads]
 
 > Create a generic PDF file from a CFDI 3.3, CFDI 4.0, Retenciones 1.0 and Retenciones 2.0
 
@@ -27,11 +18,11 @@
 
 :mexico: La documentación del proyecto está en español porque ese es el lenguaje principal de los usuarios.
 
-## Acerca de @nodecfdi/cfdi-to-pdf
+## Acerca de `@nodecfdi/cfdi-to-pdf`
 
 En algunos casos necesitas generar un archivo PDF desde un CFDI (Comprobante fiscal Digital por Internet), o constancia
 de retenciones. Esta librería te ayuda a crear un pdf genérico. Además puedes crear un boceto a tu gusto y acomodarlo a
-como lo requieras. Inspirada por la versión de php https://github.com/phpcfdi/cfditopdf
+como lo requieras. Inspirada por la versión de php <https://github.com/phpcfdi/cfditopdf>
 
 ## Instalación
 
@@ -80,15 +71,26 @@ console.log(base64);
 
 ```typescript
 import {
+    installPdfMake,
     GenericRetencionesTranslator,
     PdfMakerBrowserBuilder,
     RetencionesData
 } from '@nodecfdi/cfdi-to-pdf';
-import {XmlNodeUtils} from '@nodecfdi/cfdiutils-common';
+import {
+    XmlNodeUtils,
+    install,
+} from '@nodecfdi/cfdiutils-common';
 
 // Salida base64 Retenciones
 // Accedemos al contenido en nuestro archivo XML
 const xml = '...xmlstring data...';
+
+// from version 1.2.0 on cfdiutils-common required install dom
+install(domParserInstance, xmlSerializerInstance, domImplementationIstance);
+
+// from version 1.2.0 on cfdi-to-pdf required install pdfmake
+installPdfMake(myPdfMakeInstance);
+
 const retenciones = XmlNodeUtils.nodeFromXmlString(xml);
 const retencionesData = new RetencionesData(retenciones, 'urlCodeQR or empty for auto generate', 'cadenaOrigen', 'myLogoImageBase64');
 
@@ -105,3 +107,55 @@ await builder.build(retencionesData, destPath);
 
 console.log(base64);
 ```
+
+> Puedes ver mas ejemplos en examples
+
+Nota: Actualmente la librería requiere que según el tipo de projecto (Nodejs | browser) se le pase el pdfmake ejecutable, según la documentación de [pdfmake](https://pdfmake.github.io/docs/0.1/getting-started/) y esto se puede ejecutando el instalador proporcionado por `@nodecfdi/cfdi-to-pdf`.
+
+## Soporte
+
+Puedes obtener soporte abriendo un ticket en Github.
+
+Adicionalmente, esta librería pertenece a la comunidad [OcelotlStudio](https://ocelotlstudio.com), así que puedes usar los mismos canales de comunicación para obtener ayuda de algún miembro de la comunidad.
+
+## Compatibilidad
+
+Esta librería se mantendrá compatible con al menos la versión con
+[soporte activo de Node](https://nodejs.org/es/about/releases/) más reciente.
+
+También utilizamos [Versionado Semántico 2.0.0](https://semver.org/lang/es/) por lo que puedes usar esta librería sin temor a romper tu aplicación.
+
+## Contribuciones
+
+Las contribuciones con bienvenidas. Por favor lee [CONTRIBUTING][] para más detalles y recuerda revisar el archivo [CHANGELOG][].
+
+## Copyright and License
+
+The `@nodecfdi/cfdi-to-pdf` library is copyright © [NodeCfdi](https://github.com/nodecfdi) - [OcelotlStudio](https://ocelotlstudio.com) and licensed for use under the MIT License (MIT). Please see [LICENSE][] for more information.
+
+[contributing]: https://github.com/nodecfdi/cfdi-to-pdf/blob/main/CONTRIBUTING.md
+[changelog]: https://github.com/nodecfdi/cfdi-to-pdf/blob/main/CHANGELOG.md
+
+[source]: https://github.com/nodecfdi/cfdi-to-pdf
+[node-version]: https://www.npmjs.com/package/@nodecfdi/cfdi-to-pdf
+[discord]: https://discord.gg/AsqX8fkW2k
+[release]: https://www.npmjs.com/package/@nodecfdi/cfdi-to-pdf
+[license]: https://github.com/nodecfdi/cfdi-to-pdf/blob/main/LICENSE
+[build]: https://github.com/nodecfdi/cfdi-to-pdf/actions/workflows/build.yml?query=branch:main
+[reliability]:https://sonarcloud.io/component_measures?id=nodecfdi_cfdi-to-pdf&metric=Reliability
+[maintainability]: https://sonarcloud.io/component_measures?id=nodecfdi_cfdi-to-pdf&metric=Maintainability
+[coverage]: https://sonarcloud.io/component_measures?id=nodecfdi_cfdi-to-pdf&metric=Coverage
+[violations]: https://sonarcloud.io/project/issues?id=nodecfdi_cfdi-to-pdf&resolved=false
+[downloads]: https://www.npmjs.com/package/@nodecfdi/cfdi-to-pdf
+
+[badge-source]: https://img.shields.io/badge/source-nodecfdi/cfdi--to--pdf-blue.svg?logo=github
+[badge-node-version]: https://img.shields.io/node/v/@nodecfdi/cfdi-to-pdf.svg?logo=nodedotjs
+[badge-discord]: https://img.shields.io/discord/459860554090283019?logo=discord
+[badge-release]: https://img.shields.io/npm/v/@nodecfdi/cfdi-to-pdf.svg?logo=npm
+[badge-license]: https://img.shields.io/github/license/nodecfdi/cfdi-to-pdf.svg?logo=open-source-initiative
+[badge-build]: https://img.shields.io/github/workflow/status/nodecfdi/cfdi-to-pdf/build/main?logo=github-actions
+[badge-reliability]: https://sonarcloud.io/api/project_badges/measure?project=nodecfdi_cfdi-to-pdf&metric=reliability_rating
+[badge-maintainability]: https://sonarcloud.io/api/project_badges/measure?project=nodecfdi_cfdi-to-pdf&metric=sqale_rating
+[badge-coverage]: https://img.shields.io/sonar/coverage/nodecfdi_cfdi-to-pdf/main?logo=sonarcloud&server=https%3A%2F%2Fsonarcloud.io
+[badge-violations]: https://img.shields.io/sonar/violations/nodecfdi_cfdi-to-pdf/main?format=long&logo=sonarcloud&server=https%3A%2F%2Fsonarcloud.io
+[badge-downloads]: https://img.shields.io/npm/dm/@nodecfdi/cfdi-to-pdf.svg?logo=npm
