@@ -16,7 +16,7 @@ const getGroupToCurrency = (group: string): string => {
         'doce',
         'trece',
         'catorce',
-        'quince',
+        'quince'
     ];
     const teens = [
         '',
@@ -28,7 +28,7 @@ const getGroupToCurrency = (group: string): string => {
         'sesenta',
         'setenta',
         'ochenta',
-        'noventa',
+        'noventa'
     ];
     const hundreds = [
         '',
@@ -40,7 +40,7 @@ const getGroupToCurrency = (group: string): string => {
         'seiscientos',
         'setecientos',
         'ochocientos',
-        'novecientos',
+        'novecientos'
     ];
     // variable used to temporarily store currency
     let toCurrency = '';
@@ -54,7 +54,6 @@ const getGroupToCurrency = (group: string): string => {
             default:
                 toCurrency += `${hundreds[parseInt(group[0], 10)]} `;
         }
-        // eslint-disable-next-line
         group = group.substring(1, 3);
     }
     // handle teens and 'basic' numbers
@@ -78,7 +77,7 @@ const getGroupToCurrency = (group: string): string => {
                 } `;
         }
     }
-    // return result
+
     return toCurrency;
 };
 
@@ -103,6 +102,7 @@ const toCurrency = (num: number, moneda?: string): string => {
             const group = integers.substring(0, integers.length - 9);
             thousandsOfMillions = true;
             switch (parseInt(group, 10)) {
+                /* istanbul ignore next */
                 case 0:
                     break;
                 case 1:
@@ -145,6 +145,7 @@ const toCurrency = (num: number, moneda?: string): string => {
         numberToCurrency += `${
             (noThousands && noHundreds ? 'de ' : '') + (numberToCurrency === 'un ' ? 'peso ' : 'pesos ') + decimals
         }/100 ${monedaName}`;
+
         return numberToCurrency.toUpperCase();
     } else {
         throw new Error('El número es demasiado grande.');
@@ -152,7 +153,12 @@ const toCurrency = (num: number, moneda?: string): string => {
 };
 
 const formatCurrency = (currency: number | string): string => {
+    if (typeof currency === 'string') {
+        currency = Number(currency);
+    }
+
     const number = Number.isNaN(currency) ? 0 : Number(currency);
+
     return Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', currencyDisplay: 'symbol' }).format(number);
 };
 

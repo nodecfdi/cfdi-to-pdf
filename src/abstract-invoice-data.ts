@@ -1,14 +1,19 @@
 import { DiscoverExtractor } from '@nodecfdi/cfdi-expresiones';
-import { CNodeInterface, XmlNodeUtils } from '@nodecfdi/cfdiutils-common';
-import { DOMParser } from '@xmldom/xmldom';
+import { CNodeInterface, XmlNodeUtils, getParser } from '@nodecfdi/cfdiutils-common';
 
 export abstract class AbstractInvoiceData {
     protected _emisor!: CNodeInterface;
+
     protected _receptor!: CNodeInterface;
+
     protected _timbreFiscalDigital!: CNodeInterface;
+
     protected _qrUrl!: string;
+
     protected _tfdSourceString!: string;
+
     protected _logo: string | undefined;
+
     protected _additionalFields: { title: string; value: string }[] | undefined;
 
     public emisor(): CNodeInterface {
@@ -41,7 +46,7 @@ export abstract class AbstractInvoiceData {
 
     public buildUrlQr(node: CNodeInterface): void {
         const rawString = XmlNodeUtils.nodeToXmlString(node, true);
-        const document = new DOMParser().parseFromString(rawString, 'text/xml');
+        const document = getParser().parseFromString(rawString, 'text/xml');
         try {
             this._qrUrl = new DiscoverExtractor().extract(document);
         } catch (e) {

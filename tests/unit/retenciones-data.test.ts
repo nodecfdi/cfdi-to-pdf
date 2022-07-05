@@ -1,8 +1,13 @@
-import { XmlNodeUtils } from '@nodecfdi/cfdiutils-common';
+import { XmlNodeUtils, install } from '@nodecfdi/cfdiutils-common';
+import { XMLSerializer, DOMParser, DOMImplementation } from '@xmldom/xmldom';
+import { RetencionesData } from '~/index';
 import { TestCase } from '../test-case';
-import { RetencionesData } from '../../src';
 
 describe('RetencionesData', () => {
+    beforeAll(() => {
+        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
+    });
+
     test('construct using valid content', () => {
         const retenciones = XmlNodeUtils.nodeFromXmlString(TestCase.fileContents('retenciones-valid.xml'));
         const retencionesData = new RetencionesData(retenciones, 'qr', 'tfd');
@@ -33,13 +38,12 @@ describe('RetencionesData', () => {
             retenciones.children().remove(emisor);
         }
 
-        expect.hasAssertions();
-        try {
+        const t = (): void => {
             new RetencionesData(retenciones, 'qr', 'tfd');
-        } catch (e) {
-            expect(e).toBeInstanceOf(Error);
-            expect((e as Error).message).toContain('La factura de retenciones no contiene nodo emisor');
-        }
+        };
+
+        expect(t).toThrow(Error);
+        expect(t).toThrow('La factura de retenciones no contiene nodo emisor');
     });
 
     test('construct without receptor', () => {
@@ -49,13 +53,12 @@ describe('RetencionesData', () => {
             retenciones.children().remove(receptor);
         }
 
-        expect.hasAssertions();
-        try {
+        const t = (): void => {
             new RetencionesData(retenciones, 'qr', 'tfd');
-        } catch (e) {
-            expect(e).toBeInstanceOf(Error);
-            expect((e as Error).message).toContain('La factura de retenciones no contiene nodo receptor');
-        }
+        };
+
+        expect(t).toThrow(Error);
+        expect(t).toThrow('La factura de retenciones no contiene nodo receptor');
     });
 
     test('construct without periodo', () => {
@@ -65,13 +68,12 @@ describe('RetencionesData', () => {
             retenciones.children().remove(periodo);
         }
 
-        expect.hasAssertions();
-        try {
+        const t = (): void => {
             new RetencionesData(retenciones, 'qr', 'tfd');
-        } catch (e) {
-            expect(e).toBeInstanceOf(Error);
-            expect((e as Error).message).toContain('La factura de retenciones no contiene nodo periodo');
-        }
+        };
+
+        expect(t).toThrow(Error);
+        expect(t).toThrow('La factura de retenciones no contiene nodo periodo');
     });
 
     test('construct without totales', () => {
@@ -81,13 +83,12 @@ describe('RetencionesData', () => {
             retenciones.children().remove(totales);
         }
 
-        expect.hasAssertions();
-        try {
+        const t = (): void => {
             new RetencionesData(retenciones, 'qr', 'tfd');
-        } catch (e) {
-            expect(e).toBeInstanceOf(Error);
-            expect((e as Error).message).toContain('La factura de retenciones no contiene nodo totales');
-        }
+        };
+
+        expect(t).toThrow(Error);
+        expect(t).toThrow('La factura de retenciones no contiene nodo totales');
     });
 
     test('construct without complemento', () => {
@@ -97,14 +98,11 @@ describe('RetencionesData', () => {
             complemento.children().removeAll();
         }
 
-        expect.hasAssertions();
-        try {
+        const t = (): void => {
             new RetencionesData(retenciones, 'qr', 'tfd');
-        } catch (e) {
-            expect(e).toBeInstanceOf(Error);
-            expect((e as Error).message).toContain(
-                'La factura de retenciones no contiene complemento de timbre fiscal digital'
-            );
-        }
+        };
+
+        expect(t).toThrow(Error);
+        expect(t).toThrow('La factura de retenciones no contiene complemento de timbre fiscal digital');
     });
 });

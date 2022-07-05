@@ -1,64 +1,95 @@
 {
     "name": "@nodecfdi/cfdi-to-pdf",
-    "version": "1.1.5",
+    "version": "1.2.0",
     "description": "Librería para crear un pdf basado en un XML CFDI o Retenciones",
-    "main": "dist/cfdi-to-pdf.cjs.js",
-    "module": "dist/cfdi-to-pdf.esm.js",
-    "browser": "dist/cfdi-to-pdf.umd.js",
-    "types": "dist/cfdi-to-pdf.d.ts",
-    "files": [
-        "dist"
-    ],
-    "homepage": "https://github.com/nodecfdi/cfdi-to-pdf",
-    "repository": "https://github.com/nodecfdi/cfdi-to-pdf",
-    "bugs": {
-        "url": "https://github.com/nodecfdi/cfdi-to-pdf/issues"
-    },
-    "author": "OcelotlStudio <contacto@ocelotlstudio.com>",
-    "license": "MIT",
     "keywords": [
         "cfdi",
         "retenciones",
         "xml",
         "pdf"
     ],
-    "scripts": {
-        "dev": "rollup -c -w",
-        "build": "rollup -c",
-        "generate": "rimraf build && rimraf dist && yarn build && yarn build:types && yarn docs && rimraf build",
-        "build:types": "tsc -p ./tsconfig.json --outDir build --declaration true && api-extractor run",
-        "lint": "eslint --ext .js,.ts .",
-        "test": "jest",
-        "docs": "typedoc src --out docs"
+    "private": false,
+    "author": "OcelotlStudio <contacto@ocelotlstudio.com>",
+    "license": "MIT",
+    "type": "module",
+    "main": "./dist/prod/cfdi-to-pdf.cjs",
+    "module": "./dist/prod/cfdi-to-pdf.modern.js",
+    "unpkg": "./dist/prod/cfdi-to-pdf.umd.js",
+    "exports": {
+        "require": "./dist/prod/cfdi-to-pdf.cjs",
+        "development": "./dist/dev/cfdi-to-pdf.modern.js",
+        "default": "./dist/prod/cfdi-to-pdf.modern.js"
     },
+    "types": "dist/types/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "lint": "eslint --fix \"src/**/\"",
+        "lint:check": "eslint \"src/**/\"",
+        "lint:ci": "pnpm lint:check",
+        "test": "jest --verbose --coverage --detectOpenHandles",
+        "test:watch": "jest --watch",
+        "test:ci": "jest --runInBand --ci",
+        "test:ci:coverage": "jest --runInBand --ci --coverage --coverageDirectory=coverage",
+        "build:prod": "cross-env NODE_ENV=production microbundle --tsconfig ./tsconfig.json  --format modern,cjs,umd --external @nodecfdi/cfdiutils-common,@nodecfdi/cfdi-expresiones,pdfmake --output dist/prod/cfdi-to-pdf.js",
+        "build:dev": "cross-env NODE_ENV=development microbundle --define process.env.NODE_ENV=development --tsconfig ./tsconfig.json --generateTypes false --format modern --output dist/dev/cfdi-to-pdf.js",
+        "build": "rm -rf ./dist && pnpm build:dev && pnpm build:prod",
+        "gen:docs": "rm -rf ./docs && typedoc --options typedoc.cjs",
+        "prepublishOnly": "pnpm build",
+        "prepare": "husky install",
+        "release": "pnpm run prepublishOnly && pnpm changeset publish"
+    },
+    "repository": "https://github.com/nodecfdi/cfdi-to-pdf",
+    "bugs": {
+        "url": "https://github.com/nodecfdi/cfdi-to-pdf/issues"
+    },
+    "homepage": "https://github.com/nodecfdi/cfdi-to-pdf",
     "devDependencies": {
-        "@microsoft/api-extractor": "^7.23.0",
-        "@rollup/plugin-commonjs": "^22.0.0",
-        "@rollup/plugin-node-resolve": "^13.2.1",
-        "@rollup/plugin-typescript": "^8.3.2",
-        "@types/jest": "^27.4.1",
-        "@types/jsrsasign": "^10.2.1",
-        "@types/luxon": "^2.3.1",
-        "@types/node": "^17.0.29",
+        "@babel/core": "^7.18.6",
+        "@babel/preset-env": "^7.18.6",
+        "@babel/preset-typescript": "^7.18.6",
+        "@changesets/cli": "^2.23.0",
+        "@commitlint/cli": "^17.0.3",
+        "@commitlint/config-conventional": "^17.0.3",
+        "@types/jest": "^28.1.4",
+        "@types/node": "^18.0.0",
         "@types/pdfmake": "^0.1.21",
-        "@typescript-eslint/eslint-plugin": "^5.21.0",
-        "@typescript-eslint/parser": "^5.21.0",
-        "eslint": "^8.14.0",
+        "@typescript-eslint/eslint-plugin": "^5.30.3",
+        "@typescript-eslint/parser": "^5.30.3",
+        "@xmldom/xmldom": "^0.8.2",
+        "babel-plugin-dev-expression": "^0.2.3",
+        "babel-plugin-transform-define": "^2.0.1",
+        "cross-env": "^7.0.3",
+        "eslint": "^8.19.0",
         "eslint-config-prettier": "^8.5.0",
-        "eslint-plugin-prettier": "^4.0.0",
-        "jest": "^27.5.1",
-        "prettier": "^2.6.2",
-        "rollup": "^2.70.2",
-        "ts-jest": "^27.1.4",
-        "ts-node": "^10.7.0",
-        "tslib": "^2.4.0",
-        "typedoc": "^0.22.15",
-        "typescript": "^4.6.3"
+        "eslint-plugin-jest": "^26.5.3",
+        "eslint-plugin-prettier": "^4.2.1",
+        "eslint-plugin-promise": "^6.0.0",
+        "eslint-plugin-tsdoc": "^0.2.16",
+        "husky": "^8.0.1",
+        "jest": "^28.1.2",
+        "jest-mock-console": "^2.0.0",
+        "jest-watch-typeahead": "^1.1.0",
+        "lint-staged": "^13.0.3",
+        "microbundle": "^0.15.0",
+        "prettier": "^2.7.1",
+        "shx": "^0.3.4",
+        "typedoc": "^0.23.5",
+        "typedoc-theme-hierarchy": "^1.3.3",
+        "typescript": "^4.7.4",
+        "zx": "^7.0.7"
     },
     "dependencies": {
-        "@nodecfdi/cfdi-expresiones": "^2.0.1",
-        "@nodecfdi/cfdiutils-common": "^1.0.1",
-        "@xmldom/xmldom": "^0.8.2",
+        "@nodecfdi/cfdi-expresiones": "^2.1.2",
+        "@nodecfdi/cfdiutils-common": "^1.2.1",
         "pdfmake": "^0.2.5"
-    }
+    },
+    "engines": {
+        "node": ">= 14.0.0"
+    },
+    "browserslist": [
+        "defaults",
+        "not IE 11"
+    ]
 }

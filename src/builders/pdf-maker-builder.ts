@@ -1,58 +1,42 @@
-import { BuilderInterface } from './builder-interface';
-import PdfPrinter from 'pdfmake';
+import { Style, TDocumentDefinitions } from 'pdfmake/interfaces';
 import { createWriteStream } from 'fs';
+import { BuilderInterface } from './builder-interface';
 import { DocumentTranslatorInterface } from '../templates/document-translator-interface';
-import { TDocumentDefinitions } from 'pdfmake/interfaces';
 import { AbstractInvoiceData } from '../abstract-invoice-data';
+import { getPdfMake, PdfMakeNode } from '../pdfmake-builder';
 
 export class PdfMakerBuilder<T extends AbstractInvoiceData> implements BuilderInterface<T> {
-    private _printer: PdfPrinter;
-    private _documentTranslator: DocumentTranslatorInterface<T>;
+    private readonly _documentTranslator: DocumentTranslatorInterface<T>;
 
-    constructor(documentTranslator: DocumentTranslatorInterface<T>, printer: PdfPrinter | null = null) {
-        if (!printer) {
-            const fonts = {
-                Courier: {
-                    normal: 'Courier',
-                    bold: 'Courier-Bold',
-                    italics: 'Courier-Oblique',
-                    bolditalics: 'Courier-BoldOblique',
-                },
-                Helvetica: {
-                    normal: 'Helvetica',
-                    bold: 'Helvetica-Bold',
-                    italics: 'Helvetica-Oblique',
-                    bolditalics: 'Helvetica-BoldOblique',
-                },
-                Times: {
-                    normal: 'Times-Roman',
-                    bold: 'Times-Bold',
-                    italics: 'Times-Italic',
-                    bolditalics: 'Times-BoldItalic',
-                },
-                Symbol: {
-                    normal: 'Symbol',
-                },
-                ZapfDingbats: {
-                    normal: 'ZapfDingbats',
-                },
-            };
-            printer = new PdfPrinter(fonts);
-        }
+    private readonly _defaultStyle: Style;
 
+    constructor(documentTranslator: DocumentTranslatorInterface<T>, defaultStyle?: Style) {
         this._documentTranslator = documentTranslator;
-        this._printer = printer;
+        if (!defaultStyle) {
+            defaultStyle = {
+                font: 'Roboto'
+            };
+        }
+        this._defaultStyle = defaultStyle;
     }
 
     public build(data: T, destination: string): Promise<void> {
         return new Promise<void>((resolve, reject) => {
             const pdfTemplate = this.buildPdf(data);
-            const pdfStream = this._printer.createPdfKitDocument(pdfTemplate, {});
-            pdfStream.pipe(createWriteStream(destination));
+            const pdfStream = getPdfMake<PdfMakeNode>().createPdfKitDocument(pdfTemplate, {});
+            const fileWriteStream = createWriteStream(destination);
+            fileWriteStream.on('error', (err) => {
+                fileWriteStream.end();
+
+                return reject(err);
+            });
+
+            pdfStream.pipe(fileWriteStream);
             pdfStream.on('end', () => {
                 return resolve();
             });
             pdfStream.on('error', (err) => {
+                /* istanbul ignore next */
                 return reject(err);
             });
             pdfStream.end();
@@ -62,7 +46,7 @@ export class PdfMakerBuilder<T extends AbstractInvoiceData> implements BuilderIn
     public buildBase64(data: T): Promise<string> {
         return new Promise<string>((resolve, reject) => {
             const pdfTemplate = this.buildPdf(data);
-            const pdfStream = this._printer.createPdfKitDocument(pdfTemplate, {});
+            const pdfStream = getPdfMake<PdfMakeNode>().createPdfKitDocument(pdfTemplate, {});
             const chunks: Uint8Array[] = [];
             pdfStream.on('data', (chunk) => {
                 chunks.push(chunk);
@@ -71,6 +55,7 @@ export class PdfMakerBuilder<T extends AbstractInvoiceData> implements BuilderIn
                 return resolve(Buffer.concat(chunks).toString('base64'));
             });
             pdfStream.on('error', (err) => {
+                /* istanbul ignore next */
                 return reject(err);
             });
             pdfStream.end();
@@ -78,6 +63,6 @@ export class PdfMakerBuilder<T extends AbstractInvoiceData> implements BuilderIn
     }
 
     public buildPdf(data: T): TDocumentDefinitions {
-        return this._documentTranslator.translate(data);
+        return this._documentTranslator.translate(data, this._defaultStyle);
     }
 }

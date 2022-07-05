@@ -3,7 +3,9 @@ import { AbstractInvoiceData } from './abstract-invoice-data';
 
 export class RetencionesData extends AbstractInvoiceData {
     private readonly _retenciones: CNodeInterface;
+
     private readonly _periodo: CNodeInterface;
+
     private readonly _totales: CNodeInterface;
 
     constructor(

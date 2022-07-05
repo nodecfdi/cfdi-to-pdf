@@ -1,8 +1,13 @@
+import { XmlNodeUtils, install } from '@nodecfdi/cfdiutils-common';
+import { XMLSerializer, DOMParser, DOMImplementation } from '@xmldom/xmldom';
+import { CfdiData } from '~/index';
 import { TestCase } from '../test-case';
-import { XmlNodeUtils } from '@nodecfdi/cfdiutils-common';
-import { CfdiData } from '../../src';
 
 describe('CfdiData', () => {
+    beforeAll(() => {
+        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
+    });
+
     test('construct using valid content', () => {
         const comprobante = XmlNodeUtils.nodeFromXmlString(TestCase.fileContents('cfdi33-valid.xml'));
         const cfdiData = new CfdiData(comprobante, 'qr', 'tfd');
@@ -31,13 +36,12 @@ describe('CfdiData', () => {
             comprobante.children().remove(emisor);
         }
 
-        expect.hasAssertions();
-        try {
+        const t = (): void => {
             new CfdiData(comprobante, 'qr', 'tfd');
-        } catch (e) {
-            expect(e).toBeInstanceOf(Error);
-            expect((e as Error).message).toContain('El CFDI no contiene nodo emisor');
-        }
+        };
+
+        expect(t).toThrow(Error);
+        expect(t).toThrow('El CFDI no contiene nodo emisor');
     });
 
     test('construct without receptor', () => {
@@ -47,13 +51,12 @@ describe('CfdiData', () => {
             comprobante.children().remove(receptor);
         }
 
-        expect.hasAssertions();
-        try {
+        const t = (): void => {
             new CfdiData(comprobante, 'qr', 'tfd');
-        } catch (e) {
-            expect(e).toBeInstanceOf(Error);
-            expect((e as Error).message).toContain('El CFDI no contiene nodo receptor');
-        }
+        };
+
+        expect(t).toThrow(Error);
+        expect(t).toThrow('El CFDI no contiene nodo receptor');
     });
 
     test('constuct without complemento', () => {
@@ -63,12 +66,11 @@ describe('CfdiData', () => {
             complemento.children().removeAll();
         }
 
-        expect.hasAssertions();
-        try {
+        const t = (): void => {
             new CfdiData(comprobante, 'qr', 'tfd');
-        } catch (e) {
-            expect(e).toBeInstanceOf(Error);
-            expect((e as Error).message).toContain('El CFDI no contiene complemento de timbre fiscal digital');
-        }
+        };
+
+        expect(t).toThrow(Error);
+        expect(t).toThrow('El CFDI no contiene complemento de timbre fiscal digital');
     });
 });
