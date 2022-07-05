@@ -1,6 +1,10 @@
 import { BufferOptions, CustomTableLayout, TDocumentDefinitions, TFontDictionary } from 'pdfmake/interfaces';
 import { PdfmakeNotFound } from './exceptions/pdfmake-not-found';
 
+export interface PdfKitDocument extends NodeJS.ReadableStream {
+    end(): void;
+}
+
 export interface TCreatedPdf {
     download(cb?: () => void, options?: BufferOptions): void;
     download(defaultFileName: string, cb?: () => void, options?: BufferOptions): void;
@@ -8,7 +12,7 @@ export interface TCreatedPdf {
     getBase64(cb: (result: string) => void, options?: BufferOptions): void;
     getBuffer(cb: (result: Buffer) => void, options?: BufferOptions): void;
     getDataUrl(cb: (result: string) => void, options?: BufferOptions): void;
-    getStream(options?: BufferOptions): PDFKit.PDFDocument; // minimal version 0.1.41
+    getStream(options?: BufferOptions): PdfKitDocument; // minimal version 0.1.41
     open(options?: BufferOptions, win?: Window | null): void;
     print(options?: BufferOptions, win?: Window | null): void;
 }
@@ -23,7 +27,7 @@ export interface PdfMakeBrowser {
 }
 
 export interface PdfMakeNode {
-    createPdfKitDocument(docDefinition: TDocumentDefinitions, options?: BufferOptions): PDFKit.PDFDocument;
+    createPdfKitDocument(docDefinition: TDocumentDefinitions, options?: BufferOptions): PdfKitDocument;
 }
 
 let _pdfmake: PdfMakeBrowser | PdfMakeNode | undefined;

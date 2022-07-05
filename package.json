@@ -32,7 +32,7 @@
         "test:watch": "jest --watch",
         "test:ci": "jest --runInBand --ci",
         "test:ci:coverage": "jest --runInBand --ci --coverage --coverageDirectory=coverage",
-        "build:prod": "cross-env NODE_ENV=production microbundle --tsconfig ./tsconfig.json  --format modern,cjs,umd --output dist/prod/cfdi-to-pdf.js",
+        "build:prod": "cross-env NODE_ENV=production microbundle --tsconfig ./tsconfig.json  --format modern,cjs,umd --external @nodecfdi/cfdiutils-common,@nodecfdi/cfdi-expresiones,pdfmake --output dist/prod/cfdi-to-pdf.js",
         "build:dev": "cross-env NODE_ENV=development microbundle --define process.env.NODE_ENV=development --tsconfig ./tsconfig.json --generateTypes false --format modern --output dist/dev/cfdi-to-pdf.js",
         "build": "rm -rf ./dist && pnpm build:dev && pnpm build:prod",
         "gen:docs": "rm -rf ./docs && typedoc --options typedoc.cjs",
