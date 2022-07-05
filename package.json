@@ -81,8 +81,8 @@
         "zx": "^7.0.7"
     },
     "dependencies": {
-        "@nodecfdi/cfdi-expresiones": "^2.1.1",
-        "@nodecfdi/cfdiutils-common": "^1.2.0",
+        "@nodecfdi/cfdi-expresiones": "^2.1.2",
+        "@nodecfdi/cfdiutils-common": "^1.2.1",
         "pdfmake": "^0.2.5"
     },
     "engines": {

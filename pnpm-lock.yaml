@@ -7,8 +7,8 @@ specifiers:
   '@changesets/cli': ^2.23.0
   '@commitlint/cli': ^17.0.3
   '@commitlint/config-conventional': ^17.0.3
-  '@nodecfdi/cfdi-expresiones': ^2.1.1
-  '@nodecfdi/cfdiutils-common': ^1.2.0
+  '@nodecfdi/cfdi-expresiones': ^2.1.2
+  '@nodecfdi/cfdiutils-common': ^1.2.1
   '@types/jest': ^28.1.4
   '@types/node': ^18.0.0
   '@types/pdfmake': ^0.1.21
@@ -39,8 +39,8 @@ specifiers:
   zx: ^7.0.7
 
 dependencies:
-  '@nodecfdi/cfdi-expresiones': 2.1.1
-  '@nodecfdi/cfdiutils-common': 1.2.0
+  '@nodecfdi/cfdi-expresiones': 2.1.2
+  '@nodecfdi/cfdiutils-common': 1.2.1
   pdfmake: 0.2.5
 
 devDependencies:
@@ -2131,16 +2131,16 @@ packages:
     resolution: {integrity: sha512-6Wci+Tp3CgPt/B9B0a3J4s3yMgLNSku6w5TV6mN+61C71UqsRBv2FUibBf3tPGlNxebgPHMEUzKpb1ggE8KCKw==}
     dev: true
 
-  /@nodecfdi/cfdi-expresiones/2.1.1:
-    resolution: {integrity: sha512-Yh8Nl8e8ZXqBIGwWiFfd0BNDuvyng/xA1qLAz8Z6Fi51ujIVsW4mEW42KtOtD2UoWFCJblFi7NULzsSuy21WHg==}
+  /@nodecfdi/cfdi-expresiones/2.1.2:
+    resolution: {integrity: sha512-3zau5/3Z0BNnOtYatZMm+UmPJe8Z6CeoWZe6CxFeRenoTT1cB4KZI4D+GjkYN7xPeeAmRN5xE0VTSAK8M2dkZQ==}
     engines: {node: '>= 14.0.0'}
     dependencies:
-      '@nodecfdi/cfdiutils-common': 1.2.0
+      '@nodecfdi/cfdiutils-common': 1.2.1
       ts-mixer: 6.0.1
     dev: false
 
-  /@nodecfdi/cfdiutils-common/1.2.0:
-    resolution: {integrity: sha512-v8ssB3/FMru/JC8ku6bA7eQMIaB9MZLLl/2TXvWlN7c41yRqA8MdaCWyrV7nXtbMPMY+Gp8xsKsuLrORmKja6A==}
+  /@nodecfdi/cfdiutils-common/1.2.1:
+    resolution: {integrity: sha512-sqOXFAUnEidI7jVJMA2cKdYuewl3ebDh2RpieZkznieXBoyQfbLaNQ4s4TaaNFRV4GuFIu1tZbhUu0tgHllYyQ==}
     engines: {node: '>= 14.0.0'}
     dev: false
 

@@ -20,11 +20,6 @@
         "incremental": true,
         "jsx": "preserve",
         "baseUrl": ".",
-        "paths": {
-            "~/*": [
-                "src/*"
-            ]
-        }
     },
     "include": [
         "src/**/*"
