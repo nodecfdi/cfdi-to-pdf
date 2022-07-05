@@ -9,9 +9,9 @@ import {
 } from 'pdfmake/interfaces';
 import { CNodeInterface, CNodes } from '@nodecfdi/cfdiutils-common';
 import { DocumentTranslatorInterface } from './document-translator-interface';
-import { CfdiData } from '~/cfdi-data';
-import { formatCurrency, toCurrency } from '~/utils/currency';
-import { breakEveryNCharacters } from '~/utils/break-characters';
+import { CfdiData } from '../cfdi-data';
+import { formatCurrency, toCurrency } from '../utils/currency';
+import { breakEveryNCharacters } from '../utils/break-characters';
 import { usePago10Complement } from './complements/pago10-complement';
 import { usePago20Complement } from './complements/pago20-complement';
 

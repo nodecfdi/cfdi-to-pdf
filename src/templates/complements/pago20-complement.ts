@@ -1,6 +1,6 @@
 import { CNodeInterface, CNodes } from '@nodecfdi/cfdiutils-common';
 import { Content, TableCell } from 'pdfmake/interfaces';
-import { formatCurrency } from '~/utils/currency';
+import { formatCurrency } from '../../utils/currency';
 
 const generateRelatedDocsContent = (doctoRelacionados: CNodes): TableCell[][] => {
     const relatedDocsCells = doctoRelacionados.map<TableCell[]>((doc) => {

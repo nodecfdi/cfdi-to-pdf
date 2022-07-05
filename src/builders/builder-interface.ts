@@ -1,4 +1,4 @@
-import { AbstractInvoiceData } from '~/abstract-invoice-data';
+import { AbstractInvoiceData } from '../abstract-invoice-data';
 
 export interface BuilderInterface<T extends AbstractInvoiceData> {
     build(data: T, destination: string): Promise<void>;

@@ -1,9 +1,9 @@
 /* istanbul ignore file */
 import { Style, TDocumentDefinitions } from 'pdfmake/interfaces';
 import { BuilderInterface } from './builder-interface';
-import { DocumentTranslatorInterface } from '~/templates/document-translator-interface';
-import { AbstractInvoiceData } from '~/abstract-invoice-data';
-import { getPdfMake, PdfMakeBrowser } from '~/pdfmake-builder';
+import { DocumentTranslatorInterface } from '../templates/document-translator-interface';
+import { AbstractInvoiceData } from '../abstract-invoice-data';
+import { getPdfMake, PdfMakeBrowser } from '../pdfmake-builder';
 
 export class PdfMakerBrowserBuilder<T extends AbstractInvoiceData> implements BuilderInterface<T> {
     private _documentTranslator: DocumentTranslatorInterface<T>;

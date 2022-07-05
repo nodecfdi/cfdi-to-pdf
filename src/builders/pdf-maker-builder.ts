@@ -1,9 +1,9 @@
 import { Style, TDocumentDefinitions } from 'pdfmake/interfaces';
 import { createWriteStream } from 'fs';
 import { BuilderInterface } from './builder-interface';
-import { DocumentTranslatorInterface } from '~/templates/document-translator-interface';
-import { AbstractInvoiceData } from '~/abstract-invoice-data';
-import { getPdfMake, PdfMakeNode } from '~/pdfmake-builder';
+import { DocumentTranslatorInterface } from '../templates/document-translator-interface';
+import { AbstractInvoiceData } from '../abstract-invoice-data';
+import { getPdfMake, PdfMakeNode } from '../pdfmake-builder';
 
 export class PdfMakerBuilder<T extends AbstractInvoiceData> implements BuilderInterface<T> {
     private readonly _documentTranslator: DocumentTranslatorInterface<T>;

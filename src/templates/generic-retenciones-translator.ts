@@ -9,9 +9,9 @@ import {
 } from 'pdfmake/interfaces';
 import { CNodeInterface, CNodes } from '@nodecfdi/cfdiutils-common';
 import { DocumentTranslatorInterface } from './document-translator-interface';
-import { RetencionesData } from '~/retenciones-data';
-import { breakEveryNCharacters } from '~/utils/break-characters';
-import { formatCurrency } from '~/utils/currency';
+import { RetencionesData } from '../retenciones-data';
+import { breakEveryNCharacters } from '../utils/break-characters';
+import { formatCurrency } from '../utils/currency';
 
 export class GenericRetencionesTranslator implements DocumentTranslatorInterface<RetencionesData> {
     public version = '1.0';
