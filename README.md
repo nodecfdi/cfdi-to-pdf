@@ -112,6 +112,12 @@ console.log(base64);
 
 Nota: Actualmente la librería requiere que según el tipo de projecto (Nodejs | browser) se le pase el pdfmake ejecutable, según la documentación de [pdfmake](https://pdfmake.github.io/docs/0.1/getting-started/) y esto se puede ejecutando el instalador proporcionado por `@nodecfdi/cfdi-to-pdf`.
 
+## Patrocinadores
+
+`@nodecfdi/cfdi-to-pdf` es un projecto de licencia abierta MIT donde el continuo desarrollo es realizado por el apoyo de la comunidad y de los patrocinadores.
+
+[![Infaster](/assets/infaster-sponsor.png "infaster")](https://www.infaster.mx/)
+
 ## Soporte
 
 Puedes obtener soporte abriendo un ticket en Github.
