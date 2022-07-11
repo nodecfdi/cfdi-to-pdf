@@ -27,7 +27,7 @@ specifiers:
   husky: ^8.0.1
   jest: ^28.1.2
   jest-mock-console: ^2.0.0
-  jest-watch-typeahead: ^1.1.0
+  jest-watch-typeahead: ^2.0.0
   lint-staged: ^13.0.3
   microbundle: ^0.15.0
   pdfmake: ^0.2.5
@@ -68,7 +68,7 @@ devDependencies:
   husky: 8.0.1
   jest: 28.1.2_@types+node@18.0.0
   jest-mock-console: 2.0.0_jest@28.1.2
-  jest-watch-typeahead: 1.1.0_jest@28.1.2
+  jest-watch-typeahead: 2.0.0_jest@28.1.2
   lint-staged: 13.0.3
   microbundle: 0.15.0
   prettier: 2.7.1
@@ -2664,6 +2664,13 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       type-fest: 0.21.3
+    dev: true
+
+  /ansi-escapes/5.0.0:
+    resolution: {integrity: sha512-5GFMVX8HqE/TB+FuBJGuO5XG0WrsA6ptUqoODaT/n9mmUaZFkqnBueB4leqGBCmrUHnCnC4PCZTCd0E7QQ83bA==}
+    engines: {node: '>=12'}
+    dependencies:
+      type-fest: 1.4.0
     dev: true
 
   /ansi-regex/2.1.1:
@@ -5355,13 +5362,13 @@ packages:
       pretty-format: 28.1.1
     dev: true
 
-  /jest-watch-typeahead/1.1.0_jest@28.1.2:
-    resolution: {integrity: sha512-Va5nLSJTN7YFtC2jd+7wsoe1pNe5K4ShLux/E5iHEwlB9AxaxmggY7to9KUqKojhaJw3aXqt5WAb4jGPOolpEw==}
-    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+  /jest-watch-typeahead/2.0.0_jest@28.1.2:
+    resolution: {integrity: sha512-LX/jrTNkOIZV1n7fnEWlKJ73lhVPKF9B6F0L7pbje3xNPw1NddPLn0n8EFt7YwbCnC0+vlLylp7JehV6M06J6Q==}
+    engines: {node: ^14.17.0 || ^16.10.0 || >=18.0.0}
     peerDependencies:
       jest: ^27.0.0 || ^28.0.0
     dependencies:
-      ansi-escapes: 4.3.2
+      ansi-escapes: 5.0.0
       chalk: 4.1.2
       jest: 28.1.2_@types+node@18.0.0
       jest-regex-util: 28.0.2
@@ -7838,6 +7845,11 @@ packages:
   /type-fest/0.8.1:
     resolution: {integrity: sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==}
     engines: {node: '>=8'}
+    dev: true
+
+  /type-fest/1.4.0:
+    resolution: {integrity: sha512-yGSza74xk0UG8k+pLh5oeoYirvIiWo5t0/o3zHHAO2tRDiZcxWP7fywNlXhqb6/r6sWvwi+RsyQMWhVLe4BVuA==}
+    engines: {node: '>=10'}
     dev: true
 
   /type/1.2.0:
