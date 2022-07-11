@@ -11,7 +11,7 @@ specifiers:
   '@nodecfdi/cfdiutils-common': ^1.2.1
   '@types/jest': ^28.1.4
   '@types/node': ^18.0.0
-  '@types/pdfmake': ^0.1.21
+  '@types/pdfmake': ^0.2.0
   '@typescript-eslint/eslint-plugin': ^5.30.3
   '@typescript-eslint/parser': ^5.30.3
   '@xmldom/xmldom': ^0.8.2
@@ -52,7 +52,7 @@ devDependencies:
   '@commitlint/config-conventional': 17.0.3
   '@types/jest': 28.1.4
   '@types/node': 18.0.0
-  '@types/pdfmake': 0.1.21
+  '@types/pdfmake': 0.2.0
   '@typescript-eslint/eslint-plugin': 5.30.3_xuuykav7urhdozug7htlfgar3u
   '@typescript-eslint/parser': 5.30.3_4x5o4skxv6sl53vpwefgt23khm
   '@xmldom/xmldom': 0.8.2
@@ -2402,8 +2402,8 @@ packages:
       '@types/node': 18.0.0
     dev: true
 
-  /@types/pdfmake/0.1.21:
-    resolution: {integrity: sha512-rDmJr/jzUZSg/AzWYAMVBS4z4weZKTOtrD6Jlt+hzZu87bkIe7WVA02+m+uGGopyTUazFoWYT6HXxwT68Nqfeg==}
+  /@types/pdfmake/0.2.0:
+    resolution: {integrity: sha512-D4TTyCGiGvm/LZuH8IfUFOiVIuab9jqKslEzDAkwwBHMxTwDxZZJIW9FgLX8s/qRvUwGS2nYd7kOEisjx/604g==}
     dependencies:
       '@types/node': 18.0.0
       '@types/pdfkit': 0.12.6
