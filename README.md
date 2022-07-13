@@ -38,79 +38,219 @@ yarn add @nodecfdi/cfdi-to-pdf
 
 ## Uso básico
 
-### CFDI 33 / CFDI 40
+Ejemplo en nodejs usando xmldom para CFDI 3.3 y CFDI 4.0
 
-```typescript
-import {
-    GenericCfdiTranslator,
-    PdfMakerBrowserBuilder,
-    CfdiData,
-} from '@nodecfdi/cfdi-to-pdf';
-import {XmlNodeUtils} from '@nodecfdi/cfdiutils-common';
-
-// Salida base64 CFDI
-// Accedemos al contenido en nuestro archivo XML
-const xml = '...xmlstring data...';
-const comprobante = XmlNodeUtils.nodeFromXmlString(xml);
-const cfdiData = new CfdiData(comprobante, 'urlCodeQR or empty for auto generate', 'cadenaOrigen', 'myLogoImageBase64');
-
-// Tambien puedes generar el codigo QR llamando al metodo:
-// cfdiData.buildUrlQr(cfdiData.comprobante());
-
-// const builder = new PdfMakerBuilder(...);
-const builder = new PdfMakerBrowserBuilder(new GenericCfdiTranslator());
-const base64 = await builder.buildBase64(cfdiData);
-
-// O en NodeJS tambien se puede guardar en un archivo
-await builder.build(cfdiData, destPath);
-
-console.log(base64);
-```
-
-### Retenciones10 / Retenciones20
-
-```typescript
+```ts
 import {
     installPdfMake,
-    GenericRetencionesTranslator,
-    PdfMakerBrowserBuilder,
-    RetencionesData
+    GenericCfdiTranslator,
+    PdfMakerBuilder,
+    CfdiData,
 } from '@nodecfdi/cfdi-to-pdf';
 import {
     XmlNodeUtils,
     install,
 } from '@nodecfdi/cfdiutils-common';
+import {
+    DOMImplementation,
+    XMLSerializer,
+    DOMParser
+} from '@xmldom/xmldom';
+import PdfPrinter from 'pdfmake';
+import { join } from 'path';
+import { readFileSync } from 'fs';
 
-// Salida base64 Retenciones
-// Accedemos al contenido en nuestro archivo XML
-const xml = '...xmlstring data...';
+const inputCfdiPath = './cfdi40or33-real.xml';
+const cfdiSourceString = 'cadenaOrigen';
+const outputCfdiPath = './cfdi40or33-real.pdf';
 
-// from version 1.2.0 on cfdiutils-common required install dom
-install(domParserInstance, xmlSerializerInstance, domImplementationIstance);
+// from version 1.2.x on @nodecfdi/cfdiutils-common required install dom resolution
+install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
 
-// from version 1.2.0 on cfdi-to-pdf required install pdfmake
-installPdfMake(myPdfMakeInstance);
+// PDFMAKE on nodejs require font path not included on distributable files
+installPdfMake(new PdfPrinter({
+    Roboto: {
+        normal: join('.', 'fonts', 'Roboto-Regular.ttf'),
+        bold: join('.', 'fonts', 'Roboto-Medium.ttf'),
+        italics: join('.', 'fonts', 'Roboto-Italic.ttf'),
+        bolditalics: join('.', 'fonts', 'Roboto-MediumItalic.ttf'),
+    }
+}));
 
-const retenciones = XmlNodeUtils.nodeFromXmlString(xml);
-const retencionesData = new RetencionesData(retenciones, 'urlCodeQR or empty for auto generate', 'cadenaOrigen', 'myLogoImageBase64');
+const xml = readFileSync(inputCfdiPath).toString();
+const comprobante = XmlNodeUtils.nodeFromXmlString(xml);
+const cfdiData = new CfdiData(comprobante, '', cfdiSourceString, 'mylogoBase64');
 
-// Tambien puedes generar el codigo QR llamando al metodo:
-// retencionesData.buildUrlQr(retencionesData.retenciones());
+const builder = new PdfMakerBuilder(new GenericCfdiTranslator());
+await builder.build(cfdiData, outputCfdiPath);
+```
 
-// const builder = new PdfMakerBuilder(...);
-const builder = new PdfMakerBrowserBuilder(new GenericRetencionesTranslator());
+Ejemplo en nodejs usando jsDom para CFDI 3.3 y CFDI 4.0
 
-const base64 = await builder.buildBase64(retencionesData);
+```ts
+import {
+    installPdfMake,
+    GenericCfdiTranslator,
+    PdfMakerBuilder,
+    CfdiData,
+} from '@nodecfdi/cfdi-to-pdf';
+import {
+    XmlNodeUtils,
+    install,
+} from '@nodecfdi/cfdiutils-common';
+import { JSDOM } from 'jsdom';
+import PdfPrinter from 'pdfmake';
+import { join } from 'path';
+import { readFileSync } from 'fs';
 
-// O en NodeJS tambien se puede guardar en un archivo
-await builder.build(retencionesData, destPath);
+const inputCfdiPath = './cfdi40or33-real.xml';
+const cfdiSourceString = 'cadenaOrigen';
+const outputCfdiPath = './cfdi40or33-real.pdf';
 
-console.log(base64);
+const dom = new JSDOM();
+const jsDOMParser = new dom.window.DOMParser();
+const jsXMLSerializer = new dom.window.XMLSerializer();
+const jsDOMImplementation = dom.window.document.implementation;
+
+// from version 1.2.x on @nodecfdi/cfdiutils-common required install dom resolution
+install(jsDOMParser, jsXMLSerializer, jsDOMImplementation);
+
+// PDFMAKE on nodejs require font path not included on distributable files
+installPdfMake(new PdfPrinter({
+    Roboto: {
+        normal: join('.', 'fonts', 'Roboto-Regular.ttf'),
+        bold: join('.', 'fonts', 'Roboto-Medium.ttf'),
+        italics: join('.', 'fonts', 'Roboto-Italic.ttf'),
+        bolditalics: join('.', 'fonts', 'Roboto-MediumItalic.ttf'),
+    }
+}));
+
+const xml = readFileSync(inputCfdiPath).toString();
+const comprobante = XmlNodeUtils.nodeFromXmlString(xml);
+const cfdiData = new CfdiData(comprobante, '', cfdiSourceString, 'mylogoBase64');
+
+const builder = new PdfMakerBuilder(new GenericCfdiTranslator());
+await builder.build(cfdiData, outputCfdiPath);
+```
+
+Ejemplo en nodejs usando xmldom para RET 1.0 y RET 2.0
+
+```ts
+import {
+    installPdfMake,
+    GenericRetencionesTranslator,
+    PdfMakerBuilder,
+    RetencionesData,
+} from '@nodecfdi/cfdi-to-pdf';
+import {
+    XmlNodeUtils,
+    install,
+} from '@nodecfdi/cfdiutils-common';
+import {
+    DOMImplementation,
+    XMLSerializer,
+    DOMParser
+} from '@xmldom/xmldom';
+import PdfPrinter from 'pdfmake';
+import { join } from 'path';
+import { readFileSync } from 'fs';
+
+const inputRetPath = './ret10or20-real.xml';
+const cfdiSourceString = 'cadenaOrigen';
+const outputRetPath = './ret10or20-real.pdf';
+
+// from version 1.2.x on @nodecfdi/cfdiutils-common required install dom resolution
+install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
+
+// PDFMAKE on nodejs require font path not included on distributable files
+installPdfMake(new PdfPrinter({
+    Roboto: {
+        normal: join('.', 'fonts', 'Roboto-Regular.ttf'),
+        bold: join('.', 'fonts', 'Roboto-Medium.ttf'),
+        italics: join('.', 'fonts', 'Roboto-Italic.ttf'),
+        bolditalics: join('.', 'fonts', 'Roboto-MediumItalic.ttf'),
+    }
+}));
+
+const xml = readFileSync(inputRetPath).toString();
+const comprobante = XmlNodeUtils.nodeFromXmlString(xml);
+const retencionesData = new RetencionesData(comprobante, '', cfdiSourceString, 'mylogoBase64');
+
+const builder = new PdfMakerBuilder(new GenericRetencionesTranslator());
+await builder.build(retencionesData, outputRetPath);
+```
+
+Ejemplo en nodejs usando jsDom para RET 1.0 y RET 2.0
+
+```ts
+import {
+    installPdfMake,
+    GenericRetencionesTranslator,
+    PdfMakerBuilder,
+    RetencionesData,
+} from '@nodecfdi/cfdi-to-pdf';
+import {
+    XmlNodeUtils,
+    install,
+} from '@nodecfdi/cfdiutils-common';
+import { JSDOM } from 'jsdom';
+import PdfPrinter from 'pdfmake';
+import { join } from 'path';
+import { readFileSync } from 'fs';
+
+const inputRetPath = './ret10or20-real.xml';
+const cfdiSourceString = 'cadenaOrigen';
+const outputRetPath = './ret10or20-real.pdf';
+
+const dom = new JSDOM();
+const jsDOMParser = new dom.window.DOMParser();
+const jsXMLSerializer = new dom.window.XMLSerializer();
+const jsDOMImplementation = dom.window.document.implementation;
+
+// from version 1.2.x on @nodecfdi/cfdiutils-common required install dom resolution
+install(jsDOMParser, jsXMLSerializer, jsDOMImplementation);
+
+// PDFMAKE on nodejs require font path not included on distributable files
+installPdfMake(new PdfPrinter({
+    Roboto: {
+        normal: join('.', 'fonts', 'Roboto-Regular.ttf'),
+        bold: join('.', 'fonts', 'Roboto-Medium.ttf'),
+        italics: join('.', 'fonts', 'Roboto-Italic.ttf'),
+        bolditalics: join('.', 'fonts', 'Roboto-MediumItalic.ttf'),
+    }
+}));
+
+const xml = readFileSync(inputRetPath).toString();
+const comprobante = XmlNodeUtils.nodeFromXmlString(xml);
+const retencionesData = new RetencionesData(comprobante, '', cfdiSourceString, 'mylogoBase64');
+
+const builder = new PdfMakerBuilder(new GenericRetencionesTranslator());
+await builder.build(retencionesData, outputRetPath);
 ```
 
 > Puedes ver mas ejemplos en examples
 
 Nota: Actualmente la librería requiere que según el tipo de projecto (Nodejs | browser) se le pase el pdfmake ejecutable, según la documentación de [pdfmake](https://pdfmake.github.io/docs/0.1/getting-started/) y esto se puede ejecutando el instalador proporcionado por `@nodecfdi/cfdi-to-pdf`.
+
+## Elementos soportados
+
+Elementos base soportados:
+
+| Tipo    | Soportado          |
+| ------- | ------------------ |
+| CFDI3.3 | :white_check_mark: |
+| CFDI4.0 | :white_check_mark: |
+| RET1.0  | :white_check_mark: |
+| RET2.0  | :white_check_mark: |
+
+Complementos:
+
+| Complemento              | Soportado          |
+| ------------------------ | ------------------ |
+| PAGO1.0                  | :white_check_mark: |
+| PAGO2.0                  | :white_check_mark: |
+| IMPUESTOS LOCALES        | :white_check_mark: |
+| PLATAFORMAS TECNOLÓGICAS | :white_check_mark: |
 
 ## Patrocinadores
 
