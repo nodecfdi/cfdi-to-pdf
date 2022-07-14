@@ -14,6 +14,7 @@ import { formatCurrency, toCurrency } from '../utils/currency';
 import { breakEveryNCharacters } from '../utils/break-characters';
 import { usePago10Complement } from './complements/pago10-complement';
 import { usePago20Complement } from './complements/pago20-complement';
+import { useImpLocal10Complement } from './complements/imp-local10-complement';
 
 export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiData> {
     protected generateFooter(version: string, uuid: string, currentPage: number, pageCount: number): Content {
@@ -497,6 +498,7 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
         /** Area of complements */
         usePago10Complement(comprobante, content);
         usePago20Complement(comprobante, content);
+        useImpLocal10Complement(comprobante, content);
         /** **/
 
         if (additionalFields) {
