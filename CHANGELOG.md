@@ -1,5 +1,11 @@
 # @nodecfdi/cfdi-to-pdf ChangeLog
 
+## 1.3.0
+
+### Minor Changes
+
+- Added support to complement "Impuestos Locales"
+
 ## 1.2.0
 
 - Add helper to installPdfmaker and use has document [pdfmake](https://pdfmake.github.io/docs/0.1/getting-started/) describe (Browser, Nodejs support).
