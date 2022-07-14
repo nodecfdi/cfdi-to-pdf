@@ -2,9 +2,15 @@
 
 ## 1.3.0
 
-### Minor Changes
+### Feature Support to Impuestos Locales
 
 - Added support to complement "Impuestos Locales"
+- Small refactoring
+
+### Documentation
+
+- Added example nodejs and complement example browser
+- Fixed Readme with functional usages
 
 ## 1.2.0
 
