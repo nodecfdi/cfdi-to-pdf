@@ -72,6 +72,7 @@
         <form id="xml-to-pdf" name="xmltopdf">
             <div>
                 <fieldset id="input-xml">
+                    <legend>INPUT</legend>
                     <label>
                         <h5>XML string</h5>
                         <textarea name="text" id="text-xml"></textarea>
@@ -79,6 +80,7 @@
                 </fieldset>
                 <button id="topdf-button" value="1" name="process" type="submit">XML file to PDF</button>
                 <fieldset id="output-pdf-base64">
+                    <legend>OUTPUT</legend>
                     <label>
                         <h5>Pdf BASE64</h5>
                         <textarea readonly name="base64" id="pdf-output"></textarea>
@@ -88,11 +90,11 @@
         </form>
         <script
             type="text/javascript"
-            src="https://unpkg.com/@nodecfdi/cfdiutils-common@1.2.0/dist/prod/cfdiutils-common.umd.js"
+            src="https://unpkg.com/@nodecfdi/cfdiutils-common@1.2.1/dist/prod/cfdiutils-common.umd.js"
         ></script>
         <script
             type="text/javascript"
-            src="https://unpkg.com/@nodecfdi/cfdi-expresiones@2.1.1/dist/prod/cfdi-expresiones.umd.js"
+            src="https://unpkg.com/@nodecfdi/cfdi-expresiones@2.1.2/dist/prod/cfdi-expresiones.umd.js"
         ></script>
         <script
             type="text/javascript"
