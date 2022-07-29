@@ -1,5 +1,4 @@
 import { Style, TDocumentDefinitions } from 'pdfmake/interfaces';
-import { createWriteStream } from 'fs';
 import { BuilderInterface } from './builder-interface';
 import { DocumentTranslatorInterface } from '../templates/document-translator-interface';
 import { AbstractInvoiceData } from '../abstract-invoice-data';
@@ -22,10 +21,12 @@ export class PdfMakerBuilder<T extends AbstractInvoiceData> implements BuilderIn
 
     public build(data: T, destination: string): Promise<void> {
         return new Promise<void>((resolve, reject) => {
+            // eslint-disable-next-line @typescript-eslint/no-var-requires
+            const fs = require('fs');
             const pdfTemplate = this.buildPdf(data);
             const pdfStream = getPdfMake<PdfMakeNode>().createPdfKitDocument(pdfTemplate, {});
-            const fileWriteStream = createWriteStream(destination);
-            fileWriteStream.on('error', (err) => {
+            const fileWriteStream = fs.createWriteStream(destination);
+            fileWriteStream.on('error', (err: Error) => {
                 fileWriteStream.end();
 
                 return reject(err);
