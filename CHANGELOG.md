@@ -1,5 +1,12 @@
 # @nodecfdi/cfdi-to-pdf ChangeLog
 
+## 1.3.1
+
+### Fix fs resolve
+
+- fix fs resolve for bundlers like webpack, rollup, vite, etc
+- Update devs dependencies
+
 ## 1.3.0
 
 ### Feature Support to Impuestos Locales
