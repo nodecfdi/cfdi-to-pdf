@@ -30,7 +30,7 @@ describe('Converter', () => {
     test('converter to base64 cfdi', async () => {
         const cfdi = TestCase.fileContents('cfdi33-valid.xml');
         const comprobante = XmlNodeUtils.nodeFromXmlString(cfdi);
-        const cfdiData = new CfdiData(comprobante, '', 'cadenaOrigen', TestCase.nodeCfdiLogo());
+        const cfdiData = new CfdiData(comprobante, null, null, TestCase.nodeCfdiLogo());
 
         const builder = new PdfMakerBuilder(new GenericCfdiTranslator());
         const base64 = await builder.buildBase64(cfdiData);
@@ -39,7 +39,7 @@ describe('Converter', () => {
 
     test('convert to file cfdi', async () => {
         const cfdi = XmlNodeUtils.nodeFromXmlString(TestCase.fileContents('cfdi33-valid.xml'));
-        const cfdiData = new CfdiData(cfdi, '', 'cadenaOrigen', TestCase.nodeCfdiLogo());
+        const cfdiData = new CfdiData(cfdi, null, null, TestCase.nodeCfdiLogo());
 
         const builder = new PdfMakerBuilder(new GenericCfdiTranslator());
         const created = TestCase.filePath('cfdi33-valid.pdf');
@@ -51,7 +51,7 @@ describe('Converter', () => {
     test('converter to base64 retenciones', async () => {
         const retenciones = TestCase.fileContents('retenciones-valid.xml');
         const comprobante = XmlNodeUtils.nodeFromXmlString(retenciones);
-        const retencionesData = new RetencionesData(comprobante, '', 'cadenaOrigen', TestCase.nodeCfdiLogo());
+        const retencionesData = new RetencionesData(comprobante, null, null, TestCase.nodeCfdiLogo());
 
         const builder = new PdfMakerBuilder(new GenericRetencionesTranslator());
         const base64 = await builder.buildBase64(retencionesData);
@@ -60,7 +60,7 @@ describe('Converter', () => {
 
     test('convert to file retenciones', async () => {
         const retenciones = XmlNodeUtils.nodeFromXmlString(TestCase.fileContents('retenciones-valid.xml'));
-        const retencionesData = new RetencionesData(retenciones, '', 'cadenaOrigen', TestCase.nodeCfdiLogo());
+        const retencionesData = new RetencionesData(retenciones, null, null, TestCase.nodeCfdiLogo());
 
         const builder = new PdfMakerBuilder(new GenericRetencionesTranslator());
         const created = TestCase.filePath('retenciones-valid.pdf');
@@ -71,7 +71,7 @@ describe('Converter', () => {
 
     test('convert thrown error on not write file', async () => {
         const cfdi = XmlNodeUtils.nodeFromXmlString(TestCase.fileContents('cfdi33-valid.xml'));
-        const cfdiData = new CfdiData(cfdi, '', 'cadenaOrigen', TestCase.nodeCfdiLogo());
+        const cfdiData = new CfdiData(cfdi, null, null, TestCase.nodeCfdiLogo());
         const builder = new PdfMakerBuilder(new GenericCfdiTranslator());
 
         await expect(builder.build(cfdiData, '/usr/bin/cfdi33.pdf')).rejects.toHaveProperty('code', 'EACCES');
@@ -80,7 +80,7 @@ describe('Converter', () => {
 
     test('convert thrown error on bad styles', async () => {
         const cfdi = XmlNodeUtils.nodeFromXmlString(TestCase.fileContents('cfdi33-valid.xml'));
-        const cfdiData = new CfdiData(cfdi, '', 'cadenaOrigen', TestCase.nodeCfdiLogo());
+        const cfdiData = new CfdiData(cfdi, null, null, TestCase.nodeCfdiLogo());
 
         const builder = new PdfMakerBuilder(new GenericCfdiTranslator(), { font: 'Calibri' });
 

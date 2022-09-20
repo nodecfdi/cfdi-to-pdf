@@ -8,8 +8,8 @@ export class CfdiData extends AbstractInvoiceData {
 
     constructor(
         comprobante: CNodeInterface,
-        qrUrl: string,
-        tfdSourceString: string,
+        qrUrl?: string | null,
+        tfdSourceString?: string | null,
         logo?: string,
         address?: string,
         additionalFields?: { title: string; value: string }[]
@@ -32,13 +32,16 @@ export class CfdiData extends AbstractInvoiceData {
         this._emisor = emisor;
         this._receptor = receptor;
         this._timbreFiscalDigital = timbreFiscalDigital;
-        this._qrUrl = qrUrl;
-        this._tfdSourceString = tfdSourceString;
+        this._qrUrl = qrUrl || '';
+        this._tfdSourceString = tfdSourceString || '';
         this._logo = logo;
         this._address = address;
         this._additionalFields = additionalFields;
         if (this._qrUrl.trim().length === 0) {
             this.buildUrlQr(this._comprobante);
+        }
+        if (this._tfdSourceString.trim().length === 0) {
+            this.buildTfdSource();
         }
     }
 
