@@ -107,7 +107,7 @@ describe('Currency', () => {
     test('expect thrown on number great than 999,999,999,999.99', () => {
         expect(() => {
             toCurrency(999999999999.99 + 0.1);
-        }).toThrowError('El número es demasiado grande.');
+        }).toThrow('El número es demasiado grande.');
     });
 
     test('format currency to only two decimals characters', () => {
