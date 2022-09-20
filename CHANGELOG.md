@@ -1,5 +1,13 @@
 # @nodecfdi/cfdi-to-pdf ChangeLog
 
+## 1.4.0
+
+### Feature support to Automatic generate TFD source string
+
+- Added support to automatic generate TFD source string
+- Update devs dependencies
+- Update readme with optional qr, and tfdSourceString
+
 ## 1.3.1
 
 ### Fix fs resolve

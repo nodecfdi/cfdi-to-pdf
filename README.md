@@ -41,45 +41,34 @@ yarn add @nodecfdi/cfdi-to-pdf
 Ejemplo en nodejs usando xmldom para CFDI 3.3 y CFDI 4.0
 
 ```ts
-import {
-    installPdfMake,
-    GenericCfdiTranslator,
-    PdfMakerBuilder,
-    CfdiData,
-} from '@nodecfdi/cfdi-to-pdf';
-import {
-    XmlNodeUtils,
-    install,
-} from '@nodecfdi/cfdiutils-common';
-import {
-    DOMImplementation,
-    XMLSerializer,
-    DOMParser
-} from '@xmldom/xmldom';
+import { installPdfMake, GenericCfdiTranslator, PdfMakerBuilder, CfdiData } from '@nodecfdi/cfdi-to-pdf';
+import { XmlNodeUtils, install } from '@nodecfdi/cfdiutils-common';
+import { DOMImplementation, XMLSerializer, DOMParser } from '@xmldom/xmldom';
 import PdfPrinter from 'pdfmake';
 import { join } from 'path';
 import { readFileSync } from 'fs';
 
 const inputCfdiPath = './cfdi40or33-real.xml';
-const cfdiSourceString = 'cadenaOrigen';
 const outputCfdiPath = './cfdi40or33-real.pdf';
 
 // from version 1.2.x on @nodecfdi/cfdiutils-common required install dom resolution
 install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
 
 // PDFMAKE on nodejs require font path not included on distributable files
-installPdfMake(new PdfPrinter({
-    Roboto: {
-        normal: join('.', 'fonts', 'Roboto-Regular.ttf'),
-        bold: join('.', 'fonts', 'Roboto-Medium.ttf'),
-        italics: join('.', 'fonts', 'Roboto-Italic.ttf'),
-        bolditalics: join('.', 'fonts', 'Roboto-MediumItalic.ttf'),
-    }
-}));
+installPdfMake(
+    new PdfPrinter({
+        Roboto: {
+            normal: join('.', 'fonts', 'Roboto-Regular.ttf'),
+            bold: join('.', 'fonts', 'Roboto-Medium.ttf'),
+            italics: join('.', 'fonts', 'Roboto-Italic.ttf'),
+            bolditalics: join('.', 'fonts', 'Roboto-MediumItalic.ttf')
+        }
+    })
+);
 
 const xml = readFileSync(inputCfdiPath).toString();
 const comprobante = XmlNodeUtils.nodeFromXmlString(xml);
-const cfdiData = new CfdiData(comprobante, '', cfdiSourceString, 'mylogoBase64');
+const cfdiData = new CfdiData(comprobante, null, null, 'mylogoBase64');
 
 const builder = new PdfMakerBuilder(new GenericCfdiTranslator());
 await builder.build(cfdiData, outputCfdiPath);
@@ -88,23 +77,14 @@ await builder.build(cfdiData, outputCfdiPath);
 Ejemplo en nodejs usando jsDom para CFDI 3.3 y CFDI 4.0
 
 ```ts
-import {
-    installPdfMake,
-    GenericCfdiTranslator,
-    PdfMakerBuilder,
-    CfdiData,
-} from '@nodecfdi/cfdi-to-pdf';
-import {
-    XmlNodeUtils,
-    install,
-} from '@nodecfdi/cfdiutils-common';
+import { installPdfMake, GenericCfdiTranslator, PdfMakerBuilder, CfdiData } from '@nodecfdi/cfdi-to-pdf';
+import { XmlNodeUtils, install } from '@nodecfdi/cfdiutils-common';
 import { JSDOM } from 'jsdom';
 import PdfPrinter from 'pdfmake';
 import { join } from 'path';
 import { readFileSync } from 'fs';
 
 const inputCfdiPath = './cfdi40or33-real.xml';
-const cfdiSourceString = 'cadenaOrigen';
 const outputCfdiPath = './cfdi40or33-real.pdf';
 
 const dom = new JSDOM();
@@ -116,18 +96,20 @@ const jsDOMImplementation = dom.window.document.implementation;
 install(jsDOMParser, jsXMLSerializer, jsDOMImplementation);
 
 // PDFMAKE on nodejs require font path not included on distributable files
-installPdfMake(new PdfPrinter({
-    Roboto: {
-        normal: join('.', 'fonts', 'Roboto-Regular.ttf'),
-        bold: join('.', 'fonts', 'Roboto-Medium.ttf'),
-        italics: join('.', 'fonts', 'Roboto-Italic.ttf'),
-        bolditalics: join('.', 'fonts', 'Roboto-MediumItalic.ttf'),
-    }
-}));
+installPdfMake(
+    new PdfPrinter({
+        Roboto: {
+            normal: join('.', 'fonts', 'Roboto-Regular.ttf'),
+            bold: join('.', 'fonts', 'Roboto-Medium.ttf'),
+            italics: join('.', 'fonts', 'Roboto-Italic.ttf'),
+            bolditalics: join('.', 'fonts', 'Roboto-MediumItalic.ttf')
+        }
+    })
+);
 
 const xml = readFileSync(inputCfdiPath).toString();
 const comprobante = XmlNodeUtils.nodeFromXmlString(xml);
-const cfdiData = new CfdiData(comprobante, '', cfdiSourceString, 'mylogoBase64');
+const cfdiData = new CfdiData(comprobante, null, null, 'mylogoBase64');
 
 const builder = new PdfMakerBuilder(new GenericCfdiTranslator());
 await builder.build(cfdiData, outputCfdiPath);
@@ -136,45 +118,34 @@ await builder.build(cfdiData, outputCfdiPath);
 Ejemplo en nodejs usando xmldom para RET 1.0 y RET 2.0
 
 ```ts
-import {
-    installPdfMake,
-    GenericRetencionesTranslator,
-    PdfMakerBuilder,
-    RetencionesData,
-} from '@nodecfdi/cfdi-to-pdf';
-import {
-    XmlNodeUtils,
-    install,
-} from '@nodecfdi/cfdiutils-common';
-import {
-    DOMImplementation,
-    XMLSerializer,
-    DOMParser
-} from '@xmldom/xmldom';
+import { installPdfMake, GenericRetencionesTranslator, PdfMakerBuilder, RetencionesData } from '@nodecfdi/cfdi-to-pdf';
+import { XmlNodeUtils, install } from '@nodecfdi/cfdiutils-common';
+import { DOMImplementation, XMLSerializer, DOMParser } from '@xmldom/xmldom';
 import PdfPrinter from 'pdfmake';
 import { join } from 'path';
 import { readFileSync } from 'fs';
 
 const inputRetPath = './ret10or20-real.xml';
-const cfdiSourceString = 'cadenaOrigen';
 const outputRetPath = './ret10or20-real.pdf';
 
 // from version 1.2.x on @nodecfdi/cfdiutils-common required install dom resolution
 install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
 
 // PDFMAKE on nodejs require font path not included on distributable files
-installPdfMake(new PdfPrinter({
-    Roboto: {
-        normal: join('.', 'fonts', 'Roboto-Regular.ttf'),
-        bold: join('.', 'fonts', 'Roboto-Medium.ttf'),
-        italics: join('.', 'fonts', 'Roboto-Italic.ttf'),
-        bolditalics: join('.', 'fonts', 'Roboto-MediumItalic.ttf'),
-    }
-}));
+installPdfMake(
+    new PdfPrinter({
+        Roboto: {
+            normal: join('.', 'fonts', 'Roboto-Regular.ttf'),
+            bold: join('.', 'fonts', 'Roboto-Medium.ttf'),
+            italics: join('.', 'fonts', 'Roboto-Italic.ttf'),
+            bolditalics: join('.', 'fonts', 'Roboto-MediumItalic.ttf')
+        }
+    })
+);
 
 const xml = readFileSync(inputRetPath).toString();
 const comprobante = XmlNodeUtils.nodeFromXmlString(xml);
-const retencionesData = new RetencionesData(comprobante, '', cfdiSourceString, 'mylogoBase64');
+const retencionesData = new RetencionesData(comprobante, null, null, 'mylogoBase64');
 
 const builder = new PdfMakerBuilder(new GenericRetencionesTranslator());
 await builder.build(retencionesData, outputRetPath);
@@ -183,23 +154,14 @@ await builder.build(retencionesData, outputRetPath);
 Ejemplo en nodejs usando jsDom para RET 1.0 y RET 2.0
 
 ```ts
-import {
-    installPdfMake,
-    GenericRetencionesTranslator,
-    PdfMakerBuilder,
-    RetencionesData,
-} from '@nodecfdi/cfdi-to-pdf';
-import {
-    XmlNodeUtils,
-    install,
-} from '@nodecfdi/cfdiutils-common';
+import { installPdfMake, GenericRetencionesTranslator, PdfMakerBuilder, RetencionesData } from '@nodecfdi/cfdi-to-pdf';
+import { XmlNodeUtils, install } from '@nodecfdi/cfdiutils-common';
 import { JSDOM } from 'jsdom';
 import PdfPrinter from 'pdfmake';
 import { join } from 'path';
 import { readFileSync } from 'fs';
 
 const inputRetPath = './ret10or20-real.xml';
-const cfdiSourceString = 'cadenaOrigen';
 const outputRetPath = './ret10or20-real.pdf';
 
 const dom = new JSDOM();
@@ -211,18 +173,20 @@ const jsDOMImplementation = dom.window.document.implementation;
 install(jsDOMParser, jsXMLSerializer, jsDOMImplementation);
 
 // PDFMAKE on nodejs require font path not included on distributable files
-installPdfMake(new PdfPrinter({
-    Roboto: {
-        normal: join('.', 'fonts', 'Roboto-Regular.ttf'),
-        bold: join('.', 'fonts', 'Roboto-Medium.ttf'),
-        italics: join('.', 'fonts', 'Roboto-Italic.ttf'),
-        bolditalics: join('.', 'fonts', 'Roboto-MediumItalic.ttf'),
-    }
-}));
+installPdfMake(
+    new PdfPrinter({
+        Roboto: {
+            normal: join('.', 'fonts', 'Roboto-Regular.ttf'),
+            bold: join('.', 'fonts', 'Roboto-Medium.ttf'),
+            italics: join('.', 'fonts', 'Roboto-Italic.ttf'),
+            bolditalics: join('.', 'fonts', 'Roboto-MediumItalic.ttf')
+        }
+    })
+);
 
 const xml = readFileSync(inputRetPath).toString();
 const comprobante = XmlNodeUtils.nodeFromXmlString(xml);
-const retencionesData = new RetencionesData(comprobante, '', cfdiSourceString, 'mylogoBase64');
+const retencionesData = new RetencionesData(comprobante, null, null, 'mylogoBase64');
 
 const builder = new PdfMakerBuilder(new GenericRetencionesTranslator());
 await builder.build(retencionesData, outputRetPath);
@@ -256,7 +220,7 @@ Complementos:
 
 `@nodecfdi/cfdi-to-pdf` es un projecto de licencia abierta MIT donde el continuo desarrollo es realizado por el apoyo de la comunidad y de los patrocinadores.
 
-[![Infaster](/assets/infaster-sponsor.png "infaster")](https://www.infaster.mx/)
+[![Infaster](/assets/infaster-sponsor.png 'infaster')](https://www.infaster.mx/)
 
 ## Soporte
 
@@ -281,19 +245,17 @@ The `@nodecfdi/cfdi-to-pdf` library is copyright © [NodeCfdi](https://github.co
 
 [contributing]: https://github.com/nodecfdi/cfdi-to-pdf/blob/main/CONTRIBUTING.md
 [changelog]: https://github.com/nodecfdi/cfdi-to-pdf/blob/main/CHANGELOG.md
-
 [source]: https://github.com/nodecfdi/cfdi-to-pdf
 [node-version]: https://www.npmjs.com/package/@nodecfdi/cfdi-to-pdf
 [discord]: https://discord.gg/AsqX8fkW2k
 [release]: https://www.npmjs.com/package/@nodecfdi/cfdi-to-pdf
 [license]: https://github.com/nodecfdi/cfdi-to-pdf/blob/main/LICENSE
 [build]: https://github.com/nodecfdi/cfdi-to-pdf/actions/workflows/build.yml?query=branch:main
-[reliability]:https://sonarcloud.io/component_measures?id=nodecfdi_cfdi-to-pdf&metric=Reliability
+[reliability]: https://sonarcloud.io/component_measures?id=nodecfdi_cfdi-to-pdf&metric=Reliability
 [maintainability]: https://sonarcloud.io/component_measures?id=nodecfdi_cfdi-to-pdf&metric=Maintainability
 [coverage]: https://sonarcloud.io/component_measures?id=nodecfdi_cfdi-to-pdf&metric=Coverage
 [violations]: https://sonarcloud.io/project/issues?id=nodecfdi_cfdi-to-pdf&resolved=false
 [downloads]: https://www.npmjs.com/package/@nodecfdi/cfdi-to-pdf
-
 [badge-source]: https://img.shields.io/badge/source-nodecfdi/cfdi--to--pdf-blue.svg?logo=github
 [badge-node-version]: https://img.shields.io/node/v/@nodecfdi/cfdi-to-pdf.svg?logo=nodedotjs
 [badge-discord]: https://img.shields.io/discord/459860554090283019?logo=discord
