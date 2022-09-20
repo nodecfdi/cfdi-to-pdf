@@ -63,6 +63,7 @@
         "cross-env": "^7.0.3",
         "eslint": "^8.23.1",
         "eslint-config-prettier": "^8.5.0",
+        "eslint-define-config": "^1.7.0",
         "eslint-plugin-jest": "^27.0.4",
         "eslint-plugin-prettier": "^4.2.1",
         "eslint-plugin-promise": "^6.0.1",
@@ -84,7 +85,7 @@
         "pdfmake": "^0.2.5"
     },
     "engines": {
-        "node": ">= 14.0.0"
+        "node": ">= 14.19"
     },
     "browserslist": [
         "defaults",

@@ -20,6 +20,7 @@ specifiers:
   cross-env: ^7.0.3
   eslint: ^8.23.1
   eslint-config-prettier: ^8.5.0
+  eslint-define-config: ^1.7.0
   eslint-plugin-jest: ^27.0.4
   eslint-plugin-prettier: ^4.2.1
   eslint-plugin-promise: ^6.0.1
@@ -59,6 +60,7 @@ devDependencies:
   cross-env: 7.0.3
   eslint: 8.23.1
   eslint-config-prettier: 8.5.0_eslint@8.23.1
+  eslint-define-config: 1.7.0
   eslint-plugin-jest: 27.0.4_qsk6uocri6piwezqjqcgw24zhq
   eslint-plugin-prettier: 4.2.1_cabrci5exjdaojcvd6xoxgeowu
   eslint-plugin-promise: 6.0.1_eslint@8.23.1
@@ -3988,6 +3990,11 @@ packages:
       eslint: '>=7.0.0'
     dependencies:
       eslint: 8.23.1
+    dev: true
+
+  /eslint-define-config/1.7.0:
+    resolution: {integrity: sha512-13zk8z8eKO4tpPMvAGV0sa6ok0XuMeu7Zhcizu2bLwcLy1fbNt7/h8PU1wbp9IoIgQETggZJozU0nPXUXOao2g==}
+    engines: {node: '>= 14.6.0', npm: '>= 6.0.0', pnpm: '>= 7.0.0'}
     dev: true
 
   /eslint-plugin-jest/27.0.4_qsk6uocri6piwezqjqcgw24zhq:

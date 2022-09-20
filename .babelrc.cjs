@@ -17,7 +17,7 @@ const replacements = {
     '__VERSION__': pkgVersion,
     '__BUILD_DATE__': buildDate,
     '__COMMIT_SHA__': commitSha,
-    'process.env.NODE_ENV': nodeEnv,
+    'process.env.NODE_ENV': nodeEnv
 };
 
 const plugins = ['dev-expression', ['transform-define', replacements]];
@@ -33,14 +33,14 @@ const jestConfig = {
             '@babel/preset-env',
             {
                 targets: {
-                    node: 'current',
-                },
-            },
+                    node: 'current'
+                }
+            }
         ],
-        '@babel/preset-typescript',
+        '@babel/preset-typescript'
     ],
     ignore: ['node_modules'],
-    sourceMaps: 'inline',
+    sourceMaps: 'inline'
 };
 
 module.exports = process.env.NODE_ENV === 'test' ? jestConfig : config;
