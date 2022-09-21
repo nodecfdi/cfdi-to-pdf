@@ -10,8 +10,8 @@ export class RetencionesData extends AbstractInvoiceData {
 
     constructor(
         retenciones: CNodeInterface,
-        qrUrl: string,
-        tfdSourceString: string,
+        qrUrl?: string | null,
+        tfdSourceString?: string | null,
         logo?: string,
         additionalFields?: { title: string; value: string }[]
     ) {
@@ -43,12 +43,15 @@ export class RetencionesData extends AbstractInvoiceData {
         this._periodo = periodo;
         this._totales = totales;
         this._timbreFiscalDigital = timbreFiscalDigital;
-        this._qrUrl = qrUrl;
-        this._tfdSourceString = tfdSourceString;
+        this._qrUrl = qrUrl || '';
+        this._tfdSourceString = tfdSourceString || '';
         this._logo = logo;
         this._additionalFields = additionalFields;
         if (this._qrUrl.trim().length === 0) {
             this.buildUrlQr(this._retenciones);
+        }
+        if (this._tfdSourceString.trim().length === 0) {
+            this.buildTfdSource();
         }
     }
 

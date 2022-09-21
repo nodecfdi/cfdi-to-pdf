@@ -1,6 +1,8 @@
 import { DiscoverExtractor } from '@nodecfdi/cfdi-expresiones';
 import { CNodeInterface, XmlNodeUtils, getParser } from '@nodecfdi/cfdiutils-common';
 
+import { normalizeSpace } from './utils/normalize-space';
+
 export abstract class AbstractInvoiceData {
     protected _emisor!: CNodeInterface;
 
@@ -42,6 +44,68 @@ export abstract class AbstractInvoiceData {
 
     public additionalFields(): { title: string; value: string }[] | undefined {
         return this._additionalFields;
+    }
+
+    private createTfdSourceString1_0(): void {
+        const tfd = this.timbreFiscalDigital();
+
+        let finalSource = '';
+        // Version - Required
+        finalSource = `${finalSource}|${normalizeSpace(tfd.get('version'))}`;
+
+        // UUID - Required
+        finalSource = `${finalSource}|${normalizeSpace(tfd.get('UUID'))}`;
+
+        // FechaTimbrado - Required
+        finalSource = `${finalSource}|${normalizeSpace(tfd.get('FechaTimbrado'))}`;
+
+        // SelloCFD - Required
+        finalSource = `${finalSource}|${normalizeSpace(tfd.get('selloCFD'))}`;
+
+        // NoCertificadoSAT
+        finalSource = `${finalSource}|${normalizeSpace(tfd.get('noCertificadoSAT'))}`;
+
+        this._tfdSourceString = `|${finalSource}||`;
+    }
+
+    private createTfdSourceString1_1(): void {
+        const tfd = this.timbreFiscalDigital();
+
+        let finalSource = '';
+        // Version - Required
+        finalSource = `${finalSource}|${normalizeSpace(tfd.get('Version'))}`;
+
+        // UUID - Required
+        finalSource = `${finalSource}|${normalizeSpace(tfd.get('UUID'))}`;
+
+        // FechaTimbrado - Required
+        finalSource = `${finalSource}|${normalizeSpace(tfd.get('FechaTimbrado'))}`;
+
+        // RfcProvCertif - Required
+        finalSource = `${finalSource}|${normalizeSpace(tfd.get('RfcProvCertif'))}`;
+
+        // Leyenda - Optional
+        if (tfd.offsetExists('Leyenda')) {
+            finalSource = `${finalSource}|${normalizeSpace(tfd.get('Leyenda'))}`;
+        }
+
+        // SelloCFD - Required
+        finalSource = `${finalSource}|${normalizeSpace(tfd.get('SelloCFD'))}`;
+
+        // NoCertificadoSAT
+        finalSource = `${finalSource}|${normalizeSpace(tfd.get('NoCertificadoSAT'))}`;
+
+        this._tfdSourceString = `|${finalSource}||`;
+    }
+
+    public buildTfdSource(): void {
+        const tfd = this.timbreFiscalDigital();
+
+        if (tfd.offsetExists('Version')) {
+            this.createTfdSourceString1_1();
+        } else {
+            this.createTfdSourceString1_0();
+        }
     }
 
     public buildUrlQr(node: CNodeInterface): void {
