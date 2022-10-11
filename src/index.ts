@@ -1,3 +1,5 @@
+export * from './catalogs/catalogs-interface';
+export * from './catalogs/static-catalogs';
 export * from './abstract-invoice-data';
 export * from './cfdi-data';
 export * from './retenciones-data';
