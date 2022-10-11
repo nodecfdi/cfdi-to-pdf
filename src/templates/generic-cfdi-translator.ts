@@ -15,6 +15,7 @@ import { breakEveryNCharacters } from '../utils/break-characters';
 import { usePago10Complement } from './complements/pago10-complement';
 import { usePago20Complement } from './complements/pago20-complement';
 import { useImpLocal10Complement } from './complements/imp-local10-complement';
+import { CatalogsInterface } from '../catalogs/catalogs-interface';
 
 export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiData> {
     protected generateFooter(version: string, uuid: string, currentPage: number, pageCount: number): Content {
@@ -51,7 +52,7 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
         };
     }
 
-    protected generateTopContent(comprobante: CNodeInterface, logo?: string): Content {
+    protected generateTopContent(comprobante: CNodeInterface, catalogs: CatalogsInterface, logo?: string): Content {
         const header: ContentColumns = {
             columns: [
                 {
@@ -75,7 +76,7 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                             ['FOLIO:', comprobante.get('Folio')],
                             ['FECHA:', comprobante.get('Fecha')],
                             ['EXPEDICIÓN:', comprobante.get('LugarExpedicion')],
-                            ['COMPROBANTE:', comprobante.get('TipoDeComprobante')],
+                            ['COMPROBANTE:', catalogs.catTipoComprobante(comprobante.get('TipoDeComprobante'))],
                             ['VERSIÓN:', comprobante.get('Version')]
                         ]
                     },
@@ -91,7 +92,7 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
         return header;
     }
 
-    protected generateEmisorContent(emisor: CNodeInterface): Content {
+    protected generateEmisorContent(emisor: CNodeInterface, catalogs: CatalogsInterface): Content {
         return {
             style: 'tableContent',
             table: {
@@ -109,14 +110,19 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                         {}
                     ],
                     ['NOMBRE:', emisor.get('Nombre'), 'RFC:', emisor.get('Rfc')],
-                    ['REGIMEN FISCAL:', { colSpan: 3, text: emisor.get('RegimenFiscal') }, {}, {}]
+                    [
+                        'REGIMEN FISCAL:',
+                        { colSpan: 3, text: catalogs.catRegimenFiscal(emisor.get('RegimenFiscal')) },
+                        {},
+                        {}
+                    ]
                 ]
             },
             layout: 'lightHorizontalLines'
         };
     }
 
-    protected generateAddress(receptor: CNodeInterface, address?: string): TableCell[][] {
+    protected generateAddress(receptor: CNodeInterface, catalogs: CatalogsInterface, address?: string): TableCell[][] {
         const tableCell: TableCell[][] = [];
         const cellAddress: TableCell[] = [];
         if (address || receptor.offsetExists('DomicilioFiscalReceptor')) {
@@ -124,7 +130,7 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
         }
         cellAddress.push('USO CFDI', {
             colSpan: address || receptor.offsetExists('DomicilioFiscalReceptor') ? 1 : 3,
-            text: receptor.get('UsoCFDI')
+            text: catalogs.catUsoCFDI(receptor.get('UsoCFDI'))
         });
         tableCell.push(cellAddress);
         if (receptor.offsetExists('ResidenciaFiscal') && receptor.offsetExists('NumRegIdTrib')) {
@@ -139,7 +145,11 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
         return tableCell;
     }
 
-    protected generateReceptorContent(receptor: CNodeInterface, address?: string): Content {
+    protected generateReceptorContent(
+        receptor: CNodeInterface,
+        catalogs: CatalogsInterface,
+        address?: string
+    ): Content {
         const receptorContent: Content = {
             style: 'tableContent',
             table: {
@@ -157,7 +167,7 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                         {}
                     ],
                     ['NOMBRE:', receptor.get('Nombre'), 'RFC:', receptor.get('Rfc')],
-                    ...this.generateAddress(receptor, address)
+                    ...this.generateAddress(receptor, catalogs, address)
                 ]
             },
             layout: 'lightHorizontalLines'
@@ -168,7 +178,7 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                 'REGIMEN FISCAL',
                 {
                     colSpan: 3,
-                    text: receptor.get('RegimenFiscalReceptor')
+                    text: catalogs.catRegimenFiscal(receptor.get('RegimenFiscalReceptor'))
                 },
                 {},
                 {}
@@ -178,7 +188,11 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
         return receptorContent;
     }
 
-    protected useGlobalInformation(comprobante: CNodeInterface, currentContent: Content[]): void {
+    protected useGlobalInformation(
+        comprobante: CNodeInterface,
+        currentContent: Content[],
+        catalogs: CatalogsInterface
+    ): void {
         const globalInformation = comprobante.searchNode('cfdi:InformacionGlobal');
         if (globalInformation === undefined) return;
         currentContent.push({
@@ -197,8 +211,8 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                         {}
                     ],
                     [
-                        `Periodicidad: ${globalInformation.get('Periodicidad')}`,
-                        `Meses: ${globalInformation.get('Meses')}`,
+                        `Periodicidad: ${catalogs.catPeriodicidad(globalInformation.get('Periodicidad'))}`,
+                        `Meses: ${catalogs.catMeses(globalInformation.get('Meses'))}`,
                         `Año: ${globalInformation.get('Año')}`
                     ]
                 ]
@@ -208,7 +222,7 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
         currentContent.push('\n');
     }
 
-    protected generateGeneralInvoiceInfoContent(comprobante: CNodeInterface): Content {
+    protected generateGeneralInvoiceInfoContent(comprobante: CNodeInterface, catalogs: CatalogsInterface): Content {
         return {
             style: 'tableContent',
             table: {
@@ -225,10 +239,15 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                         {},
                         {}
                     ],
-                    ['MONEDA:', comprobante.get('Moneda'), 'FORMA PAGO:', comprobante.get('FormaPago')],
+                    [
+                        'MONEDA:',
+                        comprobante.get('Moneda'),
+                        'FORMA PAGO:',
+                        catalogs.catFormaPago(comprobante.get('FormaPago'))
+                    ],
                     [
                         'METODO DE PAGO:',
-                        comprobante.get('MetodoPago'),
+                        catalogs.catMetodoPago(comprobante.get('MetodoPago')),
                         'CONDICIONES DE PAGO:',
                         comprobante.get('CondicionesDePago')
                     ]
@@ -238,7 +257,7 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
         };
     }
 
-    protected generateImpuestos(concepto: CNodeInterface): Content[] {
+    protected generateImpuestos(concepto: CNodeInterface, catalogs: CatalogsInterface): Content[] {
         const impuestosContent: Content[] = [];
         const traslados = concepto.searchNodes('cfdi:Impuestos', 'cfdi:Traslados', 'cfdi:Traslado');
         const retenciones = concepto.searchNodes('cfdi:Impuestos', 'cfdi:Retenciones', 'cfdi:Retencion');
@@ -246,7 +265,7 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
             impuestosContent.push('Traslados');
             const contentT = traslados.map<TableCell[]>((traslado) => {
                 return [
-                    traslado.get('Impuesto'),
+                    catalogs.catImpuesto(traslado.get('Impuesto')),
                     traslado.get('TipoFactor') === 'Exento' ? 'EXENTO' : formatCurrency(traslado.get('Importe'))
                 ];
             });
@@ -260,7 +279,7 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
         if (retenciones.length > 0) {
             impuestosContent.push('Retenciones');
             const contentR = retenciones.map<TableCell[]>((retencion) => {
-                return [retencion.get('Impuesto'), formatCurrency(retencion.get('Importe'))];
+                return [catalogs.catImpuesto(retencion.get('Impuesto')), formatCurrency(retencion.get('Importe'))];
             });
             impuestosContent.push({
                 table: {
@@ -273,7 +292,7 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
         return impuestosContent;
     }
 
-    protected generateConceptsContent(conceptos: CNodes): Content {
+    protected generateConceptsContent(conceptos: CNodes, catalogs: CatalogsInterface): Content {
         const rowsConceptos = conceptos.map<TableCell[]>((concepto) => {
             return [
                 concepto.get('ClaveProdServ'),
@@ -285,7 +304,7 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                 formatCurrency(concepto.get('Descuento')),
                 {
                     colSpan: 2,
-                    stack: this.generateImpuestos(concepto)
+                    stack: this.generateImpuestos(concepto, catalogs)
                 },
                 '',
                 formatCurrency(concepto.get('Importe'))
@@ -322,7 +341,7 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
         };
     }
 
-    protected generateCurrencyRelatedInfo(comprobante: CNodeInterface): Content {
+    protected generateCurrencyRelatedInfo(comprobante: CNodeInterface, catalogs: CatalogsInterface): Content {
         const totalImpuestosTrasladados = comprobante.searchAttribute('cfdi:Impuestos', 'TotalImpuestosTrasladados');
         const totalImpuestosRetenidos = comprobante.searchAttribute('cfdi:Impuestos', 'TotalImpuestosRetenidos');
         const contentColumns: Column[] = [];
@@ -356,7 +375,9 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                         body: [
                             [
                                 {
-                                    text: `CFDIS RELACIONADOS - TIPO RELACIÓN ${relacionados.get('TipoRelacion')}`,
+                                    text: `CFDIS RELACIONADOS - TIPO RELACIÓN ${catalogs.catTipoRelacion(
+                                        relacionados.get('TipoRelacion')
+                                    )}`,
                                     fillColor: '#CCCCCC'
                                 }
                             ],
@@ -381,8 +402,8 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
                             body: [
                                 [
                                     {
-                                        text: `CFDIS RELACIONADOS - TIPO RELACIÓN ${relacionadosNode.get(
-                                            'TipoRelacion'
+                                        text: `CFDIS RELACIONADOS - TIPO RELACIÓN ${catalogs.catTipoRelacion(
+                                            relacionadosNode.get('TipoRelacion')
                                         )}`,
                                         fillColor: '#CCCCCC'
                                     }
@@ -471,7 +492,7 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
         };
     }
 
-    protected generateContent(cfdiData: CfdiData): Content {
+    protected generateContent(cfdiData: CfdiData, catalogs: CatalogsInterface): Content {
         const comprobante = cfdiData.comprobante();
         const emisor = cfdiData.emisor();
         const receptor = cfdiData.receptor();
@@ -479,20 +500,20 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
         const additionalFields = cfdiData.additionalFields();
 
         const content: Content[] = [];
-        content.push(this.generateTopContent(comprobante, cfdiData.logo()));
+        content.push(this.generateTopContent(comprobante, catalogs, cfdiData.logo()));
         content.push('\n');
-        content.push(this.generateEmisorContent(emisor));
+        content.push(this.generateEmisorContent(emisor, catalogs));
         content.push('\n');
-        content.push(this.generateReceptorContent(receptor, cfdiData.address()));
+        content.push(this.generateReceptorContent(receptor, catalogs, cfdiData.address()));
         content.push('\n');
         if (comprobante.get('TipoDeComprobante') !== 'P') {
-            this.useGlobalInformation(comprobante, content);
-            content.push(this.generateGeneralInvoiceInfoContent(comprobante));
+            this.useGlobalInformation(comprobante, content, catalogs);
+            content.push(this.generateGeneralInvoiceInfoContent(comprobante, catalogs));
             content.push('\n');
         }
-        content.push(this.generateConceptsContent(conceptos));
+        content.push(this.generateConceptsContent(conceptos, catalogs));
         content.push('\n');
-        content.push(this.generateCurrencyRelatedInfo(comprobante));
+        content.push(this.generateCurrencyRelatedInfo(comprobante, catalogs));
         content.push('\n');
 
         /** Area of complements */
@@ -520,12 +541,12 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
         return content;
     }
 
-    public translate(cfdiData: CfdiData, defaultStyle: Style): TDocumentDefinitions {
+    public translate(cfdiData: CfdiData, defaultStyle: Style, catalogs: CatalogsInterface): TDocumentDefinitions {
         const comprobante = cfdiData.comprobante();
         const tfd = cfdiData.timbreFiscalDigital();
 
         return {
-            content: this.generateContent(cfdiData),
+            content: this.generateContent(cfdiData, catalogs),
             styles: {
                 tableHeader: {
                     bold: true,

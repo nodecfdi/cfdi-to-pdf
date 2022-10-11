@@ -12,6 +12,7 @@ import { DocumentTranslatorInterface } from './document-translator-interface';
 import { RetencionesData } from '../retenciones-data';
 import { breakEveryNCharacters } from '../utils/break-characters';
 import { formatCurrency } from '../utils/currency';
+import { CatalogsInterface } from '../catalogs/catalogs-interface';
 
 export class GenericRetencionesTranslator implements DocumentTranslatorInterface<RetencionesData> {
     public version = '1.0';
@@ -857,7 +858,7 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
         return content;
     }
 
-    public translate(data: RetencionesData, defaultStyle: Style): TDocumentDefinitions {
+    public translate(data: RetencionesData, defaultStyle: Style, _catalogs: CatalogsInterface): TDocumentDefinitions {
         const retenciones = data.retenciones();
         const tfd = data.timbreFiscalDigital();
         this.version = retenciones.get('Version');

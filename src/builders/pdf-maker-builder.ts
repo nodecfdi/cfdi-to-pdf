@@ -3,6 +3,8 @@ import { BuilderInterface } from './builder-interface';
 import { DocumentTranslatorInterface } from '../templates/document-translator-interface';
 import { AbstractInvoiceData } from '../abstract-invoice-data';
 import { getPdfMake, PdfMakeNode } from '../pdfmake-builder';
+import { StaticCatalogs } from '../catalogs/static-catalogs';
+import { CatalogsInterface } from '../catalogs/catalogs-interface';
 
 export class PdfMakerBuilder<T extends AbstractInvoiceData> implements BuilderInterface<T> {
     private readonly _documentTranslator: DocumentTranslatorInterface<T>;
@@ -19,11 +21,11 @@ export class PdfMakerBuilder<T extends AbstractInvoiceData> implements BuilderIn
         this._defaultStyle = defaultStyle;
     }
 
-    public build(data: T, destination: string): Promise<void> {
+    public build(data: T, destination: string, catalogs: CatalogsInterface = new StaticCatalogs()): Promise<void> {
         return new Promise<void>((resolve, reject) => {
             // eslint-disable-next-line @typescript-eslint/no-var-requires
             const fs = require('fs');
-            const pdfTemplate = this.buildPdf(data);
+            const pdfTemplate = this.buildPdf(data, catalogs);
             const pdfStream = getPdfMake<PdfMakeNode>().createPdfKitDocument(pdfTemplate, {});
             const fileWriteStream = fs.createWriteStream(destination);
             fileWriteStream.on('error', (err: Error) => {
@@ -44,9 +46,9 @@ export class PdfMakerBuilder<T extends AbstractInvoiceData> implements BuilderIn
         });
     }
 
-    public buildBase64(data: T): Promise<string> {
+    public buildBase64(data: T, catalogs: CatalogsInterface = new StaticCatalogs()): Promise<string> {
         return new Promise<string>((resolve, reject) => {
-            const pdfTemplate = this.buildPdf(data);
+            const pdfTemplate = this.buildPdf(data, catalogs);
             const pdfStream = getPdfMake<PdfMakeNode>().createPdfKitDocument(pdfTemplate, {});
             const chunks: Uint8Array[] = [];
             pdfStream.on('data', (chunk) => {
@@ -63,7 +65,7 @@ export class PdfMakerBuilder<T extends AbstractInvoiceData> implements BuilderIn
         });
     }
 
-    public buildPdf(data: T): TDocumentDefinitions {
-        return this._documentTranslator.translate(data, this._defaultStyle);
+    public buildPdf(data: T, catalogs: CatalogsInterface): TDocumentDefinitions {
+        return this._documentTranslator.translate(data, this._defaultStyle, catalogs);
     }
 }
