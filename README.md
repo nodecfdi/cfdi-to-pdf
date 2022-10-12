@@ -72,6 +72,9 @@ const cfdiData = new CfdiData(comprobante, null, null, 'mylogoBase64');
 
 const builder = new PdfMakerBuilder(new GenericCfdiTranslator());
 await builder.build(cfdiData, outputCfdiPath);
+
+// Optional: You can pass catalogs class implements CatalogsInterface
+// await builder.build(cfdiData, outputCfdiPath, catalogs);
 ```
 
 Ejemplo en nodejs usando jsDom para CFDI 3.3 y CFDI 4.0
@@ -113,6 +116,9 @@ const cfdiData = new CfdiData(comprobante, null, null, 'mylogoBase64');
 
 const builder = new PdfMakerBuilder(new GenericCfdiTranslator());
 await builder.build(cfdiData, outputCfdiPath);
+
+// Optional: You can pass catalogs class implements CatalogsInterface
+// await builder.build(cfdiData, outputCfdiPath, catalogs);
 ```
 
 Ejemplo en nodejs usando xmldom para RET 1.0 y RET 2.0
@@ -149,6 +155,8 @@ const retencionesData = new RetencionesData(comprobante, null, null, 'mylogoBase
 
 const builder = new PdfMakerBuilder(new GenericRetencionesTranslator());
 await builder.build(retencionesData, outputRetPath);
+// Optional: You can pass catalogs class implements CatalogsInterface
+// await builder.build(retencionesData, outputRetPath, catalogs);
 ```
 
 Ejemplo en nodejs usando jsDom para RET 1.0 y RET 2.0
@@ -190,6 +198,9 @@ const retencionesData = new RetencionesData(comprobante, null, null, 'mylogoBase
 
 const builder = new PdfMakerBuilder(new GenericRetencionesTranslator());
 await builder.build(retencionesData, outputRetPath);
+
+// Optional: You can pass catalogs class implements CatalogsInterface
+// await builder.build(retencionesData, outputRetPath, catalogs);
 ```
 
 > Puedes ver mas ejemplos en examples

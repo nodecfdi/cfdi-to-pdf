@@ -1,5 +1,13 @@
 # @nodecfdi/cfdi-to-pdf ChangeLog
 
+## 1.5.0
+
+### Feature support to Catalogs
+
+- Added support to catalogs
+- Update dependencies
+- Update readme with optional catalogs variable
+
 ## 1.4.0
 
 ### Feature support to Automatic generate TFD source string
