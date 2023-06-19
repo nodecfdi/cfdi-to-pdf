@@ -34,7 +34,7 @@ specifiers:
   pdfmake: ^0.2.6
   prettier: ^2.7.1
   typedoc: ^0.23.16
-  typedoc-theme-hierarchy: ^3.0.0
+  typedoc-theme-hierarchy: ^4.0.0
   typescript: ^4.8.4
 
 dependencies:
@@ -73,7 +73,7 @@ devDependencies:
   microbundle: 0.15.1
   prettier: 2.7.1
   typedoc: 0.23.16_typescript@4.8.4
-  typedoc-theme-hierarchy: 3.0.0_typedoc@0.23.16
+  typedoc-theme-hierarchy: 4.0.0_typedoc@0.23.16
   typescript: 4.8.4
 
 packages:
@@ -7869,10 +7869,10 @@ packages:
     resolution: {integrity: sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==}
     dev: false
 
-  /typedoc-theme-hierarchy/3.0.0_typedoc@0.23.16:
-    resolution: {integrity: sha512-f8zWRVYJ6hAIyUorTNnUtrzGo4BMApC7d2PSaUR9OG9gLUaNZTosB9EkfIsWxj7nyqG909kobeVxTa20FU9f/g==}
+  /typedoc-theme-hierarchy/4.0.0_typedoc@0.23.16:
+    resolution: {integrity: sha512-/y8QfmkLN+NS57hoxsS/vD1fdAPdkd7JtC7xWp2Lk3rE6/cRweFdEfaKD6GJCQMD3CuSD7Ldcc5vjwwrF4UqyQ==}
     peerDependencies:
-      typedoc: ^0.23.6
+      typedoc: ^0.24.0
     dependencies:
       fs-extra: 10.1.0
       typedoc: 0.23.16_typescript@4.8.4
