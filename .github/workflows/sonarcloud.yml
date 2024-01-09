@@ -11,7 +11,7 @@ jobs:
     runs-on: 'ubuntu-latest'
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Cache .pnpm-store
         uses: actions/cache@v3
@@ -20,24 +20,24 @@ jobs:
           key: ${{ runner.os }}-node16-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '16'
 
       - name: Install dependencies
-        uses: pnpm/action-setup@v2.2.4
+        uses: pnpm/action-setup@v2
         with:
-          version: 6.23.6
+          version: 8
           run_install: true
 
       - name: Create code coverage
         run: |
-          pnpm test:ci:coverage
+          pnpm test:coverage
         env:
           CI: true
 
       - name: Store code coverage
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: code-coverage
           path: coverage
@@ -53,15 +53,15 @@ jobs:
         id: check-secrets
         run: |
           if [ -n "${{ secrets.GITHUB_TOKEN }}" ]; then
-            echo "::set-output name=github::yes"
+            echo "github=yes" >> $GITHUB_OUTPUT
           else
-            echo "::set-output name=github::no"
+            echo "github=no" >> $GITHUB_OUTPUT
             echo "::warning ::GITHUB_TOKEN non set"
           fi
           if [ -n "${{ secrets.SONAR_TOKEN }}" ]; then
-            echo "::set-output name=sonar::yes"
+            echo "sonar=yes" >> $GITHUB_OUTPUT
           else
-            echo "::set-output name=sonar::no"
+            echo "sonar=no" >> $GITHUB_OUTPUT
             echo "::warning ::SONAR_TOKEN non set"
           fi
 
@@ -72,7 +72,7 @@ jobs:
     runs-on: 'ubuntu-latest'
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Unshallow clone to provide blame information
         run: git fetch --unshallow
@@ -84,18 +84,18 @@ jobs:
           key: ${{ runner.os }}-node16-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '16'
 
       - name: Install dependencies
-        uses: pnpm/action-setup@v2.2.4
+        uses: pnpm/action-setup@v2
         with:
-          version: 6.23.6
+          version: 8
           run_install: true
 
       - name: Obtain code coverage
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: code-coverage
           path: coverage

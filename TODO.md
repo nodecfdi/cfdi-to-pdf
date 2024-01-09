@@ -1,10 +1,10 @@
 # @nodecfdi/cfdi-to-pdf
 
-### Todo
+## Todo
 
 - [ ] Add tests for include coverage on templates  
 - [ ] Add test for browser environment  
 
-### In Progress
+## In Progress
 
-### Done ✓
+## Done ✓
