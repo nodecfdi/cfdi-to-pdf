@@ -1,33 +1,35 @@
 import PdfPrinter from 'pdfmake';
-import { TestCase } from '../test-case';
-import { PdfmakeNotFound } from '~/exceptions/pdfmake-not-found';
-import { getPdfMake, installPdfMake, PdfMakeNode } from '~/pdfmake-builder';
+import { PdfmakeNotFound } from 'src/exceptions/pdfmake-not-found';
+import { getPdfMake, installPdfMake, type PdfMakeNode } from 'src/pdfmake-builder';
+import { useTestCase } from '../test-case.js';
 
 describe('Pdfmake-builder', () => {
-    test('if not install pdfmake is undefined and throw error', () => {
-        const t = (): void => {
-            getPdfMake();
-        };
+  const { filePath } = useTestCase();
 
-        expect(t).toThrow(PdfmakeNotFound);
-        expect(t).toThrow('No pdfmake was provided.');
-    });
+  test('if not install pdfmake is undefined and throw error', () => {
+    const t = (): void => {
+      getPdfMake();
+    };
 
-    test('on install retrieve instance requested', () => {
-        installPdfMake(
-            new PdfPrinter({
-                Roboto: {
-                    normal: TestCase.filePath('fonts/Roboto-Regular.ttf'),
-                    bold: TestCase.filePath('fonts/Roboto-Medium.ttf'),
-                    italics: TestCase.filePath('fonts/Roboto-Italic.ttf'),
-                    bolditalics: TestCase.filePath('fonts/Roboto-MediumItalic.ttf')
-                }
-            })
-        );
+    expect(t).toThrow(PdfmakeNotFound);
+    expect(t).toThrow('No pdfmake was provided.');
+  });
 
-        const pdfMake = getPdfMake<PdfMakeNode>();
+  test('on install retrieve instance requested', () => {
+    installPdfMake(
+      new PdfPrinter({
+        Roboto: {
+          normal: filePath('fonts/Roboto-Regular.ttf'),
+          bold: filePath('fonts/Roboto-Medium.ttf'),
+          italics: filePath('fonts/Roboto-Italic.ttf'),
+          bolditalics: filePath('fonts/Roboto-MediumItalic.ttf'),
+        },
+      }),
+    );
 
-        expect(pdfMake).not.toBeUndefined();
-        expect(pdfMake).toBeInstanceOf(PdfPrinter);
-    });
+    const pdfMake = getPdfMake<PdfMakeNode>();
+
+    expect(pdfMake).not.toBeUndefined();
+    expect(pdfMake).toBeInstanceOf(PdfPrinter);
+  });
 });

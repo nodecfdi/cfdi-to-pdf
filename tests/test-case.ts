@@ -1,16 +1,23 @@
-import { join } from 'path';
-import { readFileSync } from 'fs';
+import { dirname, join } from 'node:path';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 
-export class TestCase {
-    public static filePath(filename: string): string {
-        return join(__dirname, '_files', filename);
-    }
+const useTestCase = (): {
+  filePath: (filename: string) => string;
+  fileContents: (filename: string) => string;
+  nodeCfdiLogo: () => string;
+} => {
+  const filePath = (filename: string) => join(dirname(fileURLToPath(import.meta.url)), '_files', filename);
 
-    public static fileContents(filename: string): string {
-        return readFileSync(TestCase.filePath(filename), 'utf-8');
-    }
+  const fileContents = (filename: string) => readFileSync(filePath(filename), 'binary');
 
-    public static nodeCfdiLogo(): string {
-        return `data:image/png;base64,${TestCase.fileContents('nodecfdi-logo.txt')}`;
-    }
-}
+  const nodeCfdiLogo = () => `data:image/png;base64,${fileContents('nodecfdi-logo.txt')}`;
+
+  return {
+    filePath,
+    fileContents,
+    nodeCfdiLogo,
+  };
+};
+
+export { useTestCase };

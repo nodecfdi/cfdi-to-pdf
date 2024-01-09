@@ -1,11 +1,12 @@
 {
-    "extends": "../tsconfig.json",
-    "compilerOptions": {
-        "baseUrl": "./",
-        "paths": {
-            "~/*": ["../src/*"]
-        }
-    },
-    "exclude": ["../node_modules"],
-    "include": ["./**/*.ts"]
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "types": ["vitest/globals"],
+    "baseUrl": "./",
+    "paths": {
+      "src/*": ["../src/*"]
+    }
+  },
+  "exclude": ["../node_modules"],
+  "include": ["./**/*.ts"]
 }
