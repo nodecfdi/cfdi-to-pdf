@@ -1,6 +1,7 @@
 # `@nodecfdi/cfdi-to-pdf`
 
 [![Source Code][badge-source]][source]
+[![XO code style](https://shields.io/badge/code_style-5ed9c7?logo=xo&labelColor=gray)](https://github.com/xojs/xo)
 [![Npm Node Version Support][badge-node-version]][node-version]
 [![Discord][badge-discord]][discord]
 [![Latest Version][badge-release]][release]
@@ -26,14 +27,30 @@ como lo requieras. Inspirada por la versión de php <https://github.com/phpcfdi/
 
 ## Instalación
 
-```shell
+NPM
+
+```bash
 npm i @nodecfdi/cfdi-to-pdf --save
 ```
 
-o
+YARN
 
-```shell
+```bash
 yarn add @nodecfdi/cfdi-to-pdf
+```
+
+PNPM
+
+```bash
+pnpm add @nodecfdi/cfdi-to-pdf
+```
+
+CDN - Browser
+
+Usa la versión mas reciente publicada cambiando `<latest-version>` por la última version. Ex. ...cfdi-to-pdf@1.6.0/dist...
+
+```html
+<script src="https://unpkg.com/@nodecfdi/cfdi-to-pdf@<latest-version>/dist/cfdi-to-pdf.global.js"></script>
 ```
 
 ## Uso básico
@@ -256,6 +273,7 @@ The `@nodecfdi/cfdi-to-pdf` library is copyright © [NodeCfdi](https://github.co
 
 [contributing]: https://github.com/nodecfdi/cfdi-to-pdf/blob/main/CONTRIBUTING.md
 [changelog]: https://github.com/nodecfdi/cfdi-to-pdf/blob/main/CHANGELOG.md
+
 [source]: https://github.com/nodecfdi/cfdi-to-pdf
 [node-version]: https://www.npmjs.com/package/@nodecfdi/cfdi-to-pdf
 [discord]: https://discord.gg/AsqX8fkW2k
@@ -267,12 +285,13 @@ The `@nodecfdi/cfdi-to-pdf` library is copyright © [NodeCfdi](https://github.co
 [coverage]: https://sonarcloud.io/component_measures?id=nodecfdi_cfdi-to-pdf&metric=Coverage
 [violations]: https://sonarcloud.io/project/issues?id=nodecfdi_cfdi-to-pdf&resolved=false
 [downloads]: https://www.npmjs.com/package/@nodecfdi/cfdi-to-pdf
+
 [badge-source]: https://img.shields.io/badge/source-nodecfdi/cfdi--to--pdf-blue.svg?logo=github
 [badge-node-version]: https://img.shields.io/node/v/@nodecfdi/cfdi-to-pdf.svg?logo=nodedotjs
 [badge-discord]: https://img.shields.io/discord/459860554090283019?logo=discord
 [badge-release]: https://img.shields.io/npm/v/@nodecfdi/cfdi-to-pdf.svg?logo=npm
 [badge-license]: https://img.shields.io/github/license/nodecfdi/cfdi-to-pdf.svg?logo=open-source-initiative
-[badge-build]: https://img.shields.io/github/workflow/status/nodecfdi/cfdi-to-pdf/build/main?logo=github-actions
+[badge-build]: https://img.shields.io/github/workflow/status/nodecfdi/cfdi-to-pdf/build.yml?branch=main&logo=github-actions
 [badge-reliability]: https://sonarcloud.io/api/project_badges/measure?project=nodecfdi_cfdi-to-pdf&metric=reliability_rating
 [badge-maintainability]: https://sonarcloud.io/api/project_badges/measure?project=nodecfdi_cfdi-to-pdf&metric=sqale_rating
 [badge-coverage]: https://img.shields.io/sonar/coverage/nodecfdi_cfdi-to-pdf/main?logo=sonarcloud&server=https%3A%2F%2Fsonarcloud.io

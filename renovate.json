@@ -1,18 +1,13 @@
 {
-    "extends": ["config:base", "schedule:earlyMondays"],
-    "rangeStrategy": "replace",
-    "labels": ["dependencies"],
-    "timezone": "America/Mexico_City",
-    "ignoreDeps": [],
-    "packageRules": [
-        {
-            "updateTypes": ["minor", "patch", "pin", "digest"],
-            "automerge": true
-        },
-        {
-            "packagePatterns": ["^eslint"],
-            "groupName": "eslint packages",
-            "addLabels": ["eslint"]
-        }
-    ]
+  "extends": ["config:base", "schedule:earlyMondays"],
+  "rangeStrategy": "replace",
+  "labels": ["dependencies"],
+  "timezone": "America/Mexico_City",
+  "ignoreDeps": [],
+  "packageRules": [
+    {
+      "updateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": true
+    }
+  ]
 }

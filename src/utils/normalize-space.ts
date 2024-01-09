@@ -1,5 +1,5 @@
 const normalizeSpace = (value: string): string => {
-    return value.replace(/\s+/g, ' ').trim();
+  return value.replaceAll(/\s+/g, ' ').trim();
 };
 
 export { normalizeSpace };

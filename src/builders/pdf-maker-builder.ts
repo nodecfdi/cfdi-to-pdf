@@ -1,71 +1,71 @@
-import { Style, TDocumentDefinitions } from 'pdfmake/interfaces';
-import { BuilderInterface } from './builder-interface';
-import { DocumentTranslatorInterface } from '../templates/document-translator-interface';
-import { AbstractInvoiceData } from '../abstract-invoice-data';
-import { getPdfMake, PdfMakeNode } from '../pdfmake-builder';
-import { StaticCatalogs } from '../catalogs/static-catalogs';
-import { CatalogsInterface } from '../catalogs/catalogs-interface';
+import { type Style, type TDocumentDefinitions } from 'pdfmake/interfaces';
+import { type DocumentTranslatorInterface } from '../templates/document-translator-interface.js';
+import { type AbstractInvoiceData } from '../abstract-invoice-data.js';
+import { getPdfMake, type PdfMakeNode } from '../pdfmake-builder.js';
+import { StaticCatalogs } from '../catalogs/static-catalogs.js';
+import { type CatalogsInterface } from '../catalogs/catalogs-interface.js';
+import { type BuilderInterface } from './builder-interface.js';
 
 export class PdfMakerBuilder<T extends AbstractInvoiceData> implements BuilderInterface<T> {
-    private readonly _documentTranslator: DocumentTranslatorInterface<T>;
+  private readonly _documentTranslator: DocumentTranslatorInterface<T>;
 
-    private readonly _defaultStyle: Style;
+  private readonly _defaultStyle: Style;
 
-    constructor(documentTranslator: DocumentTranslatorInterface<T>, defaultStyle?: Style) {
-        this._documentTranslator = documentTranslator;
-        if (!defaultStyle) {
-            defaultStyle = {
-                font: 'Roboto'
-            };
-        }
-        this._defaultStyle = defaultStyle;
+  constructor(documentTranslator: DocumentTranslatorInterface<T>, defaultStyle?: Style) {
+    this._documentTranslator = documentTranslator;
+    if (!defaultStyle) {
+      defaultStyle = {
+        font: 'Roboto',
+      };
     }
 
-    public build(data: T, destination: string, catalogs: CatalogsInterface = new StaticCatalogs()): Promise<void> {
-        return new Promise<void>((resolve, reject) => {
-            // eslint-disable-next-line @typescript-eslint/no-var-requires
-            const fs = require('fs');
-            const pdfTemplate = this.buildPdf(data, catalogs);
-            const pdfStream = getPdfMake<PdfMakeNode>().createPdfKitDocument(pdfTemplate, {});
-            const fileWriteStream = fs.createWriteStream(destination);
-            fileWriteStream.on('error', (err: Error) => {
-                fileWriteStream.end();
+    this._defaultStyle = defaultStyle;
+  }
 
-                return reject(err);
-            });
+  public async build(data: T, destination: string, catalogs: CatalogsInterface = new StaticCatalogs()): Promise<void> {
+    const fs = await import('node:fs');
 
-            pdfStream.pipe(fileWriteStream);
-            pdfStream.on('end', () => {
-                return resolve();
-            });
-            pdfStream.on('error', (err) => {
-                /* istanbul ignore next */
-                return reject(err);
-            });
-            pdfStream.end();
-        });
-    }
+    return new Promise<void>((resolve, reject) => {
+      const pdfTemplate = this.buildPdf(data, catalogs);
+      const pdfStream = getPdfMake<PdfMakeNode>().createPdfKitDocument(pdfTemplate, {});
+      const fileWriteStream = fs.createWriteStream(destination);
+      fileWriteStream.on('error', (error: Error) => {
+        fileWriteStream.end();
+        reject(error);
+      });
 
-    public buildBase64(data: T, catalogs: CatalogsInterface = new StaticCatalogs()): Promise<string> {
-        return new Promise<string>((resolve, reject) => {
-            const pdfTemplate = this.buildPdf(data, catalogs);
-            const pdfStream = getPdfMake<PdfMakeNode>().createPdfKitDocument(pdfTemplate, {});
-            const chunks: Uint8Array[] = [];
-            pdfStream.on('data', (chunk) => {
-                chunks.push(chunk);
-            });
-            pdfStream.on('end', () => {
-                return resolve(Buffer.concat(chunks).toString('base64'));
-            });
-            pdfStream.on('error', (err) => {
-                /* istanbul ignore next */
-                return reject(err);
-            });
-            pdfStream.end();
-        });
-    }
+      pdfStream.pipe(fileWriteStream);
+      pdfStream.on('end', () => {
+        resolve();
+      });
+      pdfStream.on('error', (error) => {
+        reject(error);
+      });
+      pdfStream.end();
+    });
+  }
 
-    public buildPdf(data: T, catalogs: CatalogsInterface): TDocumentDefinitions {
-        return this._documentTranslator.translate(data, this._defaultStyle, catalogs);
-    }
+  public async buildBase64(data: T, catalogs: CatalogsInterface = new StaticCatalogs()): Promise<string> {
+    const buffer = await import('node:buffer');
+
+    return new Promise<string>((resolve, reject) => {
+      const pdfTemplate = this.buildPdf(data, catalogs);
+      const pdfStream = getPdfMake<PdfMakeNode>().createPdfKitDocument(pdfTemplate, {});
+      const chunks: Uint8Array[] = [];
+      pdfStream.on('data', (chunk: Uint8Array) => {
+        chunks.push(chunk);
+      });
+      pdfStream.on('end', () => {
+        resolve(buffer.Buffer.concat(chunks).toString('base64'));
+      });
+      pdfStream.on('error', (error) => {
+        reject(error);
+      });
+      pdfStream.end();
+    });
+  }
+
+  public buildPdf(data: T, catalogs: CatalogsInterface): TDocumentDefinitions {
+    return this._documentTranslator.translate(data, this._defaultStyle, catalogs);
+  }
 }
