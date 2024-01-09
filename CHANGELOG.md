@@ -1,5 +1,14 @@
 # @nodecfdi/cfdi-to-pdf ChangeLog
 
+## 1.6.0
+
+### Drop support to node version 14
+
+- Drop support to node 14
+- Update dependencies
+- Change from microbundle to tsup
+- Change from jest to vitest
+
 ## 1.5.0
 
 ### Feature support to Catalogs
