@@ -9,7 +9,7 @@ const useTestCase = (): {
 } => {
   const filePath = (filename: string) => join(dirname(fileURLToPath(import.meta.url)), '_files', filename);
 
-  const fileContents = (filename: string) => readFileSync(filePath(filename), 'binary');
+  const fileContents = (filename: string) => readFileSync(filePath(filename), 'utf8');
 
   const nodeCfdiLogo = () => `data:image/png;base64,${fileContents('nodecfdi-logo.txt')}`;
 

@@ -8,7 +8,7 @@ import {
   type TDocumentDefinitions,
 } from 'pdfmake/interfaces';
 import { type CNodeInterface, type CNodes } from '@nodecfdi/cfdiutils-common';
-import { formatCurrency, toCurrency } from '../utils/currency.js';
+import { formatCurrency, toCurrency, toNumber } from '../utils/currency.js';
 import { breakEveryNCharacters } from '../utils/break-characters.js';
 import { type CfdiData } from '../cfdi-data.js';
 import { type CatalogsInterface } from '../catalogs/catalogs-interface.js';
@@ -286,12 +286,40 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
     const retenciones = concepto.searchNodes('cfdi:Impuestos', 'cfdi:Retenciones', 'cfdi:Retencion');
     if (traslados.length > 0) {
       impuestosContent.push('Traslados');
-      const contentT = traslados.map<TableCell[]>((traslado) => {
-        return [
-          catalogs.catImpuesto(traslado.get('Impuesto')),
-          traslado.get('TipoFactor') === 'Exento' ? 'EXENTO' : formatCurrency(traslado.get('Importe')),
-        ];
-      });
+      const uniqueTraslados = new Map<string, { impuesto: string; importe: string | number }>();
+      for (const traslado of traslados) {
+        const key = `${traslado.get('Impuesto')}}`;
+        if (traslado.get('TipoFactor') === 'Exento') {
+          uniqueTraslados.set(key, {
+            impuesto: traslado.get('Impuesto'),
+            importe: 'EXENTO',
+          });
+          continue;
+        }
+
+        if (uniqueTraslados.has(key)) {
+          const importe = toNumber(uniqueTraslados.get(key)!.importe) + toNumber(traslado.get('Importe'));
+          uniqueTraslados.set(key, {
+            impuesto: traslado.get('Impuesto'),
+            importe,
+          });
+          continue;
+        }
+
+        uniqueTraslados.set(key, {
+          impuesto: traslado.get('Impuesto'),
+          importe: toNumber(traslado.get('Importe')),
+        });
+      }
+
+      const contentT: TableCell[][] = [];
+      for (const traslado of uniqueTraslados.values()) {
+        contentT.push([
+          catalogs.catImpuesto(traslado.impuesto),
+          typeof traslado.importe === 'string' ? traslado.importe : formatCurrency(traslado.importe),
+        ]);
+      }
+
       impuestosContent.push({
         table: {
           body: contentT,
@@ -326,12 +354,12 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
         concepto.get('Descripcion'),
         formatCurrency(concepto.get('ValorUnitario')),
         formatCurrency(concepto.get('Descuento')),
+        formatCurrency(concepto.get('Importe')),
         {
           colSpan: 2,
           stack: this.generateImpuestos(concepto, catalogs),
         },
         '',
-        formatCurrency(concepto.get('Importe')),
       ];
     });
 
@@ -343,12 +371,12 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
       'Descripción',
       'Valor Unitario',
       'Descuento',
+      'Importe',
       {
         colSpan: 2,
         text: 'Impuesto',
       },
       '',
-      'Importe',
     ]);
 
     return {

@@ -12,15 +12,23 @@
   "author": "OcelotlStudio <contacto@ocelotlstudio.com>",
   "license": "MIT",
   "type": "module",
-  "main": "./dist/prod/cfdi-to-pdf.cjs",
-  "module": "./dist/prod/cfdi-to-pdf.modern.js",
-  "unpkg": "./dist/prod/cfdi-to-pdf.umd.js",
+  "main": "./dist/cfdi-to-pdf.cjs",
+  "module": "./dist/cfdi-to-pdf.js",
+  "unpkg": "./dist/cfdi-to-pdf.global.js",
+  "browser": "./dist/cfdi-to-pdf.global.js",
+  "types": "./dist/cfdi-to-pdf.d.ts",
   "exports": {
-    "require": "./dist/prod/cfdi-to-pdf.cjs",
-    "development": "./dist/dev/cfdi-to-pdf.modern.js",
-    "default": "./dist/prod/cfdi-to-pdf.modern.js"
+    ".": {
+      "import": {
+        "types": "./dist/cfdi-to-pdf.d.ts",
+        "default": "./dist/cfdi-to-pdf.js"
+      },
+      "require": {
+        "types": "./dist/cfdi-to-pdf.d.cts",
+        "default": "./dist/cfdi-to-pdf.cjs"
+      }
+    }
   },
-  "types": "dist/types/index.d.ts",
   "files": [
     "dist"
   ],

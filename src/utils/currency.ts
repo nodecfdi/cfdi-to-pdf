@@ -160,14 +160,18 @@ const toCurrency = (number_: number, moneda?: string): string => {
   throw new Error('El número es demasiado grande.');
 };
 
-const formatCurrency = (currency: number | string): string => {
+const toNumber = (currency: number | string): number => {
   if (typeof currency === 'string') {
     currency = Number(currency);
   }
 
-  const number = Number.isNaN(currency) ? 0 : Number(currency);
+  return Number.isNaN(currency) ? 0 : Number(currency);
+};
+
+const formatCurrency = (currency: number | string): string => {
+  const number = toNumber(currency);
 
   return Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', currencyDisplay: 'symbol' }).format(number);
 };
 
-export { toCurrency, formatCurrency };
+export { toCurrency, formatCurrency, toNumber };
