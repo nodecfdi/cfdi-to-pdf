@@ -9,8 +9,8 @@ dependencies:
     specifier: ^2.1.6
     version: 2.1.6
   '@nodecfdi/cfdiutils-common':
-    specifier: ^1.2.6
-    version: 1.2.6
+    specifier: ^2.0.0
+    version: 2.0.1
   pdfmake:
     specifier: ^0.2.9
     version: 0.2.9
@@ -1081,8 +1081,8 @@ packages:
     engines: {node: '>= 16'}
     dev: false
 
-  /@nodecfdi/cfdiutils-common@1.2.6:
-    resolution: {integrity: sha512-WbO++/hZKmeXnkLOe37G2oxxr0QbIUkxqJi9dBmstFMI6ktD+Uhy1OHH4H5yWmURNZ3PKgzPp5w9SDOTEDhcxA==}
+  /@nodecfdi/cfdiutils-common@2.0.1:
+    resolution: {integrity: sha512-U6KNaU2lhgoP8QYpKOgoXXqemXzgCOTeqGgtyIICpZKfr9W5UjVxlqfKNe7sZ8VbvA7JsnS4rkEAk+IEITw+vA==}
     engines: {node: '>=16.0.0'}
     dev: false
 

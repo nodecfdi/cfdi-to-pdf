@@ -75,7 +75,7 @@
   },
   "dependencies": {
     "@nodecfdi/cfdi-expresiones": "^2.1.6",
-    "@nodecfdi/cfdiutils-common": "^1.2.6",
+    "@nodecfdi/cfdiutils-common": "^2.0.0",
     "pdfmake": "^0.2.9"
   },
   "commitlint": {
