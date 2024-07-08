@@ -2,92 +2,106 @@
   "name": "@nodecfdi/cfdi-to-pdf",
   "version": "1.6.0",
   "description": "Librería para crear un pdf basado en un XML CFDI o Retenciones",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "exports": {},
+  "imports": {},
+  "scripts": {
+    "prepare": "is-in-ci || husky",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --fix",
+    "lint:check": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "gen:docs": "typedoc --options typedoc.json",
+    "prebuild": "pnpm lint:check",
+    "build": "tshy",
+    "postbuild": "pnpm run gen:docs && git add docs",
+    "release": "np",
+    "version": "pnpm run build && conventional-changelog -p conventionalcommits -i CHANGELOG.md -s && git add CHANGELOG.md",
+    "prepublishOnly": "pnpm run build"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^18.6.1",
+    "@commitlint/config-conventional": "^18.6.3",
+    "@jsprismarine/typedoc-material-theme": "^1.0.4",
+    "@nodecfdi/cfdi-core": "^0.1.1",
+    "@nodecfdi/cfdi-expresiones": "^3.0.0",
+    "@nodecfdi/eslint-config": "^1.7.1",
+    "@nodecfdi/prettier-config": "^1.1.1",
+    "@nodecfdi/tsconfig": "^1.5.0",
+    "@types/node": "^20.14.10",
+    "@types/pdfmake": "^0.2.9",
+    "@vitest/coverage-istanbul": "^2.0.1",
+    "conventional-changelog-cli": "^5.0.0",
+    "conventional-changelog-conventionalcommits": "^8.0.0",
+    "eslint": "^8.57.0",
+    "eslint-define-config": "^2.1.0",
+    "husky": "^9.0.11",
+    "is-in-ci": "^0.1.0",
+    "np": "^10.0.6",
+    "pdfmake": "^0.2.10",
+    "prettier": "^3.3.2",
+    "tshy": "^2.0.1",
+    "typedoc": "^0.26.3",
+    "typescript": "^5.5.3",
+    "vitest": "^2.0.1"
+  },
+  "peerDependencies": {
+    "@nodecfdi/cfdi-core": "^0.1.1",
+    "@nodecfdi/cfdi-expresiones": "^3.0.0",
+    "@types/pdfmake": "^0.2.9",
+    "pdfmake": "^0.2.10"
+  },
+  "peerDependenciesMeta": {
+    "@types/pdfmake": {
+      "optional": true
+    }
+  },
+  "author": "Fernando Isidro <luffynando@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/nodecfdi/cfdi-to-pdf",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodecfdi/cfdi-to-pdf.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nodecfdi/cfdi-to-pdf/issues"
+  },
   "keywords": [
     "cfdi",
     "retenciones",
     "xml",
-    "pdf"
+    "pdf",
+    "sat"
   ],
-  "private": false,
-  "author": "OcelotlStudio <contacto@ocelotlstudio.com>",
-  "license": "MIT",
-  "type": "module",
-  "main": "./dist/cfdi-to-pdf.cjs",
-  "module": "./dist/cfdi-to-pdf.js",
-  "unpkg": "./dist/cfdi-to-pdf.global.js",
-  "browser": "./dist/cfdi-to-pdf.global.js",
-  "types": "./dist/cfdi-to-pdf.d.ts",
-  "exports": {
-    ".": {
-      "import": {
-        "types": "./dist/cfdi-to-pdf.d.ts",
-        "default": "./dist/cfdi-to-pdf.js"
-      },
-      "require": {
-        "types": "./dist/cfdi-to-pdf.d.cts",
-        "default": "./dist/cfdi-to-pdf.cjs"
-      }
-    }
-  },
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "prepare": "is-ci || husky install",
-    "lint": "xo --fix",
-    "lint:check": "xo",
-    "format": "prettier . --write",
-    "format:check": "prettier . --check",
-    "test": "vitest",
-    "test:run": "vitest run",
-    "test:coverage": "vitest run --coverage",
-    "build": "rimraf dist && tsup",
-    "gen:docs": "rimraf docs && typedoc --options typedoc.json",
-    "release": "pnpm run build && pnpm changeset publish"
-  },
-  "repository": "https://github.com/nodecfdi/cfdi-to-pdf",
-  "bugs": {
-    "url": "https://github.com/nodecfdi/cfdi-to-pdf/issues"
-  },
-  "homepage": "https://github.com/nodecfdi/cfdi-to-pdf",
-  "devDependencies": {
-    "@changesets/cli": "^2.27.1",
-    "@commitlint/cli": "^18.4.4",
-    "@commitlint/config-conventional": "^18.4.4",
-    "@microsoft/api-extractor": "^7.39.1",
-    "@types/is-ci": "^3.0.4",
-    "@vitest/coverage-istanbul": "^1.1.3",
-    "@types/pdfmake": "^0.2.8",
-    "@xmldom/xmldom": "^0.8.10",
-    "husky": "^8.0.3",
-    "is-ci": "^3.0.1",
-    "jsdom": "^23.2.0",
-    "prettier": "^3.1.1",
-    "rimraf": "^5.0.5",
-    "tsup": "^8.0.1",
-    "typedoc": "^0.25.7",
-    "typedoc-material-theme": "^1.0.2",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.11",
-    "vite-tsconfig-paths": "^4.2.3",
-    "vitest": "^1.1.3",
-    "xo": "^0.56.0"
-  },
-  "dependencies": {
-    "@nodecfdi/cfdi-expresiones": "^2.1.6",
-    "@nodecfdi/cfdiutils-common": "^1.2.6",
-    "pdfmake": "^0.2.9"
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
   "engines": {
-    "node": ">= 16.0.0"
+    "node": ">=18 <=22 || ^16"
   },
   "browserslist": [
     "defaults",
     "not IE 11"
-  ]
+  ],
+  "prettier": "@nodecfdi/prettier-config",
+  "packageManager": "pnpm@9.5.0",
+  "publishConfig": {
+    "access": "public",
+    "tag": "latest"
+  },
+  "np": {
+    "message": "chore(release): :tada: %s",
+    "tag": "latest",
+    "branch": "main",
+    "anyBranch": false,
+    "testScript": "test:run"
+  },
+  "tshy": {
+    "selfLink": false,
+    "exports": {}
+  }
 }

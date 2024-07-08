@@ -1,5 +1,5 @@
 # Auto detect text files and perform LF normalization
-* text=auto
+* text=auto eol=lf
 
 # Do not put this files on a distribution package
 /.changeset/                export-ignore
@@ -10,13 +10,11 @@
 /.gitattributes             export-ignore
 /.gitignore                 export-ignore
 /sonar-project.properties   export-ignore
-/assets/                    export-ignore
 
 # Do not count these files on github code language
 /tests/_files/**            linguist-detectable=false
 /docs/**                    linguist-detectable=false
 /.husky/**                  linguist-detectable=false
 *.cjs                       linguist-detectable=false
-/examples/**                linguist-detectable=false
 
 *.json                      linguist-language=JSON-with-Comments
