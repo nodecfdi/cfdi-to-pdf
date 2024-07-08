@@ -37,7 +37,10 @@ export class RetencionesData extends AbstractInvoiceData {
       throw new Error('La factura de retenciones no contiene nodo totales');
     }
 
-    const timbreFiscalDigital = retenciones.searchNode('retenciones:Complemento', 'tfd:TimbreFiscalDigital');
+    const timbreFiscalDigital = retenciones.searchNode(
+      'retenciones:Complemento',
+      'tfd:TimbreFiscalDigital',
+    );
     if (!timbreFiscalDigital) {
       throw new Error('La factura de retenciones no contiene complemento de timbre fiscal digital');
     }

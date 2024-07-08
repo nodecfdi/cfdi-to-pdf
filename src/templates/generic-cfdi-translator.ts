@@ -18,7 +18,11 @@ import { usePago20Complement } from './complements/pago20-complement.js';
 import { useImpLocal10Complement } from './complements/imp-local10-complement.js';
 
 export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiData> {
-  public translate(cfdiData: CfdiData, defaultStyle: Style, catalogs: CatalogsInterface): TDocumentDefinitions {
+  public translate(
+    cfdiData: CfdiData,
+    defaultStyle: Style,
+    catalogs: CatalogsInterface,
+  ): TDocumentDefinitions {
     const comprobante = cfdiData.comprobante();
     const tfd = cfdiData.timbreFiscalDigital();
 
@@ -52,7 +56,12 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
     };
   }
 
-  protected generateFooter(version: string, uuid: string, currentPage: number, pageCount: number): Content {
+  protected generateFooter(
+    version: string,
+    uuid: string,
+    currentPage: number,
+    pageCount: number,
+  ): Content {
     return {
       style: 'tableContent',
       table: {
@@ -86,7 +95,11 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
     };
   }
 
-  protected generateTopContent(comprobante: CNodeInterface, catalogs: CatalogsInterface, logo?: string): Content {
+  protected generateTopContent(
+    comprobante: CNodeInterface,
+    catalogs: CatalogsInterface,
+    logo?: string,
+  ): Content {
     const header: ContentColumns = {
       columns: [
         {
@@ -144,18 +157,30 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
             {},
           ],
           ['NOMBRE:', emisor.get('Nombre'), 'RFC:', emisor.get('Rfc')],
-          ['REGIMEN FISCAL:', { colSpan: 3, text: catalogs.catRegimenFiscal(emisor.get('RegimenFiscal')) }, {}, {}],
+          [
+            'REGIMEN FISCAL:',
+            { colSpan: 3, text: catalogs.catRegimenFiscal(emisor.get('RegimenFiscal')) },
+            {},
+            {},
+          ],
         ],
       },
       layout: 'lightHorizontalLines',
     };
   }
 
-  protected generateAddress(receptor: CNodeInterface, catalogs: CatalogsInterface, address?: string): TableCell[][] {
+  protected generateAddress(
+    receptor: CNodeInterface,
+    catalogs: CatalogsInterface,
+    address?: string,
+  ): TableCell[][] {
     const tableCell: TableCell[][] = [];
     const cellAddress: TableCell[] = [];
     if (address ?? receptor.offsetExists('DomicilioFiscalReceptor')) {
-      cellAddress.push('DOMICILIO:', `${address ? address + ' ' : ''}${receptor.get('DomicilioFiscalReceptor')}`);
+      cellAddress.push(
+        'DOMICILIO:',
+        `${address ? address + ' ' : ''}${receptor.get('DomicilioFiscalReceptor')}`,
+      );
     }
 
     cellAddress.push('USO CFDI', {
@@ -175,7 +200,11 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
     return tableCell;
   }
 
-  protected generateReceptorContent(receptor: CNodeInterface, catalogs: CatalogsInterface, address?: string): Content {
+  protected generateReceptorContent(
+    receptor: CNodeInterface,
+    catalogs: CatalogsInterface,
+    address?: string,
+  ): Content {
     const receptorContent: Content = {
       style: 'tableContent',
       table: {
@@ -250,7 +279,10 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
     );
   }
 
-  protected generateGeneralInvoiceInfoContent(comprobante: CNodeInterface, catalogs: CatalogsInterface): Content {
+  protected generateGeneralInvoiceInfoContent(
+    comprobante: CNodeInterface,
+    catalogs: CatalogsInterface,
+  ): Content {
     return {
       style: 'tableContent',
       table: {
@@ -267,7 +299,12 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
             {},
             {},
           ],
-          ['MONEDA:', comprobante.get('Moneda'), 'FORMA PAGO:', catalogs.catFormaPago(comprobante.get('FormaPago'))],
+          [
+            'MONEDA:',
+            comprobante.get('Moneda'),
+            'FORMA PAGO:',
+            catalogs.catFormaPago(comprobante.get('FormaPago')),
+          ],
           [
             'METODO DE PAGO:',
             catalogs.catMetodoPago(comprobante.get('MetodoPago')),
@@ -283,7 +320,11 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
   protected generateImpuestos(concepto: CNodeInterface, catalogs: CatalogsInterface): Content[] {
     const impuestosContent: Content[] = [];
     const traslados = concepto.searchNodes('cfdi:Impuestos', 'cfdi:Traslados', 'cfdi:Traslado');
-    const retenciones = concepto.searchNodes('cfdi:Impuestos', 'cfdi:Retenciones', 'cfdi:Retencion');
+    const retenciones = concepto.searchNodes(
+      'cfdi:Impuestos',
+      'cfdi:Retenciones',
+      'cfdi:Retencion',
+    );
     if (traslados.length > 0) {
       impuestosContent.push('Traslados');
       const uniqueTraslados = new Map<string, { impuesto: string; importe: string | number }>();
@@ -298,7 +339,8 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
         }
 
         if (uniqueTraslados.has(key)) {
-          const importe = toNumber(uniqueTraslados.get(key)!.importe) + toNumber(traslado.get('Importe'));
+          const importe =
+            toNumber(uniqueTraslados.get(key)!.importe) + toNumber(traslado.get('Importe'));
           uniqueTraslados.set(key, {
             impuesto: traslado.get('Impuesto'),
             importe,
@@ -316,7 +358,9 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
       for (const traslado of uniqueTraslados.values()) {
         contentT.push([
           catalogs.catImpuesto(traslado.impuesto),
-          typeof traslado.importe === 'string' ? traslado.importe : formatCurrency(traslado.importe),
+          typeof traslado.importe === 'string'
+            ? traslado.importe
+            : formatCurrency(traslado.importe),
         ]);
       }
 
@@ -331,7 +375,10 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
     if (retenciones.length > 0) {
       impuestosContent.push('Retenciones');
       const contentR = retenciones.map<TableCell[]>((retencion) => {
-        return [catalogs.catImpuesto(retencion.get('Impuesto')), formatCurrency(retencion.get('Importe'))];
+        return [
+          catalogs.catImpuesto(retencion.get('Impuesto')),
+          formatCurrency(retencion.get('Importe')),
+        ];
       });
       impuestosContent.push({
         table: {
@@ -393,9 +440,18 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
     };
   }
 
-  protected generateCurrencyRelatedInfo(comprobante: CNodeInterface, catalogs: CatalogsInterface): Content {
-    const totalImpuestosTrasladados = comprobante.searchAttribute('cfdi:Impuestos', 'TotalImpuestosTrasladados');
-    const totalImpuestosRetenidos = comprobante.searchAttribute('cfdi:Impuestos', 'TotalImpuestosRetenidos');
+  protected generateCurrencyRelatedInfo(
+    comprobante: CNodeInterface,
+    catalogs: CatalogsInterface,
+  ): Content {
+    const totalImpuestosTrasladados = comprobante.searchAttribute(
+      'cfdi:Impuestos',
+      'TotalImpuestosTrasladados',
+    );
+    const totalImpuestosRetenidos = comprobante.searchAttribute(
+      'cfdi:Impuestos',
+      'TotalImpuestosRetenidos',
+    );
     const contentColumns: Column[] = [];
     const relatedInfoAndImport: Column[] = [];
     if (comprobante.get('TipoDeComprobante') !== 'P') {
@@ -406,7 +462,10 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
           { width: 'auto', text: 'IMPORTE CON LETRA:', margin: [0, 0, 5, 0] },
           {
             width: 'auto',
-            text: toCurrency(Number.parseFloat(comprobante.get('Total') || '0'), comprobante.get('Moneda')),
+            text: toCurrency(
+              Number.parseFloat(comprobante.get('Total') || '0'),
+              comprobante.get('Moneda'),
+            ),
           },
           { width: '*', text: '' },
         ],
@@ -443,9 +502,11 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
       const relacionados = comprobante.searchNodes('cfdi:CfdiRelacionados');
       if (relacionados.length > 0) {
         for (const relacionadosNode of relacionados) {
-          const uuidsArray = relacionadosNode.searchNodes('cfdi:CfdiRelacionado').map((relacionado) => {
-            return [`UUID: ${relacionado.get('UUID')}`];
-          });
+          const uuidsArray = relacionadosNode
+            .searchNodes('cfdi:CfdiRelacionado')
+            .map((relacionado) => {
+              return [`UUID: ${relacionado.get('UUID')}`];
+            });
 
           relatedInfoAndImport.push({
             fontSize: 7,

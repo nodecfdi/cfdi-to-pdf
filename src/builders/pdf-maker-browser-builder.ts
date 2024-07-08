@@ -33,7 +33,10 @@ export class PdfMakerBrowserBuilder<T extends AbstractInvoiceData> implements Bu
     throw new Error('Method not work on browser');
   }
 
-  public async buildBase64(data: T, catalogs: CatalogsInterface = new StaticCatalogs()): Promise<string> {
+  public async buildBase64(
+    data: T,
+    catalogs: CatalogsInterface = new StaticCatalogs(),
+  ): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       try {
         const pdfTemplate = this.buildPdf(data, catalogs);

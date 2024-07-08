@@ -21,7 +21,9 @@ describe('RetencionesData', () => {
     expect(retencionesData.receptor().get('Nacionalidad')).toBe('Nacional');
     expect(retencionesData.periodo().get('MesIni')).toBe('08');
     expect(retencionesData.totales().get('montoTotOperacion')).toBe('8092.24');
-    expect(retencionesData.timbreFiscalDigital().get('UUID')).toBe('F25F9852-6F4C-4782-9D47-3119EB3FAD3A');
+    expect(retencionesData.timbreFiscalDigital().get('UUID')).toBe(
+      'F25F9852-6F4C-4782-9D47-3119EB3FAD3A',
+    );
   });
 
   test('construct using empty qrUrl', () => {

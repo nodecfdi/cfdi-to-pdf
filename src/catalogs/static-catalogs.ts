@@ -74,7 +74,8 @@ export class StaticCatalogs implements CatalogsInterface {
       '622': 'Actividades Agrícolas, Ganaderas, Silvícolas y Pesqueras',
       '623': 'Opcional para Grupos de Sociedades',
       '624': 'Coordinados',
-      '625': 'Régimen de las Actividades Empresariales con ingresos a través de Plataformas Tecnológicas',
+      '625':
+        'Régimen de las Actividades Empresariales con ingresos a través de Plataformas Tecnológicas',
       '626': 'Régimen Simplificado de Confianza',
       '628': 'Hidrocarburos',
       '629': 'De los Regímenes Fiscales Preferentes y de las Empresas Multinacionales',

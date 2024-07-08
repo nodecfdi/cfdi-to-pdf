@@ -44,7 +44,11 @@ const generateRelatedDocsContent = (doctoRelacionados: CNodes): TableCell[][] =>
   return relatedDocsCells;
 };
 
-const checkAndAddTotal = (totales: CNodeInterface, attribute: string, rowToInsert: TableCell[]): void => {
+const checkAndAddTotal = (
+  totales: CNodeInterface,
+  attribute: string,
+  rowToInsert: TableCell[],
+): void => {
   if (totales.offsetExists(attribute)) {
     rowToInsert.push({
       text: `${attribute}: ${totales.get(attribute)}`,

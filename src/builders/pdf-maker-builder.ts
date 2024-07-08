@@ -22,7 +22,11 @@ export class PdfMakerBuilder<T extends AbstractInvoiceData> implements BuilderIn
     this._defaultStyle = defaultStyle;
   }
 
-  public async build(data: T, destination: string, catalogs: CatalogsInterface = new StaticCatalogs()): Promise<void> {
+  public async build(
+    data: T,
+    destination: string,
+    catalogs: CatalogsInterface = new StaticCatalogs(),
+  ): Promise<void> {
     const fs = await import('node:fs');
 
     return new Promise<void>((resolve, reject) => {
@@ -45,7 +49,10 @@ export class PdfMakerBuilder<T extends AbstractInvoiceData> implements BuilderIn
     });
   }
 
-  public async buildBase64(data: T, catalogs: CatalogsInterface = new StaticCatalogs()): Promise<string> {
+  public async buildBase64(
+    data: T,
+    catalogs: CatalogsInterface = new StaticCatalogs(),
+  ): Promise<string> {
     const buffer = await import('node:buffer');
 
     return new Promise<string>((resolve, reject) => {

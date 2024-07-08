@@ -17,7 +17,11 @@ import { type DocumentTranslatorInterface } from './document-translator-interfac
 export class GenericRetencionesTranslator implements DocumentTranslatorInterface<RetencionesData> {
   public version = '1.0';
 
-  public translate(data: RetencionesData, defaultStyle: Style, _catalogs: CatalogsInterface): TDocumentDefinitions {
+  public translate(
+    data: RetencionesData,
+    defaultStyle: Style,
+    _catalogs: CatalogsInterface,
+  ): TDocumentDefinitions {
     const retenciones = data.retenciones();
     const tfd = data.timbreFiscalDigital();
     this.version = retenciones.get('Version');
@@ -52,7 +56,8 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
         },
       },
       defaultStyle,
-      footer: (currentPage, pageCount) => this.generateFooter(this.version, tfd.get('UUID'), currentPage, pageCount),
+      footer: (currentPage, pageCount) =>
+        this.generateFooter(this.version, tfd.get('UUID'), currentPage, pageCount),
     };
   }
 
@@ -80,7 +85,12 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
     };
   }
 
-  protected generateFooter(version: string, uuid: string, currentPage: number, pageCount: number): Content {
+  protected generateFooter(
+    version: string,
+    uuid: string,
+    currentPage: number,
+    pageCount: number,
+  ): Content {
     return {
       style: 'tableContent',
       table: {
@@ -166,7 +176,12 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
         {},
         {},
       ],
-      ['NOMBRE:', emisor.get('NomDenRazSocE'), 'RFC:', emisor.get(this.version === '1.0' ? 'RFCEmisor' : 'RfcE')],
+      [
+        'NOMBRE:',
+        emisor.get('NomDenRazSocE'),
+        'RFC:',
+        emisor.get(this.version === '1.0' ? 'RFCEmisor' : 'RfcE'),
+      ],
     );
 
     if (this.version === '2.0') {
@@ -332,7 +347,8 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
 
   protected generateTotales(totales: CNodeInterface): Content {
     const impuestosRetenidos = totales.searchNodes('retenciones:ImpRetenidos');
-    const impuestosRetenidosBody: TableCell[][] = this.generateImpuestosRetenidos(impuestosRetenidos);
+    const impuestosRetenidosBody: TableCell[][] =
+      this.generateImpuestosRetenidos(impuestosRetenidos);
 
     return {
       style: 'tableContent',
@@ -377,7 +393,9 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
             },
           ],
           [
-            formatCurrency(totales.get(this.version === '1.0' ? 'montoTotOperacion' : 'MontoTotOperacion')),
+            formatCurrency(
+              totales.get(this.version === '1.0' ? 'montoTotOperacion' : 'MontoTotOperacion'),
+            ),
             formatCurrency(totales.get(this.version === '1.0' ? 'montoTotGrav' : 'MontoTotGrav')),
             formatCurrency(totales.get(this.version === '1.0' ? 'montoTotExent' : 'MontoTotExent')),
             formatCurrency(totales.get(this.version === '1.0' ? 'montoTotRet' : 'MontoTotRet')),
@@ -422,12 +440,28 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
           '',
           '',
         ],
-        ['', 'NUMERO SERIE CERTIFICADO SAT', tfd.get(tfdVersion === '1.0' ? 'noCertificadoSAT' : 'NoCertificadoSAT')],
-        ['', 'NUMERO SERIE CERTIFICADO EMISOR', retenciones.get(this.version === '1.0' ? 'NumCert' : 'NoCertificado')],
+        [
+          '',
+          'NUMERO SERIE CERTIFICADO SAT',
+          tfd.get(tfdVersion === '1.0' ? 'noCertificadoSAT' : 'NoCertificadoSAT'),
+        ],
+        [
+          '',
+          'NUMERO SERIE CERTIFICADO EMISOR',
+          retenciones.get(this.version === '1.0' ? 'NumCert' : 'NoCertificado'),
+        ],
         ['', 'FECHA HORA CERTIFICACIÓN', tfd.get('FechaTimbrado')],
         ['', 'FOLIO FISCAL UUID', tfd.get('UUID')],
-        ['', 'SELLO DIGITAL', breakEveryNCharacters(tfd.get(tfdVersion === '1.0' ? 'selloCFD' : 'SelloCFD'), 86)],
-        ['', 'SELLO DEL SAT', breakEveryNCharacters(tfd.get(tfdVersion === '1.0' ? 'selloSAT' : 'SelloSAT'), 86)],
+        [
+          '',
+          'SELLO DIGITAL',
+          breakEveryNCharacters(tfd.get(tfdVersion === '1.0' ? 'selloCFD' : 'SelloCFD'), 86),
+        ],
+        [
+          '',
+          'SELLO DEL SAT',
+          breakEveryNCharacters(tfd.get(tfdVersion === '1.0' ? 'selloSAT' : 'SelloSAT'), 86),
+        ],
       );
     }
 
@@ -512,7 +546,9 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
     const impuestosTrasladadosDelServicio = service.searchNode(
       'plataformasTecnologicas:ImpuestosTrasladadosdelServicio',
     );
-    const contribucionGubernamental = service.searchNode('plataformasTecnologicas:ContribucionGubernamental');
+    const contribucionGubernamental = service.searchNode(
+      'plataformasTecnologicas:ContribucionGubernamental',
+    );
     const comisionDelServicio = service.searchNode('plataformasTecnologicas:ComisionDelServicio');
 
     if (impuestosTrasladadosDelServicio) {

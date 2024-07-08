@@ -7,7 +7,8 @@ const useTestCase = (): {
   fileContents: (filename: string) => string;
   nodeCfdiLogo: () => string;
 } => {
-  const filePath = (filename: string) => join(dirname(fileURLToPath(import.meta.url)), '_files', filename);
+  const filePath = (filename: string) =>
+    join(dirname(fileURLToPath(import.meta.url)), '_files', filename);
 
   const fileContents = (filename: string) => readFileSync(filePath(filename), 'utf8');
 

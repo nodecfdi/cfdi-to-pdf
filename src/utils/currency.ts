@@ -18,7 +18,18 @@ const getGroupToCurrency = (group: string): string => {
     'catorce',
     'quince',
   ];
-  const teens = ['', 'dieci', 'veinti', 'treinta', 'cuarenta', 'cincuenta', 'sesenta', 'setenta', 'ochenta', 'noventa'];
+  const teens = [
+    '',
+    'dieci',
+    'veinti',
+    'treinta',
+    'cuarenta',
+    'cincuenta',
+    'sesenta',
+    'setenta',
+    'ochenta',
+    'noventa',
+  ];
   const hundreds = [
     '',
     'ciento',
@@ -121,7 +132,8 @@ const toCurrency = (number_: number, moneda?: string): string => {
     if (integers.length === 9 || integers.length === 8 || integers.length === 7) {
       const group = integers.slice(0, Math.max(0, integers.length - 6));
       numberToCurrency += getGroupToCurrency(group);
-      numberToCurrency += !thousandsOfMillions && Number.parseInt(group, 10) === 1 ? 'millón ' : 'millones ';
+      numberToCurrency +=
+        !thousandsOfMillions && Number.parseInt(group, 10) === 1 ? 'millón ' : 'millones ';
       integers = integers.slice(-6, integers.length);
     }
 
@@ -151,7 +163,9 @@ const toCurrency = (number_: number, moneda?: string): string => {
     noHundreds = Number.parseInt(integers, 10) === 0;
     numberToCurrency += getGroupToCurrency(integers);
     numberToCurrency += `${
-      (noThousands && noHundreds ? 'de ' : '') + (numberToCurrency === 'un ' ? 'peso ' : 'pesos ') + decimals
+      (noThousands && noHundreds ? 'de ' : '') +
+      (numberToCurrency === 'un ' ? 'peso ' : 'pesos ') +
+      decimals
     }/100 ${monedaName}`;
 
     return numberToCurrency.toUpperCase();
@@ -171,7 +185,11 @@ const toNumber = (currency: number | string): number => {
 const formatCurrency = (currency: number | string): string => {
   const number = toNumber(currency);
 
-  return Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', currencyDisplay: 'symbol' }).format(number);
+  return Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    currencyDisplay: 'symbol',
+  }).format(number);
 };
 
 export { toCurrency, formatCurrency, toNumber };

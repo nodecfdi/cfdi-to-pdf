@@ -32,7 +32,10 @@ export type PdfMakeBrowser = {
 };
 
 export type PdfMakeNode = {
-  createPdfKitDocument(docDefinition: TDocumentDefinitions, options?: BufferOptions): PdfKitDocument;
+  createPdfKitDocument(
+    docDefinition: TDocumentDefinitions,
+    options?: BufferOptions,
+  ): PdfKitDocument;
 };
 
 let _pdfmake: PdfMakeBrowser | PdfMakeNode | undefined;

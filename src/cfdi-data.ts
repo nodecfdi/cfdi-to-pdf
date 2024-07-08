@@ -26,7 +26,10 @@ export class CfdiData extends AbstractInvoiceData {
       throw new Error('El CFDI no contiene nodo receptor');
     }
 
-    const timbreFiscalDigital = comprobante.searchNode('cfdi:Complemento', 'tfd:TimbreFiscalDigital');
+    const timbreFiscalDigital = comprobante.searchNode(
+      'cfdi:Complemento',
+      'tfd:TimbreFiscalDigital',
+    );
     if (!timbreFiscalDigital) {
       throw new Error('El CFDI no contiene complemento de timbre fiscal digital');
     }
