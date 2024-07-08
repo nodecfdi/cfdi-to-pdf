@@ -9,7 +9,7 @@
   "exports": {},
   "imports": {},
   "scripts": {
-    "prepare": "is-in-ci || husky",
+    "prepare": "husky",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --fix",
     "lint:check": "eslint .",
@@ -29,8 +29,8 @@
     "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
-    "@commitlint/cli": "^18.6.1",
-    "@commitlint/config-conventional": "^18.6.3",
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
     "@jsprismarine/typedoc-material-theme": "^1.0.4",
     "@nodecfdi/cfdi-core": "^0.1.1",
     "@nodecfdi/cfdi-expresiones": "^3.0.0",
@@ -89,6 +89,11 @@
     "defaults",
     "not IE 11"
   ],
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
   "prettier": "@nodecfdi/prettier-config",
   "packageManager": "pnpm@9.5.0",
   "publishConfig": {
