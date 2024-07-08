@@ -19,11 +19,13 @@
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
     "gen:docs": "typedoc --options typedoc.json",
+    "gen:changelog": "conventional-changelog -p conventionalcommits -i CHANGELOG.md -s -r 0",
+    "changelog": "conventional-changelog -p conventionalcommits -i CHANGELOG.md -s && git add CHANGELOG.md",
     "prebuild": "pnpm lint:check",
     "build": "tshy",
     "postbuild": "pnpm run gen:docs && git add docs",
     "release": "np",
-    "version": "pnpm run build && conventional-changelog -p conventionalcommits -i CHANGELOG.md -s && git add CHANGELOG.md",
+    "version": "pnpm run build && pnpm run changelog",
     "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
