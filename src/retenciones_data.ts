@@ -1,20 +1,19 @@
-import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
-import { AbstractInvoiceData } from './abstract-invoice-data.js';
+import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
+import AbstractInvoiceData from './abstract_invoice_data.js';
 
-export class RetencionesData extends AbstractInvoiceData {
-  private readonly _retenciones: CNodeInterface;
+export default class RetencionesData extends AbstractInvoiceData {
+  private readonly _retenciones: XmlNodeInterface;
 
-  private readonly _periodo: CNodeInterface;
+  private readonly _periodo: XmlNodeInterface;
 
-  private readonly _totales: CNodeInterface;
+  private readonly _totales: XmlNodeInterface;
 
-  // eslint-disable-next-line max-params
-  constructor(
-    retenciones: CNodeInterface,
+  public constructor(
+    retenciones: XmlNodeInterface,
     qrUrl?: string | null,
     tfdSourceString?: string | null,
     logo?: string,
-    additionalFields?: Array<{ title: string; value: string }>,
+    additionalFields?: { title: string; value: string }[],
   ) {
     super();
     const emisor = retenciones.searchNode('retenciones:Emisor');
@@ -62,17 +61,20 @@ export class RetencionesData extends AbstractInvoiceData {
     if (this._tfdSourceString.trim().length === 0) {
       this.buildTfdSource();
     }
+
+    this._legendFooter =
+      'Este documento es una representación impresa de un Comprobante Fiscal Digital por Internet que ampara Retenciones e Información de Pagos versión {version}';
   }
 
-  public retenciones(): CNodeInterface {
+  public retenciones(): XmlNodeInterface {
     return this._retenciones;
   }
 
-  public periodo(): CNodeInterface {
+  public periodo(): XmlNodeInterface {
     return this._periodo;
   }
 
-  public totales(): CNodeInterface {
+  public totales(): XmlNodeInterface {
     return this._totales;
   }
 }

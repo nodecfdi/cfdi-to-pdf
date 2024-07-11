@@ -1,29 +1,24 @@
-import { XmlNodeUtils, install } from '@nodecfdi/cfdiutils-common';
-import { XMLSerializer, DOMParser, DOMImplementation } from '@xmldom/xmldom';
-import { CfdiData } from 'src/cfdi-data';
-import { useTestCase } from '../test-case.js';
+import { nodeFromXmlString } from '@nodecfdi/cfdi-core';
+import CfdiData from '#src/cfdi_data';
+import { fileContents } from '#tests/test_utils';
 
-describe('CfdiData', () => {
-  const { fileContents } = useTestCase();
-
-  beforeAll(() => {
-    install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
-  });
-
+describe('cfdi data', () => {
   test('construct using valid content', () => {
-    const comprobante = XmlNodeUtils.nodeFromXmlString(fileContents('cfdi33-valid.xml'));
+    const comprobante = nodeFromXmlString(fileContents('cfdi33-valid.xml'));
     const cfdiData = new CfdiData(comprobante, 'qr', 'tfd');
 
     expect(cfdiData.comprobante()).toBe(comprobante);
     expect(cfdiData.qrUrl()).toBe('qr');
     expect(cfdiData.tfdSourceString()).toBe('tfd');
-    expect(cfdiData.emisor().get('Rfc')).toBe('AAA010101AAA');
-    expect(cfdiData.receptor().get('Rfc')).toBe('COSC8001137NA');
-    expect(cfdiData.timbreFiscalDigital().get('UUID')).toBe('9FB6ED1A-5F37-4FEF-980A-7F8C83B51894');
+    expect(cfdiData.emisor().getAttribute('Rfc')).toBe('AAA010101AAA');
+    expect(cfdiData.receptor().getAttribute('Rfc')).toBe('COSC8001137NA');
+    expect(cfdiData.timbreFiscalDigital().getAttribute('UUID')).toBe(
+      '9FB6ED1A-5F37-4FEF-980A-7F8C83B51894',
+    );
   });
 
   test('construct using empty qrUrl', () => {
-    const comprobante = XmlNodeUtils.nodeFromXmlString(fileContents('cfdi33-valid.xml'));
+    const comprobante = nodeFromXmlString(fileContents('cfdi33-valid.xml'));
     const cfdiData = new CfdiData(comprobante, '', 'tfd');
 
     expect(cfdiData.qrUrl()).toBe(
@@ -32,10 +27,10 @@ describe('CfdiData', () => {
   });
 
   test('construct without emisor', () => {
-    const comprobante = XmlNodeUtils.nodeFromXmlString(fileContents('cfdi33-valid.xml'));
+    const comprobante = nodeFromXmlString(fileContents('cfdi33-valid.xml'));
     const emisor = comprobante.searchNode('cfdi:Emisor');
     if (emisor) {
-      comprobante.children().remove(emisor);
+      comprobante.children().delete(emisor);
     }
 
     const t = (): CfdiData => new CfdiData(comprobante, 'qr', 'tfd');
@@ -45,10 +40,10 @@ describe('CfdiData', () => {
   });
 
   test('construct without receptor', () => {
-    const comprobante = XmlNodeUtils.nodeFromXmlString(fileContents('cfdi33-valid.xml'));
+    const comprobante = nodeFromXmlString(fileContents('cfdi33-valid.xml'));
     const receptor = comprobante.searchNode('cfdi:Receptor');
     if (receptor) {
-      comprobante.children().remove(receptor);
+      comprobante.children().delete(receptor);
     }
 
     const t = (): CfdiData => new CfdiData(comprobante, 'qr', 'tfd');
@@ -58,10 +53,10 @@ describe('CfdiData', () => {
   });
 
   test('constuct without complemento', () => {
-    const comprobante = XmlNodeUtils.nodeFromXmlString(fileContents('cfdi33-valid.xml'));
+    const comprobante = nodeFromXmlString(fileContents('cfdi33-valid.xml'));
     const complemento = comprobante.searchNode('cfdi:Complemento');
     if (complemento) {
-      complemento.children().removeAll();
+      complemento.children().clear();
     }
 
     const t = (): CfdiData => new CfdiData(comprobante, 'qr', 'tfd');

@@ -1,19 +1,18 @@
-import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
-import { AbstractInvoiceData } from './abstract-invoice-data.js';
+import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
+import AbstractInvoiceData from './abstract_invoice_data.js';
 
-export class CfdiData extends AbstractInvoiceData {
-  private readonly _comprobante: CNodeInterface;
+export default class CfdiData extends AbstractInvoiceData {
+  private readonly _comprobante: XmlNodeInterface;
 
   private readonly _address: string | undefined;
 
-  // eslint-disable-next-line max-params
-  constructor(
-    comprobante: CNodeInterface,
+  public constructor(
+    comprobante: XmlNodeInterface,
     qrUrl?: string | null,
     tfdSourceString?: string | null,
     logo?: string,
     address?: string,
-    additionalFields?: Array<{ title: string; value: string }>,
+    additionalFields?: { title: string; value: string }[],
   ) {
     super();
     const emisor = comprobante.searchNode('cfdi:Emisor');
@@ -50,9 +49,12 @@ export class CfdiData extends AbstractInvoiceData {
     if (this._tfdSourceString.trim().length === 0) {
       this.buildTfdSource();
     }
+
+    this._legendFooter =
+      'Este documento es una representación impresa de un Comprobante Fiscal Digital a través de Internet versión {version}';
   }
 
-  public comprobante(): CNodeInterface {
+  public comprobante(): XmlNodeInterface {
     return this._comprobante;
   }
 

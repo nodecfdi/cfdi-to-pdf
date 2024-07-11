@@ -1,6 +1,6 @@
-import { formatCurrency, toCurrency } from 'src/utils/currency';
+import { formatCurrency, toCurrency } from '#src/utils/currency';
 
-describe('Currency', () => {
+describe('currency', () => {
   test.each([
     [0, 'CERO PESOS 00/100 M.N.'],
     [1, 'UN PESO 00/100 M.N.'],
@@ -12,7 +12,7 @@ describe('Currency', () => {
     [13, 'TRECE PESOS 00/100 M.N.'],
     [14, 'CATORCE PESOS 00/100 M.N.'],
     [15, 'QUINCE PESOS 00/100 M.N.'],
-  ])('number basics to currency letters', (input: number, expected: string) => {
+  ])('number basics to currency letters %d => %s', (input: number, expected: string) => {
     expect(toCurrency(input)).toBe(expected);
   });
 
@@ -35,7 +35,7 @@ describe('Currency', () => {
     [81, 'OCHENTA Y UN PESOS 00/100 M.N.'],
     [90, 'NOVENTA PESOS 00/100 M.N.'],
     [92, 'NOVENTA Y DOS PESOS 00/100 M.N.'],
-  ])('number teens to currency letters', (input: number, expected: string) => {
+  ])('number teens to currency letters %d => %s', (input: number, expected: string) => {
     expect(toCurrency(input)).toBe(expected);
   });
 
@@ -58,7 +58,7 @@ describe('Currency', () => {
     [888, 'OCHOCIENTOS OCHENTA Y OCHO PESOS 00/100 M.N.'],
     [900, 'NOVECIENTOS PESOS 00/100 M.N.'],
     [999, 'NOVECIENTOS NOVENTA Y NUEVE PESOS 00/100 M.N.'],
-  ])('number hundreds to currency letters', (input: number, expected: string) => {
+  ])('number hundreds to currency letters %d => %s', (input: number, expected: string) => {
     expect(toCurrency(input)).toBe(expected);
   });
 
@@ -66,32 +66,35 @@ describe('Currency', () => {
     [1000, 'MIL PESOS 00/100 M.N.'],
     [1101, 'MIL CIENTO UN PESOS 00/100 M.N.'],
     [2000, 'DOS MIL PESOS 00/100 M.N.'],
-    [13_000, 'TRECE MIL PESOS 00/100 M.N.'],
-    [50_000, 'CINCUENTA MIL PESOS 00/100 M.N.'],
-    [999_999, 'NOVECIENTOS NOVENTA Y NUEVE MIL NOVECIENTOS NOVENTA Y NUEVE PESOS 00/100 M.N.'],
-  ])('number thousands to currency letters', (input: number, expected: string) => {
+    [13000, 'TRECE MIL PESOS 00/100 M.N.'],
+    [50000, 'CINCUENTA MIL PESOS 00/100 M.N.'],
+    [999999, 'NOVECIENTOS NOVENTA Y NUEVE MIL NOVECIENTOS NOVENTA Y NUEVE PESOS 00/100 M.N.'],
+  ])('number thousands to currency letters %d => %s', (input: number, expected: string) => {
     expect(toCurrency(input)).toBe(expected);
   });
 
   test.each([
-    [1_000_000, 'UN MILLÓN DE PESOS 00/100 M.N.'],
-    [1_001_000, 'UN MILLÓN MIL PESOS 00/100 M.N.'],
-    [2_000_000, 'DOS MILLONES DE PESOS 00/100 M.N.'],
-    [20_000_000, 'VEINTE MILLONES DE PESOS 00/100 M.N.'],
-  ])('number millions to currency letters', (input: number, expected: string) => {
+    [1000000, 'UN MILLÓN DE PESOS 00/100 M.N.'],
+    [1001000, 'UN MILLÓN MIL PESOS 00/100 M.N.'],
+    [2000000, 'DOS MILLONES DE PESOS 00/100 M.N.'],
+    [20000000, 'VEINTE MILLONES DE PESOS 00/100 M.N.'],
+  ])('number millions to currency letters %d => %s', (input: number, expected: string) => {
     expect(toCurrency(input)).toBe(expected);
   });
 
   test.each([
     [
-      999_999_999_999.99,
+      999999999999.99,
       'NOVECIENTOS NOVENTA Y NUEVE MIL NOVECIENTOS NOVENTA Y NUEVE MILLONES NOVECIENTOS NOVENTA Y NUEVE MIL NOVECIENTOS NOVENTA Y NUEVE PESOS 99/100 M.N.',
     ],
-    [1_000_000_000, 'MIL MILLONES DE PESOS 00/100 M.N.'],
-    [500_000_000, 'QUINIENTOS MILLONES DE PESOS 00/100 M.N.'],
-  ])('number thousands of millions to currency letters', (input: number, expected: string) => {
-    expect(toCurrency(input)).toBe(expected);
-  });
+    [1000000000, 'MIL MILLONES DE PESOS 00/100 M.N.'],
+    [500000000, 'QUINIENTOS MILLONES DE PESOS 00/100 M.N.'],
+  ])(
+    'number thousands of millions to currency letters %d => %s',
+    (input: number, expected: string) => {
+      expect(toCurrency(input)).toBe(expected);
+    },
+  );
 
   test('number to currency letters with decimals', () => {
     expect(toCurrency(1500.7)).toBe('MIL QUINIENTOS PESOS 70/100 M.N.');
@@ -106,7 +109,7 @@ describe('Currency', () => {
 
   test('expect thrown on number great than 999,999,999,999.99', () => {
     expect(() => {
-      toCurrency(999_999_999_999.99 + 0.1);
+      toCurrency(999999999999.99 + 0.1);
     }).toThrow('El número es demasiado grande.');
   });
 

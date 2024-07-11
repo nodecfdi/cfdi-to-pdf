@@ -1,14 +1,11 @@
-export * from './catalogs/catalogs-interface.js';
-export * from './catalogs/static-catalogs.js';
-export * from './abstract-invoice-data.js';
-export * from './cfdi-data.js';
-export * from './retenciones-data.js';
-export * from './utils/currency.js';
-export * from './utils/break-characters.js';
-export * from './builders/builder-interface.js';
-export * from './templates/document-translator-interface.js';
-export * from './builders/pdf-maker-builder.js';
-export * from './builders/pdf-maker-browser-builder.js';
-export * from './templates/generic-cfdi-translator.js';
-export * from './templates/generic-retenciones-translator.js';
-export * from './pdfmake-builder.js';
+// Copyright (c) Nodecfdi. All rights reserved. Licensed under the MIT license.
+
+/**
+ * Librería para crear un pdf basado en un XML CFDI o Retenciones ClientSide version
+ */
+export { default as AbstractInvoiceData } from './abstract_invoice_data.js';
+export * from './catalogs/catalogs_source.js';
+export { default as CfdiData } from './cfdi_data.js';
+export { default as RetencionesData } from './retenciones_data.js';
+export { default as GenericCfdiTranslator } from './templates/generic_cfdi_translator.js';
+export { default as GenericRetencionesTranslator } from './templates/generic_retenciones_translator.js';

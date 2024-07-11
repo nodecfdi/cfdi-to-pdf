@@ -1,33 +1,26 @@
-import { XmlNodeUtils, install } from '@nodecfdi/cfdiutils-common';
-import { XMLSerializer, DOMParser, DOMImplementation } from '@xmldom/xmldom';
-import { RetencionesData } from 'src/retenciones-data';
-import { useTestCase } from '../test-case.js';
+import { nodeFromXmlString } from '@nodecfdi/cfdi-core';
+import RetencionesData from '#src/retenciones_data';
+import { fileContents } from '#tests/test_utils';
 
-describe('RetencionesData', () => {
-  const { fileContents } = useTestCase();
-
-  beforeAll(() => {
-    install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
-  });
-
+describe('retenciones data', () => {
   test('construct using valid content', () => {
-    const retenciones = XmlNodeUtils.nodeFromXmlString(fileContents('retenciones-valid.xml'));
+    const retenciones = nodeFromXmlString(fileContents('retenciones-valid.xml'));
     const retencionesData = new RetencionesData(retenciones, 'qr', 'tfd');
 
     expect(retencionesData.retenciones()).toBe(retenciones);
     expect(retencionesData.qrUrl()).toBe('qr');
     expect(retencionesData.tfdSourceString()).toBe('tfd');
-    expect(retencionesData.emisor().get('RFCEmisor')).toBe('EKU9003173C9');
-    expect(retencionesData.receptor().get('Nacionalidad')).toBe('Nacional');
-    expect(retencionesData.periodo().get('MesIni')).toBe('08');
-    expect(retencionesData.totales().get('montoTotOperacion')).toBe('8092.24');
-    expect(retencionesData.timbreFiscalDigital().get('UUID')).toBe(
+    expect(retencionesData.emisor().getAttribute('RFCEmisor')).toBe('EKU9003173C9');
+    expect(retencionesData.receptor().getAttribute('Nacionalidad')).toBe('Nacional');
+    expect(retencionesData.periodo().getAttribute('MesIni')).toBe('08');
+    expect(retencionesData.totales().getAttribute('montoTotOperacion')).toBe('8092.24');
+    expect(retencionesData.timbreFiscalDigital().getAttribute('UUID')).toBe(
       'F25F9852-6F4C-4782-9D47-3119EB3FAD3A',
     );
   });
 
   test('construct using empty qrUrl', () => {
-    const retenciones = XmlNodeUtils.nodeFromXmlString(fileContents('retenciones-valid.xml'));
+    const retenciones = nodeFromXmlString(fileContents('retenciones-valid.xml'));
     const retencionesData = new RetencionesData(retenciones, '', 'tfd');
 
     expect(retencionesData.qrUrl()).toBe(
@@ -36,10 +29,10 @@ describe('RetencionesData', () => {
   });
 
   test('construct without emisor', () => {
-    const retenciones = XmlNodeUtils.nodeFromXmlString(fileContents('retenciones-valid.xml'));
+    const retenciones = nodeFromXmlString(fileContents('retenciones-valid.xml'));
     const emisor = retenciones.searchNode('retenciones:Emisor');
     if (emisor) {
-      retenciones.children().remove(emisor);
+      retenciones.children().delete(emisor);
     }
 
     const t = (): RetencionesData => new RetencionesData(retenciones, 'qr', 'tfd');
@@ -49,10 +42,10 @@ describe('RetencionesData', () => {
   });
 
   test('construct without receptor', () => {
-    const retenciones = XmlNodeUtils.nodeFromXmlString(fileContents('retenciones-valid.xml'));
+    const retenciones = nodeFromXmlString(fileContents('retenciones-valid.xml'));
     const receptor = retenciones.searchNode('retenciones:Receptor');
     if (receptor) {
-      retenciones.children().remove(receptor);
+      retenciones.children().delete(receptor);
     }
 
     const t = (): RetencionesData => new RetencionesData(retenciones, 'qr', 'tfd');
@@ -62,10 +55,10 @@ describe('RetencionesData', () => {
   });
 
   test('construct without periodo', () => {
-    const retenciones = XmlNodeUtils.nodeFromXmlString(fileContents('retenciones-valid.xml'));
+    const retenciones = nodeFromXmlString(fileContents('retenciones-valid.xml'));
     const periodo = retenciones.searchNode('retenciones:Periodo');
     if (periodo) {
-      retenciones.children().remove(periodo);
+      retenciones.children().delete(periodo);
     }
 
     const t = (): RetencionesData => new RetencionesData(retenciones, 'qr', 'tfd');
@@ -75,10 +68,10 @@ describe('RetencionesData', () => {
   });
 
   test('construct without totales', () => {
-    const retenciones = XmlNodeUtils.nodeFromXmlString(fileContents('retenciones-valid.xml'));
+    const retenciones = nodeFromXmlString(fileContents('retenciones-valid.xml'));
     const totales = retenciones.searchNode('retenciones:Totales');
     if (totales) {
-      retenciones.children().remove(totales);
+      retenciones.children().delete(totales);
     }
 
     const t = (): RetencionesData => new RetencionesData(retenciones, 'qr', 'tfd');
@@ -88,10 +81,10 @@ describe('RetencionesData', () => {
   });
 
   test('construct without complemento', () => {
-    const retenciones = XmlNodeUtils.nodeFromXmlString(fileContents('retenciones-valid.xml'));
+    const retenciones = nodeFromXmlString(fileContents('retenciones-valid.xml'));
     const complemento = retenciones.searchNode('retenciones:Complemento');
     if (complemento) {
-      complemento.children().removeAll();
+      complemento.children().clear();
     }
 
     const t = (): RetencionesData => new RetencionesData(retenciones, 'qr', 'tfd');
