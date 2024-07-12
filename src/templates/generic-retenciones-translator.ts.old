@@ -1,3 +1,4 @@
+import { type CNodeInterface, type CNodes } from '@nodecfdi/cfdiutils-common';
 import {
   type Content,
   type ContentColumns,
@@ -7,11 +8,10 @@ import {
   type TableLayout,
   type TDocumentDefinitions,
 } from 'pdfmake/interfaces';
-import { type CNodeInterface, type CNodes } from '@nodecfdi/cfdiutils-common';
-import { type RetencionesData } from '../retenciones-data.js';
-import { breakEveryNCharacters } from '../utils/break-characters.js';
-import { formatCurrency } from '../utils/currency.js';
 import { type CatalogsInterface } from '../catalogs/catalogs-interface.js';
+import { type RetencionesData } from '../retenciones_data.js';
+import { breakEveryNCharacters } from '../utils/break_characters.js';
+import { formatCurrency } from '../utils/currency.js';
 import { type DocumentTranslatorInterface } from './document-translator-interface.js';
 
 export class GenericRetencionesTranslator implements DocumentTranslatorInterface<RetencionesData> {
@@ -82,119 +82,6 @@ export class GenericRetencionesTranslator implements DocumentTranslatorInterface
       paddingRight(i, node): number {
         return i === (node.table.widths?.length ?? 0) - 1 ? 0 : 8;
       },
-    };
-  }
-
-  protected generateFooter(
-    version: string,
-    uuid: string,
-    currentPage: number,
-    pageCount: number,
-  ): Content {
-    return {
-      style: 'tableContent',
-      table: {
-        widths: ['auto', '*', 'auto', 'auto'],
-        body: [
-          [
-            {
-              text: `Este documento es una representación impresa de un Comprobante Fiscal Digital por Internet que ampara Retenciones e Información de Pagos versión ${version}`,
-              style: 'tableList',
-              colSpan: 4,
-              alignment: 'center',
-            },
-            {},
-            {},
-            {},
-          ],
-          [
-            {
-              text: `UUID: ${uuid} - Página ${currentPage} de ${pageCount}`,
-              style: 'tableList',
-              colSpan: 4,
-              alignment: 'center',
-            },
-            {},
-            {},
-            {},
-          ],
-        ],
-      },
-      layout: 'noBorders',
-    };
-  }
-
-  protected generateTopContent(retenciones: CNodeInterface, logo?: string): Content {
-    const header: ContentColumns = {
-      columns: [
-        {
-          width: '*',
-          alignment: 'left',
-          style: 'tableContent',
-          table: {
-            widths: ['*'],
-            body: [['']],
-          },
-          layout: 'lightHorizontalLines',
-        },
-        {
-          width: 'auto',
-          alignment: 'center',
-          style: 'tableContent',
-          table: {
-            widths: ['auto', 'auto'],
-            body: [
-              ['FOLIO:', retenciones.get('FolioInt')],
-              ['FECHA:', retenciones.get('FechaExp')],
-              ['COMPROBANTE:', 'RETENCIÓN'],
-              ['VERSIÓN:', this.version],
-            ],
-          },
-          layout: 'lightHorizontalLines',
-        },
-      ],
-    };
-    if (logo) {
-      (header.columns[0] as ContentTable).table.body[0][0] = { image: logo, fit: [80, 80] };
-      (header.columns[0] as ContentTable).table.widths = ['*'];
-    }
-
-    return header;
-  }
-
-  protected generateEmisorContent(emisor: CNodeInterface): Content {
-    const body: TableCell[][] = [];
-    body.push(
-      [
-        {
-          text: 'EMISOR',
-          style: 'tableHeader',
-          colSpan: 4,
-          alignment: 'left',
-        },
-        {},
-        {},
-        {},
-      ],
-      [
-        'NOMBRE:',
-        emisor.get('NomDenRazSocE'),
-        'RFC:',
-        emisor.get(this.version === '1.0' ? 'RFCEmisor' : 'RfcE'),
-      ],
-    );
-
-    if (this.version === '2.0') {
-      body.push(['REGIMEN FISCAL:', emisor.get('RegimenFiscalE'), '', '']);
-    }
-
-    return {
-      style: 'tableContent',
-      table: {
-        widths: ['auto', '*', 'auto', 'auto'],
-        body,
-      },
-      layout: this.tableLayoutBordered(),
     };
   }
 

@@ -1,3 +1,4 @@
+import { type CNodeInterface, type CNodes } from '@nodecfdi/cfdiutils-common';
 import {
   type Column,
   type Content,
@@ -7,168 +8,16 @@ import {
   type TableCell,
   type TDocumentDefinitions,
 } from 'pdfmake/interfaces';
-import { type CNodeInterface, type CNodes } from '@nodecfdi/cfdiutils-common';
-import { formatCurrency, toCurrency, toNumber } from '../utils/currency.js';
-import { breakEveryNCharacters } from '../utils/break-characters.js';
-import { type CfdiData } from '../cfdi-data.js';
 import { type CatalogsInterface } from '../catalogs/catalogs-interface.js';
-import { type DocumentTranslatorInterface } from './document-translator-interface.js';
+import { type CfdiData } from '../cfdi_data.js';
+import { breakEveryNCharacters } from '../utils/break_characters.js';
+import { formatCurrency, toCurrency, toNumber } from '../utils/currency.js';
+import { useImpLocal10Complement } from './complements/imp-local10-complement.js';
 import { usePago10Complement } from './complements/pago10-complement.js';
 import { usePago20Complement } from './complements/pago20-complement.js';
-import { useImpLocal10Complement } from './complements/imp-local10-complement.js';
+import { type DocumentTranslatorInterface } from './document-translator-interface.js';
 
 export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiData> {
-  public translate(
-    cfdiData: CfdiData,
-    defaultStyle: Style,
-    catalogs: CatalogsInterface,
-  ): TDocumentDefinitions {
-    const comprobante = cfdiData.comprobante();
-    const tfd = cfdiData.timbreFiscalDigital();
-
-    return {
-      content: this.generateContent(cfdiData, catalogs),
-      styles: {
-        tableHeader: {
-          bold: true,
-          fontSize: 10,
-          color: 'black',
-        },
-        tableContent: {
-          fontSize: 8,
-          color: 'black',
-          alignment: 'left',
-        },
-        tableList: {
-          fontSize: 7,
-          color: 'black',
-          alignment: 'center',
-        },
-        tableSat: {
-          fontSize: 5,
-          color: 'black',
-          alignment: 'left',
-        },
-      },
-      defaultStyle,
-      footer: (currentPage, pageCount) =>
-        this.generateFooter(comprobante.get('Version'), tfd.get('UUID'), currentPage, pageCount),
-    };
-  }
-
-  protected generateFooter(
-    version: string,
-    uuid: string,
-    currentPage: number,
-    pageCount: number,
-  ): Content {
-    return {
-      style: 'tableContent',
-      table: {
-        widths: ['auto', '*', 'auto', 'auto'],
-        body: [
-          [
-            {
-              text: `Este documento es una representación impresa de un Comprobante Fiscal Digital a través de Internet versión ${version}`,
-              style: 'tableList',
-              colSpan: 4,
-              alignment: 'center',
-            },
-            {},
-            {},
-            {},
-          ],
-          [
-            {
-              text: `UUID: ${uuid} - Página ${currentPage} de ${pageCount}`,
-              style: 'tableList',
-              colSpan: 4,
-              alignment: 'center',
-            },
-            {},
-            {},
-            {},
-          ],
-        ],
-      },
-      layout: 'noBorders',
-    };
-  }
-
-  protected generateTopContent(
-    comprobante: CNodeInterface,
-    catalogs: CatalogsInterface,
-    logo?: string,
-  ): Content {
-    const header: ContentColumns = {
-      columns: [
-        {
-          width: '*',
-          alignment: 'left',
-          style: 'tableContent',
-          table: {
-            widths: ['*'],
-            body: [['']],
-          },
-          layout: 'lightHorizontalLines',
-        },
-        {
-          width: 'auto',
-          alignment: 'center',
-          style: 'tableContent',
-          table: {
-            widths: ['auto', 'auto'],
-            body: [
-              ['SERIE:', comprobante.get('Serie')],
-              ['FOLIO:', comprobante.get('Folio')],
-              ['FECHA:', comprobante.get('Fecha')],
-              ['EXPEDICIÓN:', comprobante.get('LugarExpedicion')],
-              ['COMPROBANTE:', catalogs.catTipoComprobante(comprobante.get('TipoDeComprobante'))],
-              ['VERSIÓN:', comprobante.get('Version')],
-            ],
-          },
-          layout: 'lightHorizontalLines',
-        },
-      ],
-    };
-    if (logo) {
-      (header.columns[0] as ContentTable).table.body[0][0] = { image: logo, fit: [80, 80] };
-      (header.columns[0] as ContentTable).table.widths = ['*'];
-    }
-
-    return header;
-  }
-
-  protected generateEmisorContent(emisor: CNodeInterface, catalogs: CatalogsInterface): Content {
-    return {
-      style: 'tableContent',
-      table: {
-        widths: ['auto', '*', 'auto', 'auto'],
-        body: [
-          [
-            {
-              text: 'EMISOR',
-              style: 'tableHeader',
-              colSpan: 4,
-              alignment: 'left',
-            },
-            {},
-            {},
-            {},
-          ],
-          ['NOMBRE:', emisor.get('Nombre'), 'RFC:', emisor.get('Rfc')],
-          [
-            'REGIMEN FISCAL:',
-            { colSpan: 3, text: catalogs.catRegimenFiscal(emisor.get('RegimenFiscal')) },
-            {},
-            {},
-          ],
-        ],
-      },
-      layout: 'lightHorizontalLines',
-    };
-  }
-
   protected generateAddress(
     receptor: CNodeInterface,
     catalogs: CatalogsInterface,
@@ -179,7 +28,7 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
     if (address ?? receptor.offsetExists('DomicilioFiscalReceptor')) {
       cellAddress.push(
         'DOMICILIO:',
-        `${address ? address + ' ' : ''}${receptor.get('DomicilioFiscalReceptor')}`,
+        `${address ? `${address} ` : ''}${receptor.get('DomicilioFiscalReceptor')}`,
       );
     }
 
@@ -249,7 +98,9 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
     catalogs: CatalogsInterface,
   ): void {
     const globalInformation = comprobante.searchNode('cfdi:InformacionGlobal');
-    if (globalInformation === undefined) return;
+    if (globalInformation === undefined) {
+      return;
+    }
     currentContent.push(
       {
         style: 'tableContent',
