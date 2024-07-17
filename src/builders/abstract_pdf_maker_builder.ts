@@ -51,6 +51,7 @@ export default class AbstractPdfMakerBuilder<T extends AbstractInvoiceData> {
       },
       tableHeader: {
         bold: true,
+        color: 'white',
       },
     };
   }
