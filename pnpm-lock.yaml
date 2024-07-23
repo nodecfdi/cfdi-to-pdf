@@ -1,0 +1,23 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      '@nodecfdi/cfdiutils-common':
+        specifier: ^1.2.6
+        version: 1.2.6
+
+packages:
+
+  '@nodecfdi/cfdiutils-common@1.2.6':
+    resolution: {integrity: sha512-U6KNaU2lhgoP8QYpKOgoXXqemXzgCOTeqGgtyIICpZKfr9W5UjVxlqfKNe7sZ8VbvA7JsnS4rkEAk+IEITw+vA==}
+    engines: {node: '>=16.0.0'}
+
+snapshots:
+
+  '@nodecfdi/cfdiutils-common@1.2.6': {}
