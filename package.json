@@ -54,7 +54,7 @@
     "tshy": "^3.0.2",
     "typedoc": "^0.26.4",
     "typescript": "^5.5.3",
-    "vitest": "^2.0.2"
+    "vitest": "^2.0.4"
   },
   "peerDependencies": {
     "@nodecfdi/cfdi-core": "^0.3.0",

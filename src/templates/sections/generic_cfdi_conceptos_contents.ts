@@ -1,12 +1,98 @@
+import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
 import { type Content, type TableCell } from 'pdfmake/interfaces.js';
 import type CfdiData from '#src/cfdi_data';
 import { type CatalogsData } from '#src/types';
-import { formatCurrency } from '#src/utils';
+import { formatCurrency, toNumber } from '#src/utils';
+import { getKeyValueOfCatalog } from '../../catalogs/catalogs_source.js';
+
+const calcularImpuestos = (concepto: XmlNodeInterface, _catalogs: CatalogsData, primaryColor: string, bgGrayColor: string): Content[] => {
+  const impuestosContent: Content[] = [];
+
+  const traslados = concepto.searchNodes('cfdi:Impuestos', 'cfdi:Traslados', 'cfdi:Traslado');
+  const retenciones = concepto.searchNodes('cfdi:Impuestos', 'cfdi:Retenciones', 'cfdi:Retencion');
+
+  const uniqueTraslados = new Map<string, { impuesto: string; importe: string | number }>();
+  const uniqueRetenciones = new Map<string, { impuesto: string; importe: string | number }>();
+
+  if (traslados.length > 0) {
+    for (const traslado of traslados) {
+      const key = `${traslado.getAttribute('Impuesto')}}`;
+      if (traslado.getAttribute('TipoFactor') === 'Exento') {
+        uniqueTraslados.set(key, {
+          impuesto: traslado.getAttribute('Impuesto'),
+          importe: 'EXENTO',
+        });
+        continue;
+      }
+
+      if (uniqueTraslados.has(key)) {
+        const importe = toNumber(uniqueTraslados.get(key)!.importe) + toNumber(traslado.getAttribute('Importe'));
+        uniqueTraslados.set(key, {
+          impuesto: traslado.getAttribute('Impuesto'),
+          importe,
+        });
+        continue;
+      }
+
+      uniqueTraslados.set(key, {
+        impuesto: traslado.getAttribute('Impuesto'),
+        importe: toNumber(traslado.getAttribute('Importe')),
+      });
+    }
+  }
+
+  if (retenciones.length > 0) {
+    for (const retencion of retenciones) {
+      const key = `${retencion.getAttribute('Impuesto')}}`;
+      if (uniqueRetenciones.has(key)) {
+        const importe = toNumber(uniqueRetenciones.get(key)!.importe) + toNumber(retencion.getAttribute('Importe'));
+        uniqueRetenciones.set(key, {
+          impuesto: retencion.getAttribute('Impuesto'),
+          importe,
+        });
+        continue;
+      }
+
+      uniqueRetenciones.set(key, {
+        impuesto: retencion.getAttribute('Impuesto'),
+        importe: toNumber(retencion.getAttribute('Importe')),
+      });
+    }
+  }
+
+  const contentTable: TableCell[][] = [
+    [{}, {}, {}],
+    ...[...uniqueTraslados.values()].map(traslado => [
+      { text: 'Traslado', color: primaryColor },
+      { text: getKeyValueOfCatalog('cfdi40Impuestos', traslado.impuesto, _catalogs) },
+      { text: typeof traslado.importe === 'string' ? traslado.importe : formatCurrency(traslado.importe) },
+    ]),
+    [{}, {}, {}],
+    ...[...uniqueRetenciones.values()].map(retencion => [
+      { text: 'Retención', color: primaryColor },
+      { text: getKeyValueOfCatalog('cfdi40Impuestos', retencion.impuesto, _catalogs) },
+      { text: formatCurrency(retencion.importe) },
+    ]),
+  ];
+
+  impuestosContent.push({
+    table: {
+      widths: ['auto', '10%', '15%'],
+      body: contentTable,
+    },
+    layout: 'noBorders',
+    fillColor: bgGrayColor,
+  });
+
+  return impuestosContent;
+};
+
 
 const genericCfdiConceptosContent = (
   data: CfdiData,
   _catalogs: CatalogsData,
   primaryColor: string,
+  bgGrayColor: string,
 ): Content => {
   const conceptos = data.comprobante().searchNodes('cfdi:Conceptos', 'cfdi:Concepto');
 
@@ -18,10 +104,10 @@ const genericCfdiConceptosContent = (
     'Descripción',
     'Valor Unitario',
     'Cantidad',
-    'Importe',
+    {text: 'Importe', alignment: 'center'},
     'Descuento',
   ];
-   const styledHeaderCells = headerCells.map(cell => ({
+  const styledHeaderCells = headerCells.map(cell => ({
     text: cell,
     style: 'tableHeader',
     margin: [0, 3, 0, 3],
@@ -45,15 +131,14 @@ const genericCfdiConceptosContent = (
     rowsConceptos.push(rowContent);
 
     const impuestosRow: TableCell[] = [
-      {text: '', colSpan: 7 },
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
+      {stack: calcularImpuestos(concepto, _catalogs, primaryColor, bgGrayColor), alignment: 'left', colSpan: 7},
+
     ];
     rowsConceptos.push(impuestosRow);
+    const linesRow: TableCell[] = [
+      {fillColor: primaryColor, text: '', colSpan: 7},
+    ];
+    rowsConceptos.push(linesRow);
 
   }
 
@@ -64,7 +149,7 @@ const genericCfdiConceptosContent = (
     },
     layout: {
       fillColor(i): string | null {
-        return i === 0 ? primaryColor : null; // Color de fondo para la fila de encabezados
+        return i === 0 ? primaryColor : null;
       },
       hLineWidth: () => 0,
       vLineWidth: () => 0,
