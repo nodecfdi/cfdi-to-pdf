@@ -45,6 +45,7 @@ export default class GenericCfdiTranslator
       footer: (currentPage, pageCount, _) => {
         return genericFooter(currentPage, pageCount, data);
       },
+      pageMargins: [ 20, 20, 20, 40 ],
     };
   }
 }
