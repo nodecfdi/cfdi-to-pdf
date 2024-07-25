@@ -12,8 +12,6 @@ const genericStampContent = (
     const tfdSourceString = data.tfdSourceString();
     const qrUrl = data.qrUrl();
     const tfdCellsTable: TableCell[][] = [];
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (tfd) {
       tfdCellsTable.push(
         [
           {
@@ -44,7 +42,7 @@ const genericStampContent = (
         ['', '', '', '', ''],
         ['', '', '', '', ''],
       );
-    }
+
 
 
     return {
