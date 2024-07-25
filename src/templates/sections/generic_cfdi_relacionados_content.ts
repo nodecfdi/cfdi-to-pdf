@@ -24,7 +24,7 @@ const genericCfdiRelacionadosContent = (
               colSpan: 2,
               alignment: 'left',
               color: primaryColor,
-              style:'tableSubtitleHeader'
+              style: 'tableSubtitleHeader'
             },
             {},
           ],
@@ -99,6 +99,12 @@ const genericCfdiRelacionadosContent = (
         relatedInfoAndImport.push(createTable(tipoRelacion, uuidsArray));
       }
     }
+  }
+
+  if (relatedInfoAndImport.length === 0) {
+    return {
+      text: '',
+    };
   }
 
   return {

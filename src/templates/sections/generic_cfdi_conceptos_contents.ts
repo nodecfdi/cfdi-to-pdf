@@ -11,6 +11,10 @@ const calcularImpuestos = (concepto: XmlNodeInterface, _catalogs: CatalogsData, 
   const traslados = concepto.searchNodes('cfdi:Impuestos', 'cfdi:Traslados', 'cfdi:Traslado');
   const retenciones = concepto.searchNodes('cfdi:Impuestos', 'cfdi:Retenciones', 'cfdi:Retencion');
 
+  if (traslados.length === 0 && retenciones.length === 0) {
+    return [];
+  }
+
   const uniqueTraslados = new Map<string, { impuesto: string; importe: string | number }>();
   const uniqueRetenciones = new Map<string, { impuesto: string; importe: string | number }>();
 
