@@ -1,5 +1,6 @@
 import {
   type BufferOptions,
+  type CustomTableLayout,
   type Margins,
   type Style,
   type StyleDictionary,
@@ -59,6 +60,38 @@ export default class AbstractPdfMakerBuilder<T extends AbstractInvoiceData> {
       tableSatSub: {
         bold: true,
         color: this._primaryColor,
+      },
+    };
+  }
+
+  public layouts(): Record<string, CustomTableLayout> {
+    const primaryColor = this._primaryColor;
+
+    return {
+      tableLayout: {
+        defaultBorder: false,
+        hLineWidth(i, _node) {
+          if (i === 1) {
+            return 3;
+          }
+
+          return 2;
+        },
+        hLineColor(_i, _node) {
+          return primaryColor;
+        },
+        paddingTop(_i) {
+          return 2;
+        },
+        paddingBottom(_i) {
+          return 2;
+        },
+        paddingLeft(_i) {
+          return 2;
+        },
+        paddingRight(_i) {
+          return 2;
+        },
       },
     };
   }

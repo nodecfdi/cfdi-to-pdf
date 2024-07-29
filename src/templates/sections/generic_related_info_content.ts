@@ -82,7 +82,7 @@ const genericRelatedInfoContent = (
           ],
         ],
       },
-      layout: 'noBorders',
+      layout: 'tableLayout',
     });
   }
 

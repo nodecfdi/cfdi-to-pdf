@@ -63,7 +63,7 @@ const genericCfdiRelacionadosContent = (
           ],
         ],
       },
-      layout: 'noBorders',
+      layout: 'tableLayout',
     };
   };
 
@@ -114,7 +114,7 @@ const genericCfdiRelacionadosContent = (
       widths: ['*'],
       body: relatedInfoAndImport.map((content) => [content]),
     },
-    layout: 'noBorders',
+    layout: 'tableLayout',
   };
 };
 

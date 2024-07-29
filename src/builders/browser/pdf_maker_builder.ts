@@ -76,7 +76,7 @@ export class PdfMakerBuilder<T extends AbstractInvoiceData> extends AbstractPdfM
       this._primaryColor,
     );
 
-    return pdfMake.createPdf(pdfTemplate, undefined, this._overrideFonts, this._overrideVFS);
+    return pdfMake.createPdf(pdfTemplate, this.layouts(), this._overrideFonts, this._overrideVFS);
   }
 
   public defaultStyle(): Style {

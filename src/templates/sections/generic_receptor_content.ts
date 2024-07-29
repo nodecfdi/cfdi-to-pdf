@@ -63,7 +63,7 @@ const genericCfdiReceptorContent = (
     additionalReceptorData.push([
       {
         text: [
-          { text: 'Exportación', color: primaryColor },
+          { text: 'Exportación ', color: primaryColor },
           {
             text: getValueOfCatalog(
               'cfdi40Exportaciones',
@@ -218,7 +218,8 @@ const genericReceptorContent = (
               widths: ['*'],
               body: receptorData,
             },
-            layout: 'noBorders',
+            layout: 'tableLayout',
+            border: [false, false, false, true],
           },
           '',
           {
@@ -227,13 +228,13 @@ const genericReceptorContent = (
               widths: ['*'],
               body: additionalReceptorData,
             },
-            layout: 'noBorders',
+            layout: 'tableLayout',
+            border: [false, false, false, true],
           },
         ],
-        [{ fillColor: primaryColor, text: '' }, '', { fillColor: primaryColor, text: '' }],
       ],
     },
-    layout: 'noBorders',
+    layout: 'tableLayout',
   };
 };
 

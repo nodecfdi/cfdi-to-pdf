@@ -95,14 +95,14 @@ const genericTopContent = (
 
   const logoSection: TableCell = logo
     ? {
-        rowSpan: 3,
+        rowSpan: 2,
         margin: sectionLogoMargin,
         image: logo,
         fit: sectionLogoFit,
         alignment: 'center',
       }
     : {
-        rowSpan: 3,
+        rowSpan: 2,
         margin: sectionLogoMargin,
         text: '',
         alignment: 'center',
@@ -112,8 +112,16 @@ const genericTopContent = (
     table: {
       widths: ['40%', '60%'],
       body: [
-        [logoSection, { text: title, alignment: 'center', style: ['header'], color: primaryColor }],
-        ['', { fillColor: primaryColor, text: '' }],
+        [
+          logoSection,
+          {
+            text: title,
+            alignment: 'center',
+            style: ['header'],
+            color: primaryColor,
+            border: [false, false, false, true],
+          },
+        ],
         [
           '',
           {
@@ -121,12 +129,12 @@ const genericTopContent = (
               widths: contentWidths,
               body: bodyContent,
             },
-            layout: 'noBorders',
+            layout: 'tableLayout',
           },
         ],
       ],
     },
-    layout: 'noBorders',
+    layout: 'tableLayout',
   };
 };
 

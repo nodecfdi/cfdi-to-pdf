@@ -90,7 +90,10 @@ export class PdfMakerBuilder<T extends AbstractInvoiceData> extends AbstractPdfM
       this._primaryColor,
     );
 
-    return this._pdfPrinter.createPdfKitDocument(pdfTemplate, this._options);
+    return this._pdfPrinter.createPdfKitDocument(pdfTemplate, {
+      ...this._options,
+      tableLayouts: this.layouts(),
+    });
   }
 
   public defaultFontDictionary(): TFontDictionary {

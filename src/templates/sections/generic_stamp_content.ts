@@ -76,7 +76,7 @@ const genericStampContent = (data: CfdiData, primaryColor: string): Content => {
       widths: ['auto', '20%', '20%', '20%', '21.2%'],
       body: tfdCellsTable,
     },
-    layout: 'noBorders',
+    layout: 'tableLayout',
   };
 };
 

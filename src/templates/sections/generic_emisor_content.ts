@@ -79,7 +79,8 @@ const genericEmisorContent = (
                 [{ text: [{ text: 'RFC ', color: primaryColor }, { text: rfc }] }],
               ],
             },
-            layout: 'noBorders',
+            layout: 'tableLayout',
+            border: [false, false, false, true],
           },
           '',
           {
@@ -88,13 +89,13 @@ const genericEmisorContent = (
               widths: ['*'],
               body: additionalEmisorData,
             },
-            layout: 'noBorders',
+            layout: 'tableLayout',
+            border: [false, false, false, true],
           },
         ],
-        [{ fillColor: primaryColor, text: '' }, '', { fillColor: primaryColor, text: '' }],
       ],
     },
-    layout: 'noBorders',
+    layout: 'tableLayout',
   };
 };
 

@@ -97,7 +97,7 @@ const calcularImpuestos = (
       widths: ['auto', '10%', '15%'],
       body: contentTable,
     },
-    layout: 'noBorders',
+    layout: 'tableLayout',
     fillColor: bgGrayColor,
   });
 
@@ -168,7 +168,7 @@ const genericCfdiConceptosContent = (
 
   return {
     table: {
-      widths: ['auto', 'auto', '*', 'auto', 'auto', 'auto', 'auto'],
+      widths: ['auto', 'auto', '*', '11%', '9%', '10%', '10%'],
       body: rowsConceptos,
     },
     layout: {
