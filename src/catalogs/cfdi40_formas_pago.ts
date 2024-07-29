@@ -1,6 +1,6 @@
-import { buildItem, defineCatalog } from './define_catalog.js';
+import { buildItem, defineCatalog } from '#src/catalogs/define_catalog';
 
-export default defineCatalog([
+const cfdi40FormasPago = defineCatalog([
   buildItem('01', 'Efectivo'),
   buildItem('02', 'Cheque nominativo'),
   buildItem('03', 'Transferencia electrónica de fondos'),
@@ -24,3 +24,5 @@ export default defineCatalog([
   buildItem('31', 'Intermediario pagos'),
   buildItem('99', 'Por definir'),
 ]);
+
+export default cfdi40FormasPago;

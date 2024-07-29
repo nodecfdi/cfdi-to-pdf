@@ -1,6 +1,6 @@
-import { buildItem, defineCatalog } from './define_catalog.js';
+import { buildItem, defineCatalog } from '#src/catalogs/define_catalog';
 
-export default defineCatalog([
+const cfdi40Meses = defineCatalog([
   buildItem('01', 'Enero'),
   buildItem('02', 'Febrero'),
   buildItem('03', 'Marzo'),
@@ -20,3 +20,5 @@ export default defineCatalog([
   buildItem('17', 'Septiembre-Octubre'),
   buildItem('18', 'Noviembre-Diciembre'),
 ]);
+
+export default cfdi40Meses;

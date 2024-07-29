@@ -1,4 +1,4 @@
-import { type CatalogItem } from '../types.js';
+import { type CatalogItem } from '#src/types';
 
 export const defineCatalog = <T extends CatalogItem>(fn: T[]): T[] => {
   return fn;

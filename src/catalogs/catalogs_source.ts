@@ -1,16 +1,16 @@
-import { type CatalogsData } from '../types.js';
-import cfdi40Exportaciones from './cfdi40_exportaciones.js';
-import cfdi40FormasPago from './cfdi40_formas_pago.js';
-import cfdi40Impuestos from './cfdi40_impuestos.js';
-import cfdi40Meses from './cfdi40_meses.js';
-import cfdi40MetodosPago from './cfdi40_metodos_pago.js';
-import cfdi40ObjetosImpuestos from './cfdi40_objetos_impuestos.js';
-import cfdi40Periodicidades from './cfdi40_periodicidades.js';
-import cfdi40RegimenesFiscales from './cfdi40_regimenes_fiscales.js';
-import cfdi40TiposComprobantes from './cfdi40_tipos_comprobantes.js';
-import cfdi40TiposRelaciones from './cfdi40_tipos_relaciones.js';
-import cfdi40UsosCfdi from './cfdi40_usos_cfdi.js';
-import retenciones20ClavesRetencion from './retenciones20_claves_retencion.js';
+import cfdi40Exportaciones from '#src/catalogs/cfdi40_exportaciones';
+import cfdi40FormasPago from '#src/catalogs/cfdi40_formas_pago';
+import cfdi40Impuestos from '#src/catalogs/cfdi40_impuestos';
+import cfdi40Meses from '#src/catalogs/cfdi40_meses';
+import cfdi40MetodosPago from '#src/catalogs/cfdi40_metodos_pago';
+import cfdi40ObjetosImpuestos from '#src/catalogs/cfdi40_objetos_impuestos';
+import cfdi40Periodicidades from '#src/catalogs/cfdi40_periodicidades';
+import cfdi40RegimenesFiscales from '#src/catalogs/cfdi40_regimenes_fiscales';
+import cfdi40TiposComprobantes from '#src/catalogs/cfdi40_tipos_comprobantes';
+import cfdi40TiposRelaciones from '#src/catalogs/cfdi40_tipos_relaciones';
+import cfdi40UsosCfdi from '#src/catalogs/cfdi40_usos_cfdi';
+import retenciones20ClavesRetencion from '#src/catalogs/retenciones20_claves_retencion';
+import { type CatalogsData } from '#src/types';
 
 export const catalogsSource: CatalogsData = {
   cfdi40Impuestos,

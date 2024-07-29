@@ -1,7 +1,9 @@
-import { buildItem, defineCatalog } from './define_catalog.js';
+import { buildItem, defineCatalog } from '#src/catalogs/define_catalog';
 
-export default defineCatalog([
+const cfdi40Impuestos = defineCatalog([
   buildItem('001', 'ISR'),
   buildItem('002', 'IVA'),
   buildItem('003', 'IEPS'),
 ]);
+
+export default cfdi40Impuestos;

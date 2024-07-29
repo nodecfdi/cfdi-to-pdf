@@ -1,19 +1,19 @@
 import { type TDocumentDefinitions } from 'pdfmake/interfaces.js';
-import type CfdiData from '../cfdi_data.js';
+import type CfdiData from '#src/cfdi_data';
+import AbstractGenericTraslator from '#src/templates/abstract_generic_translator';
+import genericCfdiConceptosContent from '#src/templates/sections/generic_cfdi_conceptos_contents';
+import genericCfdiRelacionadosContent from '#src/templates/sections/generic_cfdi_relacionados_content';
+import genericEmisorContent from '#src/templates/sections/generic_emisor_content';
+import genericFooter from '#src/templates/sections/generic_footer';
+import genericReceptorContent from '#src/templates/sections/generic_receptor_content';
+import genericRelatedInfoContent from '#src/templates/sections/generic_related_info_content';
+import genericStampContent from '#src/templates/sections/generic_stamp_content';
+import genericTopContent from '#src/templates/sections/generic_top_content';
 import {
   type CatalogsData,
   type DocumentOptions,
   type DocumentTranslatorInterface,
-} from '../types.js';
-import AbstractGenericTraslator from './abstract_generic_translator.js';
-import genericCfdiConceptosContent from './sections/generic_cfdi_conceptos_contents.js';
-import genericCfdiRelacionadosContent from './sections/generic_cfdi_relacionados_content.js';
-import genericEmisorContent from './sections/generic_emisor_content.js';
-import genericFooter from './sections/generic_footer.js';
-import genericReceptorContent from './sections/generic_receptor_content.js';
-import genericRelatedInfoContent from './sections/generic_related_info_content.js';
-import genericStampContent from './sections/generic_stamp_content.js';
-import genericTopContent from './sections/generic_top_content.js';
+} from '#src/types';
 
 export default class GenericCfdiTranslator
   extends AbstractGenericTraslator
@@ -45,7 +45,7 @@ export default class GenericCfdiTranslator
       footer: (currentPage, pageCount, _) => {
         return genericFooter(currentPage, pageCount, data);
       },
-      pageMargins: [ 20, 20, 20, 40 ],
+      pageMargins: [20, 20, 20, 40],
     };
   }
 }

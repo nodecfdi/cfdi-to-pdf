@@ -1,9 +1,11 @@
-import { buildItem, defineCatalog } from './define_catalog.js';
+import { buildItem, defineCatalog } from '#src/catalogs/define_catalog';
 
-export default defineCatalog([
+const cfdi40TiposComprobantes = defineCatalog([
   buildItem('I', 'Ingreso'),
   buildItem('E', 'Egreso'),
   buildItem('T', 'Traslado'),
   buildItem('N', 'Nómina'),
   buildItem('P', 'Pago'),
 ]);
+
+export default cfdi40TiposComprobantes;

@@ -1,6 +1,6 @@
-import { buildItem, defineCatalog } from './define_catalog.js';
+import { buildItem, defineCatalog } from '#src/catalogs/define_catalog';
 
-export default defineCatalog([
+const cfdi40UsosCfdi = defineCatalog([
   buildItem('G01', 'Adquisición de mercancías'),
   buildItem('G02', 'Devoluciones, descuentos o bonificaciones'),
   buildItem('G03', 'Gastos en general'),
@@ -32,3 +32,5 @@ export default defineCatalog([
   buildItem('CP01', 'Pagos'),
   buildItem('CN01', 'Nómina'),
 ]);
+
+export default cfdi40UsosCfdi;

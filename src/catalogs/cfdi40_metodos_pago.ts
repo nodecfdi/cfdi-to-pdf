@@ -1,6 +1,8 @@
-import { buildItem, defineCatalog } from './define_catalog.js';
+import { buildItem, defineCatalog } from '#src/catalogs/define_catalog';
 
-export default defineCatalog([
+const cfdi40MetodosPago = defineCatalog([
   buildItem('PUE', 'Pago en una sola exhibición'),
   buildItem('PPD', 'Pago en parcialidades o diferido'),
 ]);
+
+export default cfdi40MetodosPago;

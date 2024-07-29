@@ -1,5 +1,5 @@
 import { type TDocumentDefinitions } from 'pdfmake/interfaces.js';
-import type AbstractInvoiceData from './abstract_invoice_data.js';
+import type AbstractInvoiceData from '#src/abstract_invoice_data';
 
 export interface CatalogItem {
   id: string;

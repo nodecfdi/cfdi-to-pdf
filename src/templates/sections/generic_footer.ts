@@ -1,6 +1,6 @@
 import { type Content } from 'pdfmake/interfaces.js';
-import CfdiData from '../../cfdi_data.js';
-import RetencionesData from '../../retenciones_data.js';
+import CfdiData from '#src/cfdi_data';
+import RetencionesData from '#src/retenciones_data';
 
 const genericFooter = (
   currentPage: number,

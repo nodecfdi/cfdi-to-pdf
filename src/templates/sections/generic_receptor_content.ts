@@ -1,8 +1,8 @@
 import { type Content, type TableCell } from 'pdfmake/interfaces.js';
-import { getKeyValueOfCatalog, getValueOfCatalog } from '../../catalogs/catalogs_source.js';
-import CfdiData from '../../cfdi_data.js';
-import RetencionesData from '../../retenciones_data.js';
-import { type CatalogsData } from '../../types.js';
+import { getKeyValueOfCatalog, getValueOfCatalog } from '#src/catalogs/catalogs_source';
+import CfdiData from '#src/cfdi_data';
+import RetencionesData from '#src/retenciones_data';
+import { type CatalogsData } from '#src/types';
 
 const genericCfdiReceptorContent = (
   data: CfdiData,

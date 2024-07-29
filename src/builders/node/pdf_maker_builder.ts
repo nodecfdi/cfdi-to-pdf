@@ -2,14 +2,14 @@ import { createWriteStream } from 'node:fs';
 import { buffer } from 'node:stream/consumers';
 import PdfPrinter from 'pdfmake';
 import { type BufferOptions, type TFontDictionary } from 'pdfmake/interfaces.js';
-import type AbstractInvoiceData from '../../abstract_invoice_data.js';
-import { catalogsSource } from '../../catalogs/catalogs_source.js';
+import type AbstractInvoiceData from '#src/abstract_invoice_data';
+import AbstractPdfMakerBuilder from '#src/builders/abstract_pdf_maker_builder';
+import { catalogsSource } from '#src/catalogs/catalogs_source';
 import {
   type CatalogsData,
   type DocumentOptions,
   type DocumentTranslatorInterface,
-} from '../../types.js';
-import AbstractPdfMakerBuilder from '../abstract_pdf_maker_builder.js';
+} from '#src/types';
 
 export class PdfMakerBuilder<T extends AbstractInvoiceData> extends AbstractPdfMakerBuilder<T> {
   private readonly _pdfPrinter: PdfPrinter;

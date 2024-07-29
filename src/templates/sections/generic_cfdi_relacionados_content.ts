@@ -1,7 +1,7 @@
 import { type Content } from 'pdfmake/interfaces.js';
+import { getKeyValueOfCatalog } from '#src/catalogs/catalogs_source';
 import type CfdiData from '#src/cfdi_data';
 import { type CatalogsData } from '#src/types';
-import { getKeyValueOfCatalog } from '../../catalogs/catalogs_source.js';
 
 const genericCfdiRelacionadosContent = (
   data: CfdiData,
@@ -24,7 +24,7 @@ const genericCfdiRelacionadosContent = (
               colSpan: 2,
               alignment: 'left',
               color: primaryColor,
-              style: 'tableSubtitleHeader'
+              style: 'tableSubtitleHeader',
             },
             {},
           ],
@@ -77,7 +77,7 @@ const genericCfdiRelacionadosContent = (
       const tipoRelacion = getKeyValueOfCatalog(
         'cfdi40TiposRelaciones',
         relacionados.getAttribute('TipoRelacion'),
-        catalogs
+        catalogs,
       );
 
       relatedInfoAndImport.push(createTable(tipoRelacion, uuidsArray));
@@ -86,14 +86,16 @@ const genericCfdiRelacionadosContent = (
     const relacionados = data.comprobante().searchNodes('cfdi:CfdiRelacionados');
     if (relacionados.length > 0) {
       for (const relacionadosNode of relacionados) {
-        const uuidsArray = relacionadosNode.searchNodes('cfdi:CfdiRelacionado').map((relacionado) => {
-          return relacionado.getAttribute('UUID');
-        });
+        const uuidsArray = relacionadosNode
+          .searchNodes('cfdi:CfdiRelacionado')
+          .map((relacionado) => {
+            return relacionado.getAttribute('UUID');
+          });
 
         const tipoRelacion = getKeyValueOfCatalog(
           'cfdi40TiposRelaciones',
           relacionadosNode.getAttribute('TipoRelacion'),
-          catalogs
+          catalogs,
         );
 
         relatedInfoAndImport.push(createTable(tipoRelacion, uuidsArray));

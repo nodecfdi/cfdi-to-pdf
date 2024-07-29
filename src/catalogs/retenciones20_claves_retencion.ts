@@ -1,6 +1,6 @@
-import { buildItem, defineCatalog } from './define_catalog.js';
+import { buildItem, defineCatalog } from '#src/catalogs/define_catalog';
 
-export default defineCatalog([
+const retenciones20ClavesRetencion = defineCatalog([
   buildItem('01', 'Servicios profesionales'),
   buildItem('02', 'Regalías por derechos de autor'),
   buildItem('03', 'Autotransporte terrestre de carga'),
@@ -33,3 +33,5 @@ export default defineCatalog([
   buildItem('27', 'Sector Financiero'),
   buildItem('28', 'Pagos y retenciones a Contribuyentes del RIF'),
 ]);
+
+export default retenciones20ClavesRetencion;

@@ -1,6 +1,6 @@
-import { buildItem, defineCatalog } from './define_catalog.js';
+import { buildItem, defineCatalog } from '#src/catalogs/define_catalog';
 
-export default defineCatalog([
+const cfdi40RegimenesFiscales = defineCatalog([
   buildItem('601', 'General de Ley Personas Morales'),
   buildItem('603', 'Personas Morales con Fines no Lucrativos'),
   buildItem('605', 'Sueldos y Salarios e Ingresos Asimilados a Salarios'),
@@ -24,3 +24,5 @@ export default defineCatalog([
   ),
   buildItem('626', 'Régimen Simplificado de Confianza'),
 ]);
+
+export default cfdi40RegimenesFiscales;
