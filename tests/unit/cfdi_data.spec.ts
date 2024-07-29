@@ -1,6 +1,6 @@
 import { nodeFromXmlString } from '@nodecfdi/cfdi-core';
 import CfdiData from '#src/cfdi_data';
-import { fileContents } from '#tests/test_utils';
+import { fileContents } from '../test_utils.js';
 
 describe('cfdi data', () => {
   test('construct using valid content', () => {

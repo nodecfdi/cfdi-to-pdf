@@ -5,7 +5,7 @@ import CfdiData from '#src/cfdi_data';
 import RetencionesData from '#src/retenciones_data';
 import GenericCfdiTranslator from '#src/templates/generic_cfdi_translator';
 import GenericRetencionesTranslator from '#src/templates/generic_retenciones_translator';
-import { fileContents, filePath, nodeCfdiLogo } from '#tests/test_utils';
+import { fileContents, filePath, nodeCfdiLogo } from '../test_utils.js';
 
 describe('converter', () => {
   test('converter to base64 cfdi', async () => {
