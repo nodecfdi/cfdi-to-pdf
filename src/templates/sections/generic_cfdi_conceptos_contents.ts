@@ -126,6 +126,7 @@ const genericCfdiConceptosContent = (
   const styledHeaderCells = headerCells.map((cell) => ({
     text: cell,
     style: 'tableHeader',
+    fillColor: primaryColor,
     margin: [0, 3, 0, 3],
   }));
   rowsConceptos.push(styledHeaderCells);
@@ -159,11 +160,10 @@ const genericCfdiConceptosContent = (
         stack: calcularImpuestos(concepto, _catalogs, primaryColor, bgGrayColor),
         alignment: 'left',
         colSpan: 7,
+        border: [false, false, false, true],
       },
     ];
     rowsConceptos.push(impuestosRow);
-    const linesRow: TableCell[] = [{ fillColor: primaryColor, text: '', colSpan: 7 }];
-    rowsConceptos.push(linesRow);
   }
 
   return {
@@ -171,13 +171,7 @@ const genericCfdiConceptosContent = (
       widths: ['auto', 'auto', '*', '11%', '9%', '10%', '10%'],
       body: rowsConceptos,
     },
-    layout: {
-      fillColor(i): string | null {
-        return i === 0 ? primaryColor : null;
-      },
-      hLineWidth: () => 0,
-      vLineWidth: () => 0,
-    },
+    layout: 'conceptosLayout',
   };
 };
 

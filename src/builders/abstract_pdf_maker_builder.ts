@@ -66,33 +66,42 @@ export default class AbstractPdfMakerBuilder<T extends AbstractInvoiceData> {
 
   public layouts(): Record<string, CustomTableLayout> {
     const primaryColor = this._primaryColor;
+    const defaultLayout: CustomTableLayout = {
+      defaultBorder: false,
+      hLineWidth(i, _node) {
+        if (i === 1) {
+          return 3;
+        }
+
+        return 2;
+      },
+      hLineColor(_i, _node) {
+        return primaryColor;
+      },
+      paddingTop(_i) {
+        return 2;
+      },
+      paddingBottom(_i) {
+        return 2;
+      },
+      paddingLeft(_i) {
+        return 2;
+      },
+      paddingRight(_i) {
+        return 2;
+      },
+    };
 
     return {
       tableLayout: {
-        defaultBorder: false,
-        hLineWidth(i, _node) {
-          if (i === 1) {
-            return 3;
-          }
-
-          return 2;
-        },
-        hLineColor(_i, _node) {
-          return primaryColor;
-        },
-        paddingTop(_i) {
-          return 2;
-        },
-        paddingBottom(_i) {
-          return 2;
-        },
-        paddingLeft(_i) {
-          return 2;
-        },
-        paddingRight(_i) {
-          return 2;
-        },
+        ...defaultLayout,
       },
+      conceptosLayout: {
+        ...defaultLayout,
+        hLineWidth(_i, _node) {
+          return 1;
+        },
+      }
     };
   }
 }
