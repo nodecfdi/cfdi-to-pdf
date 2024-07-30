@@ -57,13 +57,13 @@ const genericCfdiRelacionadosContent = (
           [
             {
               text: '',
-              fillColor: primaryColor,
               colSpan: 2,
+              border: [false, true, false, false],
             },
           ],
         ],
       },
-      layout: 'tableLayout',
+      layout: 'conceptosLayout',
     };
   };
 
@@ -114,7 +114,7 @@ const genericCfdiRelacionadosContent = (
       widths: ['*'],
       body: relatedInfoAndImport.map((content) => [content]),
     },
-    layout: 'tableLayout',
+    layout: 'conceptosLayout',
   };
 };
 

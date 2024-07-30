@@ -2,7 +2,7 @@ import { type Content, type TableCell } from 'pdfmake/interfaces.js';
 import type CfdiData from '#src/cfdi_data';
 import breakEveryNCharacters from '#src/utils/break_characters';
 
-const genericStampContent = (data: CfdiData, primaryColor: string): Content => {
+const genericStampContent = (data: CfdiData): Content => {
   const comprobante = data.comprobante();
   const tfd = data.timbreFiscalDigital();
   const tfdSourceString = data.tfdSourceString();
@@ -13,7 +13,7 @@ const genericStampContent = (data: CfdiData, primaryColor: string): Content => {
       {
         text: '',
         colSpan: 5,
-        fillColor: primaryColor,
+        border: [false, false, false, true],
       },
       '',
       '',
