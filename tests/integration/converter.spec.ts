@@ -1,6 +1,6 @@
 import { existsSync, unlinkSync } from 'node:fs';
 import { nodeFromXmlString } from '@nodecfdi/cfdi-core';
-import { PdfMakerBuilder } from '#src/builders/node/pdf_maker_builder';
+import PdfMakerBuilder from '#src/builders/node/pdf_maker_builder';
 import CfdiData from '#src/cfdi_data';
 import RetencionesData from '#src/retenciones_data';
 import GenericCfdiTranslator from '#src/templates/generic_cfdi_translator';
