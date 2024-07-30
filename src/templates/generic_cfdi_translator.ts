@@ -54,9 +54,14 @@ export default class GenericCfdiTranslator
     cfdiContent.push(
       genericCfdiConceptosContent(comprobante, catalogs, primaryColor, this._bgGrayColor),
       this.genericSpace(2),
-      genericRelatedInfoContent(data, catalogs, primaryColor),
-      this.genericSpace(2),
     );
+
+    if (comprobante.getAttribute('TipoDeComprobante') !== 'P') {
+      cfdiContent.push(
+        genericRelatedInfoContent(comprobante, catalogs, primaryColor),
+        this.genericSpace(2),
+      );
+    }
 
     const relacionados =
       comprobante.getAttribute('Version') === '3.3'

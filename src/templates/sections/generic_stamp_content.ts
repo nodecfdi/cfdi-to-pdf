@@ -107,6 +107,7 @@ const genericStampContent = (data: CfdiData): Content => {
           },
         ],
       ],
+      dontBreakRows: true,
     },
     layout: 'tableLayout',
   };
