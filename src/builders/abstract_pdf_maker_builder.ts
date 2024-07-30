@@ -105,6 +105,24 @@ export default class AbstractPdfMakerBuilder<T extends AbstractInvoiceData> {
           return 1;
         },
       },
+      stampLayout: {
+        ...defaultLayout,
+        hLineWidth(_i, _node) {
+          return 1;
+        },
+        paddingTop(_i) {
+          return 4;
+        },
+        paddingBottom(_i) {
+          return 4;
+        },
+        paddingLeft(_i) {
+          return 2;
+        },
+        paddingRight(_i) {
+          return 2;
+        },
+      },
     };
   }
 }
