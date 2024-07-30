@@ -31,7 +31,6 @@ const genericCfdiInformacionGlobalContent = (
                 ),
               },
             ],
-            border: [false, false, false, true],
           },
           {
             fillColor: bgGrayColor,
@@ -45,7 +44,6 @@ const genericCfdiInformacionGlobalContent = (
                 ),
               },
             ],
-            border: [false, false, false, true],
           },
           {
             fillColor: bgGrayColor,
@@ -53,8 +51,12 @@ const genericCfdiInformacionGlobalContent = (
               { text: 'Año: ', color: primaryColor },
               { text: informacionGlobal.getAttribute('Año') },
             ],
-            border: [false, false, false, true],
           },
+        ],
+        [
+          { fillColor: bgGrayColor, text: '', border: [false, false, false, true] },
+          { fillColor: bgGrayColor, text: '', border: [false, false, false, true] },
+          { fillColor: bgGrayColor, text: '', border: [false, false, false, true] },
         ],
       ],
     },
