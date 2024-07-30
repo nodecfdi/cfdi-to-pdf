@@ -79,6 +79,25 @@ export default class GenericCfdiTranslator
       );
     }
 
+    const additionalFields = data.additionalFields();
+    if (additionalFields) {
+      for (const element of additionalFields) {
+        cfdiContent.push(
+          {
+            table: {
+              widths: ['*'],
+              body: [
+                [{ text: element.title, style: ['tableSubtitleHeader'], color: primaryColor }],
+                [element.value],
+              ],
+            },
+            layout: 'tableLayout',
+          },
+          this.genericSpace(),
+        );
+      }
+    }
+
     cfdiContent.push(genericStampContent(data));
 
     return {
