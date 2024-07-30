@@ -13,20 +13,19 @@ const genericCfdiRelacionadosContent = (
 
   const createTable = (tipoRelacion: string, uuids: string[]): Content => {
     return {
-      fontSize: 7,
-      margin: [0, 5, 0, 0],
       table: {
-        widths: ['*', '*'],
+        widths: ['auto', '5%', '*'],
         body: [
           [
             {
               text: 'CFDI relacionados',
-              colSpan: 2,
+              colSpan: 3,
               alignment: 'left',
               color: primaryColor,
               style: 'tableSubtitleHeader',
             },
-            {},
+            '',
+            '',
           ],
           [
             {
@@ -34,6 +33,10 @@ const genericCfdiRelacionadosContent = (
               alignment: 'left',
               fillColor: bgGrayColor,
               color: primaryColor,
+            },
+            {
+              text: '',
+              fillColor: bgGrayColor,
             },
             {
               text: 'UUID',
@@ -49,7 +52,11 @@ const genericCfdiRelacionadosContent = (
               fillColor: bgGrayColor,
             },
             {
-              text: uuids.join('\n'),
+              text: '',
+              fillColor: bgGrayColor,
+            },
+            {
+              text: uuids.join(' | '),
               alignment: 'left',
               fillColor: bgGrayColor,
             },
@@ -57,13 +64,15 @@ const genericCfdiRelacionadosContent = (
           [
             {
               text: '',
-              colSpan: 2,
+              colSpan: 3,
               border: [false, true, false, false],
             },
+            '',
+            '',
           ],
         ],
       },
-      layout: 'conceptosLayout',
+      layout: 'tableLayout',
     };
   };
 
@@ -114,7 +123,7 @@ const genericCfdiRelacionadosContent = (
       widths: ['*'],
       body: relatedInfoAndImport.map((content) => [content]),
     },
-    layout: 'conceptosLayout',
+    layout: 'tableLayout',
   };
 };
 
