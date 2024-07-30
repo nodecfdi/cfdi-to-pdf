@@ -40,7 +40,7 @@ export default class GenericCfdiTranslator
         this.genericSpace(2),
         genericCfdiRelacionadosContent(data, catalogs, primaryColor, this._bgGrayColor),
         this.genericSpace(2),
-        genericStampContent(data, primaryColor),
+        genericStampContent(data),
       ],
       footer: (currentPage, pageCount, _) => {
         return genericFooter(currentPage, pageCount, data);
