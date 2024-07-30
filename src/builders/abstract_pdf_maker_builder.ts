@@ -23,7 +23,7 @@ export default class AbstractPdfMakerBuilder<T extends AbstractInvoiceData> {
 
   protected _primaryColor = '#359136';
 
-  protected _defaultPageMargins: Margins = [20, 30, 20, 35];
+  protected _defaultPageMargins: Margins = [20, 30, 20, 30];
 
   public setPrimaryColor(color: string): void {
     this._primaryColor = color;
@@ -101,7 +101,10 @@ export default class AbstractPdfMakerBuilder<T extends AbstractInvoiceData> {
         hLineWidth(_i, _node) {
           return 1;
         },
-      }
+        paddingBottom(_i) {
+          return 1;
+        },
+      },
     };
   }
 }

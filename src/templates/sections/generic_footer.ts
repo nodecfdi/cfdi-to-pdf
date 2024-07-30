@@ -19,10 +19,12 @@ const genericFooter = (
   return [
     {
       text: data.legendFooter().replace('{version}', version),
+      style: { fontSize: 7 },
       alignment: 'center',
     },
     {
       text: `UUID: ${uuid} - Página ${currentPage} de ${pageCount}`,
+      style: { fontSize: 7 },
       alignment: 'center',
     },
   ];
