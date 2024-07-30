@@ -10,7 +10,9 @@ import {
   type DocumentTranslatorInterface,
 } from '#src/types';
 
-export class PdfMakerBuilder<T extends AbstractInvoiceData> extends AbstractPdfMakerBuilder<T> {
+export default class PdfMakerBuilder<
+  T extends AbstractInvoiceData,
+> extends AbstractPdfMakerBuilder<T> {
   private readonly _overrideFonts?: TFontDictionary;
 
   private readonly _overrideVFS: Record<string, string>;

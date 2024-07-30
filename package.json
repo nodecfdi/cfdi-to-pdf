@@ -9,7 +9,49 @@
   "files": [
     "dist"
   ],
-  "exports": {},
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/index.d.ts",
+        "default": "./dist/commonjs/index.js"
+      }
+    },
+    "./types": {
+      "import": {
+        "types": "./dist/esm/types.d.ts",
+        "default": "./dist/esm/types.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/types.d.ts",
+        "default": "./dist/commonjs/types.js"
+      }
+    },
+    "./package.json": "./package.json",
+    "./node": {
+      "import": {
+        "types": "./dist/esm/builders/node/index.d.ts",
+        "default": "./dist/esm/builders/node/index.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/builders/node/index.d.ts",
+        "default": "./dist/commonjs/builders/node/index.js"
+      }
+    },
+    "./browser": {
+      "import": {
+        "types": "./dist/esm/builders/browser/index.d.ts",
+        "default": "./dist/esm/builders/browser/index.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/builders/browser/index.d.ts",
+        "default": "./dist/commonjs/builders/browser/index.js"
+      }
+    }
+  },
   "imports": {
     "#src/*": "./src/*.js"
   },
@@ -116,7 +158,9 @@
     "exports": {
       ".": "./src/index.ts",
       "./types": "./src/types.ts",
-      "./package.json": "./package.json"
+      "./package.json": "./package.json",
+      "./node": "./src/builders/node/index.ts",
+      "./browser": "./src/builders/browser/index.ts"
     }
   }
 }
