@@ -117,10 +117,10 @@ export default class AbstractPdfMakerBuilder<T extends AbstractInvoiceData> {
           return 4;
         },
         paddingLeft(_i) {
-          return 2;
+          return 0;
         },
         paddingRight(_i) {
-          return 2;
+          return 0;
         },
       },
     };

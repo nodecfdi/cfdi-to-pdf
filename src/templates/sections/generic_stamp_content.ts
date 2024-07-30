@@ -9,21 +9,22 @@ const genericStampContent = (data: CfdiData): Content => {
 
   return {
     table: {
-      widths: ['54.5%', '0.5%', '*'],
+      widths: ['53%', '47%'],
       body: [
-        [{ text: '', border: [false, false, false, true], colSpan: 3 }, '', ''],
+        [{ text: '', border: [false, false, false, true], colSpan: 2 }, ''],
         [
           {
             style: 'tableSat',
             table: {
-              widths: ['auto', '*', '27%', '38%'],
+              widths: ['34.5%', '0.5%', '27%', '38%'],
               body: [
                 [
-                  { qr: qrUrl, fit: 100, rowSpan: 4 },
+                  { qr: qrUrl, fit: 98, rowSpan: 4 },
                   '',
                   {
                     text: 'Folio fiscal:',
                     style: 'tableSatSub',
+                    marginLeft: 1,
                     border: [false, false, false, true],
                   },
                   {
@@ -38,6 +39,7 @@ const genericStampContent = (data: CfdiData): Content => {
                   {
                     text: 'RFC Prov. de Certificación:',
                     style: 'tableSatSub',
+                    marginLeft: 1,
                     border: [false, false, false, true],
                   },
                   {
@@ -49,7 +51,12 @@ const genericStampContent = (data: CfdiData): Content => {
                 [
                   '',
                   '',
-                  { text: 'Cadena original del Timbre', colSpan: 2, style: 'tableSatSub' },
+                  {
+                    text: 'Cadena original del Timbre',
+                    marginLeft: 1,
+                    colSpan: 2,
+                    style: 'tableSatSub',
+                  },
                   '',
                 ],
                 [
@@ -57,6 +64,7 @@ const genericStampContent = (data: CfdiData): Content => {
                   '',
                   {
                     text: breakCharacters(tfdSourceString),
+                    marginLeft: 1,
                     colSpan: 2,
                   },
                   '',
@@ -65,11 +73,10 @@ const genericStampContent = (data: CfdiData): Content => {
             },
             layout: 'stampLayout',
           },
-          '',
           {
             style: 'tableSat',
             table: {
-              widths: ['*', '0.5%', '*'],
+              widths: ['49.5%', '1%', '49.5%'],
               body: [
                 [
                   { text: 'Número de certificado SAT', style: 'tableSatSub' },
