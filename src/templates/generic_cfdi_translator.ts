@@ -1,3 +1,4 @@
+import { XmlNodes } from '@nodecfdi/cfdi-core';
 import { type TDocumentDefinitions } from 'pdfmake/interfaces.js';
 import type CfdiData from '#src/cfdi_data';
 import AbstractGenericTraslator from '#src/templates/abstract_generic_translator';
@@ -55,10 +56,25 @@ export default class GenericCfdiTranslator
       this.genericSpace(2),
       genericRelatedInfoContent(data, catalogs, primaryColor),
       this.genericSpace(2),
-      genericCfdiRelacionadosContent(data, catalogs, primaryColor, this._bgGrayColor),
-      this.genericSpace(2),
-      genericStampContent(data),
     );
+
+    const relacionados =
+      comprobante.getAttribute('Version') === '3.3'
+        ? comprobante.searchNode('cfdi:CfdiRelacionados')
+        : comprobante.searchNodes('cfdi:CfdiRelacionados');
+
+    if (
+      relacionados !== undefined &&
+      ((relacionados instanceof XmlNodes && relacionados.length > 0) ||
+        !(relacionados instanceof XmlNodes))
+    ) {
+      cfdiContent.push(
+        genericCfdiRelacionadosContent(relacionados, catalogs, primaryColor, this._bgGrayColor),
+        this.genericSpace(2),
+      );
+    }
+
+    cfdiContent.push(genericStampContent(data));
 
     return {
       ...documentOptions,
