@@ -1,7 +1,6 @@
 # `@nodecfdi/cfdi-to-pdf`
 
 [![Source Code][badge-source]][source]
-[![XO code style](https://shields.io/badge/code_style-5ed9c7?logo=xo&labelColor=gray)](https://github.com/xojs/xo)
 [![Npm Node Version Support][badge-node-version]][node-version]
 [![Discord][badge-discord]][discord]
 [![Latest Version][badge-release]][release]
@@ -25,250 +24,9 @@ En algunos casos necesitas generar un archivo PDF desde un CFDI (Comprobante fis
 de retenciones. Esta librería te ayuda a crear un pdf genérico. Además puedes crear un boceto a tu gusto y acomodarlo a
 como lo requieras. Inspirada por la versión de php <https://github.com/phpcfdi/cfditopdf>
 
-## Instalación
+## Documentación
 
-NPM
-
-```bash
-npm i @nodecfdi/cfdi-to-pdf --save
-```
-
-YARN
-
-```bash
-yarn add @nodecfdi/cfdi-to-pdf
-```
-
-PNPM
-
-```bash
-pnpm add @nodecfdi/cfdi-to-pdf
-```
-
-CDN - Browser
-
-Usa la versión mas reciente publicada cambiando `<latest-version>` por la última version. Ex. ...cfdi-to-pdf@1.6.0/dist...
-
-```html
-<script src="https://unpkg.com/@nodecfdi/cfdi-to-pdf@<latest-version>/dist/cfdi-to-pdf.global.js"></script>
-```
-
-## Uso básico
-
-Ejemplo en nodejs usando xmldom para CFDI 3.3 y CFDI 4.0
-
-```ts
-import {
-  installPdfMake,
-  GenericCfdiTranslator,
-  PdfMakerBuilder,
-  CfdiData,
-} from '@nodecfdi/cfdi-to-pdf';
-import { XmlNodeUtils, install } from '@nodecfdi/cfdiutils-common';
-import { DOMImplementation, XMLSerializer, DOMParser } from '@xmldom/xmldom';
-import PdfPrinter from 'pdfmake';
-import { join } from 'path';
-import { readFileSync } from 'fs';
-
-const inputCfdiPath = './cfdi40or33-real.xml';
-const outputCfdiPath = './cfdi40or33-real.pdf';
-
-// from version 1.2.x on @nodecfdi/cfdiutils-common required install dom resolution
-install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
-
-// PDFMAKE on nodejs require font path not included on distributable files
-installPdfMake(
-  new PdfPrinter({
-    Roboto: {
-      normal: join('.', 'fonts', 'Roboto-Regular.ttf'),
-      bold: join('.', 'fonts', 'Roboto-Medium.ttf'),
-      italics: join('.', 'fonts', 'Roboto-Italic.ttf'),
-      bolditalics: join('.', 'fonts', 'Roboto-MediumItalic.ttf'),
-    },
-  }),
-);
-
-const xml = readFileSync(inputCfdiPath).toString();
-const comprobante = XmlNodeUtils.nodeFromXmlString(xml);
-const cfdiData = new CfdiData(comprobante, null, null, 'mylogoBase64');
-
-const builder = new PdfMakerBuilder(new GenericCfdiTranslator());
-await builder.build(cfdiData, outputCfdiPath);
-
-// Optional: You can pass catalogs class implements CatalogsInterface
-// await builder.build(cfdiData, outputCfdiPath, catalogs);
-```
-
-Ejemplo en nodejs usando jsDom para CFDI 3.3 y CFDI 4.0
-
-```ts
-import {
-  installPdfMake,
-  GenericCfdiTranslator,
-  PdfMakerBuilder,
-  CfdiData,
-} from '@nodecfdi/cfdi-to-pdf';
-import { XmlNodeUtils, install } from '@nodecfdi/cfdiutils-common';
-import { JSDOM } from 'jsdom';
-import PdfPrinter from 'pdfmake';
-import { join } from 'path';
-import { readFileSync } from 'fs';
-
-const inputCfdiPath = './cfdi40or33-real.xml';
-const outputCfdiPath = './cfdi40or33-real.pdf';
-
-const dom = new JSDOM();
-const jsDOMParser = new dom.window.DOMParser();
-const jsXMLSerializer = new dom.window.XMLSerializer();
-const jsDOMImplementation = dom.window.document.implementation;
-
-// from version 1.2.x on @nodecfdi/cfdiutils-common required install dom resolution
-install(jsDOMParser, jsXMLSerializer, jsDOMImplementation);
-
-// PDFMAKE on nodejs require font path not included on distributable files
-installPdfMake(
-  new PdfPrinter({
-    Roboto: {
-      normal: join('.', 'fonts', 'Roboto-Regular.ttf'),
-      bold: join('.', 'fonts', 'Roboto-Medium.ttf'),
-      italics: join('.', 'fonts', 'Roboto-Italic.ttf'),
-      bolditalics: join('.', 'fonts', 'Roboto-MediumItalic.ttf'),
-    },
-  }),
-);
-
-const xml = readFileSync(inputCfdiPath).toString();
-const comprobante = XmlNodeUtils.nodeFromXmlString(xml);
-const cfdiData = new CfdiData(comprobante, null, null, 'mylogoBase64');
-
-const builder = new PdfMakerBuilder(new GenericCfdiTranslator());
-await builder.build(cfdiData, outputCfdiPath);
-
-// Optional: You can pass catalogs class implements CatalogsInterface
-// await builder.build(cfdiData, outputCfdiPath, catalogs);
-```
-
-Ejemplo en nodejs usando xmldom para RET 1.0 y RET 2.0
-
-```ts
-import {
-  installPdfMake,
-  GenericRetencionesTranslator,
-  PdfMakerBuilder,
-  RetencionesData,
-} from '@nodecfdi/cfdi-to-pdf';
-import { XmlNodeUtils, install } from '@nodecfdi/cfdiutils-common';
-import { DOMImplementation, XMLSerializer, DOMParser } from '@xmldom/xmldom';
-import PdfPrinter from 'pdfmake';
-import { join } from 'path';
-import { readFileSync } from 'fs';
-
-const inputRetPath = './ret10or20-real.xml';
-const outputRetPath = './ret10or20-real.pdf';
-
-// from version 1.2.x on @nodecfdi/cfdiutils-common required install dom resolution
-install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
-
-// PDFMAKE on nodejs require font path not included on distributable files
-installPdfMake(
-  new PdfPrinter({
-    Roboto: {
-      normal: join('.', 'fonts', 'Roboto-Regular.ttf'),
-      bold: join('.', 'fonts', 'Roboto-Medium.ttf'),
-      italics: join('.', 'fonts', 'Roboto-Italic.ttf'),
-      bolditalics: join('.', 'fonts', 'Roboto-MediumItalic.ttf'),
-    },
-  }),
-);
-
-const xml = readFileSync(inputRetPath).toString();
-const comprobante = XmlNodeUtils.nodeFromXmlString(xml);
-const retencionesData = new RetencionesData(comprobante, null, null, 'mylogoBase64');
-
-const builder = new PdfMakerBuilder(new GenericRetencionesTranslator());
-await builder.build(retencionesData, outputRetPath);
-// Optional: You can pass catalogs class implements CatalogsInterface
-// await builder.build(retencionesData, outputRetPath, catalogs);
-```
-
-Ejemplo en nodejs usando jsDom para RET 1.0 y RET 2.0
-
-```ts
-import {
-  installPdfMake,
-  GenericRetencionesTranslator,
-  PdfMakerBuilder,
-  RetencionesData,
-} from '@nodecfdi/cfdi-to-pdf';
-import { XmlNodeUtils, install } from '@nodecfdi/cfdiutils-common';
-import { JSDOM } from 'jsdom';
-import PdfPrinter from 'pdfmake';
-import { join } from 'path';
-import { readFileSync } from 'fs';
-
-const inputRetPath = './ret10or20-real.xml';
-const outputRetPath = './ret10or20-real.pdf';
-
-const dom = new JSDOM();
-const jsDOMParser = new dom.window.DOMParser();
-const jsXMLSerializer = new dom.window.XMLSerializer();
-const jsDOMImplementation = dom.window.document.implementation;
-
-// from version 1.2.x on @nodecfdi/cfdiutils-common required install dom resolution
-install(jsDOMParser, jsXMLSerializer, jsDOMImplementation);
-
-// PDFMAKE on nodejs require font path not included on distributable files
-installPdfMake(
-  new PdfPrinter({
-    Roboto: {
-      normal: join('.', 'fonts', 'Roboto-Regular.ttf'),
-      bold: join('.', 'fonts', 'Roboto-Medium.ttf'),
-      italics: join('.', 'fonts', 'Roboto-Italic.ttf'),
-      bolditalics: join('.', 'fonts', 'Roboto-MediumItalic.ttf'),
-    },
-  }),
-);
-
-const xml = readFileSync(inputRetPath).toString();
-const comprobante = XmlNodeUtils.nodeFromXmlString(xml);
-const retencionesData = new RetencionesData(comprobante, null, null, 'mylogoBase64');
-
-const builder = new PdfMakerBuilder(new GenericRetencionesTranslator());
-await builder.build(retencionesData, outputRetPath);
-
-// Optional: You can pass catalogs class implements CatalogsInterface
-// await builder.build(retencionesData, outputRetPath, catalogs);
-```
-
-> Puedes ver mas ejemplos en examples
-
-Nota: Actualmente la librería requiere que según el tipo de projecto (Nodejs | browser) se le pase el pdfmake ejecutable, según la documentación de [pdfmake](https://pdfmake.github.io/docs/0.1/getting-started/) y esto se puede ejecutando el instalador proporcionado por `@nodecfdi/cfdi-to-pdf`.
-
-## Elementos soportados
-
-Elementos base soportados:
-
-| Tipo    | Soportado          |
-| ------- | ------------------ |
-| CFDI3.3 | :white_check_mark: |
-| CFDI4.0 | :white_check_mark: |
-| RET1.0  | :white_check_mark: |
-| RET2.0  | :white_check_mark: |
-
-Complementos:
-
-| Complemento              | Soportado          |
-| ------------------------ | ------------------ |
-| PAGO1.0                  | :white_check_mark: |
-| PAGO2.0                  | :white_check_mark: |
-| IMPUESTOS LOCALES        | :white_check_mark: |
-| PLATAFORMAS TECNOLÓGICAS | :white_check_mark: |
-
-## Patrocinadores
-
-`@nodecfdi/cfdi-to-pdf` es un projecto de licencia abierta MIT donde el continuo desarrollo es realizado por el apoyo de la comunidad y de los patrocinadores.
-
-[![Infaster](/assets/infaster-sponsor.png 'infaster')](https://www.infaster.mx/)
+La documentación está disponible en el sitio web [NodeCfdi](https://nodecfdi.com/librarys/cfdi-to-pdf/getting-started/)
 
 ## Soporte
 
@@ -291,7 +49,7 @@ Las contribuciones con bienvenidas. Por favor lee [CONTRIBUTING][] para más det
 
 The `@nodecfdi/cfdi-to-pdf` library is copyright © [NodeCfdi](https://github.com/nodecfdi) - [OcelotlStudio](https://ocelotlstudio.com) and licensed for use under the MIT License (MIT). Please see [LICENSE][] for more information.
 
-[contributing]: https://github.com/nodecfdi/cfdi-to-pdf/blob/main/CONTRIBUTING.md
+[contributing]: https://github.com/nodecfdi/.github/blob/main/docs/CONTRIBUTING.md
 [changelog]: https://github.com/nodecfdi/cfdi-to-pdf/blob/main/CHANGELOG.md
 [source]: https://github.com/nodecfdi/cfdi-to-pdf
 [node-version]: https://www.npmjs.com/package/@nodecfdi/cfdi-to-pdf
@@ -309,7 +67,7 @@ The `@nodecfdi/cfdi-to-pdf` library is copyright © [NodeCfdi](https://github.co
 [badge-discord]: https://img.shields.io/discord/459860554090283019?logo=discord
 [badge-release]: https://img.shields.io/npm/v/@nodecfdi/cfdi-to-pdf.svg?logo=npm
 [badge-license]: https://img.shields.io/github/license/nodecfdi/cfdi-to-pdf.svg?logo=open-source-initiative
-[badge-build]: https://img.shields.io/github/actions/workflow/status/nodecfdi/cfdi-to-pdf/build.yml?branch=main&logo=github-actions
+[badge-build]: https://img.shields.io/github/actions/workflow/status/nodecfdi/cfdi-to-pdf/build.yml?branch=main
 [badge-reliability]: https://sonarcloud.io/api/project_badges/measure?project=nodecfdi_cfdi-to-pdf&metric=reliability_rating
 [badge-maintainability]: https://sonarcloud.io/api/project_badges/measure?project=nodecfdi_cfdi-to-pdf&metric=sqale_rating
 [badge-coverage]: https://img.shields.io/sonar/coverage/nodecfdi_cfdi-to-pdf/main?logo=sonarcloud&server=https%3A%2F%2Fsonarcloud.io
