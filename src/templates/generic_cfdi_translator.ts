@@ -2,6 +2,7 @@ import { type TDocumentDefinitions } from 'pdfmake/interfaces.js';
 import type CfdiData from '#src/cfdi_data';
 import AbstractGenericTraslator from '#src/templates/abstract_generic_translator';
 import genericCfdiConceptosContent from '#src/templates/sections/generic_cfdi_conceptos_contents';
+import genericCfdiInformacionGlobalContent from '#src/templates/sections/generic_cfdi_informacion_global_content';
 import genericCfdiRelacionadosContent from '#src/templates/sections/generic_cfdi_relacionados_content';
 import genericEmisorContent from '#src/templates/sections/generic_emisor_content';
 import genericFooter from '#src/templates/sections/generic_footer';
@@ -25,23 +26,43 @@ export default class GenericCfdiTranslator
     catalogs: CatalogsData,
     primaryColor: string,
   ): TDocumentDefinitions {
+    const comprobante = data.comprobante();
+
+    const cfdiContent = [
+      genericTopContent(data, catalogs, primaryColor),
+      this.genericSpace(2),
+      genericEmisorContent(data, catalogs, primaryColor, this._bgGrayColor),
+      this.genericSpace(2),
+      genericReceptorContent(data, catalogs, primaryColor, this._bgGrayColor),
+      this.genericSpace(2),
+    ];
+
+    const globalInformation = comprobante.searchNode('cfdi:InformacionGlobal');
+    if (globalInformation) {
+      cfdiContent.push(
+        genericCfdiInformacionGlobalContent(
+          globalInformation,
+          catalogs,
+          primaryColor,
+          this._bgGrayColor,
+        ),
+        this.genericSpace(2),
+      );
+    }
+
+    cfdiContent.push(
+      genericCfdiConceptosContent(comprobante, catalogs, primaryColor, this._bgGrayColor),
+      this.genericSpace(2),
+      genericRelatedInfoContent(data, catalogs, primaryColor),
+      this.genericSpace(2),
+      genericCfdiRelacionadosContent(data, catalogs, primaryColor, this._bgGrayColor),
+      this.genericSpace(2),
+      genericStampContent(data),
+    );
+
     return {
       ...documentOptions,
-      content: [
-        genericTopContent(data, catalogs, primaryColor),
-        this.genericSpace(2),
-        genericEmisorContent(data, catalogs, primaryColor, this._bgGrayColor),
-        this.genericSpace(2),
-        genericReceptorContent(data, catalogs, primaryColor, this._bgGrayColor),
-        this.genericSpace(2),
-        genericCfdiConceptosContent(data, catalogs, primaryColor, this._bgGrayColor),
-        this.genericSpace(2),
-        genericRelatedInfoContent(data, catalogs, primaryColor),
-        this.genericSpace(2),
-        genericCfdiRelacionadosContent(data, catalogs, primaryColor, this._bgGrayColor),
-        this.genericSpace(2),
-        genericStampContent(data),
-      ],
+      content: cfdiContent,
       footer: (currentPage, pageCount, _) => {
         return genericFooter(currentPage, pageCount, data);
       },

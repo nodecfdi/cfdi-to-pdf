@@ -1,19 +1,17 @@
+import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
 import { type Content, type TableCell } from 'pdfmake/interfaces.js';
-import type CfdiData from '#src/cfdi_data';
 import genericCfdiConceptoImpuestosContent from '#src/templates/sections/generic_cfdi_concepto_impuestos_content';
 import { type CatalogsData } from '#src/types';
 import { formatCurrency } from '#src/utils/currency';
 
 const genericCfdiConceptosContent = (
-  data: CfdiData,
+  comprobante: XmlNodeInterface,
   catalogs: CatalogsData,
   primaryColor: string,
   bgGrayColor: string,
 ): Content => {
-  const conceptos = data.comprobante().searchNodes('cfdi:Conceptos', 'cfdi:Concepto');
-
+  const conceptos = comprobante.searchNodes('cfdi:Conceptos', 'cfdi:Concepto');
   const rowsConceptos: TableCell[][] = [];
-
   const headerCells = [
     'Código',
     'Clave Unidad',
