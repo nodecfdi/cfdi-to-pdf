@@ -1,3 +1,4 @@
+## [2.0.0-1](https://github.com/nodecfdi/cfdi-to-pdf/compare/v2.0.0-0...v2.0.0-1) (2024-08-01)
 ## [2.0.0-0](https://github.com/nodecfdi/cfdi-to-pdf/compare/v1.6.0...v2.0.0-0) (2024-07-30)
 ## <small>1.1.5 (2022-06-15)</small>
 
