@@ -29,5 +29,6 @@ export type DocumentTranslatorInterface<T extends AbstractInvoiceData> = {
     documentDefinitionsOptions: DocumentOptions,
     catalogs: CatalogsData,
     primaryColor: string,
+    bgGrayColor: string,
   ): TDocumentDefinitions;
 };

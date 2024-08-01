@@ -27,39 +27,35 @@ export default class GenericCfdiTranslator
     documentOptions: DocumentOptions,
     catalogs: CatalogsData,
     primaryColor: string,
+    bgGrayColor: string,
   ): TDocumentDefinitions {
     const comprobante = data.comprobante();
 
     const cfdiContent = [
       genericTopContent(data, catalogs, primaryColor),
       this.genericSpace(2),
-      genericEmisorContent(data, catalogs, primaryColor, this._bgGrayColor),
+      genericEmisorContent(data, catalogs, primaryColor, bgGrayColor),
       this.genericSpace(2),
-      genericReceptorContent(data, catalogs, primaryColor, this._bgGrayColor),
+      genericReceptorContent(data, catalogs, primaryColor, bgGrayColor),
       this.genericSpace(2),
     ];
 
     const globalInformation = comprobante.searchNode('cfdi:InformacionGlobal');
     if (globalInformation) {
       cfdiContent.push(
-        genericCfdiInformacionGlobalContent(
-          globalInformation,
-          catalogs,
-          primaryColor,
-          this._bgGrayColor,
-        ),
+        genericCfdiInformacionGlobalContent(globalInformation, catalogs, primaryColor, bgGrayColor),
         this.genericSpace(2),
       );
     }
 
     cfdiContent.push(
-      genericCfdiConceptosContent(comprobante, catalogs, primaryColor, this._bgGrayColor),
+      genericCfdiConceptosContent(comprobante, catalogs, primaryColor, bgGrayColor),
       this.genericSpace(2),
     );
 
     if (comprobante.getAttribute('TipoDeComprobante') !== 'P') {
       cfdiContent.push(
-        genericCfdiTotalesContent(comprobante, catalogs, primaryColor, this._bgGrayColor),
+        genericCfdiTotalesContent(comprobante, catalogs, primaryColor, bgGrayColor),
         this.genericSpace(),
         genericCfdiDetailsInfoContent(comprobante, catalogs, primaryColor),
         this.genericSpace(2),
@@ -77,13 +73,14 @@ export default class GenericCfdiTranslator
         !(relacionados instanceof XmlNodes))
     ) {
       cfdiContent.push(
-        genericCfdiRelacionadosContent(relacionados, catalogs, primaryColor, this._bgGrayColor),
+        genericCfdiRelacionadosContent(relacionados, catalogs, primaryColor, bgGrayColor),
         this.genericSpace(2),
       );
     }
 
-    // Complements
+    // TODO: Complements
 
+    // AdditionalFields
     const additionalFields = data.additionalFields();
     if (additionalFields) {
       for (const element of additionalFields) {

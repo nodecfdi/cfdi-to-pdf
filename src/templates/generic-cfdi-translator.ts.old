@@ -23,7 +23,6 @@ export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiDa
     /** Area of complements */
     usePago10Complement(comprobante, content);
     usePago20Complement(comprobante, content);
-    useImpLocal10Complement(comprobante, content);
 
     content.push(this.generateStampContent(cfdiData));
 

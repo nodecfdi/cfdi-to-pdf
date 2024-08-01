@@ -76,6 +76,7 @@ export default class PdfMakerBuilder<
       this._documentOptions,
       this._catalogs,
       this._primaryColor,
+      this._bgGrayColor,
     );
 
     return pdfMake.createPdf(pdfTemplate, this.layouts(), this._overrideFonts, this._overrideVFS);
