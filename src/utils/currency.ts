@@ -211,12 +211,18 @@ export const toNumber = (currency: number | string): number => {
   return Number.isNaN(fixedCurrency) ? 0 : Number(fixedCurrency);
 };
 
-export const formatCurrency = (currency: number | string): string => {
+export const formatCurrency = (
+  currency: number | string,
+  currencyDisplay: 'symbol' | 'code' = 'symbol',
+): string => {
   const number = toNumber(currency);
 
   return Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
-    currencyDisplay: 'symbol',
-  }).format(number);
+    currencyDisplay,
+  })
+    .format(number)
+    .replace('USD', '')
+    .trim();
 };
