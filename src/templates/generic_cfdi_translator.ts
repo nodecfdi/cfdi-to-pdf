@@ -82,6 +82,8 @@ export default class GenericCfdiTranslator
       );
     }
 
+    // Complements
+
     const additionalFields = data.additionalFields();
     if (additionalFields) {
       for (const element of additionalFields) {
@@ -101,7 +103,9 @@ export default class GenericCfdiTranslator
       }
     }
 
-    cfdiContent.push(genericStampContent(data));
+    cfdiContent.push(
+      genericStampContent(data.timbreFiscalDigital(), data.tfdSourceString(), data.qrUrl()),
+    );
 
     return {
       ...documentOptions,

@@ -1,12 +1,12 @@
+import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
 import { type Content } from 'pdfmake/interfaces.js';
-import type CfdiData from '#src/cfdi_data';
 import breakCharacters from '#src/utils/break_characters';
 
-const genericStampContent = (data: CfdiData): Content => {
-  const tfd = data.timbreFiscalDigital();
-  const tfdSourceString = data.tfdSourceString();
-  const qrUrl = data.qrUrl();
-
+const genericStampContent = (
+  tfd: XmlNodeInterface,
+  tfdSourceString: string,
+  qrUrl: string,
+): Content => {
   return {
     table: {
       widths: ['53%', '47%'],
