@@ -113,7 +113,7 @@ const evaluateThousandsOfMillions = (
 
   return {
     numberToCurrency: fixedNumberToCurrency,
-    integers: integers.slice(-9, integers.length),
+    integers: integers.slice(-9),
   };
 };
 
@@ -130,7 +130,7 @@ const evaluateMillions = (
 
   return {
     numberToCurrency: fixedNumberToCurrency,
-    integers: integers.slice(-6, integers.length),
+    integers: integers.slice(-6),
   };
 };
 
@@ -139,7 +139,7 @@ export const toCurrency = (initial: number, moneda = 'MXN'): string => {
   const number = initial.toFixed(2);
   // Separate decimals (only 2) and integers
   let integers = number.slice(0, Math.max(0, number.indexOf('.')));
-  const decimals = number.slice(number.indexOf('.') + 1, number.length);
+  const decimals = number.slice(number.indexOf('.') + 1);
   const monedaName = moneda === 'MXN' ? 'M.N.' : moneda;
   // Initialize string to store currency
   let numberToCurrency = '';
@@ -187,7 +187,7 @@ export const toCurrency = (initial: number, moneda = 'MXN'): string => {
       }
     }
 
-    integers = integers.slice(-3, integers.length);
+    integers = integers.slice(-3);
   }
 
   // Evaluate hundreds
