@@ -1,0 +1,17 @@
+name: build
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  schedule:
+    - cron: '0 16 * * 0' # sunday 16:00
+
+jobs:
+  quality_code:
+    uses: nodecfdi/.github/.github/workflows/quality_code.yml@main
+
+  tests:
+    uses: nodecfdi/.github/.github/workflows/tests.yml@main
