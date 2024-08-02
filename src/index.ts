@@ -28,6 +28,8 @@ export { default as cfdi40TiposComprobantes } from '#src/catalogs/cfdi40_tipos_c
 export { default as cfdi40TiposRelaciones } from '#src/catalogs/cfdi40_tipos_relaciones';
 export { default as cfdi40UsosCfdi } from '#src/catalogs/cfdi40_usos_cfdi';
 export { default as retenciones20ClavesRetencion } from '#src/catalogs/retenciones20_claves_retencion';
+export { default as retenciones20Periodicidades } from '#src/catalogs/retenciones20_periodicidades';
+export { default as retenciones20Periodos } from '#src/catalogs/retenciones20_periodos';
 
 // Utils
 export { default as breakCharacters } from '#src/utils/break_characters';

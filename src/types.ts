@@ -21,6 +21,8 @@ export interface CatalogsData {
   cfdi40FormasPago: CatalogItem[];
   cfdi40TiposComprobantes: CatalogItem[];
   retenciones20ClavesRetencion: CatalogItem[];
+  retenciones20Periodicidades: CatalogItem[];
+  retenciones20Periodos: CatalogItem[];
 }
 
 export type DocumentTranslatorInterface<T extends AbstractInvoiceData> = {

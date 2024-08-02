@@ -10,6 +10,8 @@ import cfdi40TiposComprobantes from '#src/catalogs/cfdi40_tipos_comprobantes';
 import cfdi40TiposRelaciones from '#src/catalogs/cfdi40_tipos_relaciones';
 import cfdi40UsosCfdi from '#src/catalogs/cfdi40_usos_cfdi';
 import retenciones20ClavesRetencion from '#src/catalogs/retenciones20_claves_retencion';
+import retenciones20Periodicidades from '#src/catalogs/retenciones20_periodicidades';
+import retenciones20Periodos from '#src/catalogs/retenciones20_periodos';
 import { type CatalogsData } from '#src/types';
 
 export const catalogsSource: CatalogsData = {
@@ -25,12 +27,14 @@ export const catalogsSource: CatalogsData = {
   cfdi40FormasPago,
   cfdi40TiposComprobantes,
   retenciones20ClavesRetencion,
+  retenciones20Periodicidades,
+  retenciones20Periodos,
 };
 
 export const getKeyValueOfCatalog = (
   catalog: keyof CatalogsData,
   value: string,
-  source = catalogsSource,
+  source: CatalogsData,
 ): string => {
   const model = source[catalog].find((raw) => raw.id === value);
 
@@ -40,5 +44,5 @@ export const getKeyValueOfCatalog = (
 export const getValueOfCatalog = (
   catalog: keyof CatalogsData,
   value: string,
-  source = catalogsSource,
+  source: CatalogsData,
 ): string => source[catalog].find((raw) => raw.id === value)?.texto ?? value;
