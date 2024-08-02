@@ -21,7 +21,6 @@ const genericRetencionPeriodoContent = (
         ],
         [
           {
-            fillColor: bgGrayColor,
             text: [
               { text: 'Mes Inicial: ', color: primaryColor },
               {
@@ -32,9 +31,10 @@ const genericRetencionPeriodoContent = (
                 ),
               },
             ],
+            alignment: 'center',
+            fillColor: bgGrayColor,
           },
           {
-            fillColor: bgGrayColor,
             text: [
               { text: 'Mes Final: ', color: primaryColor },
               {
@@ -45,13 +45,16 @@ const genericRetencionPeriodoContent = (
                 ),
               },
             ],
+            alignment: 'center',
+            fillColor: bgGrayColor,
           },
           {
-            fillColor: bgGrayColor,
             text: [
               { text: 'Ejercicio: ', color: primaryColor },
               { text: periodo.getAttribute(isVersionOne ? 'Ejerc' : 'Ejercicio') },
             ],
+            alignment: 'center',
+            fillColor: bgGrayColor,
           },
         ],
         [
