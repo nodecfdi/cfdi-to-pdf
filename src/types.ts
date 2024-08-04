@@ -23,6 +23,7 @@ export interface CatalogsData {
   retenciones20ClavesRetencion: CatalogItem[];
   retenciones20Periodicidades: CatalogItem[];
   retenciones20Periodos: CatalogItem[];
+  retenciones20TiposPago: CatalogItem[];
 }
 
 export type DocumentTranslatorInterface<T extends AbstractInvoiceData> = {

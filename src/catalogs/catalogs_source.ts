@@ -12,6 +12,7 @@ import cfdi40UsosCfdi from '#src/catalogs/cfdi40_usos_cfdi';
 import retenciones20ClavesRetencion from '#src/catalogs/retenciones20_claves_retencion';
 import retenciones20Periodicidades from '#src/catalogs/retenciones20_periodicidades';
 import retenciones20Periodos from '#src/catalogs/retenciones20_periodos';
+import retenciones20TiposPago from '#src/catalogs/retenciones20_tipos_pago';
 import { type CatalogsData } from '#src/types';
 
 export const catalogsSource: CatalogsData = {
@@ -29,6 +30,7 @@ export const catalogsSource: CatalogsData = {
   retenciones20ClavesRetencion,
   retenciones20Periodicidades,
   retenciones20Periodos,
+  retenciones20TiposPago,
 };
 
 export const getKeyValueOfCatalog = (

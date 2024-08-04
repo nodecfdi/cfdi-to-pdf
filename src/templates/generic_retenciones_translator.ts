@@ -5,6 +5,7 @@ import genericEmisorContent from '#src/templates/sections/generic_emisor_content
 import genericFooter from '#src/templates/sections/generic_footer';
 import genericReceptorContent from '#src/templates/sections/generic_receptor_content';
 import genericRetencionPeriodoContent from '#src/templates/sections/generic_retencion_periodo_content';
+import genericRetencionTotalesContent from '#src/templates/sections/generic_retencion_totales_content';
 import genericStampContent from '#src/templates/sections/generic_stamp_content';
 import genericTopContent from '#src/templates/sections/generic_top_content';
 import {
@@ -37,6 +38,14 @@ export default class GenericRetencionesTranslator
     retencionesContent.push(
       genericRetencionPeriodoContent(
         data.periodo(),
+        isVersionOne,
+        catalogs,
+        primaryColor,
+        bgGrayColor,
+      ),
+      this.genericSpace(2),
+      ...genericRetencionTotalesContent(
+        data.totales(),
         isVersionOne,
         catalogs,
         primaryColor,
