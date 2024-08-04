@@ -7,6 +7,8 @@ const genericStampContent = (
   tfdSourceString: string,
   qrUrl: string,
 ): Content => {
+  const isVersion11 = tfd.hasAttribute('Version');
+
   return {
     table: {
       widths: ['53%', '47%'],
@@ -85,7 +87,7 @@ const genericStampContent = (
                 ],
                 [
                   {
-                    text: tfd.getAttribute('NoCertificadoSAT'),
+                    text: tfd.getAttribute(isVersion11 ? 'NoCertificadoSAT' : 'noCertificadoSAT'),
                     border: [false, false, false, true],
                   },
                   '',
@@ -97,9 +99,13 @@ const genericStampContent = (
                   { text: 'Sello digital del CFDI', style: 'tableSatSub' },
                 ],
                 [
-                  { text: breakCharacters(tfd.getAttribute('SelloSAT')) },
+                  {
+                    text: breakCharacters(tfd.getAttribute(isVersion11 ? 'SelloSAT' : 'selloSAT')),
+                  },
                   '',
-                  { text: breakCharacters(tfd.getAttribute('SelloCFD')) },
+                  {
+                    text: breakCharacters(tfd.getAttribute(isVersion11 ? 'SelloCFD' : 'selloCFD')),
+                  },
                 ],
               ],
             },
