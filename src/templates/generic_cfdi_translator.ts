@@ -2,6 +2,7 @@ import { XmlNodes } from '@nodecfdi/cfdi-core';
 import { type TDocumentDefinitions } from 'pdfmake/interfaces.js';
 import type CfdiData from '#src/cfdi_data';
 import AbstractGenericTraslator from '#src/templates/abstract_generic_translator';
+import usePago10Complement from '#src/templates/complements/pago10_complement';
 import genericCfdiConceptosContent from '#src/templates/sections/generic_cfdi_conceptos_contents';
 import genericCfdiDetailsInfoContent from '#src/templates/sections/generic_cfdi_details_info_content';
 import genericCfdiInformacionGlobalContent from '#src/templates/sections/generic_cfdi_informacion_global_content';
@@ -78,7 +79,11 @@ export default class GenericCfdiTranslator
       );
     }
 
-    // TODO: Complements
+    // Complements
+    const pago10 = comprobante.searchNode('cfdi:Complemento', 'pago10:Pagos');
+    if (pago10) {
+      usePago10Complement(pago10, cfdiContent, catalogs, primaryColor, bgGrayColor);
+    }
 
     // AdditionalFields
     const additionalFields = data.additionalFields();

@@ -60,6 +60,9 @@ export default class AbstractPdfMakerBuilder<T extends AbstractInvoiceData> {
         bold: true,
         color: 'white',
       },
+      tableSmall: {
+        fontSize: 7,
+      },
       tableSat: {
         fontSize: 5,
       },
