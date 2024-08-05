@@ -20,6 +20,7 @@ export interface CatalogsData {
   cfdi40MetodosPago: CatalogItem[];
   cfdi40FormasPago: CatalogItem[];
   cfdi40TiposComprobantes: CatalogItem[];
+  pagosTiposCadenaPago: CatalogItem[];
   retenciones20ClavesRetencion: CatalogItem[];
   retenciones20Periodicidades: CatalogItem[];
   retenciones20Periodos: CatalogItem[];

@@ -9,6 +9,7 @@ import cfdi40RegimenesFiscales from '#src/catalogs/cfdi40_regimenes_fiscales';
 import cfdi40TiposComprobantes from '#src/catalogs/cfdi40_tipos_comprobantes';
 import cfdi40TiposRelaciones from '#src/catalogs/cfdi40_tipos_relaciones';
 import cfdi40UsosCfdi from '#src/catalogs/cfdi40_usos_cfdi';
+import pagosTiposCadenaPago from '#src/catalogs/pagos_tipos_cadena_pago';
 import retenciones20ClavesRetencion from '#src/catalogs/retenciones20_claves_retencion';
 import retenciones20Periodicidades from '#src/catalogs/retenciones20_periodicidades';
 import retenciones20Periodos from '#src/catalogs/retenciones20_periodos';
@@ -27,6 +28,7 @@ export const catalogsSource: CatalogsData = {
   cfdi40MetodosPago,
   cfdi40FormasPago,
   cfdi40TiposComprobantes,
+  pagosTiposCadenaPago,
   retenciones20ClavesRetencion,
   retenciones20Periodicidades,
   retenciones20Periodos,
