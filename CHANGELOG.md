@@ -1,3 +1,19 @@
+## [2.0.0](https://github.com/nodecfdi/cfdi-to-pdf/compare/v2.0.0-1...v2.0.0) (2024-08-05)
+
+### Features
+
+* :sparkles: add better presentation for pago20 complement ([c0415e5](https://github.com/nodecfdi/cfdi-to-pdf/commit/c0415e57eed69b99858e5d6193f41008055f102c))
+* :sparkles: add support to section retencion periodo ([7331f6e](https://github.com/nodecfdi/cfdi-to-pdf/commit/7331f6e603b209430ed8a812f2b65248ca09fc06))
+
+### Bug Fixes
+
+* :bug: resolve problem with show info of stamp in tfd version 1.0 ([15f5656](https://github.com/nodecfdi/cfdi-to-pdf/commit/15f5656b3408f4ec5c989cd1cd8757bb49741dcb))
+
+### Performance Improvements
+
+* :construction: header of information global has col span ([98b47ff](https://github.com/nodecfdi/cfdi-to-pdf/commit/98b47ffcb6da68035f3d2d82112da97a232a50e2))
+* :recycle: better presentation of retenciones periodo section ([7b4ec9d](https://github.com/nodecfdi/cfdi-to-pdf/commit/7b4ec9d6c3767a939f86ab6122296a6e0aa142bf))
+* :wrench: include export of catalog pagos tipos cadena pago ([f795585](https://github.com/nodecfdi/cfdi-to-pdf/commit/f795585dd6861ec4a53e2e6226a88fed88a61739))
 ## [2.0.0-1](https://github.com/nodecfdi/cfdi-to-pdf/compare/v2.0.0-0...v2.0.0-1) (2024-08-01)
 ## [2.0.0-0](https://github.com/nodecfdi/cfdi-to-pdf/compare/v1.6.0...v2.0.0-0) (2024-07-30)
 ## <small>1.1.5 (2022-06-15)</small>
