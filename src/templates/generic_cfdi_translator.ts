@@ -112,7 +112,12 @@ export default class GenericCfdiTranslator
     }
 
     cfdiContent.push(
-      genericStampContent(data.timbreFiscalDigital(), data.tfdSourceString(), data.qrUrl()),
+      genericStampContent(
+        data.timbreFiscalDigital(),
+        data.tfdSourceString(),
+        data.qrUrl(),
+        primaryColor,
+      ),
     );
 
     return {

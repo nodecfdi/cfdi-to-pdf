@@ -68,7 +68,6 @@ export default class AbstractPdfMakerBuilder<T extends AbstractInvoiceData> {
       },
       tableSatSub: {
         bold: true,
-        color: this._primaryColor,
       },
     };
   }

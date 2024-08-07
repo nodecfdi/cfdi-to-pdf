@@ -6,6 +6,7 @@ const genericStampContent = (
   tfd: XmlNodeInterface,
   tfdSourceString: string,
   qrUrl: string,
+  primaryColor: string,
 ): Content => {
   const isVersion11 = tfd.hasAttribute('Version');
 
@@ -26,6 +27,7 @@ const genericStampContent = (
                   {
                     text: 'Folio fiscal:',
                     style: 'tableSatSub',
+                    color: primaryColor,
                     marginLeft: 1,
                     border: [false, false, false, true],
                   },
@@ -41,6 +43,7 @@ const genericStampContent = (
                   {
                     text: 'RFC Prov. de Certificación:',
                     style: 'tableSatSub',
+                    color: primaryColor,
                     marginLeft: 1,
                     border: [false, false, false, true],
                   },
@@ -58,6 +61,7 @@ const genericStampContent = (
                     marginLeft: 1,
                     colSpan: 2,
                     style: 'tableSatSub',
+                    color: primaryColor,
                   },
                   '',
                 ],
@@ -81,9 +85,13 @@ const genericStampContent = (
               widths: ['49.5%', '1%', '49.5%'],
               body: [
                 [
-                  { text: 'Número de certificado SAT', style: 'tableSatSub' },
+                  { text: 'Número de certificado SAT', style: 'tableSatSub', color: primaryColor },
                   '',
-                  { text: 'Fecha y hora de certificación', style: 'tableSatSub' },
+                  {
+                    text: 'Fecha y hora de certificación',
+                    style: 'tableSatSub',
+                    color: primaryColor,
+                  },
                 ],
                 [
                   {
@@ -94,9 +102,9 @@ const genericStampContent = (
                   { text: tfd.getAttribute('FechaTimbrado'), border: [false, false, false, true] },
                 ],
                 [
-                  { text: 'Sello digital del SAT', style: 'tableSatSub' },
+                  { text: 'Sello digital del SAT', style: 'tableSatSub', color: primaryColor },
                   '',
-                  { text: 'Sello digital del CFDI', style: 'tableSatSub' },
+                  { text: 'Sello digital del CFDI', style: 'tableSatSub', color: primaryColor },
                 ],
                 [
                   {
