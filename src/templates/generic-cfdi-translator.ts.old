@@ -1,9 +1,0 @@
-export class GenericCfdiTranslator implements DocumentTranslatorInterface<CfdiData> {
-  protected generateContent(cfdiData: CfdiData, catalogs: CatalogsInterface): Content {
-
-    /** Area of complements */
-    usePago20Complement(comprobante, content);
-
-    return content;
-  }
-}
