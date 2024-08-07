@@ -75,12 +75,12 @@
     "version": "pnpm run build && pnpm run changelog"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.3.0",
+    "@commitlint/cli": "^19.4.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@jsprismarine/typedoc-material-theme": "^1.0.4",
     "@nodecfdi/cfdi-core": "^0.4.0",
     "@nodecfdi/cfdi-expresiones": "^3.0.0",
-    "@nodecfdi/eslint-config": "^1.9.2",
+    "@nodecfdi/eslint-config": "^1.9.3",
     "@nodecfdi/prettier-config": "^1.1.1",
     "@nodecfdi/tsconfig": "^1.5.0",
     "@types/node": "^20.14.14",
@@ -141,7 +141,7 @@
     ]
   },
   "prettier": "@nodecfdi/prettier-config",
-  "packageManager": "pnpm@9.6.0",
+  "packageManager": "pnpm@9.7.0",
   "publishConfig": {
     "access": "public",
     "tag": "latest"
