@@ -1,3 +1,8 @@
+## [2.0.1](https://github.com/nodecfdi/cfdi-to-pdf/compare/v2.0.0...v2.0.1) (2024-08-07)
+
+### Bug Fixes
+
+* :bug: resolve not use override primary color style on stamp content ([a569890](https://github.com/nodecfdi/cfdi-to-pdf/commit/a56989014a7aca3714826f34c974a14eceda5b35))
 ## [2.0.0](https://github.com/nodecfdi/cfdi-to-pdf/compare/v2.0.0-1...v2.0.0) (2024-08-05)
 
 ### Features
