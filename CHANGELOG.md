@@ -1,3 +1,8 @@
+## [2.1.0-0](https://github.com/nodecfdi/cfdi-to-pdf/compare/v2.0.2-1...v2.1.0-0) (2024-08-14)
+
+### Bug Fixes
+
+* :bug: try resolve problem with bundler fonts and generate same output ([286a0c6](https://github.com/nodecfdi/cfdi-to-pdf/commit/286a0c640caa5ea4a0e62ef407ad5139d678d396))
 ## [2.0.2-1](https://github.com/nodecfdi/cfdi-to-pdf/compare/v2.0.2-0...v2.0.2-1) (2024-08-14)
 
 ### Bug Fixes
