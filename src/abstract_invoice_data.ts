@@ -1,7 +1,6 @@
-import { getParser, nodeToXmlString } from '@nodecfdi/cfdi-core';
+import { getParser, MIME_TYPE, nodeToXmlString } from '@nodecfdi/cfdi-core';
 import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
 import { DiscoverExtractor } from '@nodecfdi/cfdi-expresiones';
-import { MIME_TYPE } from '@xmldom/xmldom';
 import normalizeSpace from '#src/utils/normalize_space';
 
 export default abstract class AbstractInvoiceData {
