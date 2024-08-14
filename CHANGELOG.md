@@ -1,3 +1,8 @@
+## [2.0.2-1](https://github.com/nodecfdi/cfdi-to-pdf/compare/v2.0.2-0...v2.0.2-1) (2024-08-14)
+
+### Bug Fixes
+
+* :bug: try resolve problem with bundler pdfmake ([c8b185b](https://github.com/nodecfdi/cfdi-to-pdf/commit/c8b185bf5fa5f87289c0b06eab1083034328e0c5))
 ## [2.0.2-0](https://github.com/nodecfdi/cfdi-to-pdf/compare/v2.0.1...v2.0.2-0) (2024-08-14)
 
 ### Bug Fixes
