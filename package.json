@@ -78,8 +78,8 @@
     "@commitlint/cli": "^19.4.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@jsprismarine/typedoc-material-theme": "^1.0.4",
-    "@nodecfdi/cfdi-core": "^0.4.0",
-    "@nodecfdi/cfdi-expresiones": "^3.0.0",
+    "@nodecfdi/cfdi-core": "^0.5.0",
+    "@nodecfdi/cfdi-expresiones": "^3.0.2",
     "@nodecfdi/eslint-config": "^1.9.3",
     "@nodecfdi/prettier-config": "^1.1.1",
     "@nodecfdi/tsconfig": "^1.5.0",
@@ -101,10 +101,10 @@
     "vitest": "^2.0.5"
   },
   "peerDependencies": {
-    "@nodecfdi/cfdi-core": "^0.4.0",
-    "@nodecfdi/cfdi-expresiones": "^3.0.0",
-    "@types/pdfmake": "^0.2.9",
-    "pdfmake": "^0.2.9"
+    "@nodecfdi/cfdi-core": ">=0.5.0",
+    "@nodecfdi/cfdi-expresiones": ">=3.0.2",
+    "@types/pdfmake": ">=0.2.9",
+    "pdfmake": ">=0.2.9"
   },
   "peerDependenciesMeta": {
     "@types/pdfmake": {
@@ -141,7 +141,7 @@
     ]
   },
   "prettier": "@nodecfdi/prettier-config",
-  "packageManager": "pnpm@9.7.0",
+  "packageManager": "pnpm@9.7.1",
   "publishConfig": {
     "access": "public",
     "tag": "latest"
