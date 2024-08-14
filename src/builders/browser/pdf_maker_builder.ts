@@ -1,4 +1,4 @@
-import pdfMake from 'pdfmake/build/pdfmake.js';
+import * as pdfMake from 'pdfmake/build/pdfmake.js';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts.js';
 import { type BufferOptions, type Style, type TFontDictionary } from 'pdfmake/interfaces.js';
 import type AbstractInvoiceData from '#src/abstract_invoice_data';
