@@ -1,3 +1,10 @@
+## [2.0.2-0](https://github.com/nodecfdi/cfdi-to-pdf/compare/v2.0.1...v2.0.2-0) (2024-08-14)
+
+### Bug Fixes
+
+* :bug: resolve problem with shared enums in parser ([346d58d](https://github.com/nodecfdi/cfdi-to-pdf/commit/346d58d5ad1000da9924504f553e0acf80cb0664))
+* :bug: resolve problem with shared enums in parser ([bc07292](https://github.com/nodecfdi/cfdi-to-pdf/commit/bc072925d8385e20a5e89c5a596523f8c1903d38))
+* :bug: try resolve problem with bundler pdf and browser ([1b04726](https://github.com/nodecfdi/cfdi-to-pdf/commit/1b04726b96122cd4aa1cf10fefca0cbe621266d7))
 ## [2.0.1](https://github.com/nodecfdi/cfdi-to-pdf/compare/v2.0.0...v2.0.1) (2024-08-07)
 
 ### Bug Fixes
