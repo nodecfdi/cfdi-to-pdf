@@ -112,6 +112,7 @@ const genericCfdiConceptoImpuestosContent = (
 ): ContentTable => {
   const impuestoConceptoTable: TableCell[][] = [];
 
+  const predial = concepto.searchNode('cfdi:CuentaPredial');
   const codigoSat = concepto.getAttribute('ClaveProdServ');
   const objetoImp = concepto.getAttribute('ObjetoImp');
   const extraDetails: TableCell[] = [
@@ -135,7 +136,17 @@ const genericCfdiConceptoImpuestosContent = (
               },
             ],
     },
-    '',
+    {
+      text:
+        predial?.getAttribute('Numero') === ''
+          ? ''
+          : [
+              { text: 'Cuenta Predial: ', color: primaryColor },
+              {
+                text: predial?.getAttribute('Numero'),
+              },
+            ],
+    },
   ];
   impuestoConceptoTable.push(extraDetails);
 
