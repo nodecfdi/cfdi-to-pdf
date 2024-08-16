@@ -162,5 +162,8 @@
       "./node": "./src/builders/node/index.ts",
       "./browser": "./src/builders/browser/index.ts"
     }
+  },
+  "dependencies": {
+    "@nodecfdi/cfdi-to-pdf": "2.1.0-0"
   }
 }
