@@ -23,10 +23,16 @@ export default class AbstractPdfMakerBuilder<T extends AbstractInvoiceData> {
 
   protected _primaryColor = '#359136';
 
+  protected _bgGrayColor = '#f8f8f8';
+
   protected _defaultPageMargins: Margins = [20, 30, 20, 30];
 
   public setPrimaryColor(color: string): void {
     this._primaryColor = color;
+  }
+
+  public setBgGrayColor(color: string): void {
+    this._bgGrayColor = color;
   }
 
   public defaultStyle(): Style {
@@ -54,12 +60,14 @@ export default class AbstractPdfMakerBuilder<T extends AbstractInvoiceData> {
         bold: true,
         color: 'white',
       },
+      tableSmall: {
+        fontSize: 7,
+      },
       tableSat: {
         fontSize: 5,
       },
       tableSatSub: {
         bold: true,
-        color: this._primaryColor,
       },
     };
   }

@@ -1,4 +1,4 @@
-import { getParser, nodeToXmlString } from '@nodecfdi/cfdi-core';
+import { getParser, MIME_TYPE, nodeToXmlString } from '@nodecfdi/cfdi-core';
 import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
 import { DiscoverExtractor } from '@nodecfdi/cfdi-expresiones';
 import normalizeSpace from '#src/utils/normalize_space';
@@ -60,7 +60,7 @@ export default abstract class AbstractInvoiceData {
 
   public buildUrlQr(node: XmlNodeInterface): void {
     const rawString = nodeToXmlString(node, true);
-    const document = getParser().parseFromString(rawString, 'text/xml');
+    const document = getParser().parseFromString(rawString, MIME_TYPE.XML_TEXT);
     try {
       this._qrUrl = new DiscoverExtractor().extract(document);
     } catch {

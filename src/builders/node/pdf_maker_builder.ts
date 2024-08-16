@@ -90,6 +90,7 @@ export default class PdfMakerBuilder<
       this._documentOptions,
       this._catalogs,
       this._primaryColor,
+      this._bgGrayColor,
     );
 
     return this._pdfPrinter.createPdfKitDocument(pdfTemplate, {

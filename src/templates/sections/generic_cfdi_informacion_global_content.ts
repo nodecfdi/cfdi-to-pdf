@@ -14,7 +14,12 @@ const genericCfdiInformacionGlobalContent = (
       widths: ['*', '*', '*'],
       body: [
         [
-          { text: 'Información Global', style: ['tableSubtitleHeader'], color: primaryColor },
+          {
+            text: 'Información Global',
+            style: ['tableSubtitleHeader'],
+            color: primaryColor,
+            colSpan: 3,
+          },
           '',
           '',
         ],

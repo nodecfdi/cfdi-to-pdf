@@ -1,11 +1,14 @@
+import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
 import { type Content } from 'pdfmake/interfaces.js';
-import type CfdiData from '#src/cfdi_data';
 import breakCharacters from '#src/utils/break_characters';
 
-const genericStampContent = (data: CfdiData): Content => {
-  const tfd = data.timbreFiscalDigital();
-  const tfdSourceString = data.tfdSourceString();
-  const qrUrl = data.qrUrl();
+const genericStampContent = (
+  tfd: XmlNodeInterface,
+  tfdSourceString: string,
+  qrUrl: string,
+  primaryColor: string,
+): Content => {
+  const isVersion11 = tfd.hasAttribute('Version');
 
   return {
     table: {
@@ -24,6 +27,7 @@ const genericStampContent = (data: CfdiData): Content => {
                   {
                     text: 'Folio fiscal:',
                     style: 'tableSatSub',
+                    color: primaryColor,
                     marginLeft: 1,
                     border: [false, false, false, true],
                   },
@@ -39,6 +43,7 @@ const genericStampContent = (data: CfdiData): Content => {
                   {
                     text: 'RFC Prov. de Certificación:',
                     style: 'tableSatSub',
+                    color: primaryColor,
                     marginLeft: 1,
                     border: [false, false, false, true],
                   },
@@ -56,6 +61,7 @@ const genericStampContent = (data: CfdiData): Content => {
                     marginLeft: 1,
                     colSpan: 2,
                     style: 'tableSatSub',
+                    color: primaryColor,
                   },
                   '',
                 ],
@@ -79,27 +85,35 @@ const genericStampContent = (data: CfdiData): Content => {
               widths: ['49.5%', '1%', '49.5%'],
               body: [
                 [
-                  { text: 'Número de certificado SAT', style: 'tableSatSub' },
+                  { text: 'Número de certificado SAT', style: 'tableSatSub', color: primaryColor },
                   '',
-                  { text: 'Fecha y hora de certificación', style: 'tableSatSub' },
+                  {
+                    text: 'Fecha y hora de certificación',
+                    style: 'tableSatSub',
+                    color: primaryColor,
+                  },
                 ],
                 [
                   {
-                    text: tfd.getAttribute('NoCertificadoSAT'),
+                    text: tfd.getAttribute(isVersion11 ? 'NoCertificadoSAT' : 'noCertificadoSAT'),
                     border: [false, false, false, true],
                   },
                   '',
                   { text: tfd.getAttribute('FechaTimbrado'), border: [false, false, false, true] },
                 ],
                 [
-                  { text: 'Sello digital del SAT', style: 'tableSatSub' },
+                  { text: 'Sello digital del SAT', style: 'tableSatSub', color: primaryColor },
                   '',
-                  { text: 'Sello digital del CFDI', style: 'tableSatSub' },
+                  { text: 'Sello digital del CFDI', style: 'tableSatSub', color: primaryColor },
                 ],
                 [
-                  { text: breakCharacters(tfd.getAttribute('SelloSAT')) },
+                  {
+                    text: breakCharacters(tfd.getAttribute(isVersion11 ? 'SelloSAT' : 'selloSAT')),
+                  },
                   '',
-                  { text: breakCharacters(tfd.getAttribute('SelloCFD')) },
+                  {
+                    text: breakCharacters(tfd.getAttribute(isVersion11 ? 'SelloCFD' : 'selloCFD')),
+                  },
                 ],
               ],
             },

@@ -55,7 +55,7 @@ The `@nodecfdi/cfdi-to-pdf` library is copyright © [NodeCfdi](https://github.co
 [node-version]: https://www.npmjs.com/package/@nodecfdi/cfdi-to-pdf
 [discord]: https://discord.gg/AsqX8fkW2k
 [release]: https://www.npmjs.com/package/@nodecfdi/cfdi-to-pdf
-[license]: https://github.com/nodecfdi/cfdi-to-pdf/blob/main/LICENSE
+[license]: https://github.com/nodecfdi/cfdi-to-pdf/blob/main/LICENSE.md
 [build]: https://github.com/nodecfdi/cfdi-to-pdf/actions/workflows/build.yml?query=branch:main
 [reliability]: https://sonarcloud.io/component_measures?id=nodecfdi_cfdi-to-pdf&metric=Reliability
 [maintainability]: https://sonarcloud.io/component_measures?id=nodecfdi_cfdi-to-pdf&metric=Maintainability

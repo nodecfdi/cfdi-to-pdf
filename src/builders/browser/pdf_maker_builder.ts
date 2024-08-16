@@ -1,8 +1,8 @@
 import pdfMake from 'pdfmake/build/pdfmake.js';
-import pdfFonts from 'pdfmake/build/vfs_fonts.js';
 import { type BufferOptions, type Style, type TFontDictionary } from 'pdfmake/interfaces.js';
 import type AbstractInvoiceData from '#src/abstract_invoice_data';
 import AbstractPdfMakerBuilder from '#src/builders/abstract_pdf_maker_builder';
+import pdfFonts from '#src/builders/browser/vfs_fonts';
 import { catalogsSource } from '#src/catalogs/catalogs_source';
 import {
   type CatalogsData,
@@ -29,7 +29,7 @@ export default class PdfMakerBuilder<
     this._documentTranslator = documentTranslator;
     this._catalogs = catalogs ?? catalogsSource;
     this._overrideFonts = overrideFonts;
-    this._overrideVFS = overrideVFS ?? pdfFonts.pdfMake.vfs;
+    this._overrideVFS = overrideVFS ?? pdfFonts;
     this._documentOptions = {
       ...documentOptions,
       defaultStyle: {
@@ -76,6 +76,7 @@ export default class PdfMakerBuilder<
       this._documentOptions,
       this._catalogs,
       this._primaryColor,
+      this._bgGrayColor,
     );
 
     return pdfMake.createPdf(pdfTemplate, this.layouts(), this._overrideFonts, this._overrideVFS);

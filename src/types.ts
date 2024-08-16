@@ -20,7 +20,11 @@ export interface CatalogsData {
   cfdi40MetodosPago: CatalogItem[];
   cfdi40FormasPago: CatalogItem[];
   cfdi40TiposComprobantes: CatalogItem[];
+  pagosTiposCadenaPago: CatalogItem[];
   retenciones20ClavesRetencion: CatalogItem[];
+  retenciones20Periodicidades: CatalogItem[];
+  retenciones20Periodos: CatalogItem[];
+  retenciones20TiposPago: CatalogItem[];
 }
 
 export type DocumentTranslatorInterface<T extends AbstractInvoiceData> = {
@@ -29,5 +33,6 @@ export type DocumentTranslatorInterface<T extends AbstractInvoiceData> = {
     documentDefinitionsOptions: DocumentOptions,
     catalogs: CatalogsData,
     primaryColor: string,
+    bgGrayColor: string,
   ): TDocumentDefinitions;
 };
