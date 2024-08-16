@@ -26,7 +26,7 @@ describe('converter', () => {
     const created = filePath('cfdi33_valid.pdf');
     await builder.build(cfdiData, created);
     expect(existsSync(created)).toBeTruthy();
-    unlinkSync(created);
+    //unlinkSync(created);
   }, 30000);
 
   test('converter to base64 retenciones', async () => {
