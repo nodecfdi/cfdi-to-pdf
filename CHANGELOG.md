@@ -1,3 +1,8 @@
+## [2.1.0-2](https://github.com/nodecfdi/cfdi-to-pdf/compare/v2.1.0-1...v2.1.0-2) (2024-08-20)
+
+### Bug Fixes
+
+* :construction: handle default and not default for usage in browser ([18be834](https://github.com/nodecfdi/cfdi-to-pdf/commit/18be834b9393afd11c1964db91d4282b5be047a4))
 ## [2.1.0-1](https://github.com/nodecfdi/cfdi-to-pdf/compare/v2.1.0-0...v2.1.0-1) (2024-08-20)
 
 ### Bug Fixes
