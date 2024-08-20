@@ -74,9 +74,10 @@ export default class PdfMakerBuilder<
 
   protected async buildPdf(data: T): Promise<pdfMake.TCreatedPdf> {
     const vfsFonts = await import('pdfmake/build/vfs_fonts.js');
-    const vfs = 'default' in vfsFonts ? vfsFonts.default : vfsFonts;
-
-    this._overrideVFS = this._overrideVFS ?? vfs.pdfMake.vfs;
+    const vfs = 'default' in vfsFonts ? vfsFonts.default : undefined;
+    if (vfs && !this._overrideVFS) {
+      this._overrideVFS = vfs.pdfMake.vfs;
+    }
 
     const pdfTemplate = this._documentTranslator.translate(
       data,
