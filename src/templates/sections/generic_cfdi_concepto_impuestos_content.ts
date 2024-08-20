@@ -137,12 +137,13 @@ const genericCfdiConceptoImpuestosContent = (
             ],
     },
     {
-      text: predial?.getAttribute('Numero')
-        ? [
-            { text: 'Cuenta Predial: ', color: primaryColor },
-            { text: predial.getAttribute('Numero') },
-          ]
-        : '',
+      text:
+        predial === undefined
+          ? ''
+          : [
+              { text: 'Cuenta Predial: ', color: primaryColor },
+              { text: predial.getAttribute('Numero') },
+            ],
     },
   ];
   impuestoConceptoTable.push(extraDetails);
