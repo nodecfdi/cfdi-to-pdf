@@ -1,3 +1,12 @@
+## [2.1.0-1](https://github.com/nodecfdi/cfdi-to-pdf/compare/v2.1.0-0...v2.1.0-1) (2024-08-20)
+
+### Bug Fixes
+
+* resolve problem with impuestos text on fontsize big ([#46](https://github.com/nodecfdi/cfdi-to-pdf/issues/46)) ([2b3265c](https://github.com/nodecfdi/cfdi-to-pdf/commit/2b3265cdc3c835be3b5526c8aa07264872474f13))
+
+### Reverts
+
+* :construction: revert bundle size using vfs_fonts, and prefer usage of dynamic import ([c81a282](https://github.com/nodecfdi/cfdi-to-pdf/commit/c81a282d840ccf0c5a9ded8169ac06bf6b9b693d))
 ## [2.1.0-0](https://github.com/nodecfdi/cfdi-to-pdf/compare/v2.0.2-1...v2.1.0-0) (2024-08-14)
 
 ### Bug Fixes
