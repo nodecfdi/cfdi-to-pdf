@@ -66,7 +66,7 @@ const fillCfdiImpuestos = (
   };
   const trasladosTable: TableCell = {
     table: {
-      widths: ['10%', '10%', '20%', '18%', 'auto'],
+      widths: ['10%', '15%', '20%', '18%', 'auto'],
       body: [
         [
           {
