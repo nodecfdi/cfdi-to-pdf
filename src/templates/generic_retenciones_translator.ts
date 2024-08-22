@@ -13,6 +13,7 @@ import {
   type DocumentOptions,
   type DocumentTranslatorInterface,
 } from '#src/types';
+import usePlataformasTecnologicasComplement from './complements/plataformas_tecnologicas_complement.js';
 
 export default class GenericRetencionesTranslator
   extends AbstractGenericTraslator
@@ -55,6 +56,32 @@ export default class GenericRetencionesTranslator
     );
 
     // TODO: Complements
+    const plataformasTecnologicas = data
+      .retenciones()
+      .searchNode(
+        'retenciones:Complemento',
+        'plataformasTecnologicas:ServiciosPlataformasTecnologicas',
+      );
+    if (plataformasTecnologicas) {
+      const plataformasTable = usePlataformasTecnologicasComplement(
+        plataformasTecnologicas,
+        primaryColor,
+        bgGrayColor,
+      );
+
+      if (plataformasTable) {
+        retencionesContent.push(
+          {
+            table: {
+              widths: ['10%', '10%', '10%', '10%', '10%', '10%', '10%', '10%', '10%', '10%'],
+              body: plataformasTable,
+            },
+            layout: 'tableLayout',
+          },
+          this.genericSpace(2),
+        );
+      }
+    }
 
     // AdditionalFields
     const additionalFields = data.additionalFields();
