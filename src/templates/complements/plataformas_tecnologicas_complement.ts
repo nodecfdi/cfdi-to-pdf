@@ -8,7 +8,6 @@ const usePlataformasTecnologicasComplement = (
   primaryColor: string,
   bgGrayColor: string,
 ): TableCell[][] | null => {
-
   const bodyPlataformasTecnologicas: TableCell[][] = [];
 
   bodyPlataformasTecnologicas.push(
@@ -142,10 +141,10 @@ const usePlataformasTecnologicasComplement = (
       },
       {
         text:
-        plataformasTecnologicas.getAttribute('MonTotalContribucionGubernamental') === ''
+          plataformasTecnologicas.getAttribute('MonTotalContribucionGubernamental') === ''
             ? '---'
             : formatCurrency(
-              plataformasTecnologicas.getAttribute('MonTotalContribucionGubernamental'),
+                plataformasTecnologicas.getAttribute('MonTotalContribucionGubernamental'),
               ),
         alignment: 'center',
       },
@@ -198,7 +197,7 @@ const usePlataformasTecnologicasComplement = (
           alignment: 'center',
           fillColor: primaryColor,
           margin: [0, 3, 0, 3],
-          colSpan: 2
+          colSpan: 2,
         },
         {},
         {
@@ -232,10 +231,15 @@ const usePlataformasTecnologicasComplement = (
     );
 
     for (const servicio of servicios) {
-      const impuestosTable = impuestosTrasladadosPlataformasComplement(servicio, primaryColor, bgGrayColor);
+      const impuestosTable = impuestosTrasladadosPlataformasComplement(
+        servicio,
+        primaryColor,
+        bgGrayColor,
+      );
 
-// Verificar si `impuestosTable` tiene contenido
-const impuestosContent = impuestosTable ? [{ ...impuestosTable, colSpan: 10 }] : [{ text: '', colSpan: 10 }];
+      const impuestosContent = impuestosTable
+        ? [{ ...impuestosTable, colSpan: 10 }]
+        : [{ text: '', colSpan: 10 }];
 
       const formaPago = servicio.getAttribute('FormaPagoServ');
       const tipoServicio = servicio.getAttribute('TipoDeServ');
@@ -244,22 +248,21 @@ const impuestosContent = impuestosTable ? [{ ...impuestosTable, colSpan: 10 }] :
       const fechaServicio = servicio.getAttribute('FechaServ');
       const precioSinIVA = servicio.getAttribute('PrecioServSinIVA');
 
-      bodyPlataformasTecnologicas.push([
-        { text: formaPago, alignment: 'center'  },
-        { text: tipoServicio, alignment: 'center'},
-        {text: subTipServicio || '---', alignment: 'center', colSpan: 2},
-        {},
-        {text: rfcTerceroAut || '---', alignment: 'center', colSpan: 2},
-        {},
-        { text: fechaServicio, alignment: 'center', colSpan: 2},
-        {},
-        { text: formatCurrency(precioSinIVA), alignment: 'center', colSpan: 2 },
-        {},
-      ],
-      [
-        ...impuestosContent,
-      ]
-    );
+      bodyPlataformasTecnologicas.push(
+        [
+          { text: formaPago, alignment: 'center' },
+          { text: tipoServicio, alignment: 'center' },
+          { text: subTipServicio || '---', alignment: 'center', colSpan: 2 },
+          {},
+          { text: rfcTerceroAut || '---', alignment: 'center', colSpan: 2 },
+          {},
+          { text: fechaServicio, alignment: 'center', colSpan: 2 },
+          {},
+          { text: formatCurrency(precioSinIVA), alignment: 'center', colSpan: 2 },
+          {},
+        ],
+        [...impuestosContent],
+      );
     }
   }
 
