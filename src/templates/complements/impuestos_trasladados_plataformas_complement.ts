@@ -214,10 +214,6 @@ const impuestosTrasladadosPlataformasComplementTable = (
     ]);
   }
 
-  if (impuestosTableBody.length === 0) {
-    return null;
-  }
-
   return {
     table: {
       widths: ['*', '*', '*', '*', '*', '*', '*', '*', '*', '*'],
