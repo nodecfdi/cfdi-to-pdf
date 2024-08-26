@@ -190,6 +190,30 @@ const impuestosTrasladadosPlataformasComplementTable = (
     ]);
   }
 
+  if (
+    impuestosTrasladadosDelServicio !== undefined ||
+    contribucionGubernamental !== undefined ||
+    comisionDelServicio !== undefined
+  ) {
+    impuestosTableBody.push([
+      {
+        text: '',
+        color: primaryColor,
+        colSpan: 10,
+        border: [false, true, false, false],
+      },
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+    ]);
+  }
+
   if (impuestosTableBody.length === 0) {
     return null;
   }
@@ -199,15 +223,7 @@ const impuestosTrasladadosPlataformasComplementTable = (
       widths: ['*', '*', '*', '*', '*', '*', '*', '*', '*', '*'],
       body: impuestosTableBody,
     },
-    layout: {
-      hLineWidth: (i, node) => {
-        return i === node.table.body.length ? 1 : 0;
-      },
-      vLineWidth: () => 0,
-      hLineColor: (i, node) => {
-        return i === node.table.body.length ? primaryColor : null;
-      },
-    },
+    layout: 'conceptosLayout',
   };
 };
 

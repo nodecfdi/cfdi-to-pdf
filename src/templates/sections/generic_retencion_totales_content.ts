@@ -105,6 +105,18 @@ const genericRetencionTotalesContent = (
     ]);
   }
 
+  tableTotalesBody.push([
+    {
+      text: '',
+      color: primaryColor,
+      colSpan: 4,
+      border: [false, true, false, false],
+    },
+    '',
+    '',
+    '',
+  ]);
+
   retencionTotalesContent.push({
     table: {
       widths: ['*', '*', '*', '*'],
