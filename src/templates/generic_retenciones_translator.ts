@@ -1,6 +1,7 @@
 import { type TDocumentDefinitions } from 'pdfmake/interfaces.js';
 import type RetencionesData from '#src/retenciones_data';
 import AbstractGenericTraslator from '#src/templates/abstract_generic_translator';
+import usePlataformasTecnologicas10Complement from '#src/templates/complements/plataformas_tecnologicas10_complement';
 import genericEmisorContent from '#src/templates/sections/generic_emisor_content';
 import genericFooter from '#src/templates/sections/generic_footer';
 import genericReceptorContent from '#src/templates/sections/generic_receptor_content';
@@ -13,7 +14,6 @@ import {
   type DocumentOptions,
   type DocumentTranslatorInterface,
 } from '#src/types';
-import usePlataformasTecnologicasComplement from './complements/plataformas_tecnologicas_complement.js';
 
 export default class GenericRetencionesTranslator
   extends AbstractGenericTraslator
@@ -55,7 +55,6 @@ export default class GenericRetencionesTranslator
       this.genericSpace(2),
     );
 
-    // TODO: Complements
     const plataformasTecnologicas = data
       .retenciones()
       .searchNode(
@@ -63,7 +62,7 @@ export default class GenericRetencionesTranslator
         'plataformasTecnologicas:ServiciosPlataformasTecnologicas',
       );
     if (plataformasTecnologicas) {
-      const plataformasTable = usePlataformasTecnologicasComplement(
+      const plataformasTable = usePlataformasTecnologicas10Complement(
         plataformasTecnologicas,
         primaryColor,
         bgGrayColor,
