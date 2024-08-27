@@ -1,3 +1,8 @@
+## [2.1.0](https://github.com/nodecfdi/cfdi-to-pdf/compare/v2.1.0-3...v2.1.0) (2024-08-27)
+
+### Features
+
+* add plataformas tecnologicas complement ([#47](https://github.com/nodecfdi/cfdi-to-pdf/issues/47)) ([32b71dc](https://github.com/nodecfdi/cfdi-to-pdf/commit/32b71dc4234fda0d8c73ee046eae50875e7c42f4))
 ## [2.1.0-3](https://github.com/nodecfdi/cfdi-to-pdf/compare/v2.1.0-2...v2.1.0-3) (2024-08-20)
 
 ### Bug Fixes
