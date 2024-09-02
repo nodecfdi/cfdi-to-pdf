@@ -2,6 +2,7 @@ import { XmlNodes } from '@nodecfdi/cfdi-core';
 import { type TDocumentDefinitions } from 'pdfmake/interfaces.js';
 import type CfdiData from '#src/cfdi_data';
 import AbstractGenericTraslator from '#src/templates/abstract_generic_translator';
+import useDonat11Complement from '#src/templates/complements/donat11_complement';
 import usePago10Complement from '#src/templates/complements/pago10_complement';
 import usePago20Complement from '#src/templates/complements/pago20_complement';
 import genericCfdiConceptosContent from '#src/templates/sections/generic_cfdi_conceptos_contents';
@@ -89,6 +90,11 @@ export default class GenericCfdiTranslator
     const pago20 = comprobante.searchNode('cfdi:Complemento', 'pago20:Pagos');
     if (pago20) {
       usePago20Complement(pago20, cfdiContent, catalogs, primaryColor, bgGrayColor);
+    }
+
+    const donat11 = comprobante.searchNode('cfdi:Complemento', 'donat:Donatarias');
+    if (donat11) {
+      useDonat11Complement(donat11, cfdiContent, primaryColor, bgGrayColor);
     }
 
     // AdditionalFields
