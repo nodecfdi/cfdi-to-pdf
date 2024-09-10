@@ -13,7 +13,7 @@ const genericCfdiConceptosContent = (
   const conceptos = comprobante.searchNodes('cfdi:Conceptos', 'cfdi:Concepto');
   const rowsConceptos: TableCell[][] = [];
   const headerCells = [
-    'Código',
+    'No. Identificación',
     'Clave Unidad',
     'Descripción',
     'Valor Unitario',
@@ -35,7 +35,7 @@ const genericCfdiConceptosContent = (
     rowsConceptos.push([
       {
         table: {
-          widths: ['9%', '10%', '*', '11%', '11%', '11%', '11%'],
+          widths: ['11%', '10%', '*', '11%', '11%', '11%', '11%'],
           body: [
             [
               { text: id === '' ? '---' : id },
@@ -74,7 +74,7 @@ const genericCfdiConceptosContent = (
 
   return {
     table: {
-      widths: ['9%', '10%', '*', '11%', '11%', '11%', '11%'],
+      widths: ['11%', '10%', '*', '11%', '11%', '11%', '11%'],
       body: rowsConceptos,
       dontBreakRows: true,
       headerRows: 1,

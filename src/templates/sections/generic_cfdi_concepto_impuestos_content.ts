@@ -119,7 +119,7 @@ const genericCfdiConceptoImpuestosContent = (
     '',
     {
       text: [
-        { text: 'Código SAT: ', color: primaryColor },
+        { text: 'Clave Producto/Servicio: ', color: primaryColor },
         {
           text: codigoSat,
         },
