@@ -1,7 +1,7 @@
 {
   "name": "@nodecfdi/cfdi-to-pdf",
   "description": "Librería para crear un pdf basado en un XML CFDI o Retenciones",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "type": "module",
   "main": "./dist/commonjs/index.js",
   "module": "./dist/esm/index.js",

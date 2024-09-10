@@ -5,11 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [v2.1.0](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/compare/v2.1.0...v2.1.0)
+## [v2.2.0](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/compare/v2.1.0...v2.2.0)
 
 ### Commits
 
+- chore: :construction: update linter, dev tools and generation of changelog [`802f790`](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/commit/802f790d38459e6da799c8c0dd37606604fcdc7a)
 - feat: :sparkles: add donataria 11 complement [`199d439`](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/commit/199d4399f8a7223b3e74c6ec08cd4765ddd5f13e)
+- build: :construction: update ignore, attributes and npmrc files [`51fdb2a`](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/commit/51fdb2a25788d2541830730b4a33b00195d720d4)
 
 ## [v2.1.0](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/compare/v2.1.0-3...v2.1.0) - 2024-08-27
 
