@@ -87,6 +87,7 @@ export default class PdfMakerBuilder<
       this._bgGrayColor,
     );
 
+    // eslint-disable-next-line import-x/no-named-as-default-member
     return pdfMake.createPdf(pdfTemplate, this.layouts(), this._overrideFonts, this._overrideVFS);
   }
 

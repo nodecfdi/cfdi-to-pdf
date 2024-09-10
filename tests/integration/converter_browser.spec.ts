@@ -42,7 +42,6 @@ describe('converter browser version', () => {
   }, 30000);
 
   // Actually pdfmake have a bug with reject promise check https://github.com/bpampuch/pdfmake/issues/2066#issue-696306408
-  // eslint-disable-next-line vitest/no-disabled-tests
   test.skip('convert thrown error on bad styles', async () => {
     const cfdi = nodeFromXmlString(fileContents('cfdi33-valid.xml'));
     const cfdiData = new CfdiData(cfdi, null, null, nodeCfdiLogo());
