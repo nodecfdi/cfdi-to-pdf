@@ -28,7 +28,7 @@ const genericCfdiDetailsInfoContent = (
   const comprobanteInfo: TableCell[] = [
     {
       text: [
-        { text: 'Método de Pago: ', color: primaryColor },
+        { text: 'Método de Pago: ', color: primaryColor, bold: true },
         {
           text: getKeyValueOfCatalog(
             'cfdi40MetodosPago',
@@ -41,7 +41,7 @@ const genericCfdiDetailsInfoContent = (
     },
     {
       text: [
-        { text: 'Forma de Pago: ', color: primaryColor },
+        { text: 'Forma de Pago: ', color: primaryColor, bold: true },
         {
           text: getKeyValueOfCatalog(
             'cfdi40FormasPago',
@@ -57,7 +57,7 @@ const genericCfdiDetailsInfoContent = (
   if (moneda === 'MXN') {
     comprobanteInfo.push(
       {
-        text: [{ text: 'Moneda: ', color: primaryColor }, { text: moneda }],
+        text: [{ text: 'Moneda: ', color: primaryColor, bold: true }, { text: moneda }],
         colSpan: 2,
         alignment: 'center',
       },
@@ -65,10 +65,13 @@ const genericCfdiDetailsInfoContent = (
     );
   } else {
     comprobanteInfo.push(
-      { text: [{ text: 'Moneda: ', color: primaryColor }, { text: moneda }], alignment: 'center' },
+      {
+        text: [{ text: 'Moneda: ', color: primaryColor, bold: true }, { text: moneda }],
+        alignment: 'center',
+      },
       {
         text: [
-          { text: 'Tipo cambio: ', color: primaryColor },
+          { text: 'Tipo cambio: ', color: primaryColor, bold: true },
           { text: comprobante.getAttribute('TipoCambio') },
         ],
         alignment: 'center',

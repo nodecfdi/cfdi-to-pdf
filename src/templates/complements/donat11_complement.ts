@@ -25,7 +25,7 @@ const useDonat11Complement = (
           {
             fillColor: bgGrayColor,
             text: [
-              { text: 'Version: ', color: primaryColor },
+              { text: 'Version: ', color: primaryColor, bold: true },
               {
                 text: donat11.getAttribute('version'),
               },
@@ -34,25 +34,27 @@ const useDonat11Complement = (
           {
             fillColor: bgGrayColor,
             text: [
-              { text: 'No. Autorización: ', color: primaryColor },
+              { text: 'No. Autorización: ', color: primaryColor, bold: true },
               {
                 text: donat11.getAttribute('noAutorizacion'),
               },
             ],
+            alignment: 'center',
           },
           {
             fillColor: bgGrayColor,
             text: [
-              { text: 'Fecha Autorización: ', color: primaryColor },
+              { text: 'Fecha Autorización: ', color: primaryColor, bold: true },
               { text: donat11.getAttribute('fechaAutorizacion') },
             ],
+            alignment: 'right',
           },
         ],
         [
           {
             fillColor: bgGrayColor,
             text: [
-              { text: 'Leyenda: ', color: primaryColor },
+              { text: 'Leyenda: ', color: primaryColor, bold: true },
               { text: donat11.getAttribute('leyenda') },
             ],
             colSpan: 3,

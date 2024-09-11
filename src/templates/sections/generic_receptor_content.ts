@@ -15,14 +15,21 @@ const genericCfdiReceptorContent = (
 
   receptorData.push(
     [{ text: receptor.getAttribute('Nombre'), style: ['subHeader'], color: primaryColor }],
-    [{ text: [{ text: 'RFC ', color: primaryColor }, { text: receptor.getAttribute('Rfc') }] }],
+    [
+      {
+        text: [
+          { text: 'RFC: ', color: primaryColor, bold: true },
+          { text: receptor.getAttribute('Rfc') },
+        ],
+      },
+    ],
   );
 
   if (receptor.hasAttribute('RegimenFiscalReceptor')) {
     receptorData.push([
       {
         text: [
-          { text: 'Régimen fiscal ', color: primaryColor },
+          { text: 'Régimen fiscal: ', color: primaryColor, bold: true },
           {
             text: getKeyValueOfCatalog(
               'cfdi40RegimenesFiscales',
@@ -39,7 +46,7 @@ const genericCfdiReceptorContent = (
     receptorData.push([
       {
         text: [
-          { text: 'Domicilio fiscal ', color: primaryColor },
+          { text: 'Domicilio fiscal: ', color: primaryColor, bold: true },
           {
             text: receptor.getAttribute('DomicilioFiscalReceptor'),
           },
@@ -51,7 +58,7 @@ const genericCfdiReceptorContent = (
   additionalReceptorData.push([
     {
       text: [
-        { text: 'Uso del CFDI ', color: primaryColor },
+        { text: 'Uso del CFDI: ', color: primaryColor, bold: true },
         {
           text: getValueOfCatalog('cfdi40UsosCfdi', receptor.getAttribute('UsoCFDI'), catalogs),
         },
@@ -63,7 +70,7 @@ const genericCfdiReceptorContent = (
     additionalReceptorData.push([
       {
         text: [
-          { text: 'Exportación ', color: primaryColor },
+          { text: 'Exportación: ', color: primaryColor, bold: true },
           {
             text: getValueOfCatalog(
               'cfdi40Exportaciones',
@@ -80,7 +87,7 @@ const genericCfdiReceptorContent = (
     additionalReceptorData.push([
       {
         text: [
-          { text: 'Residencia Fiscal ', color: primaryColor },
+          { text: 'Residencia Fiscal: ', color: primaryColor, bold: true },
           {
             text: receptor.getAttribute('ResidenciaFiscal'),
           },
@@ -93,7 +100,7 @@ const genericCfdiReceptorContent = (
     additionalReceptorData.push([
       {
         text: [
-          { text: 'Número Id Trib. ', color: primaryColor },
+          { text: 'Número Id Trib.: ', color: primaryColor, bold: true },
           {
             text: receptor.getAttribute('NumRegIdTrib'),
           },
@@ -127,14 +134,18 @@ const genericRetencionesReceptorContent = (
         color: primaryColor,
       },
     ],
-    [{ text: [{ text: 'Nacionalidad ', color: primaryColor }, { text: nacionalidad }] }],
+    [
+      {
+        text: [{ text: 'Nacionalidad: ', color: primaryColor, bold: true }, { text: nacionalidad }],
+      },
+    ],
   );
 
   if (nacional) {
     receptorData.push([
       {
         text: [
-          { text: 'RFC Receptor ', color: primaryColor },
+          { text: 'RFC Receptor: ', color: primaryColor, bold: true },
           { text: nacional.getAttribute(version === '1.0' ? 'RFCRecep' : 'RfcR') },
         ],
       },
@@ -145,7 +156,7 @@ const genericRetencionesReceptorContent = (
     additionalReceptorData.push([
       {
         text: [
-          { text: 'Número Id Trib. ', color: primaryColor },
+          { text: 'Número Id Trib.: ', color: primaryColor, bold: true },
           { text: extranjero.getAttribute(version === '1.0' ? 'NumRegIdTrib' : 'NumRegIdTribR') },
         ],
       },
@@ -156,7 +167,7 @@ const genericRetencionesReceptorContent = (
     additionalReceptorData.push([
       {
         text: [
-          { text: 'Domicilio Fiscal ', color: primaryColor },
+          { text: 'Domicilio Fiscal: ', color: primaryColor, bold: true },
           { text: nacional.getAttribute('DomicilioFiscalR') },
         ],
       },
@@ -167,7 +178,7 @@ const genericRetencionesReceptorContent = (
     additionalReceptorData.push([
       {
         text: [
-          { text: 'CURP ', color: primaryColor },
+          { text: 'CURP: ', color: primaryColor, bold: true },
           { text: nacional.getAttribute(version === '1.0' ? 'CURPR' : 'CurpR') },
         ],
       },

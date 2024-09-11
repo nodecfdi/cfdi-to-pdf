@@ -27,7 +27,7 @@ const genericCfdiInformacionGlobalContent = (
           {
             fillColor: bgGrayColor,
             text: [
-              { text: 'Periodicidad: ', color: primaryColor },
+              { text: 'Periodicidad: ', color: primaryColor, bold: true },
               {
                 text: getKeyValueOfCatalog(
                   'cfdi40Periodicidades',
@@ -40,7 +40,7 @@ const genericCfdiInformacionGlobalContent = (
           {
             fillColor: bgGrayColor,
             text: [
-              { text: 'Meses: ', color: primaryColor },
+              { text: 'Meses: ', color: primaryColor, bold: true },
               {
                 text: getKeyValueOfCatalog(
                   'cfdi40Meses',
@@ -53,7 +53,7 @@ const genericCfdiInformacionGlobalContent = (
           {
             fillColor: bgGrayColor,
             text: [
-              { text: 'Año: ', color: primaryColor },
+              { text: 'Año: ', color: primaryColor, bold: true },
               { text: informacionGlobal.getAttribute('Año') },
             ],
           },

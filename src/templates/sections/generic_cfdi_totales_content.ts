@@ -170,7 +170,7 @@ const genericCfdiTotalesContent = (
   const tableTotales: TableCell[][] = [
     [
       { text: 'Subtotal', alignment: 'right' },
-      { text: '$', color: primaryColor, alignment: 'center' },
+      { text: '$', color: primaryColor, alignment: 'center', bold: true },
       {
         text: formatCurrency(comprobante.getAttribute('SubTotal'), 'code'),
         alignment: 'right',
@@ -178,7 +178,7 @@ const genericCfdiTotalesContent = (
     ],
     [
       { text: 'Descuento', alignment: 'right' },
-      { text: '$', color: primaryColor, alignment: 'center' },
+      { text: '$', color: primaryColor, alignment: 'center', bold: true },
       {
         text: `- ${formatCurrency(comprobante.getAttribute('Descuento'), 'code')}`,
         alignment: 'right',
@@ -186,12 +186,12 @@ const genericCfdiTotalesContent = (
     ],
     [
       { text: 'Traslados', alignment: 'right' },
-      { text: '$', color: primaryColor, alignment: 'center' },
+      { text: '$', color: primaryColor, alignment: 'center', bold: true },
       { text: formatCurrency(totalImpuestosTrasladados, 'code'), alignment: 'right' },
     ],
     [
       { text: 'Retenciones', alignment: 'right' },
-      { text: '$', color: primaryColor, alignment: 'center' },
+      { text: '$', color: primaryColor, alignment: 'center', bold: true },
       { text: `- ${formatCurrency(totalImpuestosRetenidos, 'code')}`, alignment: 'right' },
     ],
   ];

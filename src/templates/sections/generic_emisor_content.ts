@@ -37,7 +37,7 @@ const genericEmisorContent = (
     additionalEmisorData.push([
       {
         text: [
-          { text: 'Regimen Fiscal ', color: primaryColor },
+          { text: 'Regimen Fiscal: ', color: primaryColor, bold: true },
           {
             text: getKeyValueOfCatalog('cfdi40RegimenesFiscales', regimenFiscal, catalogs),
           },
@@ -48,14 +48,17 @@ const genericEmisorContent = (
 
   additionalEmisorData.push([
     {
-      text: [{ text: 'Número de certificado ', color: primaryColor }, { text: numCertificado }],
+      text: [
+        { text: 'Número de certificado: ', color: primaryColor, bold: true },
+        { text: numCertificado },
+      ],
     },
   ]);
 
   if (curp && curp !== '') {
     additionalEmisorData.push([
       {
-        text: [{ text: 'CURP ', color: primaryColor }, { text: curp }],
+        text: [{ text: 'CURP: ', color: primaryColor, bold: true }, { text: curp }],
       },
     ]);
   }
@@ -76,7 +79,7 @@ const genericEmisorContent = (
               widths: ['*'],
               body: [
                 [{ text: razonSocial, style: ['subHeader'], color: primaryColor }],
-                [{ text: [{ text: 'RFC ', color: primaryColor }, { text: rfc }] }],
+                [{ text: [{ text: 'RFC: ', color: primaryColor, bold: true }, { text: rfc }] }],
               ],
             },
             layout: 'tableLayout',

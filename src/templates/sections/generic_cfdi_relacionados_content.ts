@@ -55,6 +55,7 @@ const genericCfdiRelacionadosContent = (
             alignment: 'left',
             fillColor: bgGrayColor,
             color: primaryColor,
+            bold: true,
           },
           {
             text: '',
@@ -65,6 +66,7 @@ const genericCfdiRelacionadosContent = (
             alignment: 'left',
             fillColor: bgGrayColor,
             color: primaryColor,
+            bold: true,
           },
         ],
         ...relatedInfoAndImport.map((related) => {

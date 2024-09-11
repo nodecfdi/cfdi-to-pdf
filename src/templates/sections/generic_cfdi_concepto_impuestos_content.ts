@@ -17,9 +17,9 @@ const generateImpuestosContentTable = (
   for (const traslado of traslados) {
     const baseCells: TableCell[] = [];
     baseCells.push(
-      { text: 'Traslado', color: primaryColor },
+      { text: 'Traslado:', color: primaryColor, bold: true },
       { text: getValueOfCatalog('cfdi40Impuestos', traslado.getAttribute('Impuesto'), catalogs) },
-      { text: 'Base', color: primaryColor },
+      { text: 'Base:', color: primaryColor, bold: true },
       {
         text: formatCurrency(traslado.getAttribute('Base')),
         alignment: 'right',
@@ -29,20 +29,27 @@ const generateImpuestosContentTable = (
     const factor = traslado.getAttribute('TipoFactor');
 
     if (factor === 'Exento') {
-      baseCells.push({ text: 'Factor', color: primaryColor }, { text: factor }, '', '');
+      baseCells.push(
+        { text: 'Factor:', color: primaryColor, bold: true },
+        { text: factor },
+        '',
+        '',
+      );
     } else {
       const importe = traslado.getAttribute('Importe');
       baseCells.push(
         {
-          text: 'Tasa',
+          text: 'Tasa:',
           color: primaryColor,
+          bold: true,
         },
         {
           text: traslado.getAttribute('TasaOCuota'),
         },
         {
-          text: 'Importe',
+          text: 'Importe:',
           color: primaryColor,
+          bold: true,
         },
         {
           text: formatCurrency(importe === '' ? '0' : importe),
@@ -56,11 +63,11 @@ const generateImpuestosContentTable = (
   for (const retencion of retenciones) {
     const baseCells: TableCell[] = [];
     baseCells.push(
-      { text: 'Retención', color: primaryColor },
+      { text: 'Retención:', color: primaryColor, bold: true },
       {
         text: getValueOfCatalog('cfdi40Impuestos', retencion.getAttribute('Impuesto'), catalogs),
       },
-      { text: 'Base', color: primaryColor },
+      { text: 'Base:', color: primaryColor, bold: true },
       {
         text: formatCurrency(retencion.getAttribute('Base')),
         alignment: 'right',
@@ -70,20 +77,27 @@ const generateImpuestosContentTable = (
     const factor = retencion.getAttribute('TipoFactor');
 
     if (factor === 'Exento') {
-      baseCells.push({ text: 'Factor', color: primaryColor }, { text: factor }, '', '');
+      baseCells.push(
+        { text: 'Factor:', color: primaryColor, bold: true },
+        { text: factor },
+        '',
+        '',
+      );
     } else {
       const importe = retencion.getAttribute('Importe');
       baseCells.push(
         {
-          text: 'Tasa',
+          text: 'Tasa:',
           color: primaryColor,
+          bold: true,
         },
         {
           text: retencion.getAttribute('TasaOCuota'),
         },
         {
-          text: 'Importe',
+          text: 'Importe:',
           color: primaryColor,
+          bold: true,
         },
         {
           text: formatCurrency(importe === '' ? '0' : importe),
@@ -119,7 +133,7 @@ const genericCfdiConceptoImpuestosContent = (
     '',
     {
       text: [
-        { text: 'Clave Producto/Servicio: ', color: primaryColor },
+        { text: 'Clave Producto/Servicio: ', color: primaryColor, bold: true },
         {
           text: codigoSat,
         },
@@ -130,7 +144,7 @@ const genericCfdiConceptoImpuestosContent = (
         objetoImp === ''
           ? ''
           : [
-              { text: 'Objeto Impuesto: ', color: primaryColor },
+              { text: 'Objeto Impuesto: ', color: primaryColor, bold: true },
               {
                 text: getValueOfCatalog('cfdi40ObjetosImpuestos', objetoImp, catalogs),
               },
@@ -141,7 +155,7 @@ const genericCfdiConceptoImpuestosContent = (
         predial === undefined
           ? ''
           : [
-              { text: 'Cuenta Predial: ', color: primaryColor },
+              { text: 'Cuenta Predial: ', color: primaryColor, bold: true },
               { text: predial.getAttribute('Numero') },
             ],
     },
