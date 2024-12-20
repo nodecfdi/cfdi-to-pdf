@@ -4,21 +4,21 @@ import { DiscoverExtractor } from '@nodecfdi/cfdi-expresiones';
 import normalizeSpace from '#src/utils/normalize_space';
 
 export default abstract class AbstractInvoiceData {
-  protected declare _emisor: XmlNodeInterface;
+  declare protected _emisor: XmlNodeInterface;
 
-  protected declare _receptor: XmlNodeInterface;
+  declare protected _receptor: XmlNodeInterface;
 
-  protected declare _timbreFiscalDigital: XmlNodeInterface;
+  declare protected _timbreFiscalDigital: XmlNodeInterface;
 
-  protected declare _qrUrl: string;
+  declare protected _qrUrl: string;
 
-  protected declare _tfdSourceString: string;
+  declare protected _tfdSourceString: string;
 
   protected _logo: string | undefined;
 
   protected _additionalFields: { title: string; value: string }[] | undefined;
 
-  protected declare _legendFooter: string;
+  declare protected _legendFooter: string;
 
   public emisor(): XmlNodeInterface {
     return this._emisor;

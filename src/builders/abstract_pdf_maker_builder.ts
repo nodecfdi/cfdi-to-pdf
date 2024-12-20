@@ -13,13 +13,13 @@ import {
 } from '#src/types';
 
 export default class AbstractPdfMakerBuilder<T extends AbstractInvoiceData> {
-  protected declare _documentTranslator: DocumentTranslatorInterface<T>;
+  declare protected _documentTranslator: DocumentTranslatorInterface<T>;
 
-  protected declare _catalogs: CatalogsData;
+  declare protected _catalogs: CatalogsData;
 
-  protected declare _documentOptions: DocumentOptions;
+  declare protected _documentOptions: DocumentOptions;
 
-  protected declare _options?: BufferOptions;
+  declare protected _options?: BufferOptions;
 
   protected _primaryColor = '#359136';
 

@@ -1,6 +1,5 @@
 {
-  "plugin": ["@jsprismarine/typedoc-material-theme"],
-  "themeColor": "#badc69",
+  "plugin": ["typedoc-github-theme"],
   "entryPoints": ["./src"],
   "entryPointStrategy": "expand",
   "out": "./docs"

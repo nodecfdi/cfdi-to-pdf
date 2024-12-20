@@ -74,9 +74,9 @@ export default class PdfMakerBuilder<
 
   protected async buildPdf(data: T): Promise<pdfMake.TCreatedPdf> {
     const vfsFonts = await import('pdfmake/build/vfs_fonts.js');
-    const vfs = 'default' in vfsFonts ? vfsFonts.default : undefined;
-    if (vfs && !this._overrideVFS) {
-      this._overrideVFS = vfs.pdfMake.vfs;
+    const vfs = 'default' in vfsFonts ? vfsFonts.default : vfsFonts;
+    if (!this._overrideVFS) {
+      this._overrideVFS = vfs as unknown as Record<string, string>;
     }
 
     const pdfTemplate = this._documentTranslator.translate(
@@ -87,7 +87,6 @@ export default class PdfMakerBuilder<
       this._bgGrayColor,
     );
 
-    // eslint-disable-next-line import-x/no-named-as-default-member
     return pdfMake.createPdf(pdfTemplate, this.layouts(), this._overrideFonts, this._overrideVFS);
   }
 
