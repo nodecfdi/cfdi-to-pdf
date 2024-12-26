@@ -14,4 +14,4 @@ jobs:
     uses: nodecfdi/.github/.github/workflows/quality_code.yml@main
 
   tests:
-    uses: nodecfdi/.github/.github/workflows/tests.yml@main
+    uses: nodecfdi/.github/.github/workflows/tests_lts.yml@main
