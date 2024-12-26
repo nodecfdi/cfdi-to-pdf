@@ -1,6 +1,5 @@
 import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
 import { type Content, type TableCell } from 'pdfmake/interfaces.js';
-import { getValueOfCatalog } from '#src/catalogs/catalogs_source';
 import useImplocal10Complement from '#src/templates/complements/implocal10_complement';
 import { type CatalogsData } from '#src/types';
 import { formatCurrency, toNumber } from '#src/utils/currency';
@@ -15,16 +14,8 @@ const fillCfdiImpuestos = (
   const elementImpuestos = 'cfdi:Impuestos';
   const traslados = comprobante
     .searchNodes(elementImpuestos, 'cfdi:Traslados', 'cfdi:Traslado')
-    .filter(
-      (value) =>
-        value.getAttribute('TipoFactor') !== 'Exento' &&
-        toNumber(value.getAttribute('TasaOCuota')) > 0,
-    );
-  const retenciones = comprobante.searchNodes(
-    elementImpuestos,
-    'cfdi:Retenciones',
-    'cfdi:Retencion',
-  );
+    .filter((value) => value.getAttribute('TipoFactor') !== 'Exento' && toNumber(value.getAttribute('TasaOCuota')) > 0);
+  const retenciones = comprobante.searchNodes(elementImpuestos, 'cfdi:Retenciones', 'cfdi:Retencion');
 
   const retencionesTable: TableCell = {
     table: {
@@ -42,18 +33,11 @@ const fillCfdiImpuestos = (
         ...retenciones.map((retencion) => {
           return [
             {
-              text: getValueOfCatalog(
-                'cfdi40Impuestos',
-                retencion.getAttribute('Impuesto'),
-                catalogs,
-              ),
+              text: catalogs.cfdi40Impuestos.findAndReturnTexto(retencion.getAttribute('Impuesto')),
               fillColor: bgGrayColor,
             },
             {
-              text: [
-                { text: 'Importe: ' },
-                { text: formatCurrency(retencion.getAttribute('Importe')) },
-              ],
+              text: [{ text: 'Importe: ' }, { text: formatCurrency(retencion.getAttribute('Importe')) }],
               alignment: 'right',
               fillColor: bgGrayColor,
             },
@@ -86,11 +70,7 @@ const fillCfdiImpuestos = (
 
           return [
             {
-              text: getValueOfCatalog(
-                'cfdi40Impuestos',
-                traslado.getAttribute('Impuesto'),
-                catalogs,
-              ),
+              text: catalogs.cfdi40Impuestos.findAndReturnTexto(traslado.getAttribute('Impuesto')),
               fillColor: bgGrayColor,
             },
             {
@@ -155,14 +135,8 @@ const genericCfdiTotalesContent = (
   const elementImpuestos = 'cfdi:Impuestos';
   const totalesContent: TableCell[][] = [];
 
-  const totalImpuestosTrasladados = comprobante.searchAttribute(
-    elementImpuestos,
-    'TotalImpuestosTrasladados',
-  );
-  const totalImpuestosRetenidos = comprobante.searchAttribute(
-    elementImpuestos,
-    'TotalImpuestosRetenidos',
-  );
+  const totalImpuestosTrasladados = comprobante.searchAttribute(elementImpuestos, 'TotalImpuestosTrasladados');
+  const totalImpuestosRetenidos = comprobante.searchAttribute(elementImpuestos, 'TotalImpuestosRetenidos');
 
   const totalesSubContent: TableCell[] = [];
   fillCfdiImpuestos(comprobante, catalogs, primaryColor, bgGrayColor, totalesSubContent);

@@ -1,7 +1,11 @@
 {
   "extends": "@nodecfdi/tsconfig/tsconfig.package.json",
   "compilerOptions": {
+    "rootDir": "./",
+    "outDir": "./build",
     "lib": ["ESNext", "DOM"],
-    "types": ["vitest/globals", "@types/node"]
-  }
+    "types": ["vitest/globals", "@types/node"],
+    "resolveJsonModule": true
+  },
+  "exclude": ["node_modules", "build", "coverage"]
 }

@@ -1,7 +1,6 @@
 import { type XmlNodes } from '@nodecfdi/cfdi-core';
 import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
 import { type Content, type TableCell } from 'pdfmake/interfaces.js';
-import { getValueOfCatalog } from '#src/catalogs/catalogs_source';
 import { type CatalogsData } from '#src/types';
 import { formatCurrency } from '#src/utils/currency';
 
@@ -121,11 +120,7 @@ const usePago10Complement = (
                 },
                 {
                   style: 'tableSmall',
-                  text: getValueOfCatalog(
-                    'cfdi40FormasPago',
-                    pago.getAttribute('FormaDePagoP'),
-                    catalogs,
-                  ),
+                  text: catalogs.cfdi40FormasPago.findAndReturnTexto(pago.getAttribute('FormaDePagoP')),
                   fillColor: bgGrayColor,
                 },
               ],

@@ -12,9 +12,7 @@ describe('cfdi data', () => {
     expect(cfdiData.tfdSourceString()).toBe('tfd');
     expect(cfdiData.emisor().getAttribute('Rfc')).toBe('AAA010101AAA');
     expect(cfdiData.receptor().getAttribute('Rfc')).toBe('COSC8001137NA');
-    expect(cfdiData.timbreFiscalDigital().getAttribute('UUID')).toBe(
-      '9FB6ED1A-5F37-4FEF-980A-7F8C83B51894',
-    );
+    expect(cfdiData.timbreFiscalDigital().getAttribute('UUID')).toBe('9FB6ED1A-5F37-4FEF-980A-7F8C83B51894');
   });
 
   test('construct using empty qrUrl', () => {

@@ -9,11 +9,7 @@ import genericRetencionPeriodoContent from '#src/templates/sections/generic_rete
 import genericRetencionTotalesContent from '#src/templates/sections/generic_retencion_totales_content';
 import genericStampContent from '#src/templates/sections/generic_stamp_content';
 import genericTopContent from '#src/templates/sections/generic_top_content';
-import {
-  type CatalogsData,
-  type DocumentOptions,
-  type DocumentTranslatorInterface,
-} from '#src/types';
+import { type CatalogsData, type DocumentOptions, type DocumentTranslatorInterface } from '#src/types';
 
 export default class GenericRetencionesTranslator
   extends AbstractGenericTraslator
@@ -37,30 +33,15 @@ export default class GenericRetencionesTranslator
 
     const isVersionOne = data.retenciones().getAttribute('Version') === '1.0';
     retencionesContent.push(
-      genericRetencionPeriodoContent(
-        data.periodo(),
-        isVersionOne,
-        catalogs,
-        primaryColor,
-        bgGrayColor,
-      ),
+      genericRetencionPeriodoContent(data.periodo(), isVersionOne, catalogs, primaryColor, bgGrayColor),
       this.genericSpace(2),
-      ...genericRetencionTotalesContent(
-        data.totales(),
-        isVersionOne,
-        catalogs,
-        primaryColor,
-        bgGrayColor,
-      ),
+      ...genericRetencionTotalesContent(data.totales(), isVersionOne, catalogs, primaryColor, bgGrayColor),
       this.genericSpace(2),
     );
 
     const plataformasTecnologicas = data
       .retenciones()
-      .searchNode(
-        'retenciones:Complemento',
-        'plataformasTecnologicas:ServiciosPlataformasTecnologicas',
-      );
+      .searchNode('retenciones:Complemento', 'plataformasTecnologicas:ServiciosPlataformasTecnologicas');
     if (plataformasTecnologicas) {
       const plataformasTable = usePlataformasTecnologicas10Complement(
         plataformasTecnologicas,
@@ -90,10 +71,7 @@ export default class GenericRetencionesTranslator
           {
             table: {
               widths: ['*'],
-              body: [
-                [{ text: element.title, style: ['tableSubtitleHeader'], color: primaryColor }],
-                [element.value],
-              ],
+              body: [[{ text: element.title, style: ['tableSubtitleHeader'], color: primaryColor }], [element.value]],
             },
             layout: 'tableLayout',
           },
@@ -103,12 +81,7 @@ export default class GenericRetencionesTranslator
     }
 
     retencionesContent.push(
-      genericStampContent(
-        data.timbreFiscalDigital(),
-        data.tfdSourceString(),
-        data.qrUrl(),
-        primaryColor,
-      ),
+      genericStampContent(data.timbreFiscalDigital(), data.tfdSourceString(), data.qrUrl(), primaryColor),
     );
 
     return {

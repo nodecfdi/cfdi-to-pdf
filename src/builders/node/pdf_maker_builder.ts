@@ -4,16 +4,9 @@ import PdfPrinter from 'pdfmake';
 import { type BufferOptions, type TFontDictionary } from 'pdfmake/interfaces.js';
 import type AbstractInvoiceData from '#src/abstract_invoice_data';
 import AbstractPdfMakerBuilder from '#src/builders/abstract_pdf_maker_builder';
-import { catalogsSource } from '#src/catalogs/catalogs_source';
-import {
-  type CatalogsData,
-  type DocumentOptions,
-  type DocumentTranslatorInterface,
-} from '#src/types';
+import { type CatalogsData, type DocumentOptions, type DocumentTranslatorInterface } from '#src/types';
 
-export default class PdfMakerBuilder<
-  T extends AbstractInvoiceData,
-> extends AbstractPdfMakerBuilder<T> {
+export default class PdfMakerBuilder<T extends AbstractInvoiceData> extends AbstractPdfMakerBuilder<T> {
   private readonly _pdfPrinter: PdfPrinter;
 
   public constructor(
@@ -25,7 +18,7 @@ export default class PdfMakerBuilder<
   ) {
     super();
     this._documentTranslator = documentTranslator;
-    this._catalogs = catalogs ?? catalogsSource;
+    this._catalogs = catalogs;
     const fonts = overrideFontDictionary ?? this.defaultFontDictionary();
     this._pdfPrinter = new PdfPrinter(fonts);
     this._documentOptions = {
@@ -44,7 +37,7 @@ export default class PdfMakerBuilder<
   }
 
   public async buildRaw(data: T): Promise<string> {
-    const pdfDoc = this.buildPdf(data);
+    const pdfDoc = await this.buildPdf(data);
     pdfDoc.end();
     const pdfBuffer = await buffer(pdfDoc);
 
@@ -52,7 +45,7 @@ export default class PdfMakerBuilder<
   }
 
   public async buildBase64(data: T): Promise<string> {
-    const pdfDoc = this.buildPdf(data);
+    const pdfDoc = await this.buildPdf(data);
     pdfDoc.end();
     const pdfBuffer = await buffer(pdfDoc);
 
@@ -60,8 +53,9 @@ export default class PdfMakerBuilder<
   }
 
   public async build(data: T, destination: string): Promise<void> {
+    const pdfDoc = await this.buildPdf(data);
+
     return new Promise<void>((resolve, reject) => {
-      const pdfDoc = this.buildPdf(data);
       const fileWriteStream = createWriteStream(destination);
       fileWriteStream.on('error', (error: Error) => {
         fileWriteStream.end();
@@ -80,15 +74,17 @@ export default class PdfMakerBuilder<
     });
   }
 
-  public buildStream(data: T): NodeJS.ReadableStream {
-    return this.buildPdf(data);
+  public async buildStream(data: T): Promise<NodeJS.ReadableStream> {
+    return await this.buildPdf(data);
   }
 
-  protected buildPdf(data: T): PDFKit.PDFDocument {
+  protected async buildPdf(data: T): Promise<PDFKit.PDFDocument> {
+    const catalogs = this._catalogs ?? (await this.defaultCatalogs());
+
     const pdfTemplate = this._documentTranslator.translate(
       data,
       this._documentOptions,
-      this._catalogs,
+      catalogs,
       this._primaryColor,
       this._bgGrayColor,
     );

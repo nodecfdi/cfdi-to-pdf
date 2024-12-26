@@ -1,5 +1,4 @@
 import { type Content, type TableCell } from 'pdfmake/interfaces.js';
-import { getKeyValueOfCatalog } from '#src/catalogs/catalogs_source';
 import CfdiData from '#src/cfdi_data';
 import RetencionesData from '#src/retenciones_data';
 import { type CatalogsData } from '#src/types';
@@ -39,7 +38,7 @@ const genericEmisorContent = (
         text: [
           { text: 'Regimen Fiscal: ', color: primaryColor, bold: true },
           {
-            text: getKeyValueOfCatalog('cfdi40RegimenesFiscales', regimenFiscal, catalogs),
+            text: catalogs.cfdi40RegimenesFiscales.findAndReturnEtiqueta(regimenFiscal),
           },
         ],
       },
@@ -48,10 +47,7 @@ const genericEmisorContent = (
 
   additionalEmisorData.push([
     {
-      text: [
-        { text: 'Número de certificado: ', color: primaryColor, bold: true },
-        { text: numCertificado },
-      ],
+      text: [{ text: 'Número de certificado: ', color: primaryColor, bold: true }, { text: numCertificado }],
     },
   ]);
 

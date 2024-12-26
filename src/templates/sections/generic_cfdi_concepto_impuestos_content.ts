@@ -1,7 +1,6 @@
 import { type XmlNodes } from '@nodecfdi/cfdi-core';
 import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
 import { type ContentTable, type TableCell } from 'pdfmake/interfaces.js';
-import { getValueOfCatalog } from '#src/catalogs/catalogs_source';
 import { type CatalogsData } from '#src/types';
 import { formatCurrency } from '#src/utils/currency';
 
@@ -18,7 +17,7 @@ const generateImpuestosContentTable = (
     const baseCells: TableCell[] = [];
     baseCells.push(
       { text: 'Traslado:', color: primaryColor, bold: true },
-      { text: getValueOfCatalog('cfdi40Impuestos', traslado.getAttribute('Impuesto'), catalogs) },
+      { text: catalogs.cfdi40Impuestos.findAndReturnTexto(traslado.getAttribute('Impuesto')) },
       { text: 'Base:', color: primaryColor, bold: true },
       {
         text: formatCurrency(traslado.getAttribute('Base')),
@@ -29,12 +28,7 @@ const generateImpuestosContentTable = (
     const factor = traslado.getAttribute('TipoFactor');
 
     if (factor === 'Exento') {
-      baseCells.push(
-        { text: 'Factor:', color: primaryColor, bold: true },
-        { text: factor },
-        '',
-        '',
-      );
+      baseCells.push({ text: 'Factor:', color: primaryColor, bold: true }, { text: factor }, '', '');
     } else {
       const importe = traslado.getAttribute('Importe');
       baseCells.push(
@@ -65,7 +59,7 @@ const generateImpuestosContentTable = (
     baseCells.push(
       { text: 'Retención:', color: primaryColor, bold: true },
       {
-        text: getValueOfCatalog('cfdi40Impuestos', retencion.getAttribute('Impuesto'), catalogs),
+        text: catalogs.cfdi40Impuestos.findAndReturnTexto(retencion.getAttribute('Impuesto')),
       },
       { text: 'Base:', color: primaryColor, bold: true },
       {
@@ -77,12 +71,7 @@ const generateImpuestosContentTable = (
     const factor = retencion.getAttribute('TipoFactor');
 
     if (factor === 'Exento') {
-      baseCells.push(
-        { text: 'Factor:', color: primaryColor, bold: true },
-        { text: factor },
-        '',
-        '',
-      );
+      baseCells.push({ text: 'Factor:', color: primaryColor, bold: true }, { text: factor }, '', '');
     } else {
       const importe = retencion.getAttribute('Importe');
       baseCells.push(
@@ -146,7 +135,7 @@ const genericCfdiConceptoImpuestosContent = (
           : [
               { text: 'Objeto Impuesto: ', color: primaryColor, bold: true },
               {
-                text: getValueOfCatalog('cfdi40ObjetosImpuestos', objetoImp, catalogs),
+                text: catalogs.cfdi40ObjetosImpuestos.findAndReturnTexto(objetoImp),
               },
             ],
     },
@@ -154,10 +143,7 @@ const genericCfdiConceptoImpuestosContent = (
       text:
         predial === undefined
           ? ''
-          : [
-              { text: 'Cuenta Predial: ', color: primaryColor, bold: true },
-              { text: predial.getAttribute('Numero') },
-            ],
+          : [{ text: 'Cuenta Predial: ', color: primaryColor, bold: true }, { text: predial.getAttribute('Numero') }],
     },
   ];
   impuestoConceptoTable.push(extraDetails);
@@ -168,13 +154,7 @@ const genericCfdiConceptoImpuestosContent = (
   if (traslados.length > 0 || retenciones.length > 0) {
     impuestoConceptoTable.push([
       {
-        ...generateImpuestosContentTable(
-          traslados,
-          retenciones,
-          catalogs,
-          primaryColor,
-          bgGrayColor,
-        ),
+        ...generateImpuestosContentTable(traslados, retenciones, catalogs, primaryColor, bgGrayColor),
         colSpan: 4,
       },
       '',

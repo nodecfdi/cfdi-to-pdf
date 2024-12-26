@@ -53,10 +53,7 @@ const useDonat11Complement = (
         [
           {
             fillColor: bgGrayColor,
-            text: [
-              { text: 'Leyenda: ', color: primaryColor, bold: true },
-              { text: donat11.getAttribute('leyenda') },
-            ],
+            text: [{ text: 'Leyenda: ', color: primaryColor, bold: true }, { text: donat11.getAttribute('leyenda') }],
             colSpan: 3,
           },
           '',

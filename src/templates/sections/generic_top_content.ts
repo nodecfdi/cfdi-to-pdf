@@ -1,14 +1,9 @@
 import { type Content, type Size, type TableCell } from 'pdfmake/interfaces.js';
-import { getKeyValueOfCatalog, getValueOfCatalog } from '#src/catalogs/catalogs_source';
 import CfdiData from '#src/cfdi_data';
 import RetencionesData from '#src/retenciones_data';
 import { type CatalogsData } from '#src/types';
 
-const genericTopContent = (
-  data: CfdiData | RetencionesData,
-  catalogs: CatalogsData,
-  primaryColor: string,
-): Content => {
+const genericTopContent = (data: CfdiData | RetencionesData, catalogs: CatalogsData, primaryColor: string): Content => {
   const logo = data.logo();
   const tfd = data.timbreFiscalDigital();
 
@@ -24,7 +19,7 @@ const genericTopContent = (
     const version = comprobante.getAttribute('Version');
     const tipoComprobante = comprobante.getAttribute('TipoDeComprobante');
 
-    title = `CFDI ${version} de ${getValueOfCatalog('cfdi40TiposComprobantes', tipoComprobante, catalogs)}`;
+    title = `CFDI ${version} de ${catalogs.cfdi40TiposComprobantes.findAndReturnTexto(tipoComprobante)}`;
     bodyContent.push(
       [
         { text: 'Serie', style: ['tableHeader'], color: primaryColor },
@@ -47,13 +42,7 @@ const genericTopContent = (
         '',
         { text: 'Fecha y hora de certificación', style: ['tableHeader'], color: primaryColor },
       ],
-      [
-        { text: tfd.getAttribute('UUID'), colSpan: 3 },
-        '',
-        '',
-        '',
-        { text: tfd.getAttribute('FechaTimbrado') },
-      ],
+      [{ text: tfd.getAttribute('UUID'), colSpan: 3 }, '', '', '', { text: tfd.getAttribute('FechaTimbrado') }],
     );
   } else if (data instanceof RetencionesData) {
     contentWidths.push('*', '3%', '42%');
@@ -70,11 +59,7 @@ const genericTopContent = (
         '',
         { text: 'Fecha y hora de emisión', style: ['tableHeader'], color: primaryColor },
       ],
-      [
-        { text: retenciones.getAttribute('FolioInt') },
-        '',
-        { text: retenciones.getAttribute('FechaExp') },
-      ],
+      [{ text: retenciones.getAttribute('FolioInt') }, '', { text: retenciones.getAttribute('FechaExp') }],
       [
         { text: 'Folio fiscal', style: ['tableHeader'], color: primaryColor },
         '',
@@ -84,7 +69,7 @@ const genericTopContent = (
       [{ text: 'Clave', style: ['tableHeader'], color: primaryColor, colSpan: 3 }, '', ''],
       [
         {
-          text: getKeyValueOfCatalog('retenciones20ClavesRetencion', cveRetencion, catalogs),
+          text: catalogs.retenciones20ClavesRetencion.findAndReturnEtiqueta(cveRetencion),
           colSpan: 3,
         },
         '',

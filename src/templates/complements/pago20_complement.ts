@@ -1,15 +1,11 @@
 import { type XmlNodes } from '@nodecfdi/cfdi-core';
 import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
 import { type Content, type TableCell } from 'pdfmake/interfaces.js';
-import { getValueOfCatalog } from '#src/catalogs/catalogs_source';
 import { type CatalogsData } from '#src/types';
 import breakCharacters from '#src/utils/break_characters';
 import { formatCurrency } from '#src/utils/currency';
 
-const generateRelatedDocsContent = (
-  doctoRelacionados: XmlNodes,
-  primaryColor: string,
-): TableCell[][] => {
+const generateRelatedDocsContent = (doctoRelacionados: XmlNodes, primaryColor: string): TableCell[][] => {
   const relatedDocsCells = doctoRelacionados.map<TableCell[]>((doc) => {
     return [
       doc.getAttribute('IdDocumento'),
@@ -59,11 +55,7 @@ const generateRelatedDocsContent = (
   return relatedDocsCells;
 };
 
-const fillTableTotales = (
-  totales: XmlNodeInterface,
-  primaryColor: string,
-  bgGrayColor: string,
-): TableCell => {
+const fillTableTotales = (totales: XmlNodeInterface, primaryColor: string, bgGrayColor: string): TableCell => {
   return {
     table: {
       widths: ['*', '*', '*', '*', '*', '*'],
@@ -260,11 +252,7 @@ const usePago20Complement = (
                                   alignment: 'center',
                                 },
                                 {
-                                  text: getValueOfCatalog(
-                                    'cfdi40FormasPago',
-                                    pago.getAttribute('FormaDePagoP'),
-                                    catalogs,
-                                  ),
+                                  text: catalogs.cfdi40FormasPago.findAndReturnTexto(pago.getAttribute('FormaDePagoP')),
                                   alignment: 'center',
                                 },
                                 { text: 'Monto:', color: primaryColor, alignment: 'center' },
@@ -284,9 +272,7 @@ const usePago20Complement = (
                                   alignment: 'center',
                                 },
                                 {
-                                  text: pago.hasAttribute('NumOperacion')
-                                    ? pago.getAttribute('NumOperacion')
-                                    : '',
+                                  text: pago.hasAttribute('NumOperacion') ? pago.getAttribute('NumOperacion') : '',
                                   alignment: 'center',
                                 },
                               ],
@@ -324,10 +310,8 @@ const usePago20Complement = (
                                                     color: primaryColor,
                                                   },
                                                   {
-                                                    text: getValueOfCatalog(
-                                                      'pagosTiposCadenaPago',
+                                                    text: catalogs.pagosTiposCadenaPago.findAndReturnTexto(
                                                       pago.getAttribute('TipoCadPago'),
-                                                      catalogs,
                                                     ),
                                                   },
                                                 ],
@@ -336,9 +320,7 @@ const usePago20Complement = (
                                                 text: [
                                                   { text: 'Cadena pago', color: primaryColor },
                                                   {
-                                                    text: breakCharacters(
-                                                      pago.getAttribute('CadPago'),
-                                                    ),
+                                                    text: breakCharacters(pago.getAttribute('CadPago')),
                                                   },
                                                 ],
                                               },
@@ -349,14 +331,10 @@ const usePago20Complement = (
                                             ],
                                             [
                                               {
-                                                text: breakCharacters(
-                                                  pago.getAttribute('CertPago'),
-                                                ),
+                                                text: breakCharacters(pago.getAttribute('CertPago')),
                                               },
                                               {
-                                                text: breakCharacters(
-                                                  pago.getAttribute('SelloPago'),
-                                                ),
+                                                text: breakCharacters(pago.getAttribute('SelloPago')),
                                               },
                                             ],
                                           ],
@@ -378,10 +356,7 @@ const usePago20Complement = (
                                   style: 'tableSmall',
                                   table: {
                                     widths: ['32%', '8%', '8%', '8%', '8%', '12%', '12%', '12%'],
-                                    body: generateRelatedDocsContent(
-                                      doctoRelacionados,
-                                      primaryColor,
-                                    ),
+                                    body: generateRelatedDocsContent(doctoRelacionados, primaryColor),
                                     dontBreakRows: true,
                                   },
                                   layout: 'conceptosLayout',

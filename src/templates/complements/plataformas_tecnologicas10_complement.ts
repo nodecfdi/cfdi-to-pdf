@@ -12,9 +12,7 @@ const impuestosTrasladadosPlataformasComplementTable = (
   const impuestosTrasladadosDelServicio = servicio.searchNode(
     'plataformasTecnologicas:ImpuestosTrasladadosdelServicio',
   );
-  const contribucionGubernamental = servicio.searchNode(
-    'plataformasTecnologicas:ContribucionGubernamental',
-  );
+  const contribucionGubernamental = servicio.searchNode('plataformasTecnologicas:ContribucionGubernamental');
   const comisionDelServicio = servicio.searchNode('plataformasTecnologicas:ComisionDelServicio');
 
   if (impuestosTrasladadosDelServicio) {
@@ -138,10 +136,7 @@ const impuestosTrasladadosPlataformasComplementTable = (
                 alignment: 'right',
               },
               {
-                text:
-                  comisionDelServicio === undefined
-                    ? ''
-                    : comisionDelServicio.getAttribute('Porcentaje') || '---',
+                text: comisionDelServicio === undefined ? '' : comisionDelServicio.getAttribute('Porcentaje') || '---',
                 alignment: 'left',
               },
               {
@@ -151,9 +146,7 @@ const impuestosTrasladadosPlataformasComplementTable = (
               },
               {
                 text:
-                  comisionDelServicio === undefined
-                    ? ''
-                    : formatCurrency(comisionDelServicio.getAttribute('Importe')),
+                  comisionDelServicio === undefined ? '' : formatCurrency(comisionDelServicio.getAttribute('Importe')),
                 alignment: 'left',
               },
               {
@@ -367,9 +360,7 @@ const usePlataformasTecnologicas10Complement = (
         text:
           plataformasTecnologicas.getAttribute('MonTotalContribucionGubernamental') === ''
             ? '---'
-            : formatCurrency(
-                plataformasTecnologicas.getAttribute('MonTotalContribucionGubernamental'),
-              ),
+            : formatCurrency(plataformasTecnologicas.getAttribute('MonTotalContribucionGubernamental')),
         alignment: 'center',
       },
     ],
@@ -455,15 +446,9 @@ const usePlataformasTecnologicas10Complement = (
     );
 
     for (const servicio of servicios) {
-      const impuestosTable = impuestosTrasladadosPlataformasComplementTable(
-        servicio,
-        primaryColor,
-        bgGrayColor,
-      );
+      const impuestosTable = impuestosTrasladadosPlataformasComplementTable(servicio, primaryColor, bgGrayColor);
 
-      const impuestosContent = impuestosTable
-        ? [{ ...impuestosTable, colSpan: 10 }]
-        : [{ text: '', colSpan: 10 }];
+      const impuestosContent = impuestosTable ? [{ ...impuestosTable, colSpan: 10 }] : [{ text: '', colSpan: 10 }];
 
       const formaPago = servicio.getAttribute('FormaPagoServ');
       const tipoServicio = servicio.getAttribute('TipoDeServ');

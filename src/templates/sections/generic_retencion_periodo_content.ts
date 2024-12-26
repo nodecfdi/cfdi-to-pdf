@@ -1,6 +1,5 @@
 import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
 import { type Content } from 'pdfmake/interfaces.js';
-import { getKeyValueOfCatalog } from '#src/catalogs/catalogs_source';
 import { type CatalogsData } from '#src/types';
 
 const genericRetencionPeriodoContent = (
@@ -14,21 +13,13 @@ const genericRetencionPeriodoContent = (
     table: {
       widths: ['*', '*', '*'],
       body: [
-        [
-          { text: 'Periodo', style: ['tableSubtitleHeader'], color: primaryColor, colSpan: 3 },
-          '',
-          '',
-        ],
+        [{ text: 'Periodo', style: ['tableSubtitleHeader'], color: primaryColor, colSpan: 3 }, '', ''],
         [
           {
             text: [
               { text: 'Mes Inicial: ', color: primaryColor },
               {
-                text: getKeyValueOfCatalog(
-                  'retenciones20Periodos',
-                  periodo.getAttribute('MesIni'),
-                  catalogs,
-                ),
+                text: catalogs.retenciones20Periodos.findAndReturnEtiqueta(periodo.getAttribute('MesIni')),
               },
             ],
             alignment: 'center',
@@ -38,11 +29,7 @@ const genericRetencionPeriodoContent = (
             text: [
               { text: 'Mes Final: ', color: primaryColor },
               {
-                text: getKeyValueOfCatalog(
-                  'retenciones20Periodos',
-                  periodo.getAttribute('MesFin'),
-                  catalogs,
-                ),
+                text: catalogs.retenciones20Periodos.findAndReturnEtiqueta(periodo.getAttribute('MesFin')),
               },
             ],
             alignment: 'center',

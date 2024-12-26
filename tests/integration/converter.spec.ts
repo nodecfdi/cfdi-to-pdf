@@ -55,10 +55,7 @@ describe('converter', () => {
     const cfdiData = new CfdiData(cfdi, null, null, nodeCfdiLogo());
     const builder = new PdfMakerBuilder(new GenericCfdiTranslator());
 
-    await expect(builder.build(cfdiData, '/usr/bin/cfdi33.pdf')).rejects.toHaveProperty(
-      'code',
-      'EACCES',
-    );
+    await expect(builder.build(cfdiData, '/usr/bin/cfdi33.pdf')).rejects.toHaveProperty('code', 'EACCES');
     expect(existsSync('/usr/bin/cfdi33.pdf')).toBeFalsy();
   }, 30000);
 
@@ -69,9 +66,7 @@ describe('converter', () => {
       defaultStyle: { font: 'Calibri' },
     });
     await expect(builder.build(cfdiData, 'retenciones-valid.pdf')).rejects.toStrictEqual(
-      new Error(
-        "Font 'Calibri' in style 'bold' is not defined in the font section of the document definition.",
-      ),
+      new Error("Font 'Calibri' in style 'bold' is not defined in the font section of the document definition."),
     );
     expect(existsSync('retenciones-valid.pdf')).toBeFalsy();
   }, 30000);

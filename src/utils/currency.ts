@@ -19,18 +19,7 @@ const getGroupToCurrency = (rawGroup: string): string => {
     'catorce',
     'quince',
   ];
-  const teens = [
-    '',
-    'dieci',
-    'veinti',
-    'treinta',
-    'cuarenta',
-    'cincuenta',
-    'sesenta',
-    'setenta',
-    'ochenta',
-    'noventa',
-  ];
+  const teens = ['', 'dieci', 'veinti', 'treinta', 'cuarenta', 'cincuenta', 'sesenta', 'setenta', 'ochenta', 'noventa'];
   const hundreds = [
     '',
     'ciento',
@@ -125,8 +114,7 @@ const evaluateMillions = (
   let fixedNumberToCurrency = numberToCurrency;
   const group = integers.slice(0, Math.max(0, integers.length - 6));
   fixedNumberToCurrency += getGroupToCurrency(group);
-  fixedNumberToCurrency +=
-    !thousandsOfMillions && Number.parseInt(group, 10) === 1 ? 'millón ' : 'millones ';
+  fixedNumberToCurrency += !thousandsOfMillions && Number.parseInt(group, 10) === 1 ? 'millón ' : 'millones ';
 
   return {
     numberToCurrency: fixedNumberToCurrency,
@@ -194,9 +182,7 @@ export const toCurrency = (initial: number, moneda = 'MXN'): string => {
   noHundreds = Number.parseInt(integers, 10) === 0;
   numberToCurrency += getGroupToCurrency(integers);
   numberToCurrency += `${
-    (noThousands && noHundreds ? 'de ' : '') +
-    (numberToCurrency === 'un ' ? 'peso ' : 'pesos ') +
-    decimals
+    (noThousands && noHundreds ? 'de ' : '') + (numberToCurrency === 'un ' ? 'peso ' : 'pesos ') + decimals
   }/100 ${monedaName}`;
 
   return numberToCurrency.toUpperCase();
@@ -211,10 +197,7 @@ export const toNumber = (currency: number | string): number => {
   return Number.isNaN(fixedCurrency) ? 0 : Number(fixedCurrency);
 };
 
-export const formatCurrency = (
-  currency: number | string,
-  currencyDisplay: 'symbol' | 'code' = 'symbol',
-): string => {
+export const formatCurrency = (currency: number | string, currencyDisplay: 'symbol' | 'code' = 'symbol'): string => {
   const number = toNumber(currency);
 
   return Intl.NumberFormat('en-US', {

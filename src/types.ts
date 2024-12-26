@@ -1,30 +1,26 @@
+import { type SatCatalog } from '@nodecfdi/sat-micro-catalogs';
 import { type TDocumentDefinitions } from 'pdfmake/interfaces.js';
 import type AbstractInvoiceData from '#src/abstract_invoice_data';
-
-export interface CatalogItem {
-  id: string;
-  texto: string;
-}
 
 export type DocumentOptions = Omit<TDocumentDefinitions, 'content' | 'footer'>;
 
 export interface CatalogsData {
-  cfdi40Impuestos: CatalogItem[];
-  cfdi40ObjetosImpuestos: CatalogItem[];
-  cfdi40UsosCfdi: CatalogItem[];
-  cfdi40RegimenesFiscales: CatalogItem[];
-  cfdi40TiposRelaciones: CatalogItem[];
-  cfdi40Meses: CatalogItem[];
-  cfdi40Periodicidades: CatalogItem[];
-  cfdi40Exportaciones: CatalogItem[];
-  cfdi40MetodosPago: CatalogItem[];
-  cfdi40FormasPago: CatalogItem[];
-  cfdi40TiposComprobantes: CatalogItem[];
-  pagosTiposCadenaPago: CatalogItem[];
-  retenciones20ClavesRetencion: CatalogItem[];
-  retenciones20Periodicidades: CatalogItem[];
-  retenciones20Periodos: CatalogItem[];
-  retenciones20TiposPago: CatalogItem[];
+  cfdi40Impuestos: SatCatalog;
+  cfdi40ObjetosImpuestos: SatCatalog;
+  cfdi40UsosCfdi: SatCatalog;
+  cfdi40RegimenesFiscales: SatCatalog;
+  cfdi40TiposRelaciones: SatCatalog;
+  cfdi40Meses: SatCatalog;
+  cfdi40Periodicidades: SatCatalog;
+  cfdi40Exportaciones: SatCatalog;
+  cfdi40MetodosPago: SatCatalog;
+  cfdi40FormasPago: SatCatalog;
+  cfdi40TiposComprobantes: SatCatalog;
+  pagosTiposCadenaPago: SatCatalog;
+  retenciones20ClavesRetencion: SatCatalog;
+  retenciones20Periodicidades: SatCatalog;
+  retenciones20Periodos: SatCatalog;
+  retenciones20TiposPago: SatCatalog;
 }
 
 export type DocumentTranslatorInterface<T extends AbstractInvoiceData> = {

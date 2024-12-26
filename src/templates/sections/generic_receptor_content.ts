@@ -1,5 +1,4 @@
 import { type Content, type TableCell } from 'pdfmake/interfaces.js';
-import { getKeyValueOfCatalog, getValueOfCatalog } from '#src/catalogs/catalogs_source';
 import CfdiData from '#src/cfdi_data';
 import RetencionesData from '#src/retenciones_data';
 import { type CatalogsData } from '#src/types';
@@ -17,10 +16,7 @@ const genericCfdiReceptorContent = (
     [{ text: receptor.getAttribute('Nombre'), style: ['subHeader'], color: primaryColor }],
     [
       {
-        text: [
-          { text: 'RFC: ', color: primaryColor, bold: true },
-          { text: receptor.getAttribute('Rfc') },
-        ],
+        text: [{ text: 'RFC: ', color: primaryColor, bold: true }, { text: receptor.getAttribute('Rfc') }],
       },
     ],
   );
@@ -31,10 +27,8 @@ const genericCfdiReceptorContent = (
         text: [
           { text: 'Régimen fiscal: ', color: primaryColor, bold: true },
           {
-            text: getKeyValueOfCatalog(
-              'cfdi40RegimenesFiscales',
+            text: catalogs.cfdi40RegimenesFiscales.findAndReturnEtiqueta(
               receptor.getAttribute('RegimenFiscalReceptor'),
-              catalogs,
             ),
           },
         ],
@@ -60,7 +54,7 @@ const genericCfdiReceptorContent = (
       text: [
         { text: 'Uso del CFDI: ', color: primaryColor, bold: true },
         {
-          text: getValueOfCatalog('cfdi40UsosCfdi', receptor.getAttribute('UsoCFDI'), catalogs),
+          text: catalogs.cfdi40UsosCfdi.findAndReturnTexto(receptor.getAttribute('UsoCFDI')),
         },
       ],
     },
@@ -72,11 +66,7 @@ const genericCfdiReceptorContent = (
         text: [
           { text: 'Exportación: ', color: primaryColor, bold: true },
           {
-            text: getValueOfCatalog(
-              'cfdi40Exportaciones',
-              data.comprobante().getAttribute('Exportacion'),
-              catalogs,
-            ),
+            text: catalogs.cfdi40Exportaciones.findAndReturnTexto(data.comprobante().getAttribute('Exportacion')),
           },
         ],
       },
@@ -126,10 +116,7 @@ const genericRetencionesReceptorContent = (
   receptorData.push(
     [
       {
-        text:
-          (nacional
-            ? nacional.getAttribute('NomDenRazSocR')
-            : extranjero?.getAttribute('NomDenRazSocR')) ?? '',
+        text: (nacional ? nacional.getAttribute('NomDenRazSocR') : extranjero?.getAttribute('NomDenRazSocR')) ?? '',
         style: ['subHeader'],
         color: primaryColor,
       },

@@ -49,9 +49,7 @@ describe('converter browser version', () => {
       defaultStyle: { font: 'Calibri' },
     });
     await expect(builder.buildBase64(cfdiData)).rejects.toStrictEqual(
-      new Error(
-        "Font 'Calibri' in style 'bold' is not defined in the font section of the document definition.",
-      ),
+      new Error("Font 'Calibri' in style 'bold' is not defined in the font section of the document definition."),
     );
   }, 30000);
 });

@@ -65,6 +65,8 @@
     "test": "vitest",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
+    "tool:code": "pnpm run lint:check && pnpm run format:check && pnpm run typecheck",
+    "tool:build": "pnpm run tool:code && pnpm run test:run",
     "gen:docs": "typedoc --options typedoc.json",
     "changelog": "auto-changelog -p && git add CHANGELOG.md",
     "prebuild": "pnpm lint:check && pnpm typecheck",
@@ -76,9 +78,8 @@
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.6.0",
-    "@nodecfdi/cfdi-core": "^0.5.0",
-    "@nodecfdi/cfdi-expresiones": "^3.0.2",
-    "@nodecfdi/eslint-config": "^2.4.1",
+    "@nodecfdi/cfdi-core": "^0.6.2",
+    "@nodecfdi/eslint-config": "^2.4.2",
     "@nodecfdi/prettier-config": "^1.4.0",
     "@nodecfdi/tsconfig": "^1.7.3",
     "@types/node": "^22.10.2",
@@ -89,19 +90,22 @@
     "husky": "^9.1.7",
     "is-in-ci": "^1.0.0",
     "np": "^10.1.0",
-    "pdfmake": "^0.2.16",
+    "pdfmake": "^0.2.17",
     "prettier": "^3.4.2",
     "tshy": "^3.0.2",
-    "typedoc": "^0.27.5",
+    "typedoc": "^0.27.6",
     "typedoc-github-theme": "^0.2.0",
     "typescript": "^5.7.2",
     "vitest": "^2.1.8"
   },
+  "dependencies": {
+    "@nodecfdi/cfdi-expresiones": "^3.0.4",
+    "@nodecfdi/sat-micro-catalogs": "^1.0.2"
+  },
   "peerDependencies": {
-    "@nodecfdi/cfdi-core": ">=0.5.0",
-    "@nodecfdi/cfdi-expresiones": ">=3.0.2",
+    "@nodecfdi/cfdi-core": ">=0.6.2",
     "@types/pdfmake": ">=0.2.10",
-    "pdfmake": ">=0.2.16"
+    "pdfmake": ">=0.2.17"
   },
   "peerDependenciesMeta": {
     "@types/pdfmake": {
@@ -137,7 +141,7 @@
       "@commitlint/config-conventional"
     ]
   },
-  "prettier": "@nodecfdi/prettier-config",
+  "prettier": "@nodecfdi/prettier-config/pkg",
   "packageManager": "pnpm@9.15.1",
   "publishConfig": {
     "access": "public",

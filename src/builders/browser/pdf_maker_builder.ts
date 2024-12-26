@@ -2,16 +2,9 @@ import pdfMake from 'pdfmake/build/pdfmake.js';
 import { type BufferOptions, type Style, type TFontDictionary } from 'pdfmake/interfaces.js';
 import type AbstractInvoiceData from '#src/abstract_invoice_data';
 import AbstractPdfMakerBuilder from '#src/builders/abstract_pdf_maker_builder';
-import { catalogsSource } from '#src/catalogs/catalogs_source';
-import {
-  type CatalogsData,
-  type DocumentOptions,
-  type DocumentTranslatorInterface,
-} from '#src/types';
+import { type CatalogsData, type DocumentOptions, type DocumentTranslatorInterface } from '#src/types';
 
-export default class PdfMakerBuilder<
-  T extends AbstractInvoiceData,
-> extends AbstractPdfMakerBuilder<T> {
+export default class PdfMakerBuilder<T extends AbstractInvoiceData> extends AbstractPdfMakerBuilder<T> {
   private readonly _overrideFonts?: TFontDictionary;
 
   private _overrideVFS?: Record<string, string>;
@@ -26,7 +19,7 @@ export default class PdfMakerBuilder<
   ) {
     super();
     this._documentTranslator = documentTranslator;
-    this._catalogs = catalogs ?? catalogsSource;
+    this._catalogs = catalogs;
     this._overrideFonts = overrideFonts;
     this._overrideVFS = overrideVFS;
     this._documentOptions = {
@@ -79,10 +72,12 @@ export default class PdfMakerBuilder<
       this._overrideVFS = vfs as unknown as Record<string, string>;
     }
 
+    const catalogs = this._catalogs ?? (await this.defaultCatalogs());
+
     const pdfTemplate = this._documentTranslator.translate(
       data,
       this._documentOptions,
-      this._catalogs,
+      catalogs,
       this._primaryColor,
       this._bgGrayColor,
     );

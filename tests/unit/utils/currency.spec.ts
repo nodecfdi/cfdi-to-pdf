@@ -89,12 +89,9 @@ describe('currency', () => {
     ],
     [1000000000, 'MIL MILLONES DE PESOS 00/100 M.N.'],
     [500000000, 'QUINIENTOS MILLONES DE PESOS 00/100 M.N.'],
-  ])(
-    'number thousands of millions to currency letters %d => %s',
-    (input: number, expected: string) => {
-      expect(toCurrency(input)).toBe(expected);
-    },
-  );
+  ])('number thousands of millions to currency letters %d => %s', (input: number, expected: string) => {
+    expect(toCurrency(input)).toBe(expected);
+  });
 
   test('number to currency letters with decimals', () => {
     expect(toCurrency(1500.7)).toBe('MIL QUINIENTOS PESOS 70/100 M.N.');

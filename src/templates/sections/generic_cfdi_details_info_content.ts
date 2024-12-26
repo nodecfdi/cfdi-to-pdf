@@ -1,6 +1,5 @@
 import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
 import { type Content, type TableCell } from 'pdfmake/interfaces.js';
-import { getKeyValueOfCatalog } from '#src/catalogs/catalogs_source';
 import { type CatalogsData } from '#src/types';
 import { toCurrency } from '#src/utils/currency';
 
@@ -30,11 +29,7 @@ const genericCfdiDetailsInfoContent = (
       text: [
         { text: 'Método de Pago: ', color: primaryColor, bold: true },
         {
-          text: getKeyValueOfCatalog(
-            'cfdi40MetodosPago',
-            comprobante.getAttribute('MetodoPago'),
-            catalogs,
-          ),
+          text: catalogs.cfdi40MetodosPago.findAndReturnEtiqueta(comprobante.getAttribute('MetodoPago')),
         },
       ],
       alignment: 'center',
@@ -43,11 +38,7 @@ const genericCfdiDetailsInfoContent = (
       text: [
         { text: 'Forma de Pago: ', color: primaryColor, bold: true },
         {
-          text: getKeyValueOfCatalog(
-            'cfdi40FormasPago',
-            comprobante.getAttribute('FormaPago'),
-            catalogs,
-          ),
+          text: catalogs.cfdi40FormasPago.findAndReturnEtiqueta(comprobante.getAttribute('FormaPago')),
         },
       ],
       alignment: 'center',

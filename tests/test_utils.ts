@@ -16,8 +16,7 @@ export const getDirname = (url: string | URL): string => {
   return path.dirname(getFilename(url));
 };
 
-export const filePath = (file: string): string =>
-  path.join(getDirname(import.meta.url), '_files', file);
+export const filePath = (file: string): string => path.join(getDirname(import.meta.url), '_files', file);
 
 export const fileContent = (file: string): string => {
   if (!existsSync(file)) {

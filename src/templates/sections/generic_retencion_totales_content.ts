@@ -1,6 +1,5 @@
 import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
 import { type Content, type TableCell } from 'pdfmake/interfaces.js';
-import { getValueOfCatalog } from '#src/catalogs/catalogs_source';
 import { type CatalogsData } from '#src/types';
 import { formatCurrency } from '#src/utils/currency';
 
@@ -29,9 +28,7 @@ const genericRetencionTotalesContent = (
         text: [
           { text: 'Total operación: ', color: primaryColor },
           {
-            text: formatCurrency(
-              totales.getAttribute(isVersionOne ? 'montoTotOperacion' : 'MontoTotOperacion'),
-            ),
+            text: formatCurrency(totales.getAttribute(isVersionOne ? 'montoTotOperacion' : 'MontoTotOperacion')),
           },
         ],
         alignment: 'center',
@@ -41,9 +38,7 @@ const genericRetencionTotalesContent = (
         text: [
           { text: 'Total gravado: ', color: primaryColor },
           {
-            text: formatCurrency(
-              totales.getAttribute(isVersionOne ? 'montoTotGrav' : 'MontoTotGrav'),
-            ),
+            text: formatCurrency(totales.getAttribute(isVersionOne ? 'montoTotGrav' : 'MontoTotGrav')),
           },
         ],
         alignment: 'center',
@@ -53,9 +48,7 @@ const genericRetencionTotalesContent = (
         text: [
           { text: 'Total exento: ', color: primaryColor },
           {
-            text: formatCurrency(
-              totales.getAttribute(isVersionOne ? 'montoTotExent' : 'MontoTotExent'),
-            ),
+            text: formatCurrency(totales.getAttribute(isVersionOne ? 'montoTotExent' : 'MontoTotExent')),
           },
         ],
         alignment: 'center',
@@ -65,9 +58,7 @@ const genericRetencionTotalesContent = (
         text: [
           { text: 'Total retenido: ', color: primaryColor },
           {
-            text: formatCurrency(
-              totales.getAttribute(isVersionOne ? 'montoTotRet' : 'MontoTotRet'),
-            ),
+            text: formatCurrency(totales.getAttribute(isVersionOne ? 'montoTotRet' : 'MontoTotRet')),
           },
         ],
         alignment: 'center',
@@ -187,10 +178,7 @@ const genericRetencionTotalesContent = (
 
               return [
                 {
-                  text:
-                    impuesto === ''
-                      ? '---'
-                      : getValueOfCatalog('cfdi40Impuestos', impuesto, catalogs),
+                  text: impuesto === '' ? '---' : catalogs.cfdi40Impuestos.findAndReturnTexto(impuesto),
                   alignment: 'center',
                 },
                 {
@@ -198,9 +186,7 @@ const genericRetencionTotalesContent = (
                   alignment: 'center',
                 },
                 {
-                  text: isVersionOne
-                    ? tipoPago
-                    : getValueOfCatalog('retenciones20TiposPago', tipoPago, catalogs),
+                  text: isVersionOne ? tipoPago : catalogs.retenciones20TiposPago.findAndReturnTexto(tipoPago),
                   alignment: 'center',
                 },
                 {

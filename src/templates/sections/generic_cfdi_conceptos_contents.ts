@@ -54,12 +54,7 @@ const genericCfdiConceptosContent = (
             ],
             [
               {
-                ...genericCfdiConceptoImpuestosContent(
-                  concepto,
-                  catalogs,
-                  primaryColor,
-                  bgGrayColor,
-                ),
+                ...genericCfdiConceptoImpuestosContent(concepto, catalogs, primaryColor, bgGrayColor),
                 colSpan: 7,
               },
             ],

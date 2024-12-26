@@ -64,10 +64,7 @@ const useImplocal10Complement = (
               fillColor: bgGrayColor,
             },
             {
-              text: [
-                { text: 'Importe: ' },
-                { text: formatCurrency(retencionLocal.getAttribute('Importe')) },
-              ],
+              text: [{ text: 'Importe: ' }, { text: formatCurrency(retencionLocal.getAttribute('Importe')) }],
               alignment: 'right',
               fillColor: bgGrayColor,
             },
@@ -110,10 +107,7 @@ const useImplocal10Complement = (
               fillColor: bgGrayColor,
             },
             {
-              text: [
-                { text: 'Importe: ' },
-                { text: formatCurrency(trasladoLocal.getAttribute('Importe')) },
-              ],
+              text: [{ text: 'Importe: ' }, { text: formatCurrency(trasladoLocal.getAttribute('Importe')) }],
               alignment: 'right',
               fillColor: bgGrayColor,
             },

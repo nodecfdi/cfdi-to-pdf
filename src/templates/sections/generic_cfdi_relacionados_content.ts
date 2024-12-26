@@ -1,7 +1,6 @@
 import { XmlNodes } from '@nodecfdi/cfdi-core';
 import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
 import { type Content } from 'pdfmake/interfaces.js';
-import { getKeyValueOfCatalog } from '#src/catalogs/catalogs_source';
 import { type CatalogsData } from '#src/types';
 
 const genericCfdiRelacionadosContent = (
@@ -17,11 +16,7 @@ const genericCfdiRelacionadosContent = (
       return relacionado.getAttribute('UUID');
     });
 
-    const tipoRelacion = getKeyValueOfCatalog(
-      'cfdi40TiposRelaciones',
-      relatedNode.getAttribute('TipoRelacion'),
-      catalogs,
-    );
+    const tipoRelacion = catalogs.cfdi40TiposRelaciones.findAndReturnEtiqueta(relatedNode.getAttribute('TipoRelacion'));
 
     relatedInfoAndImport.push({ tipoRelacion, uuids: uuidsArray });
   };

@@ -1,6 +1,5 @@
 import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
 import { type Content } from 'pdfmake/interfaces.js';
-import { getKeyValueOfCatalog } from '#src/catalogs/catalogs_source';
 import { type CatalogsData } from '#src/types';
 
 const genericCfdiInformacionGlobalContent = (
@@ -29,10 +28,8 @@ const genericCfdiInformacionGlobalContent = (
             text: [
               { text: 'Periodicidad: ', color: primaryColor, bold: true },
               {
-                text: getKeyValueOfCatalog(
-                  'cfdi40Periodicidades',
+                text: catalogs.cfdi40Periodicidades.findAndReturnEtiqueta(
                   informacionGlobal.getAttribute('Periodicidad'),
-                  catalogs,
                 ),
               },
             ],
@@ -42,20 +39,13 @@ const genericCfdiInformacionGlobalContent = (
             text: [
               { text: 'Meses: ', color: primaryColor, bold: true },
               {
-                text: getKeyValueOfCatalog(
-                  'cfdi40Meses',
-                  informacionGlobal.getAttribute('Meses'),
-                  catalogs,
-                ),
+                text: catalogs.cfdi40Meses.findAndReturnEtiqueta(informacionGlobal.getAttribute('Meses')),
               },
             ],
           },
           {
             fillColor: bgGrayColor,
-            text: [
-              { text: 'Año: ', color: primaryColor, bold: true },
-              { text: informacionGlobal.getAttribute('Año') },
-            ],
+            text: [{ text: 'Año: ', color: primaryColor, bold: true }, { text: informacionGlobal.getAttribute('Año') }],
           },
         ],
         [

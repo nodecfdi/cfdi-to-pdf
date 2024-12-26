@@ -15,11 +15,7 @@ import genericFooter from '#src/templates/sections/generic_footer';
 import genericReceptorContent from '#src/templates/sections/generic_receptor_content';
 import genericStampContent from '#src/templates/sections/generic_stamp_content';
 import genericTopContent from '#src/templates/sections/generic_top_content';
-import {
-  type CatalogsData,
-  type DocumentOptions,
-  type DocumentTranslatorInterface,
-} from '#src/types';
+import { type CatalogsData, type DocumentOptions, type DocumentTranslatorInterface } from '#src/types';
 
 export default class GenericCfdiTranslator
   extends AbstractGenericTraslator
@@ -72,8 +68,7 @@ export default class GenericCfdiTranslator
 
     if (
       relacionados !== undefined &&
-      ((relacionados instanceof XmlNodes && relacionados.length > 0) ||
-        !(relacionados instanceof XmlNodes))
+      ((relacionados instanceof XmlNodes && relacionados.length > 0) || !(relacionados instanceof XmlNodes))
     ) {
       cfdiContent.push(
         genericCfdiRelacionadosContent(relacionados, catalogs, primaryColor, bgGrayColor),
@@ -105,10 +100,7 @@ export default class GenericCfdiTranslator
           {
             table: {
               widths: ['*'],
-              body: [
-                [{ text: element.title, style: ['tableSubtitleHeader'], color: primaryColor }],
-                [element.value],
-              ],
+              body: [[{ text: element.title, style: ['tableSubtitleHeader'], color: primaryColor }], [element.value]],
             },
             layout: 'tableLayout',
           },
@@ -118,12 +110,7 @@ export default class GenericCfdiTranslator
     }
 
     cfdiContent.push(
-      genericStampContent(
-        data.timbreFiscalDigital(),
-        data.tfdSourceString(),
-        data.qrUrl(),
-        primaryColor,
-      ),
+      genericStampContent(data.timbreFiscalDigital(), data.tfdSourceString(), data.qrUrl(), primaryColor),
     );
 
     return {
