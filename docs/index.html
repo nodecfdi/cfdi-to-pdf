@@ -1,201 +1,31 @@
-<!DOCTYPE html><html class="default" lang="en"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>@nodecfdi/cfdi-to-pdf</title><meta name="description" content="Documentation for @nodecfdi/cfdi-to-pdf"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/icons.js" id="tsd-icons-script"></script><script async src="assets/search.js" id="tsd-search-script"></script><script async src="assets/navigation.js" id="tsd-nav-script"></script><style>
-@media (prefers-color-scheme: dark) {
-  :root {
-    --md-sys-color-primary: #b1d361;
-    --md-sys-color-on-primary: #263500;
-    --md-sys-color-primary-container: #394d00;
-    --md-sys-color-on-primary-container: #cdef7a;
-    --md-sys-color-secondary: #c2caaa;
-    --md-sys-color-on-secondary: #2c331c;
-    --md-sys-color-secondary-container: #434a31;
-    --md-sys-color-on-secondary-container: #dfe6c5;
-    --md-sys-color-tertiary: #a1d0c7;
-    --md-sys-color-on-tertiary: #023731;
-    --md-sys-color-tertiary-container: #204e48;
-    --md-sys-color-on-tertiary-container: #bcece3;
-    --md-sys-color-error: #ffb4ab;
-    --md-sys-color-on-error: #690005;
-    --md-sys-color-error-container: #93000a;
-    --md-sys-color-on-error-container: #ffb4ab;
-    --md-sys-color-background: #1b1c17;
-    --md-sys-color-on-background: #e4e3db;
-    --md-sys-color-surface: #1b1c17;
-    --md-sys-color-on-surface: #e4e3db;
-    --md-sys-color-surface-variant: #45483c;
-    --md-sys-color-on-surface-variant: #c6c8b8;
-    --md-sys-color-outline: #909284;
-    --md-sys-color-outline-variant: #45483c;
-    --md-sys-color-shadow: #000000;
-    --md-sys-color-scrim: #000000;
-    --md-sys-color-inverse-surface: #e4e3db;
-    --md-sys-color-inverse-on-surface: #30312c;
-    --md-sys-color-inverse-primary: #4d6700;
-    --md-sys-color-surface-dim: #13140f;
-    --md-sys-color-surface-bright: #393a34;
-    --md-sys-color-surface-container-lowest: #0e0f0a;
-    --md-sys-color-surface-container-low: #1b1c17;
-    --md-sys-color-surface-container: #1f201b;
-    --md-sys-color-surface-container-high: #2a2a25;
-    --md-sys-color-surface-container-highest: #343530
-  }
-}
-:root[data-theme="dark"] {
-  --md-sys-color-primary: #b1d361;
-  --md-sys-color-on-primary: #263500;
-  --md-sys-color-primary-container: #394d00;
-  --md-sys-color-on-primary-container: #cdef7a;
-  --md-sys-color-secondary: #c2caaa;
-  --md-sys-color-on-secondary: #2c331c;
-  --md-sys-color-secondary-container: #434a31;
-  --md-sys-color-on-secondary-container: #dfe6c5;
-  --md-sys-color-tertiary: #a1d0c7;
-  --md-sys-color-on-tertiary: #023731;
-  --md-sys-color-tertiary-container: #204e48;
-  --md-sys-color-on-tertiary-container: #bcece3;
-  --md-sys-color-error: #ffb4ab;
-  --md-sys-color-on-error: #690005;
-  --md-sys-color-error-container: #93000a;
-  --md-sys-color-on-error-container: #ffb4ab;
-  --md-sys-color-background: #1b1c17;
-  --md-sys-color-on-background: #e4e3db;
-  --md-sys-color-surface: #1b1c17;
-  --md-sys-color-on-surface: #e4e3db;
-  --md-sys-color-surface-variant: #45483c;
-  --md-sys-color-on-surface-variant: #c6c8b8;
-  --md-sys-color-outline: #909284;
-  --md-sys-color-outline-variant: #45483c;
-  --md-sys-color-shadow: #000000;
-  --md-sys-color-scrim: #000000;
-  --md-sys-color-inverse-surface: #e4e3db;
-  --md-sys-color-inverse-on-surface: #30312c;
-  --md-sys-color-inverse-primary: #4d6700;
-  --md-sys-color-surface-dim: #13140f;
-  --md-sys-color-surface-bright: #393a34;
-  --md-sys-color-surface-container-lowest: #0e0f0a;
-  --md-sys-color-surface-container-low: #1b1c17;
-  --md-sys-color-surface-container: #1f201b;
-  --md-sys-color-surface-container-high: #2a2a25;
-  --md-sys-color-surface-container-highest: #343530
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --md-sys-color-primary: #4d6700;
-    --md-sys-color-on-primary: #ffffff;
-    --md-sys-color-primary-container: #cdef7a;
-    --md-sys-color-on-primary-container: #151f00;
-    --md-sys-color-secondary: #5a6147;
-    --md-sys-color-on-secondary: #ffffff;
-    --md-sys-color-secondary-container: #dfe6c5;
-    --md-sys-color-on-secondary-container: #181e09;
-    --md-sys-color-tertiary: #39665f;
-    --md-sys-color-on-tertiary: #ffffff;
-    --md-sys-color-tertiary-container: #bcece3;
-    --md-sys-color-on-tertiary-container: #00201c;
-    --md-sys-color-error: #ba1a1a;
-    --md-sys-color-on-error: #ffffff;
-    --md-sys-color-error-container: #ffdad6;
-    --md-sys-color-on-error-container: #410002;
-    --md-sys-color-background: #fefcf4;
-    --md-sys-color-on-background: #1b1c17;
-    --md-sys-color-surface: #fefcf4;
-    --md-sys-color-on-surface: #1b1c17;
-    --md-sys-color-surface-variant: #e2e4d4;
-    --md-sys-color-on-surface-variant: #45483c;
-    --md-sys-color-outline: #76786b;
-    --md-sys-color-outline-variant: #c6c8b8;
-    --md-sys-color-shadow: #000000;
-    --md-sys-color-scrim: #000000;
-    --md-sys-color-inverse-surface: #30312c;
-    --md-sys-color-inverse-on-surface: #f2f1e9;
-    --md-sys-color-inverse-primary: #b1d361;
-    --md-sys-color-surface-dim: #dbdad2;
-    --md-sys-color-surface-bright: #fbf9f1;
-    --md-sys-color-surface-container-lowest: #ffffff;
-    --md-sys-color-surface-container-low: #f5f4ec;
-    --md-sys-color-surface-container: #efeee6;
-    --md-sys-color-surface-container-high: #eae8e0;
-    --md-sys-color-surface-container-highest: #e4e3db
-  }
-}
-:root[data-theme="light"] {
-  --md-sys-color-primary: #4d6700;
-  --md-sys-color-on-primary: #ffffff;
-  --md-sys-color-primary-container: #cdef7a;
-  --md-sys-color-on-primary-container: #151f00;
-  --md-sys-color-secondary: #5a6147;
-  --md-sys-color-on-secondary: #ffffff;
-  --md-sys-color-secondary-container: #dfe6c5;
-  --md-sys-color-on-secondary-container: #181e09;
-  --md-sys-color-tertiary: #39665f;
-  --md-sys-color-on-tertiary: #ffffff;
-  --md-sys-color-tertiary-container: #bcece3;
-  --md-sys-color-on-tertiary-container: #00201c;
-  --md-sys-color-error: #ba1a1a;
-  --md-sys-color-on-error: #ffffff;
-  --md-sys-color-error-container: #ffdad6;
-  --md-sys-color-on-error-container: #410002;
-  --md-sys-color-background: #fefcf4;
-  --md-sys-color-on-background: #1b1c17;
-  --md-sys-color-surface: #fefcf4;
-  --md-sys-color-on-surface: #1b1c17;
-  --md-sys-color-surface-variant: #e2e4d4;
-  --md-sys-color-on-surface-variant: #45483c;
-  --md-sys-color-outline: #76786b;
-  --md-sys-color-outline-variant: #c6c8b8;
-  --md-sys-color-shadow: #000000;
-  --md-sys-color-scrim: #000000;
-  --md-sys-color-inverse-surface: #30312c;
-  --md-sys-color-inverse-on-surface: #f2f1e9;
-  --md-sys-color-inverse-primary: #b1d361;
-  --md-sys-color-surface-dim: #dbdad2;
-  --md-sys-color-surface-bright: #fbf9f1;
-  --md-sys-color-surface-container-lowest: #ffffff;
-  --md-sys-color-surface-container-low: #f5f4ec;
-  --md-sys-color-surface-container: #efeee6;
-  --md-sys-color-surface-container-high: #eae8e0;
-  --md-sys-color-surface-container-highest: #e4e3db
-}
-</style><link rel="stylesheet" href="assets/material-style.css"/></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><use href="assets/icons.svg#icon-search"></use></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div><div class="field"><div id="tsd-toolbar-links"></div></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">@nodecfdi/cfdi-to-pdf</a></div><div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><h2>@nodecfdi/cfdi-to-pdf</h2></div><div class="tsd-panel tsd-typography"><a id="md:nodecfdicfdi-to-pdf" class="tsd-anchor"></a><h1 class="tsd-anchor-link"><code>@nodecfdi/cfdi-to-pdf</code><a href="#md:nodecfdicfdi-to-pdf" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h1><p><a href="https://github.com/nodecfdi/cfdi-to-pdf" target="_blank" class="external"><img src="https://img.shields.io/badge/source-nodecfdi/cfdi--to--pdf-blue.svg?logo=github" alt="Source Code"></a>
-<a href="https://www.npmjs.com/package/@nodecfdi/cfdi-to-pdf" target="_blank" class="external"><img src="https://img.shields.io/node/v/@nodecfdi/cfdi-to-pdf.svg?logo=nodedotjs" alt="Npm Node Version Support"></a>
-<a href="https://discord.gg/AsqX8fkW2k" target="_blank" class="external"><img src="https://img.shields.io/discord/459860554090283019?logo=discord" alt="Discord"></a>
-<a href="https://www.npmjs.com/package/@nodecfdi/cfdi-to-pdf" target="_blank" class="external"><img src="https://img.shields.io/npm/v/@nodecfdi/cfdi-to-pdf.svg?logo=npm" alt="Latest Version"></a>
-<a href="https://github.com/nodecfdi/cfdi-to-pdf/blob/main/LICENSE.md" target="_blank" class="external"><img src="https://img.shields.io/github/license/nodecfdi/cfdi-to-pdf.svg?logo=open-source-initiative" alt="Software License"></a>
-<a href="https://github.com/nodecfdi/cfdi-to-pdf/actions/workflows/build.yml?query=branch:main" target="_blank" class="external"><img src="https://img.shields.io/github/actions/workflow/status/nodecfdi/cfdi-to-pdf/build.yml?branch=main" alt="Build Status"></a>
-<a href="https://sonarcloud.io/component_measures?id=nodecfdi_cfdi-to-pdf&amp;metric=Reliability" target="_blank" class="external"><img src="https://sonarcloud.io/api/project_badges/measure?project=nodecfdi_cfdi-to-pdf&amp;metric=reliability_rating" alt="Reliability"></a>
-<a href="https://sonarcloud.io/component_measures?id=nodecfdi_cfdi-to-pdf&amp;metric=Maintainability" target="_blank" class="external"><img src="https://sonarcloud.io/api/project_badges/measure?project=nodecfdi_cfdi-to-pdf&amp;metric=sqale_rating" alt="Maintainability"></a>
-<a href="https://sonarcloud.io/component_measures?id=nodecfdi_cfdi-to-pdf&amp;metric=Coverage" target="_blank" class="external"><img src="https://img.shields.io/sonar/coverage/nodecfdi_cfdi-to-pdf/main?logo=sonarcloud&amp;server=https%3A%2F%2Fsonarcloud.io" alt="Code Coverage"></a>
-<a href="https://sonarcloud.io/project/issues?id=nodecfdi_cfdi-to-pdf&amp;resolved=false" target="_blank" class="external"><img src="https://img.shields.io/sonar/violations/nodecfdi_cfdi-to-pdf/main?format=long&amp;logo=sonarcloud&amp;server=https%3A%2F%2Fsonarcloud.io" alt="Violations"></a>
-<a href="https://www.npmjs.com/package/@nodecfdi/cfdi-to-pdf" target="_blank" class="external"><img src="https://img.shields.io/npm/dm/@nodecfdi/cfdi-to-pdf.svg?logo=npm" alt="Total Downloads"></a></p>
+<!DOCTYPE html><html class="default" lang="en" data-base="."><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>@nodecfdi/cfdi-to-pdf</title><meta name="description" content="Documentation for @nodecfdi/cfdi-to-pdf"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/icons.js" id="tsd-icons-script"></script><script async src="assets/search.js" id="tsd-search-script"></script><script async src="assets/navigation.js" id="tsd-nav-script"></script><script async src="assets/hierarchy.js" id="tsd-hierarchy-script"></script><link rel="stylesheet" href="assets/typedoc-github-style.css"/></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><div class="table-cell" id="tsd-search"><div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><use href="assets/icons.svg#icon-search"></use></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div><div class="field"><div id="tsd-toolbar-links"></div></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">@nodecfdi/cfdi-to-pdf</a></div><div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><h1>@nodecfdi/cfdi-to-pdf</h1></div><div class="tsd-panel tsd-typography"><a id="nodecfdicfdi-to-pdf" class="tsd-anchor"></a><h1 class="tsd-anchor-link"><code>@nodecfdi/cfdi-to-pdf</code><a href="#nodecfdicfdi-to-pdf" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h1><p><a href="https://github.com/nodecfdi/cfdi-to-pdf"><img src="https://img.shields.io/badge/source-nodecfdi/cfdi--to--pdf-blue.svg?logo=github" alt="Source Code"></a>
+<a href="https://www.npmjs.com/package/@nodecfdi/cfdi-to-pdf"><img src="https://img.shields.io/node/v/@nodecfdi/cfdi-to-pdf.svg?logo=nodedotjs" alt="Npm Node Version Support"></a>
+<a href="https://discord.gg/AsqX8fkW2k"><img src="https://img.shields.io/discord/459860554090283019?logo=discord" alt="Discord"></a>
+<a href="https://www.npmjs.com/package/@nodecfdi/cfdi-to-pdf"><img src="https://img.shields.io/npm/v/@nodecfdi/cfdi-to-pdf.svg?logo=npm" alt="Latest Version"></a>
+<a href="https://github.com/nodecfdi/cfdi-to-pdf/blob/main/LICENSE.md"><img src="https://img.shields.io/github/license/nodecfdi/cfdi-to-pdf.svg?logo=open-source-initiative" alt="Software License"></a>
+<a href="https://github.com/nodecfdi/cfdi-to-pdf/actions/workflows/build.yml?query=branch:main"><img src="https://img.shields.io/github/actions/workflow/status/nodecfdi/cfdi-to-pdf/build.yml?branch=main" alt="Build Status"></a>
+<a href="https://sonarcloud.io/component_measures?id=nodecfdi_cfdi-to-pdf&amp;metric=Reliability"><img src="https://sonarcloud.io/api/project_badges/measure?project=nodecfdi_cfdi-to-pdf&amp;metric=reliability_rating" alt="Reliability"></a>
+<a href="https://sonarcloud.io/component_measures?id=nodecfdi_cfdi-to-pdf&amp;metric=Maintainability"><img src="https://sonarcloud.io/api/project_badges/measure?project=nodecfdi_cfdi-to-pdf&amp;metric=sqale_rating" alt="Maintainability"></a>
+<a href="https://sonarcloud.io/component_measures?id=nodecfdi_cfdi-to-pdf&amp;metric=Coverage"><img src="https://img.shields.io/sonar/coverage/nodecfdi_cfdi-to-pdf/main?logo=sonarcloud&amp;server=https%3A%2F%2Fsonarcloud.io" alt="Code Coverage"></a>
+<a href="https://sonarcloud.io/project/issues?id=nodecfdi_cfdi-to-pdf&amp;resolved=false"><img src="https://img.shields.io/sonar/violations/nodecfdi_cfdi-to-pdf/main?format=long&amp;logo=sonarcloud&amp;server=https%3A%2F%2Fsonarcloud.io" alt="Violations"></a>
+<a href="https://www.npmjs.com/package/@nodecfdi/cfdi-to-pdf"><img src="https://img.shields.io/npm/dm/@nodecfdi/cfdi-to-pdf.svg?logo=npm" alt="Total Downloads"></a></p>
 <blockquote>
 <p>Create a generic PDF file from a CFDI 3.3, CFDI 4.0, Retenciones 1.0 and Retenciones 2.0</p>
 </blockquote>
 <p>:us: The documentation of this project is in spanish as this is the natural language for intended audience.</p>
 <p>:mexico: La documentación del proyecto está en español porque ese es el lenguaje principal de los usuarios.</p>
-<a id="md:acerca-de-nodecfdicfdi-to-pdf" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Acerca de <code>@nodecfdi/cfdi-to-pdf</code><a href="#md:acerca-de-nodecfdicfdi-to-pdf" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>En algunos casos necesitas generar un archivo PDF desde un CFDI (Comprobante fiscal Digital por Internet), o constancia
+<div class="tsd-alert tsd-alert-warning"><div class="tsd-alert-title"><svg width="16" height="16" viewBox="0 0 16 16"><use href="assets/icons.svg#icon-alertWarning"></use></svg><span>Warning</span></div><p>
+This package is native <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules">ESM</a> and no longer provides a CommonJS export. If your project uses CommonJS, you will have to <a href="https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c">convert to ESM</a>. Please don't open issues for questions regarding CommonJS / ESM.</p>
+</div>
+<a id="acerca-de-nodecfdicfdi-to-pdf" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Acerca de <code>@nodecfdi/cfdi-to-pdf</code><a href="#acerca-de-nodecfdicfdi-to-pdf" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>En algunos casos necesitas generar un archivo PDF desde un CFDI (Comprobante fiscal Digital por Internet), o constancia
 de retenciones. Esta librería te ayuda a crear un pdf genérico. Además puedes crear un boceto a tu gusto y acomodarlo a
-como lo requieras. Inspirada por la versión de php <a href="https://github.com/phpcfdi/cfditopdf" target="_blank" class="external">https://github.com/phpcfdi/cfditopdf</a></p>
-<a id="md:documentación" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Documentación<a href="#md:documentación" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>La documentación está disponible en el sitio web <a href="https://nodecfdi.com/librarys/cfdi-to-pdf/getting-started/" target="_blank" class="external">NodeCfdi</a></p>
-<a id="md:soporte" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Soporte<a href="#md:soporte" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Puedes obtener soporte abriendo un ticket en Github.</p>
-<p>Adicionalmente, esta librería pertenece a la comunidad <a href="https://ocelotlstudio.com" target="_blank" class="external">OcelotlStudio</a>, así que puedes usar los mismos canales de comunicación para obtener ayuda de algún miembro de la comunidad.</p>
-<a id="md:compatibilidad" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Compatibilidad<a href="#md:compatibilidad" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Esta librería se mantendrá compatible con al menos la versión con
-<a href="https://nodejs.org/es/about/releases/" target="_blank" class="external">soporte activo de Node</a> más reciente.</p>
-<p>También utilizamos <a href="https://semver.org/lang/es/" target="_blank" class="external">Versionado Semántico 2.0.0</a> por lo que puedes usar esta librería sin temor a romper tu aplicación.</p>
-<a id="md:contribuciones" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Contribuciones<a href="#md:contribuciones" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Las contribuciones con bienvenidas. Por favor lee <a href="https://github.com/nodecfdi/.github/blob/main/docs/CONTRIBUTING.md" target="_blank" class="external">CONTRIBUTING</a> para más detalles y recuerda revisar el archivo <a href="https://github.com/nodecfdi/cfdi-to-pdf/blob/main/CHANGELOG.md" target="_blank" class="external">CHANGELOG</a>.</p>
-<a id="md:copyright-and-license" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Copyright and License<a href="#md:copyright-and-license" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>The <code>@nodecfdi/cfdi-to-pdf</code> library is copyright © <a href="https://github.com/nodecfdi" target="_blank" class="external">NodeCfdi</a> - <a href="https://ocelotlstudio.com" target="_blank" class="external">OcelotlStudio</a> and licensed for use under the MIT License (MIT). Please see <a href="https://github.com/nodecfdi/cfdi-to-pdf/blob/main/LICENSE.md" target="_blank" class="external">LICENSE</a> for more information.</p>
-</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="assets/icons.svg#icon-chevronDown"></use></svg>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="assets/icons.svg#icon-chevronDown"></use></svg>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#md:nodecfdicfdi-to-pdf"><span>@nodecfdi/cfdi-<wbr/>to-<wbr/>pdf</span></a><ul><li><a href="#md:acerca-de-nodecfdicfdi-to-pdf"><span>Acerca de @nodecfdi/cfdi-<wbr/>to-<wbr/>pdf</span></a></li><li><a href="#md:documentación"><span>Documentación</span></a></li><li><a href="#md:soporte"><span>Soporte</span></a></li><li><a href="#md:compatibilidad"><span>Compatibilidad</span></a></li><li><a href="#md:contribuciones"><span>Contribuciones</span></a></li><li><a href="#md:copyright-and-license"><span>Copyright and <wbr/>License</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="index.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="assets/icons.svg#icon-1"></use></svg><span>@nodecfdi/cfdi-to-pdf</span></a><ul class="tsd-small-nested-navigation" id="tsd-nav-container" data-base="."><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div><script>
-          try {
-            const generateLinkElement = document.querySelector(".tsd-generator a");
-            const link = document.createElement("a");
-            Object.assign(link, {
-              href: "https://github.com/dmnsgn/typedoc-material-theme",
-              target: "_blank",
-              rel: "noreferrer",
-              innerText: "typedoc-material-theme."
-            });
-            generateLinkElement.insertAdjacentElement("afterend", link);
-            generateLinkElement.insertAdjacentText("afterend", " with ");
-          } catch (error) {
-
-          }
-        </script></body></html>
+como lo requieras. Inspirada por la versión de php <a href="https://github.com/phpcfdi/cfditopdf">https://github.com/phpcfdi/cfditopdf</a></p>
+<a id="documentación" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Documentación<a href="#documentación" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>La documentación está disponible en el sitio web <a href="https://nodecfdi.com/librarys/cfdi-to-pdf/getting-started/">NodeCfdi</a></p>
+<a id="soporte" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Soporte<a href="#soporte" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Puedes obtener soporte abriendo un ticket en Github.</p>
+<p>Adicionalmente, esta librería pertenece a la comunidad <a href="https://ocelotlstudio.com">OcelotlStudio</a>, así que puedes usar los mismos canales de comunicación para obtener ayuda de algún miembro de la comunidad.</p>
+<a id="compatibilidad" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Compatibilidad<a href="#compatibilidad" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Esta librería se mantendrá compatible con al menos la versión con
+<a href="https://nodejs.org/es/about/releases/">soporte activo de Node</a> más reciente.</p>
+<p>También utilizamos <a href="https://semver.org/lang/es/">Versionado Semántico 2.0.0</a> por lo que puedes usar esta librería sin temor a romper tu aplicación.</p>
+<a id="contribuciones" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Contribuciones<a href="#contribuciones" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Las contribuciones con bienvenidas. Por favor lee <a href="https://github.com/nodecfdi/.github/blob/main/docs/CONTRIBUTING.md">CONTRIBUTING</a> para más detalles y recuerda revisar el archivo <a href="https://github.com/nodecfdi/cfdi-to-pdf/blob/main/CHANGELOG.md">CHANGELOG</a>.</p>
+<a id="copyright-and-license" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Copyright and License<a href="#copyright-and-license" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>The <code>@nodecfdi/cfdi-to-pdf</code> library is copyright © <a href="https://github.com/nodecfdi">NodeCfdi</a> - <a href="https://ocelotlstudio.com">OcelotlStudio</a> and licensed for use under the MIT License (MIT). Please see <a href="https://github.com/nodecfdi/cfdi-to-pdf/blob/main/LICENSE.md">LICENSE</a> for more information.</p>
+</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="assets/icons.svg#icon-chevronDown"></use></svg>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="assets/icons.svg#icon-chevronDown"></use></svg>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#nodecfdicfdi-to-pdf"><span>@nodecfdi/cfdi-<wbr/>to-<wbr/>pdf</span></a><ul><li><a href="#acerca-de-nodecfdicfdi-to-pdf"><span>Acerca de @nodecfdi/cfdi-<wbr/>to-<wbr/>pdf</span></a></li><li><a href="#documentación"><span>Documentación</span></a></li><li><a href="#soporte"><span>Soporte</span></a></li><li><a href="#compatibilidad"><span>Compatibilidad</span></a></li><li><a href="#contribuciones"><span>Contribuciones</span></a></li><li><a href="#copyright-and-license"><span>Copyright and <wbr/>License</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="modules.html">@nodecfdi/cfdi-to-pdf</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a> with <a href="https://github.com/KillerJulian/typedoc-github-theme" target="_blank">typedoc-github-theme</a></p></footer><div class="overlay"></div></body></html>
