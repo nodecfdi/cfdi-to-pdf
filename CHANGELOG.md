@@ -5,13 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [v3.0.0-0](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/compare/v2.2.1...v3.0.0-0)
+## [v3.0.0-1](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/compare/v3.0.0-0...v3.0.0-1)
 
 ### Commits
 
+- refactor: :wastebasket: remove old config doc [`ffe08e1`](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/commit/ffe08e17c88cd95402757e6a2772a6a909ff82f4)
+- fix: :ambulance: resolve correct distributable files build [`265b971`](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/commit/265b971535c7d33aa7d75863db6e523d27f33159)
+
+## [v3.0.0-0](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/compare/v2.2.1...v3.0.0-0) - 2024-12-25
+
+### Commits
+
+- chore(release): :tada: 3.0.0-0 [`03ff732`](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/commit/03ff732501fa20c0c15811744d13350de76d1007)
 - refactor: :recycle: usage of catalogs from package sat-micro-catalogs [`878464a`](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/commit/878464a2e13d22e530bc99d0ce70201a45c58e17)
 - refactor: :recycle: remove imports path in package json and prefer usage relative [`d500cf1`](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/commit/d500cf1b7967e6b20633107fdd234eae6e4290da)
-- refactor: :recycle: better presentation of fields title for cfdi and emisor, receptor content [`09864e0`](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/commit/09864e0bfc3aaaa0f2928612712d204b1d2cc123)
 
 ## [v2.2.1](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/compare/v2.2.0...v2.2.1) - 2024-09-10
 
