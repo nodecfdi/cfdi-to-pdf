@@ -1,6 +1,6 @@
 import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
 import { type Content } from 'pdfmake/interfaces.js';
-import breakCharacters from '#src/utils/break_characters';
+import breakCharacters from '../../src/utils/break_characters.js';
 
 const genericStampContent = (
   tfd: XmlNodeInterface,

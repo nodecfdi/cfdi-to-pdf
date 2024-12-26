@@ -1,10 +1,10 @@
 import { existsSync, unlinkSync } from 'node:fs';
 import { nodeFromXmlString } from '@nodecfdi/cfdi-core';
-import PdfMakerBuilder from '#src/builders/node/pdf_maker_builder';
-import CfdiData from '#src/cfdi_data';
-import RetencionesData from '#src/retenciones_data';
-import GenericCfdiTranslator from '#src/templates/generic_cfdi_translator';
-import GenericRetencionesTranslator from '#src/templates/generic_retenciones_translator';
+import PdfMakerBuilder from '../../src/builders/node/pdf_maker_builder.js';
+import CfdiData from '../../src/cfdi_data.js';
+import RetencionesData from '../../src/retenciones_data.js';
+import GenericCfdiTranslator from '../../templates/generic_cfdi_translator.js';
+import GenericRetencionesTranslator from '../../templates/generic_retenciones_translator.js';
 import { fileContents, filePath, nodeCfdiLogo } from '../test_utils.js';
 
 describe('converter', () => {

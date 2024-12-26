@@ -1,5 +1,5 @@
 import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
-import AbstractInvoiceData from '#src/abstract_invoice_data';
+import AbstractInvoiceData from './abstract_invoice_data.js';
 
 export default class CfdiData extends AbstractInvoiceData {
   private readonly _comprobante: XmlNodeInterface;

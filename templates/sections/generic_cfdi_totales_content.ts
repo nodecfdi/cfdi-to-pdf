@@ -1,8 +1,8 @@
 import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
 import { type Content, type TableCell } from 'pdfmake/interfaces.js';
-import useImplocal10Complement from '#src/templates/complements/implocal10_complement';
-import { type CatalogsData } from '#src/types';
-import { formatCurrency, toNumber } from '#src/utils/currency';
+import { type CatalogsData } from '../../src/types.js';
+import { formatCurrency, toNumber } from '../../src/utils/currency.js';
+import useImplocal10Complement from '../complements/implocal10_complement.js';
 
 const fillCfdiImpuestos = (
   comprobante: XmlNodeInterface,

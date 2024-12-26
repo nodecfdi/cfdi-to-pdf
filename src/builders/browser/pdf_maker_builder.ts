@@ -1,8 +1,8 @@
 import pdfMake from 'pdfmake/build/pdfmake.js';
 import { type BufferOptions, type Style, type TFontDictionary } from 'pdfmake/interfaces.js';
-import type AbstractInvoiceData from '#src/abstract_invoice_data';
-import AbstractPdfMakerBuilder from '#src/builders/abstract_pdf_maker_builder';
-import { type CatalogsData, type DocumentOptions, type DocumentTranslatorInterface } from '#src/types';
+import type AbstractInvoiceData from '../../abstract_invoice_data.js';
+import { type CatalogsData, type DocumentOptions, type DocumentTranslatorInterface } from '../../types.js';
+import AbstractPdfMakerBuilder from '../abstract_pdf_maker_builder.js';
 
 export default class PdfMakerBuilder<T extends AbstractInvoiceData> extends AbstractPdfMakerBuilder<T> {
   private readonly _overrideFonts?: TFontDictionary;

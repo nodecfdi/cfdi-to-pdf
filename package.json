@@ -3,9 +3,8 @@
   "description": "Librería para crear un pdf basado en un XML CFDI o Retenciones",
   "version": "2.2.1",
   "type": "module",
-  "main": "./dist/commonjs/index.js",
-  "module": "./dist/esm/index.js",
-  "types": "./dist/commonjs/index.d.ts",
+  "module": "./build/index.js",
+  "types": "./build/index.d.ts",
   "files": [
     "dist"
   ],
@@ -30,7 +29,6 @@
         "default": "./dist/commonjs/types.js"
       }
     },
-    "./package.json": "./package.json",
     "./node": {
       "import": {
         "types": "./dist/esm/builders/node/index.d.ts",
@@ -52,9 +50,6 @@
       }
     }
   },
-  "imports": {
-    "#src/*": "./src/*.js"
-  },
   "scripts": {
     "prepare": "is-in-ci || husky",
     "typecheck": "tsc --noEmit",
@@ -67,10 +62,11 @@
     "test:coverage": "vitest run --coverage",
     "tool:code": "pnpm run lint:check && pnpm run format:check && pnpm run typecheck",
     "tool:build": "pnpm run tool:code && pnpm run test:run",
+    "clean": "del-cli build",
     "gen:docs": "typedoc --options typedoc.json",
     "changelog": "auto-changelog -p && git add CHANGELOG.md",
-    "prebuild": "pnpm lint:check && pnpm typecheck",
-    "build": "tshy",
+    "prebuild": "pnpm run tool:code",
+    "build": "pnpm run clean && tsup-node",
     "postbuild": "pnpm run gen:docs && git add docs/*",
     "release": "np",
     "version": "pnpm run build && pnpm run changelog"
@@ -86,13 +82,14 @@
     "@types/pdfmake": "^0.2.10",
     "@vitest/coverage-istanbul": "^2.1.8",
     "auto-changelog": "^2.5.0",
+    "del-cli": "^6.0.0",
     "eslint": "^9.17.0",
     "husky": "^9.1.7",
     "is-in-ci": "^1.0.0",
     "np": "^10.1.0",
     "pdfmake": "^0.2.17",
     "prettier": "^3.4.2",
-    "tshy": "^3.0.2",
+    "tsup": "^8.3.5",
     "typedoc": "^0.27.6",
     "typedoc-github-theme": "^0.2.0",
     "typescript": "^5.7.2",
@@ -130,19 +127,19 @@
     "sat"
   ],
   "engines": {
-    "node": ">=18 <=22 || ^16"
+    "node": "^18 || ^20 || ^22"
   },
   "browserslist": [
     "defaults",
     "not IE 11"
   ],
+  "packageManager": "pnpm@9.15.1",
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
     ]
   },
   "prettier": "@nodecfdi/prettier-config/pkg",
-  "packageManager": "pnpm@9.15.1",
   "publishConfig": {
     "access": "public",
     "tag": "latest"
@@ -157,14 +154,17 @@
     "branch": "main",
     "testScript": "test:run"
   },
-  "tshy": {
-    "selfLink": false,
-    "exports": {
-      ".": "./src/index.ts",
-      "./types": "./src/types.ts",
-      "./package.json": "./package.json",
-      "./node": "./src/builders/node/index.ts",
-      "./browser": "./src/builders/browser/index.ts"
-    }
+  "tsup": {
+    "entry": [
+      "./index.ts",
+      "./src/types.ts",
+      "./src/builders/node/index.ts",
+      "./src/builders/browser/index.ts",
+      "./templates/index.ts"
+    ],
+    "clean": false,
+    "format": "esm",
+    "dts": true,
+    "target": "esnext"
   }
 }

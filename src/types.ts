@@ -1,6 +1,6 @@
 import { type SatCatalog } from '@nodecfdi/sat-micro-catalogs';
 import { type TDocumentDefinitions } from 'pdfmake/interfaces.js';
-import type AbstractInvoiceData from '#src/abstract_invoice_data';
+import type AbstractInvoiceData from './abstract_invoice_data.js';
 
 export type DocumentOptions = Omit<TDocumentDefinitions, 'content' | 'footer'>;
 

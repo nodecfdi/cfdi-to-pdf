@@ -1,7 +1,7 @@
 import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
 import { type Content, type TableCell } from 'pdfmake/interfaces.js';
-import { type CatalogsData } from '#src/types';
-import { formatCurrency } from '#src/utils/currency';
+import { type CatalogsData } from '../../src/types.js';
+import { formatCurrency } from '../../src/utils/currency.js';
 
 const genericRetencionTotalesContent = (
   totales: XmlNodeInterface,

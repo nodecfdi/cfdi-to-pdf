@@ -1,4 +1,4 @@
-import { formatCurrency, toCurrency } from '#src/utils/currency';
+import { formatCurrency, toCurrency } from '../../../src/utils/currency.js';
 
 describe('currency', () => {
   test.each([

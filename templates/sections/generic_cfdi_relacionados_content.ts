@@ -1,7 +1,7 @@
 import { XmlNodes } from '@nodecfdi/cfdi-core';
 import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
 import { type Content } from 'pdfmake/interfaces.js';
-import { type CatalogsData } from '#src/types';
+import { type CatalogsData } from '../../src/types.js';
 
 const genericCfdiRelacionadosContent = (
   relacionados: XmlNodeInterface | XmlNodes,

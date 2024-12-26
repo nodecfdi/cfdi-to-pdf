@@ -1,21 +1,21 @@
 import { XmlNodes } from '@nodecfdi/cfdi-core';
 import { type TDocumentDefinitions } from 'pdfmake/interfaces.js';
-import type CfdiData from '#src/cfdi_data';
-import AbstractGenericTraslator from '#src/templates/abstract_generic_translator';
-import useDonat11Complement from '#src/templates/complements/donat11_complement';
-import usePago10Complement from '#src/templates/complements/pago10_complement';
-import usePago20Complement from '#src/templates/complements/pago20_complement';
-import genericCfdiConceptosContent from '#src/templates/sections/generic_cfdi_conceptos_contents';
-import genericCfdiDetailsInfoContent from '#src/templates/sections/generic_cfdi_details_info_content';
-import genericCfdiInformacionGlobalContent from '#src/templates/sections/generic_cfdi_informacion_global_content';
-import genericCfdiRelacionadosContent from '#src/templates/sections/generic_cfdi_relacionados_content';
-import genericCfdiTotalesContent from '#src/templates/sections/generic_cfdi_totales_content';
-import genericEmisorContent from '#src/templates/sections/generic_emisor_content';
-import genericFooter from '#src/templates/sections/generic_footer';
-import genericReceptorContent from '#src/templates/sections/generic_receptor_content';
-import genericStampContent from '#src/templates/sections/generic_stamp_content';
-import genericTopContent from '#src/templates/sections/generic_top_content';
-import { type CatalogsData, type DocumentOptions, type DocumentTranslatorInterface } from '#src/types';
+import type CfdiData from '../src/cfdi_data.js';
+import { type CatalogsData, type DocumentOptions, type DocumentTranslatorInterface } from '../src/types.js';
+import AbstractGenericTraslator from './abstract_generic_translator.js';
+import useDonat11Complement from './complements/donat11_complement.js';
+import usePago10Complement from './complements/pago10_complement.js';
+import usePago20Complement from './complements/pago20_complement.js';
+import genericCfdiConceptosContent from './sections/generic_cfdi_conceptos_contents.js';
+import genericCfdiDetailsInfoContent from './sections/generic_cfdi_details_info_content.js';
+import genericCfdiInformacionGlobalContent from './sections/generic_cfdi_informacion_global_content.js';
+import genericCfdiRelacionadosContent from './sections/generic_cfdi_relacionados_content.js';
+import genericCfdiTotalesContent from './sections/generic_cfdi_totales_content.js';
+import genericEmisorContent from './sections/generic_emisor_content.js';
+import genericFooter from './sections/generic_footer.js';
+import genericReceptorContent from './sections/generic_receptor_content.js';
+import genericStampContent from './sections/generic_stamp_content.js';
+import genericTopContent from './sections/generic_top_content.js';
 
 export default class GenericCfdiTranslator
   extends AbstractGenericTraslator

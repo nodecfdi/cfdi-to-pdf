@@ -6,8 +6,8 @@ import {
   type Style,
   type StyleDictionary,
 } from 'pdfmake/interfaces.js';
-import type AbstractInvoiceData from '#src/abstract_invoice_data';
-import { type CatalogsData, type DocumentOptions, type DocumentTranslatorInterface } from '#src/types';
+import type AbstractInvoiceData from '../abstract_invoice_data.js';
+import { type CatalogsData, type DocumentOptions, type DocumentTranslatorInterface } from '../types.js';
 
 export default class AbstractPdfMakerBuilder<T extends AbstractInvoiceData> {
   declare protected _documentTranslator: DocumentTranslatorInterface<T>;

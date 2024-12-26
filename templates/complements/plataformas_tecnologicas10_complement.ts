@@ -1,6 +1,6 @@
 import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
 import { type ContentTable, type TableCell } from 'pdfmake/interfaces.js';
-import { formatCurrency } from '#src/utils/currency';
+import { formatCurrency } from '../../src/utils/currency.js';
 
 const impuestosTrasladadosPlataformasComplementTable = (
   servicio: XmlNodeInterface,

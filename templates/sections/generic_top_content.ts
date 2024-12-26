@@ -1,7 +1,7 @@
 import { type Content, type Size, type TableCell } from 'pdfmake/interfaces.js';
-import CfdiData from '#src/cfdi_data';
-import RetencionesData from '#src/retenciones_data';
-import { type CatalogsData } from '#src/types';
+import CfdiData from '../../src/cfdi_data.js';
+import RetencionesData from '../../src/retenciones_data.js';
+import { type CatalogsData } from '../../src/types.js';
 
 const genericTopContent = (data: CfdiData | RetencionesData, catalogs: CatalogsData, primaryColor: string): Content => {
   const logo = data.logo();

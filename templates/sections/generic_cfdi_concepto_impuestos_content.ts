@@ -1,8 +1,8 @@
 import { type XmlNodes } from '@nodecfdi/cfdi-core';
 import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
 import { type ContentTable, type TableCell } from 'pdfmake/interfaces.js';
-import { type CatalogsData } from '#src/types';
-import { formatCurrency } from '#src/utils/currency';
+import { type CatalogsData } from '../../src/types.js';
+import { formatCurrency } from '../../src/utils/currency.js';
 
 const generateImpuestosContentTable = (
   traslados: XmlNodes,

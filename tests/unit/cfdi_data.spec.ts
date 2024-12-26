@@ -1,5 +1,5 @@
 import { nodeFromXmlString } from '@nodecfdi/cfdi-core';
-import CfdiData from '#src/cfdi_data';
+import CfdiData from '../../src/cfdi_data.js';
 import { fileContents } from '../test_utils.js';
 
 describe('cfdi data', () => {

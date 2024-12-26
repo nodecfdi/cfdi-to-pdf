@@ -1,9 +1,9 @@
 import { type XmlNodes } from '@nodecfdi/cfdi-core';
 import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
 import { type Content, type TableCell } from 'pdfmake/interfaces.js';
-import { type CatalogsData } from '#src/types';
-import breakCharacters from '#src/utils/break_characters';
-import { formatCurrency } from '#src/utils/currency';
+import { type CatalogsData } from '../../src/types.js';
+import breakCharacters from '../../src/utils/break_characters.js';
+import { formatCurrency } from '../../src/utils/currency.js';
 
 const generateRelatedDocsContent = (doctoRelacionados: XmlNodes, primaryColor: string): TableCell[][] => {
   const relatedDocsCells = doctoRelacionados.map<TableCell[]>((doc) => {
