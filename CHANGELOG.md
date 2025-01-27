@@ -5,11 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [v3.0.0-1](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/compare/v3.0.0-0...v3.0.0-1)
+## [v3.0.0-2](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/compare/v3.0.0-1...v3.0.0-2)
+
+### Commits
+
+- fix: :bug: resolve import of json files using assert type [`a08bb35`](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/commit/a08bb35129916aebdcc1fcc5d02a6e4be360d528)
+- chore: :arrow_up: update dependencies [`76d67da`](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/commit/76d67da553e2cdf99cac241c3138fdbbaedd64db)
+- style: :rotating_light: resolve issues reported by latest eslint rule config [`6ced138`](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/commit/6ced138b12d88fca17ec158ec74603ed6317124c)
+
+## [v3.0.0-1](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/compare/v3.0.0-0...v3.0.0-1) - 2024-12-26
 
 ### Commits
 
 - refactor: :wastebasket: remove old config doc [`ffe08e1`](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/commit/ffe08e17c88cd95402757e6a2772a6a909ff82f4)
+- chore(release): :tada: 3.0.0-1 [`acb2622`](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/commit/acb26223b7dfc95d6c1919f952f50f5f2b5abfa1)
 - fix: :ambulance: resolve correct distributable files build [`265b971`](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/commit/265b971535c7d33aa7d75863db6e523d27f33159)
 
 ## [v3.0.0-0](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/compare/v2.2.1...v3.0.0-0) - 2024-12-25
