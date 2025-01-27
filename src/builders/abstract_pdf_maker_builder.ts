@@ -1,4 +1,3 @@
-import { wrapCatalog } from '@nodecfdi/sat-micro-catalogs';
 import {
   type BufferOptions,
   type CustomTableLayout,
@@ -70,41 +69,9 @@ export default class AbstractPdfMakerBuilder<T extends AbstractInvoiceData> {
   }
 
   protected async defaultCatalogs(): Promise<CatalogsData> {
-    const cfdi40ImpuestosRaw = await import('@nodecfdi/sat-micro-catalogs/raw/cfdi_40_impuestos');
-    const cfdi40ObjetosImpuestosRaw = await import('@nodecfdi/sat-micro-catalogs/raw/cfdi_40_objetos_impuestos');
-    const cfdi40UsosCfdiRaw = await import('@nodecfdi/sat-micro-catalogs/raw/cfdi_40_usos_cfdi');
-    const cfdi40RegimenesFiscalesRaw = await import('@nodecfdi/sat-micro-catalogs/raw/cfdi_40_regimenes_fiscales');
-    const cfdi40TiposRelacionesRaw = await import('@nodecfdi/sat-micro-catalogs/raw/cfdi_40_tipos_relaciones');
-    const cfdi40MesesRaw = await import('@nodecfdi/sat-micro-catalogs/raw/cfdi_40_meses');
-    const cfdi40PeriodicidadesRaw = await import('@nodecfdi/sat-micro-catalogs/raw/cfdi_40_periodicidades');
-    const cfdi40ExportacionesRaw = await import('@nodecfdi/sat-micro-catalogs/raw/cfdi_40_exportaciones');
-    const cfdi40MetodosPagoRaw = await import('@nodecfdi/sat-micro-catalogs/raw/cfdi_40_metodos_pago');
-    const cfdi40FormasPagoRaw = await import('@nodecfdi/sat-micro-catalogs/raw/cfdi_40_formas_pago');
-    const cfdi40TiposComprobantesRaw = await import('@nodecfdi/sat-micro-catalogs/raw/cfdi_40_tipos_comprobantes');
-    const pagosTiposCadenaPagoRaw = await import('@nodecfdi/sat-micro-catalogs/raw/pagos_tipos_cadena_pago');
-    const retenciones20ClavesRetencionRaw = await import('@nodecfdi/sat-micro-catalogs/raw/ret_20_claves_retencion');
-    const retenciones20PeriodicidadesRaw = await import('@nodecfdi/sat-micro-catalogs/raw/ret_20_periodicidades');
-    const retenciones20PeriodosRaw = await import('@nodecfdi/sat-micro-catalogs/raw/ret_20_periodos');
-    const retenciones20TiposPagoRaw = await import('@nodecfdi/sat-micro-catalogs/raw/ret_20_tipos_pago_retencion');
+    const catalogs = await import('./default_catalogs.js');
 
-    return {
-      cfdi40Impuestos: wrapCatalog(cfdi40ImpuestosRaw.default),
-      cfdi40ObjetosImpuestos: wrapCatalog(cfdi40ObjetosImpuestosRaw.default),
-      cfdi40UsosCfdi: wrapCatalog(cfdi40UsosCfdiRaw.default),
-      cfdi40RegimenesFiscales: wrapCatalog(cfdi40RegimenesFiscalesRaw.default),
-      cfdi40TiposRelaciones: wrapCatalog(cfdi40TiposRelacionesRaw.default),
-      cfdi40Meses: wrapCatalog(cfdi40MesesRaw.default),
-      cfdi40Periodicidades: wrapCatalog(cfdi40PeriodicidadesRaw.default),
-      cfdi40Exportaciones: wrapCatalog(cfdi40ExportacionesRaw.default),
-      cfdi40MetodosPago: wrapCatalog(cfdi40MetodosPagoRaw.default),
-      cfdi40FormasPago: wrapCatalog(cfdi40FormasPagoRaw.default),
-      cfdi40TiposComprobantes: wrapCatalog(cfdi40TiposComprobantesRaw.default),
-      pagosTiposCadenaPago: wrapCatalog(pagosTiposCadenaPagoRaw.default),
-      retenciones20ClavesRetencion: wrapCatalog(retenciones20ClavesRetencionRaw.default),
-      retenciones20Periodicidades: wrapCatalog(retenciones20PeriodicidadesRaw.default),
-      retenciones20Periodos: wrapCatalog(retenciones20PeriodosRaw.default),
-      retenciones20TiposPago: wrapCatalog(retenciones20TiposPagoRaw.default),
-    };
+    return catalogs.default;
   }
 
   public layouts(): Record<string, CustomTableLayout> {
