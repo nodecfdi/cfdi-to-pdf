@@ -140,6 +140,14 @@ const nomina12ReceptorContent = (
     rightRows.push([labelValue('Salario base', nominaReceptor.getAttribute('SalarioBaseCotApor'), primaryColor)]);
   }
 
+  if (nominaReceptor.hasAttribute('Banco')) {
+    rightRows.push([labelValue('Banco', nominaReceptor.getAttribute('Banco'), primaryColor)]);
+  }
+
+  if (nominaReceptor.hasAttribute('CuentaBancaria')) {
+    rightRows.push([labelValue('Cuenta bancaria', nominaReceptor.getAttribute('CuentaBancaria'), primaryColor)]);
+  }
+
   if (nominaReceptor.hasAttribute('ClaveEntFed')) {
     rightRows.push([
       labelValue(
