@@ -145,6 +145,54 @@ export default class AbstractPdfMakerBuilder<T extends AbstractInvoiceData> {
         assert: { type: 'json' },
       }
     );
+    const { default: nominaTiposNominasRaw } = await import('@nodecfdi/sat-micro-catalogs/raw/nomina_tipos_nominas', {
+      assert: { type: 'json' },
+    });
+    const { default: nominaTiposPercepcionesRaw } = await import(
+      '@nodecfdi/sat-micro-catalogs/raw/nomina_tipos_percepciones',
+      {
+        assert: { type: 'json' },
+      }
+    );
+    const { default: nominaTiposOtrosPagosRaw } = await import(
+      '@nodecfdi/sat-micro-catalogs/raw/nomina_tipos_otros_pagos',
+      {
+        assert: { type: 'json' },
+      }
+    );
+    const { default: nominaTiposContratosRaw } = await import(
+      '@nodecfdi/sat-micro-catalogs/raw/nomina_tipos_contratos',
+      {
+        assert: { type: 'json' },
+      }
+    );
+    const { default: nominaTiposJornadasRaw } = await import(
+      '@nodecfdi/sat-micro-catalogs/raw/nomina_tipos_jornadas',
+      {
+        assert: { type: 'json' },
+      }
+    );
+    const { default: nominaTiposRegimenesRaw } = await import(
+      '@nodecfdi/sat-micro-catalogs/raw/nomina_tipos_regimenes',
+      {
+        assert: { type: 'json' },
+      }
+    );
+    const { default: nominaPeriodicidadesPagosRaw } = await import(
+      '@nodecfdi/sat-micro-catalogs/raw/nomina_periodicidades_pagos',
+      {
+        assert: { type: 'json' },
+      }
+    );
+    const { default: nominaRiesgosPuestosRaw } = await import(
+      '@nodecfdi/sat-micro-catalogs/raw/nomina_riesgos_puestos',
+      {
+        assert: { type: 'json' },
+      }
+    );
+    const { default: nominaEstadosRaw } = await import('@nodecfdi/sat-micro-catalogs/raw/nomina_estados', {
+      assert: { type: 'json' },
+    });
 
     return {
       cfdi40Impuestos: wrapCatalog(cfdi40ImpuestosRaw),
@@ -163,6 +211,15 @@ export default class AbstractPdfMakerBuilder<T extends AbstractInvoiceData> {
       retenciones20Periodicidades: wrapCatalog(retenciones20PeriodicidadesRaw),
       retenciones20Periodos: wrapCatalog(retenciones20PeriodosRaw),
       retenciones20TiposPago: wrapCatalog(retenciones20TiposPagoRaw),
+      nominaTiposNominas: wrapCatalog(nominaTiposNominasRaw),
+      nominaTiposPercepciones: wrapCatalog(nominaTiposPercepcionesRaw),
+      nominaTiposOtrosPagos: wrapCatalog(nominaTiposOtrosPagosRaw),
+      nominaTiposContratos: wrapCatalog(nominaTiposContratosRaw),
+      nominaTiposJornadas: wrapCatalog(nominaTiposJornadasRaw),
+      nominaTiposRegimenes: wrapCatalog(nominaTiposRegimenesRaw),
+      nominaPeriodicidadesPagos: wrapCatalog(nominaPeriodicidadesPagosRaw),
+      nominaRiesgosPuestos: wrapCatalog(nominaRiesgosPuestosRaw),
+      nominaEstados: wrapCatalog(nominaEstadosRaw),
     };
   }
 

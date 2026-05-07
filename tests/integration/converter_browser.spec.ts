@@ -41,6 +41,16 @@ describe('converter browser version', () => {
     expect(typeof base64).toBe('string');
   }, 30000);
 
+  test('converter to base64 cfdi nomina', async () => {
+    const cfdi = fileContents('cfdi40-nomina-valid.xml');
+    const comprobante = nodeFromXmlString(cfdi);
+    const cfdiData = new CfdiData(comprobante, null, null, nodeCfdiLogo());
+
+    const builder = new PdfMakerBuilder(new GenericCfdiTranslator());
+    const base64 = await builder.buildBase64(cfdiData);
+    expect(typeof base64).toBe('string');
+  }, 30000);
+
   // Actually pdfmake have a bug with reject promise check https://github.com/bpampuch/pdfmake/issues/2066#issue-696306408
   test.skip('convert thrown error on bad styles', async () => {
     const cfdi = nodeFromXmlString(fileContents('cfdi33-valid.xml'));
