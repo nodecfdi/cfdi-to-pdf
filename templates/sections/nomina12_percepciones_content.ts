@@ -34,7 +34,14 @@ const nomina12PercepcionesContent = (
   }
 
   rows.push([
-    { text: 'Total Percepciones', colSpan: 3, alignment: 'right', bold: true, color: primaryColor, border: [false, true, false, false] },
+    {
+      text: 'Total Percepciones',
+      colSpan: 3,
+      alignment: 'right',
+      bold: true,
+      color: primaryColor,
+      border: [false, true, false, false],
+    },
     {},
     {},
     {

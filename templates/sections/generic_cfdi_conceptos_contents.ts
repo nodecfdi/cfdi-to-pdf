@@ -18,14 +18,14 @@ const genericCfdiConceptosContent = (
     'Descripción',
     'Valor Unitario',
     'Cantidad',
-    { text: 'Importe', alignment: 'center' },
+    { text: 'Importe', alignment: 'center' as const },
     'Descuento',
   ];
   const styledHeaderCells = headerCells.map((cell) => ({
     text: cell,
     style: 'tableHeader',
     fillColor: primaryColor,
-    margin: [0, 3, 0, 3],
+    margin: [0, 3, 0, 3] as [number, number, number, number],
   }));
   rowsConceptos.push(styledHeaderCells);
 

@@ -68,7 +68,8 @@ const nominaTiposDeducciones: Record<string, string> = {
   '067': 'Ajuste en Bonos, Despensas',
   '068': 'Ajuste en sueldos y salarios',
   '069': 'Ajuste en jubilaciones, pensiones o haberes de retiro',
-  '070': 'Ajuste en provisión de pagos de pensión en parcialidades derivado de Jubilaciones, Pensiones o Haberes de Retiro',
+  '070':
+    'Ajuste en provisión de pagos de pensión en parcialidades derivado de Jubilaciones, Pensiones o Haberes de Retiro',
   '071': 'Ajuste en pagos por separación acumulable',
   '072': 'Ajuste en pagos por separación no acumulable',
   '073': 'Ajuste al salario bruto por ISR de pagos por separación',
@@ -78,7 +79,8 @@ const nominaTiposDeducciones: Record<string, string> = {
   '077': 'Ajuste en Viáticos exentos',
   '078': 'Ajuste en Ingresos por acciones o títulos valor que representan bienes - acumulable',
   '079': 'Ajuste en Ingresos por acciones o títulos valor que representan bienes - no acumulable',
-  '080': 'Ajuste en Subsidio Efectivamente Entregado que no correspondía (Aplica solo cuando haya transcurrido el ejercicio fiscal).',
+  '080':
+    'Ajuste en Subsidio Efectivamente Entregado que no correspondía (Aplica solo cuando haya transcurrido el ejercicio fiscal).',
   '081': 'Ajuste en Cuotas obrero patronales',
   '082': 'Ajuste en impuestos locales',
   '083': 'Ajuste a pagos asimilados a salarios exentos',

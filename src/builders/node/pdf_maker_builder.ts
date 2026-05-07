@@ -67,7 +67,7 @@ export default class PdfMakerBuilder<T extends AbstractInvoiceData> extends Abst
         resolve();
       });
       pdfDoc.on('error', (error) => {
-        reject(error as Error);
+        reject(error);
       });
 
       pdfDoc.end();

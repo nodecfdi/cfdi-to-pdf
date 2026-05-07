@@ -37,7 +37,11 @@ const nomina12ReceptorContent = (
   }
 
   leftRows.push([
-    labelValue('Uso del CFDI', catalogs.cfdi40UsosCfdi.findAndReturnTexto(receptor.getAttribute('UsoCFDI')), primaryColor),
+    labelValue(
+      'Uso del CFDI',
+      catalogs.cfdi40UsosCfdi.findAndReturnTexto(receptor.getAttribute('UsoCFDI')),
+      primaryColor,
+    ),
   ]);
 
   if (comprobante.hasAttribute('Exportacion')) {
@@ -75,7 +79,9 @@ const nomina12ReceptorContent = (
   const rightRows: TableCell[][] = [];
 
   if (nominaReceptor.hasAttribute('NumSeguridadSocial')) {
-    rightRows.push([labelValue('No. Seguridad Social', nominaReceptor.getAttribute('NumSeguridadSocial'), primaryColor)]);
+    rightRows.push([
+      labelValue('No. Seguridad Social', nominaReceptor.getAttribute('NumSeguridadSocial'), primaryColor),
+    ]);
   }
 
   if (nominaReceptor.hasAttribute('Curp')) {

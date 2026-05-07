@@ -166,12 +166,9 @@ export default class AbstractPdfMakerBuilder<T extends AbstractInvoiceData> {
         assert: { type: 'json' },
       }
     );
-    const { default: nominaTiposJornadasRaw } = await import(
-      '@nodecfdi/sat-micro-catalogs/raw/nomina_tipos_jornadas',
-      {
-        assert: { type: 'json' },
-      }
-    );
+    const { default: nominaTiposJornadasRaw } = await import('@nodecfdi/sat-micro-catalogs/raw/nomina_tipos_jornadas', {
+      assert: { type: 'json' },
+    });
     const { default: nominaTiposRegimenesRaw } = await import(
       '@nodecfdi/sat-micro-catalogs/raw/nomina_tipos_regimenes',
       {
@@ -219,7 +216,7 @@ export default class AbstractPdfMakerBuilder<T extends AbstractInvoiceData> {
       nominaTiposRegimenes: wrapCatalog(nominaTiposRegimenesRaw),
       nominaPeriodicidadesPagos: wrapCatalog(nominaPeriodicidadesPagosRaw),
       nominaRiesgosPuestos: wrapCatalog(nominaRiesgosPuestosRaw),
-      nominaEstados: wrapCatalog(nominaEstadosRaw),
+      nominaEstados: wrapCatalog(nominaEstadosRaw.map(({ estado, texto }) => ({ id: estado, texto }))),
     };
   }
 

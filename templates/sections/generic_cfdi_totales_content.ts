@@ -1,5 +1,5 @@
 import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
-import { type Content, type TableCell } from 'pdfmake/interfaces.js';
+import { type Content, type ContentTable, type TableCell, type TableCellProperties } from 'pdfmake/interfaces.js';
 import { type CatalogsData } from '../../src/types.js';
 import { formatCurrency, toNumber } from '../../src/utils/currency.js';
 import useImplocal10Complement from '../complements/implocal10_complement.js';
@@ -17,7 +17,7 @@ const fillCfdiImpuestos = (
     .filter((value) => value.getAttribute('TipoFactor') !== 'Exento' && toNumber(value.getAttribute('TasaOCuota')) > 0);
   const retenciones = comprobante.searchNodes(elementImpuestos, 'cfdi:Retenciones', 'cfdi:Retencion');
 
-  const retencionesTable: TableCell = {
+  const retencionesTable: ContentTable & TableCellProperties = {
     table: {
       widths: ['40%', 'auto'],
       body: [
@@ -30,7 +30,7 @@ const fillCfdiImpuestos = (
           },
           '',
         ],
-        ...retenciones.map((retencion) => {
+        ...retenciones.map<TableCell[]>((retencion) => {
           return [
             {
               text: catalogs.cfdi40Impuestos.findAndReturnTexto(retencion.getAttribute('Impuesto')),
@@ -48,7 +48,7 @@ const fillCfdiImpuestos = (
     },
     layout: 'tableLayout',
   };
-  const trasladosTable: TableCell = {
+  const trasladosTable: ContentTable & TableCellProperties = {
     table: {
       widths: ['10%', '15%', '20%', '18%', 'auto'],
       body: [
@@ -64,7 +64,7 @@ const fillCfdiImpuestos = (
           '',
           '',
         ],
-        ...traslados.map((traslado) => {
+        ...traslados.map<TableCell[]>((traslado) => {
           const isTasa = traslado.getAttribute('TipoFactor') === 'Tasa';
           const tasaOCuota = traslado.getAttribute('TasaOCuota');
 

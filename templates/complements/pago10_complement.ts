@@ -36,7 +36,7 @@ const fillDoctoRelacionados = (doctoRelacionados: XmlNodes, primaryColor: string
     text: cell,
     style: 'tableHeader',
     fillColor: primaryColor,
-    margin: [0, 3, 0, 3],
+    margin: [0, 3, 0, 3] as [number, number, number, number],
   }));
   rowsDoctoRelacionados.push(styledHeaderCells);
 
