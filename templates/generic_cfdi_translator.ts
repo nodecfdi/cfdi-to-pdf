@@ -4,6 +4,7 @@ import type CfdiData from '../src/cfdi_data.js';
 import { type CatalogsData, type DocumentOptions, type DocumentTranslatorInterface } from '../src/types.js';
 import AbstractGenericTraslator from './abstract_generic_translator.js';
 import useDonat11Complement from './complements/donat11_complement.js';
+import useNomina12Complement, { useNomina12GeneralData } from './complements/nomina12_complement.js';
 import usePago10Complement from './complements/pago10_complement.js';
 import usePago20Complement from './complements/pago20_complement.js';
 import genericCfdiConceptosContent from './sections/generic_cfdi_conceptos_contents.js';
@@ -16,6 +17,7 @@ import genericFooter from './sections/generic_footer.js';
 import genericReceptorContent from './sections/generic_receptor_content.js';
 import genericStampContent from './sections/generic_stamp_content.js';
 import genericTopContent from './sections/generic_top_content.js';
+import nomina12ReceptorContent from './sections/nomina12_receptor_content.js';
 
 export default class GenericCfdiTranslator
   extends AbstractGenericTraslator
@@ -29,13 +31,17 @@ export default class GenericCfdiTranslator
     bgGrayColor: string,
   ): TDocumentDefinitions {
     const comprobante = data.comprobante();
+    const nomina12 = comprobante.searchNode('cfdi:Complemento', 'nomina12:Nomina');
+    const isNomina = comprobante.getAttribute('TipoDeComprobante') === 'N';
 
     const cfdiContent = [
       genericTopContent(data, catalogs, primaryColor),
       this.genericSpace(2),
       genericEmisorContent(data, catalogs, primaryColor, bgGrayColor),
       this.genericSpace(2),
-      genericReceptorContent(data, catalogs, primaryColor, bgGrayColor),
+      nomina12 === undefined
+        ? genericReceptorContent(data, catalogs, primaryColor, bgGrayColor)
+        : nomina12ReceptorContent(data, nomina12.searchNode('nomina12:Receptor')!, catalogs, primaryColor, bgGrayColor),
       this.genericSpace(2),
     ];
 
@@ -47,12 +53,16 @@ export default class GenericCfdiTranslator
       );
     }
 
+    if (nomina12) {
+      useNomina12GeneralData(nomina12, comprobante, cfdiContent, catalogs, primaryColor, bgGrayColor);
+    }
+
     cfdiContent.push(
       genericCfdiConceptosContent(comprobante, catalogs, primaryColor, bgGrayColor),
       this.genericSpace(2),
     );
 
-    if (comprobante.getAttribute('TipoDeComprobante') !== 'P') {
+    if (comprobante.getAttribute('TipoDeComprobante') !== 'P' && !isNomina) {
       cfdiContent.push(
         genericCfdiTotalesContent(comprobante, catalogs, primaryColor, bgGrayColor),
         this.genericSpace(),
@@ -90,6 +100,10 @@ export default class GenericCfdiTranslator
     const donat11 = comprobante.searchNode('cfdi:Complemento', 'donat:Donatarias');
     if (donat11) {
       useDonat11Complement(donat11, cfdiContent, primaryColor, bgGrayColor);
+    }
+
+    if (nomina12) {
+      useNomina12Complement(nomina12, comprobante, cfdiContent, catalogs, primaryColor, bgGrayColor);
     }
 
     // AdditionalFields

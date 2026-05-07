@@ -21,6 +21,15 @@ export interface CatalogsData {
   retenciones20Periodicidades: SatCatalog;
   retenciones20Periodos: SatCatalog;
   retenciones20TiposPago: SatCatalog;
+  nominaTiposNominas: SatCatalog;
+  nominaTiposPercepciones: SatCatalog;
+  nominaTiposOtrosPagos: SatCatalog;
+  nominaTiposContratos: SatCatalog;
+  nominaTiposJornadas: SatCatalog;
+  nominaTiposRegimenes: SatCatalog;
+  nominaPeriodicidadesPagos: SatCatalog;
+  nominaRiesgosPuestos: SatCatalog;
+  nominaEstados: SatCatalog;
 }
 
 export type DocumentTranslatorInterface<T extends AbstractInvoiceData> = {

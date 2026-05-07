@@ -3,6 +3,7 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   test: {
     globals: true,
+    exclude: ['**/node_modules/**', '**/build/**', 'examples/**'],
     coverage: {
       all: true,
       provider: 'istanbul',

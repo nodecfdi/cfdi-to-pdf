@@ -50,6 +50,27 @@ describe('converter', () => {
     unlinkSync(created);
   });
 
+  test('converter to base64 cfdi nomina', async () => {
+    const cfdi = fileContents('cfdi40-nomina-valid.xml');
+    const comprobante = nodeFromXmlString(cfdi);
+    const cfdiData = new CfdiData(comprobante, null, null, nodeCfdiLogo());
+
+    const builder = new PdfMakerBuilder(new GenericCfdiTranslator());
+    const base64 = await builder.buildBase64(cfdiData);
+    expect(typeof base64).toBe('string');
+  }, 30000);
+
+  test('convert to file cfdi nomina', async () => {
+    const cfdi = nodeFromXmlString(fileContents('cfdi40-nomina-valid.xml'));
+    const cfdiData = new CfdiData(cfdi, null, null, nodeCfdiLogo());
+
+    const builder = new PdfMakerBuilder(new GenericCfdiTranslator());
+    const created = filePath('cfdi40_nomina_valid.pdf');
+    await builder.build(cfdiData, created);
+    expect(existsSync(created)).toBeTruthy();
+    unlinkSync(created);
+  }, 30000);
+
   test('convert thrown error on not write file', async () => {
     const cfdi = nodeFromXmlString(fileContents('cfdi33-valid.xml'));
     const cfdiData = new CfdiData(cfdi, null, null, nodeCfdiLogo());
