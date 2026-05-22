@@ -194,7 +194,7 @@ export const toNumber = (currency: number | string): number => {
     fixedCurrency = Number(fixedCurrency);
   }
 
-  return Number.isNaN(fixedCurrency) ? 0 : Number(fixedCurrency);
+  return Number.isNaN(fixedCurrency) ? 0 : fixedCurrency;
 };
 
 export const formatCurrency = (currency: number | string, currencyDisplay: 'symbol' | 'code' = 'symbol'): string => {

@@ -1,6 +1,6 @@
 import { XmlNodes } from '@nodecfdi/cfdi-core';
 import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
-import { type Content } from 'pdfmake/interfaces.js';
+import { type Content, type TableCell } from 'pdfmake/interfaces.js';
 import { type CatalogsData } from '../../src/types.js';
 
 const genericCfdiRelacionadosContent = (
@@ -86,12 +86,12 @@ const genericCfdiRelacionadosContent = (
           {
             text: '',
             colSpan: 3,
-            border: [false, true, false, false],
+            border: [false, true, false, false] as [boolean, boolean, boolean, boolean],
           },
           '',
           '',
         ],
-      ],
+      ] as TableCell[][],
     },
     layout: 'tableLayout',
   };

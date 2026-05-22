@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd"
+    xmlns:cfdi="http://www.sat.gob.mx/cfd/4"
+    xmlns:nomina12="http://www.sat.gob.mx/nomina12"
+    Version="4.0"
+    Fecha="2025-07-11T10:52:46"
+    Sello=""
+    NoCertificado="00001000000000000000"
+    Certificado=""
+    Moneda="MXN"
+    TipoDeComprobante="N"
+    Exportacion="01"
+    MetodoPago="PUE"
+    Serie="2025"
+    Folio="1"
+    LugarExpedicion="97170"
+    SubTotal="3872.57"
+    Descuento="1838.57"
+    Total="2034.00">
+  <cfdi:Emisor RegimenFiscal="601" Rfc="AAA010101AAA" Nombre="EMPRESA DEMO PRUEBAS"/>
+  <cfdi:Receptor
+      Rfc="XAXX010101000"
+      Nombre="EMPLEADO DEMO PRUEBAS"
+      DomicilioFiscalReceptor="97527"
+      RegimenFiscalReceptor="605"
+      UsoCFDI="CN01"/>
+  <cfdi:Conceptos>
+    <cfdi:Concepto
+        ClaveProdServ="84111505"
+        Cantidad="1"
+        ClaveUnidad="ACT"
+        Descripcion="Pago de nómina"
+        ObjetoImp="01"
+        ValorUnitario="3872.57"
+        Importe="3872.57"
+        Descuento="1838.57"/>
+  </cfdi:Conceptos>
+  <cfdi:Complemento>
+    <nomina12:Nomina
+        Version="1.2"
+        TipoNomina="O"
+        FechaPago="2025-07-10"
+        FechaInicialPago="2025-07-01"
+        FechaFinalPago="2025-07-10"
+        NumDiasPagados="10.000"
+        TotalPercepciones="3871.74"
+        TotalDeducciones="1838.57"
+        TotalOtrosPagos="0.83">
+      <nomina12:Emisor RegistroPatronal="A0000000000"/>
+      <nomina12:Receptor
+          Curp="XAXX010101HDFXXX01"
+          NumSeguridadSocial="00000000000"
+          FechaInicioRelLaboral="2025-05-01"
+          Antigüedad="P10W"
+          TipoContrato="01"
+          Sindicalizado="No"
+          TipoJornada="01"
+          TipoRegimen="02"
+          NumEmpleado="227"
+          Departamento="MACROPLAZA"
+          Puesto="AUXILIAR DE COCINA"
+          RiesgoPuesto="2"
+          PeriodicidadPago="10"
+          CuentaBancaria="0000000000000000000"
+          SalarioBaseCotApor="292.56"
+          SalarioDiarioIntegrado="278.81"
+          ClaveEntFed="YUC"/>
+      <nomina12:Percepciones TotalSueldos="3871.74" TotalGravado="2788.10" TotalExento="1083.64">
+        <nomina12:Percepcion TipoPercepcion="001" Clave="001" Concepto="Sueldo" ImporteGravado="2788.10" ImporteExento="0.00"/>
+        <nomina12:Percepcion TipoPercepcion="029" Clave="032" Concepto="Despensa" ImporteGravado="0.00" ImporteExento="1000.00"/>
+        <nomina12:Percepcion TipoPercepcion="005" Clave="131" Concepto="Fondo de ahorro aportación Empresa" ImporteGravado="0.00" ImporteExento="83.64"/>
+      </nomina12:Percepciones>
+      <nomina12:Deducciones TotalOtrasDeducciones="1795.78" TotalImpuestosRetenidos="42.79">
+        <nomina12:Deduccion TipoDeduccion="001" Clave="052" Concepto="I.M.S.S." Importe="69.48"/>
+        <nomina12:Deduccion TipoDeduccion="009" Clave="059" Concepto="Préstamo infonavit PORC" Importe="731.40"/>
+        <nomina12:Deduccion TipoDeduccion="011" Clave="061" Concepto="Préstamo FONACOT" Importe="248.93"/>
+        <nomina12:Deduccion TipoDeduccion="004" Clave="067" Concepto="Fondo de ahorro trabajador" Importe="83.64"/>
+        <nomina12:Deduccion TipoDeduccion="002" Clave="045" Concepto="I.S.R. mes" Importe="42.79"/>
+        <nomina12:Deduccion TipoDeduccion="009" Clave="014" Concepto="Seguro de vivienda Infonavit" Importe="15.00"/>
+        <nomina12:Deduccion TipoDeduccion="009" Clave="178" Concepto="Ajuste Infonavit" Importe="563.69"/>
+        <nomina12:Deduccion TipoDeduccion="004" Clave="179" Concepto="Fondo de ahorro aportación Empresa D" Importe="83.64"/>
+      </nomina12:Deducciones>
+      <nomina12:OtrosPagos>
+        <nomina12:OtroPago TipoOtroPago="999" Clave="099" Concepto="Ajuste al neto" Importe="0.83"/>
+        <nomina12:OtroPago TipoOtroPago="002" Clave="035" Concepto="Subs al Empleo mes" Importe="0.00">
+          <nomina12:SubsidioAlEmpleo SubsidioCausado="156.25"/>
+        </nomina12:OtroPago>
+      </nomina12:OtrosPagos>
+    </nomina12:Nomina>
+    <tfd:TimbreFiscalDigital
+        xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital"
+        xsi:schemaLocation="http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/sitio_internet/cfd/TimbreFiscalDigital/TimbreFiscalDigitalv11.xsd"
+        Version="1.1"
+        UUID="11111111-1111-1111-1111-111111111111"
+        FechaTimbrado="2025-07-11T10:52:59"
+        RfcProvCertif="AAA010101AAA"
+        SelloCFD=""
+        NoCertificadoSAT="00001000000000000000"
+        SelloSAT=""/>
+  </cfdi:Complemento>
+</cfdi:Comprobante>

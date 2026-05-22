@@ -1,5 +1,5 @@
 import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
-import { type TableCell } from 'pdfmake/interfaces.js';
+import { type ContentTable, type TableCell, type TableCellProperties } from 'pdfmake/interfaces.js';
 import { formatCurrency, toNumber } from '../../src/utils/currency.js';
 
 const useImplocal10Complement = (
@@ -7,7 +7,7 @@ const useImplocal10Complement = (
   primaryColor: string,
   bgGrayColor: string,
   tableTotales: TableCell[][],
-  totalesContent: TableCell[],
+  totalesContent: TableCell[][],
 ): void => {
   const totalesSubContent: TableCell[] = [];
   const totalRetencionesLocales = impLocal10.getAttribute('TotaldeRetenciones');
@@ -32,7 +32,7 @@ const useImplocal10Complement = (
   const trasladosLocales = impLocal10.searchNodes('implocal:TrasladosLocales');
   const retencionesLocales = impLocal10.searchNodes('implocal:RetencionesLocales');
 
-  const retencionesLocalesTable: TableCell = {
+  const retencionesLocalesTable: ContentTable & TableCellProperties = {
     table: {
       widths: ['40%', '20%', 'auto'],
       body: [
@@ -46,7 +46,7 @@ const useImplocal10Complement = (
           '',
           '',
         ],
-        ...retencionesLocales.map((retencionLocal) => {
+        ...retencionesLocales.map<TableCell[]>((retencionLocal) => {
           return [
             {
               text: retencionLocal.getAttribute('ImpLocRetenido'),
@@ -75,7 +75,7 @@ const useImplocal10Complement = (
     },
     layout: 'tableLayout',
   };
-  const trasladosLocalesTable: TableCell = {
+  const trasladosLocalesTable: ContentTable & TableCellProperties = {
     table: {
       widths: ['40%', '20%', 'auto'],
       body: [
@@ -89,7 +89,7 @@ const useImplocal10Complement = (
           '',
           '',
         ],
-        ...trasladosLocales.map((trasladoLocal) => {
+        ...trasladosLocales.map<TableCell[]>((trasladoLocal) => {
           return [
             {
               text: trasladoLocal.getAttribute('ImpLocTrasladado'),
