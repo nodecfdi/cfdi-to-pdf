@@ -58,17 +58,20 @@
   "devDependencies": {
     "@commitlint/cli": "^21.2.4",
     "@commitlint/config-conventional": "^21.2.4",
+    "@eienjs/eslint-config": "^2.3.2",
     "@nodecfdi/cfdi-core": "^0.6.2",
     "@types/node": "^26.6.6",
     "@types/pdfmake": "0.2.11",
     "@vitest/coverage-istanbul": "^5.1.1",
     "auto-changelog": "^2.7.0",
+    "eslint": "^10.15.0",
+    "eslint-plugin-erasable-syntax-only": "^0.7.2",
     "husky": "^9.1.7",
     "is-in-ci": "^2.0.0",
     "pdfmake": "^0.2.23",
     "release-it": "^21.1.2",
     "tsdown": "^0.23.7",
-    "typescript": "^7.0.2",
+    "typescript": "^6.0.3",
     "vitest": "^5.1.1"
   },
   "dependencies": {
@@ -103,7 +106,7 @@
     "sat"
   ],
   "engines": {
-    "node": "^22.13.0 || ^24 || ^26"
+    "node": "^22.22.2 || ^24 || ^26"
   },
   "browserslist": [
     "defaults",
