@@ -1,12 +1,25 @@
 {
   "name": "@nodecfdi/cfdi-to-pdf",
-  "description": "Librería para crear un pdf basado en un XML CFDI o Retenciones",
-  "version": "3.0.0-2",
   "type": "module",
-  "module": "./build/index.js",
-  "types": "./build/index.d.ts",
-  "files": [
-    "build"
+  "version": "3.0.0-2",
+  "packageManager": "pnpm@12.21.0",
+  "description": "Librería para crear un pdf basado en un XML CFDI o Retenciones",
+  "author": "Fernando Isidro <luffynando@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/nodecfdi/cfdi-to-pdf",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodecfdi/cfdi-to-pdf.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nodecfdi/cfdi-to-pdf/issues"
+  },
+  "keywords": [
+    "cfdi",
+    "retenciones",
+    "xml",
+    "pdf",
+    "sat"
   ],
   "exports": {
     ".": {
@@ -40,6 +53,14 @@
       }
     }
   },
+  "module": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "files": [
+    "build"
+  ],
+  "engines": {
+    "node": "^22.22.2 || ^24 || ^26"
+  },
   "scripts": {
     "prepare": "is-in-ci || husky",
     "changelog": "auto-changelog -u -p",
@@ -54,6 +75,20 @@
     "tool:build": "pnpm run tool:code && pnpm run test:run",
     "build": "tsdown",
     "release": "release-it"
+  },
+  "peerDependencies": {
+    "@nodecfdi/cfdi-core": ">=0.6.2",
+    "@types/pdfmake": ">=0.2.10",
+    "pdfmake": ">=0.2.17"
+  },
+  "peerDependenciesMeta": {
+    "@types/pdfmake": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@nodecfdi/cfdi-expresiones": "^3.0.4",
+    "@nodecfdi/sat-micro-catalogs": "^1.0.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.2.4",
@@ -74,45 +109,10 @@
     "typescript": "^6.0.3",
     "vitest": "^5.1.1"
   },
-  "dependencies": {
-    "@nodecfdi/cfdi-expresiones": "^3.0.4",
-    "@nodecfdi/sat-micro-catalogs": "^1.0.2"
-  },
-  "peerDependencies": {
-    "@nodecfdi/cfdi-core": ">=0.6.2",
-    "@types/pdfmake": ">=0.2.10",
-    "pdfmake": ">=0.2.17"
-  },
-  "peerDependenciesMeta": {
-    "@types/pdfmake": {
-      "optional": true
-    }
-  },
-  "author": "Fernando Isidro <luffynando@gmail.com>",
-  "license": "MIT",
-  "homepage": "https://github.com/nodecfdi/cfdi-to-pdf",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nodecfdi/cfdi-to-pdf.git"
-  },
-  "bugs": {
-    "url": "https://github.com/nodecfdi/cfdi-to-pdf/issues"
-  },
-  "keywords": [
-    "cfdi",
-    "retenciones",
-    "xml",
-    "pdf",
-    "sat"
-  ],
-  "engines": {
-    "node": "^22.22.2 || ^24 || ^26"
-  },
   "browserslist": [
     "defaults",
     "not IE 11"
   ],
-  "packageManager": "pnpm@12.21.0",
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"

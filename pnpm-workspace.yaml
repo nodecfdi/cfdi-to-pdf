@@ -1,8 +1,8 @@
 minimumReleaseAge: 1440
 minimumReleaseAgeExcludePrune: true
 minimumReleaseAgeExclude:
-  - "@eienjs/*"
-  - "@nodecfdi/*"
+  - '@eienjs/*'
+  - '@nodecfdi/*'
 
 trustPolicy: no-downgrade
 trustPolicyIgnoreAfter: 2880
