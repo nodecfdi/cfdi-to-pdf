@@ -1,9 +1,0 @@
-examples
-build
-dist
-docs
-coverage
-*.html
-tests/_files
-.pnpm-store
-CHANGELOG.md
