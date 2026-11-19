@@ -49,11 +49,9 @@
     "tool:code": "pnpm run typecheck",
     "tool:build": "pnpm run tool:code && pnpm run test:run",
     "clean": "del-cli build",
-    "gen:docs": "typedoc --options typedoc.json",
     "changelog": "auto-changelog -p && git add CHANGELOG.md",
     "prebuild": "pnpm run tool:code",
     "build": "pnpm run clean && tsup-node",
-    "postbuild": "pnpm run gen:docs && git add docs/*",
     "release": "np",
     "version": "pnpm run build && pnpm run changelog"
   },
@@ -72,8 +70,6 @@
     "np": "^10.2.0",
     "pdfmake": "^0.2.17",
     "tsup": "^8.3.6",
-    "typedoc": "^0.27.6",
-    "typedoc-github-theme": "^0.2.1",
     "typescript": "^5.7.3",
     "vitest": "^3.0.4"
   },

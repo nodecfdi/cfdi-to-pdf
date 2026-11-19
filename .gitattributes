@@ -12,7 +12,6 @@
 
 # Do not count these files on github code language
 /tests/_files/**            linguist-detectable=false
-/docs/**                    linguist-detectable=false
 /.husky/**                  linguist-detectable=false
 *.cjs                       linguist-detectable=false
 
