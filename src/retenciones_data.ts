@@ -60,7 +60,8 @@ export default class RetencionesData extends AbstractInvoiceData {
     }
 
     this._legendFooter
-      = 'Este documento es una representación impresa de un Comprobante Fiscal Digital por Internet que ampara Retenciones e Información de Pagos versión {version}';
+      = 'Este documento es una representación impresa de un Comprobante Fiscal Digital por Internet que '
+        + 'ampara Retenciones e Información de Pagos versión {version}';
   }
 
   public retenciones(): XmlNodeInterface {

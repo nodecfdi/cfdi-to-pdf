@@ -21,7 +21,8 @@ describe('cfdi data', () => {
     const cfdiData = new CfdiData(comprobante, '', 'tfd');
 
     expect(cfdiData.qrUrl()).toBe(
-      'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?id=9FB6ED1A-5F37-4FEF-980A-7F8C83B51894&re=AAA010101AAA&rr=COSC8001137NA&tt=2382870.0&fe=osRJ2Q==',
+      'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx'
+      + '?id=9FB6ED1A-5F37-4FEF-980A-7F8C83B51894&re=AAA010101AAA&rr=COSC8001137NA&tt=2382870.0&fe=osRJ2Q==',
     );
   });
 

@@ -61,7 +61,7 @@ export default class GenericCfdiTranslator
       this.genericSpace(2),
     );
 
-    if (comprobante.getAttribute('TipoDeComprobante') !== 'P' && !isNomina) {
+    if (!isNomina && comprobante.getAttribute('TipoDeComprobante') !== 'P') {
       cfdiContent.push(
         genericCfdiTotalesContent(comprobante, catalogs, primaryColor, bgGrayColor),
         this.genericSpace(),

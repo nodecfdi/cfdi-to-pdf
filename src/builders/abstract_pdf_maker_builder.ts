@@ -65,124 +65,124 @@ export default class AbstractPdfMakerBuilder<T extends AbstractInvoiceData> {
 
   protected async defaultCatalogs(): Promise<CatalogsData> {
     const { default: cfdi40ExportacionesRaw } = await import('@nodecfdi/sat-micro-catalogs/raw/cfdi_40_exportaciones', {
-      assert: { type: 'json' },
+      with: { type: 'json' },
     });
     const { default: cfdi40FormasPagoRaw } = await import('@nodecfdi/sat-micro-catalogs/raw/cfdi_40_formas_pago', {
-      assert: { type: 'json' },
+      with: { type: 'json' },
     });
     const { default: cfdi40ImpuestosRaw } = await import('@nodecfdi/sat-micro-catalogs/raw/cfdi_40_impuestos', {
-      assert: { type: 'json' },
+      with: { type: 'json' },
     });
     const { default: cfdi40MesesRaw } = await import('@nodecfdi/sat-micro-catalogs/raw/cfdi_40_meses', {
-      assert: { type: 'json' },
+      with: { type: 'json' },
     });
     const { default: cfdi40MetodosPagoRaw } = await import('@nodecfdi/sat-micro-catalogs/raw/cfdi_40_metodos_pago', {
-      assert: { type: 'json' },
+      with: { type: 'json' },
     });
     const { default: cfdi40ObjetosImpuestosRaw } = await import(
       '@nodecfdi/sat-micro-catalogs/raw/cfdi_40_objetos_impuestos',
       {
-        assert: { type: 'json' },
+        with: { type: 'json' },
       },
     );
     const { default: cfdi40PeriodicidadesRaw } = await import(
       '@nodecfdi/sat-micro-catalogs/raw/cfdi_40_periodicidades',
       {
-        assert: { type: 'json' },
+        with: { type: 'json' },
       },
     );
     const { default: cfdi40RegimenesFiscalesRaw } = await import(
       '@nodecfdi/sat-micro-catalogs/raw/cfdi_40_regimenes_fiscales',
       {
-        assert: { type: 'json' },
+        with: { type: 'json' },
       },
     );
     const { default: cfdi40TiposComprobantesRaw } = await import(
       '@nodecfdi/sat-micro-catalogs/raw/cfdi_40_tipos_comprobantes',
       {
-        assert: { type: 'json' },
+        with: { type: 'json' },
       },
     );
     const { default: cfdi40TiposRelacionesRaw } = await import(
       '@nodecfdi/sat-micro-catalogs/raw/cfdi_40_tipos_relaciones',
       {
-        assert: { type: 'json' },
+        with: { type: 'json' },
       },
     );
     const { default: cfdi40UsosCfdiRaw } = await import('@nodecfdi/sat-micro-catalogs/raw/cfdi_40_usos_cfdi', {
-      assert: { type: 'json' },
+      with: { type: 'json' },
     });
     const { default: pagosTiposCadenaPagoRaw } = await import(
       '@nodecfdi/sat-micro-catalogs/raw/pagos_tipos_cadena_pago',
       {
-        assert: { type: 'json' },
+        with: { type: 'json' },
       },
     );
     const { default: retenciones20ClavesRetencionRaw } = await import(
       '@nodecfdi/sat-micro-catalogs/raw/ret_20_claves_retencion',
       {
-        assert: { type: 'json' },
+        with: { type: 'json' },
       },
     );
     const { default: retenciones20PeriodicidadesRaw } = await import(
       '@nodecfdi/sat-micro-catalogs/raw/ret_20_periodicidades',
       {
-        assert: { type: 'json' },
+        with: { type: 'json' },
       },
     );
     const { default: retenciones20PeriodosRaw } = await import('@nodecfdi/sat-micro-catalogs/raw/ret_20_periodos', {
-      assert: { type: 'json' },
+      with: { type: 'json' },
     });
     const { default: retenciones20TiposPagoRaw } = await import(
       '@nodecfdi/sat-micro-catalogs/raw/ret_20_tipos_pago_retencion',
       {
-        assert: { type: 'json' },
+        with: { type: 'json' },
       },
     );
     const { default: nominaTiposNominasRaw } = await import('@nodecfdi/sat-micro-catalogs/raw/nomina_tipos_nominas', {
-      assert: { type: 'json' },
+      with: { type: 'json' },
     });
     const { default: nominaTiposPercepcionesRaw } = await import(
       '@nodecfdi/sat-micro-catalogs/raw/nomina_tipos_percepciones',
       {
-        assert: { type: 'json' },
+        with: { type: 'json' },
       },
     );
     const { default: nominaTiposOtrosPagosRaw } = await import(
       '@nodecfdi/sat-micro-catalogs/raw/nomina_tipos_otros_pagos',
       {
-        assert: { type: 'json' },
+        with: { type: 'json' },
       },
     );
     const { default: nominaTiposContratosRaw } = await import(
       '@nodecfdi/sat-micro-catalogs/raw/nomina_tipos_contratos',
       {
-        assert: { type: 'json' },
+        with: { type: 'json' },
       },
     );
     const { default: nominaTiposJornadasRaw } = await import('@nodecfdi/sat-micro-catalogs/raw/nomina_tipos_jornadas', {
-      assert: { type: 'json' },
+      with: { type: 'json' },
     });
     const { default: nominaTiposRegimenesRaw } = await import(
       '@nodecfdi/sat-micro-catalogs/raw/nomina_tipos_regimenes',
       {
-        assert: { type: 'json' },
+        with: { type: 'json' },
       },
     );
     const { default: nominaPeriodicidadesPagosRaw } = await import(
       '@nodecfdi/sat-micro-catalogs/raw/nomina_periodicidades_pagos',
       {
-        assert: { type: 'json' },
+        with: { type: 'json' },
       },
     );
     const { default: nominaRiesgosPuestosRaw } = await import(
       '@nodecfdi/sat-micro-catalogs/raw/nomina_riesgos_puestos',
       {
-        assert: { type: 'json' },
+        with: { type: 'json' },
       },
     );
     const { default: nominaEstadosRaw } = await import('@nodecfdi/sat-micro-catalogs/raw/nomina_estados', {
-      assert: { type: 'json' },
+      with: { type: 'json' },
     });
 
     return {

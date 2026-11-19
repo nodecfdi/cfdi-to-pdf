@@ -1,7 +1,7 @@
-import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
-import { type Content, type TableCell } from 'pdfmake/interfaces.js';
+import type { XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
+import type { Content, TableCell } from 'pdfmake/interfaces.js';
 import type CfdiData from '../../src/cfdi_data.js';
-import { type CatalogsData } from '../../src/types.js';
+import type { CatalogsData } from '../../src/types.js';
 
 const labelValue = (label: string, value: string, primaryColor: string): TableCell => ({
   text: [{ text: `${label}: `, color: primaryColor, bold: true }, { text: value }],

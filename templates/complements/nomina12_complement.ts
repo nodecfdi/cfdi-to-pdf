@@ -1,6 +1,6 @@
-import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
-import { type Content } from 'pdfmake/interfaces.js';
-import { type CatalogsData } from '../../src/types.js';
+import type { XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
+import type { Content } from 'pdfmake/interfaces.js';
+import type { CatalogsData } from '../../src/types.js';
 import nomina12DeduccionesContent from '../sections/nomina12_deducciones_content.js';
 import nomina12GeneralDataContent from '../sections/nomina12_general_data_content.js';
 import nomina12OtrosPagosContent from '../sections/nomina12_otros_pagos_content.js';

@@ -1,5 +1,5 @@
-import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
-import { type Content, type TableCell } from 'pdfmake/interfaces.js';
+import type { XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
+import type { Content, TableCell } from 'pdfmake/interfaces.js';
 import { formatCurrency } from '../../src/utils/currency.js';
 
 const nomina12TotalesContent = (

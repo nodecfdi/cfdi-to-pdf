@@ -25,7 +25,7 @@ const generateRelatedDocsContent = (doctoRelacionados: XmlNodes, primaryColor: s
         color: primaryColor,
         colSpan: 8,
         alignment: 'center',
-        border: [false, false, false, true],
+        border: [false, false, false, true] as [boolean, boolean, boolean, boolean],
       },
       {},
       {},
@@ -51,22 +51,6 @@ const generateRelatedDocsContent = (doctoRelacionados: XmlNodes, primaryColor: s
       };
     }),
   );
-  relatedDocsCells.unshift([
-    {
-      text: 'DOCUMENTOS RELACIONADOS',
-      color: primaryColor,
-      colSpan: 8,
-      alignment: 'center',
-      border: [false, false, false, true] as [boolean, boolean, boolean, boolean],
-    },
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-  ]);
 
   return relatedDocsCells;
 };

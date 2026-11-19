@@ -46,7 +46,7 @@ export default class PdfMakerBuilder<T extends AbstractInvoiceData> extends Abst
           resolve(pdfBuffer.toString('binary'));
         }, this._options);
       } catch (error) {
-        reject(error);
+        reject(error instanceof Error ? error : new Error(String(error)));
       }
     });
   }
@@ -60,15 +60,15 @@ export default class PdfMakerBuilder<T extends AbstractInvoiceData> extends Abst
           resolve(pdfBase64);
         }, this._options);
       } catch (error) {
-        reject(error);
+        reject(error instanceof Error ? error : new Error(String(error)));
       }
     });
   }
 
   protected async buildPdf(data: T): Promise<pdfMake.TCreatedPdf> {
     const vfsFonts = await import('pdfmake/build/vfs_fonts.js');
-    const vfs = 'default' in vfsFonts ? vfsFonts.default : vfsFonts;
-    this._overrideVFS = this._overrideVFS ?? vfs;
+    const vfs = ('default' in vfsFonts ? vfsFonts.default : vfsFonts) as unknown as Record<string, string>;
+    this._overrideVFS ??= vfs;
 
     const catalogs = this._catalogs ?? (await this.defaultCatalogs());
 

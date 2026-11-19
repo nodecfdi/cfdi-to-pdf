@@ -1,5 +1,5 @@
-import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
-import { type Content, type TableCell } from 'pdfmake/interfaces.js';
+import type { XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
+import type { Content, TableCell } from 'pdfmake/interfaces.js';
 import { formatCurrency, toNumber } from '../../src/utils/currency.js';
 import { findTipoDeduccionTexto } from '../../src/utils/nomina_tipos_deducciones.js';
 
