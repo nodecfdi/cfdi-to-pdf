@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd"
+    xmlns:cfdi="http://www.sat.gob.mx/cfd/4"
+    xmlns:nomina12="http://www.sat.gob.mx/nomina12"
+    Version="4.0"
+    Fecha="2026-01-21T16:42:35"
+    Sello=""
+    NoCertificado="00001000000000000000"
+    Certificado=""
+    Moneda="MXN"
+    TipoDeComprobante="N"
+    Exportacion="01"
+    MetodoPago="PUE"
+    Serie="2026"
+    Folio="1"
+    LugarExpedicion="06700"
+    SubTotal="15263.63"
+    Descuento="2689.23"
+    Total="12574.40">
+  <cfdi:Emisor RegimenFiscal="601" Rfc="AAA010101AAA" Nombre="EMPRESA DEMO PRUEBAS"/>
+  <cfdi:Receptor
+      Rfc="XAXX010101000"
+      Nombre="EMPLEADO DEMO PRUEBAS"
+      DomicilioFiscalReceptor="06240"
+      RegimenFiscalReceptor="605"
+      UsoCFDI="CN01"/>
+  <cfdi:Conceptos>
+    <cfdi:Concepto
+        ClaveProdServ="84111505"
+        Cantidad="1"
+        ClaveUnidad="ACT"
+        Descripcion="Pago de nómina"
+        ObjetoImp="01"
+        ValorUnitario="15263.63"
+        Importe="15263.63"
+        Descuento="2689.23"/>
+  </cfdi:Conceptos>
+  <cfdi:Complemento>
+    <nomina12:Nomina
+        Version="1.2"
+        TipoNomina="O"
+        FechaPago="2026-01-14"
+        FechaInicialPago="2026-01-01"
+        FechaFinalPago="2026-01-15"
+        NumDiasPagados="15.000"
+        TotalPercepciones="15000.00"
+        TotalDeducciones="2689.23"
+        TotalOtrosPagos="263.63">
+      <nomina12:Emisor RegistroPatronal="A0000000000"/>
+      <nomina12:Receptor
+          Curp="XAXX010101HDFXXX01"
+          NumSeguridadSocial="00000000000"
+          FechaInicioRelLaboral="2024-10-28"
+          Antigüedad="P63W"
+          TipoContrato="01"
+          Sindicalizado="No"
+          TipoJornada="01"
+          TipoRegimen="02"
+          NumEmpleado="0001"
+          Departamento="Ninguno"
+          Puesto="Ninguno"
+          RiesgoPuesto="1"
+          PeriodicidadPago="04"
+          SalarioBaseCotApor="1050.68"
+          SalarioDiarioIntegrado="1000.00"
+          ClaveEntFed="CMX"/>
+      <nomina12:Percepciones TotalSueldos="15000.00" TotalGravado="15000.00" TotalExento="0.00">
+        <nomina12:Percepcion TipoPercepcion="001" Clave="001" Concepto="Sueldo" ImporteGravado="15000.00" ImporteExento="0.00"/>
+      </nomina12:Percepciones>
+      <nomina12:Deducciones TotalOtrasDeducciones="416.98" TotalImpuestosRetenidos="2272.25">
+        <nomina12:Deduccion TipoDeduccion="001" Clave="052" Concepto="I.M.S.S." Importe="416.98"/>
+        <nomina12:Deduccion TipoDeduccion="002" Clave="045" Concepto="I.S.R. mes" Importe="2272.25"/>
+      </nomina12:Deducciones>
+      <nomina12:OtrosPagos>
+        <nomina12:OtroPago TipoOtroPago="999" Clave="099" Concepto="Ajuste al neto" Importe="0.13"/>
+        <nomina12:OtroPago TipoOtroPago="002" Clave="035" Concepto="Subs al Empleo mes" Importe="0.00">
+          <nomina12:SubsidioAlEmpleo SubsidioCausado="0.00"/>
+        </nomina12:OtroPago>
+        <nomina12:OtroPago TipoOtroPago="004" Clave="055" Concepto="I.S.R. a compensar" Importe="263.50">
+          <nomina12:CompensacionSaldosAFavor SaldoAFavor="263.50" Año="2025" RemanenteSalFav="0.00"/>
+        </nomina12:OtroPago>
+      </nomina12:OtrosPagos>
+    </nomina12:Nomina>
+    <tfd:TimbreFiscalDigital
+        xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital"
+        xsi:schemaLocation="http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/sitio_internet/cfd/TimbreFiscalDigital/TimbreFiscalDigitalv11.xsd"
+        Version="1.1"
+        UUID="22222222-2222-2222-2222-222222222222"
+        FechaTimbrado="2026-01-21T16:42:49"
+        RfcProvCertif="AAA010101AAA"
+        SelloCFD=""
+        NoCertificadoSAT="00001000000000000000"
+        SelloSAT=""/>
+  </cfdi:Complemento>
+</cfdi:Comprobante>

@@ -166,7 +166,7 @@ const genericRetencionTotalesContent = (
                 margin: [0, 3, 0, 3],
               },
             ],
-            ...impuestosRetenidos.map((impRetenido) => {
+            ...impuestosRetenidos.map<TableCell[]>((impRetenido) => {
               const baseRet = impRetenido.getAttribute('BaseRet');
               let impuesto = impRetenido.getAttribute(isVersionOne ? 'Impuesto' : 'ImpuestoRet');
               const tipoPago = impRetenido.getAttribute('TipoPagoRet');

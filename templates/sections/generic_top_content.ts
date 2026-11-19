@@ -10,8 +10,8 @@ const genericTopContent = (data: CfdiData | RetencionesData, catalogs: CatalogsD
   const contentWidths: Size[] = [];
   const bodyContent: TableCell[][] = [];
   let title = '';
-  let sectionLogoMargin = [0, 4, 0, 4];
-  let sectionLogoFit = [150, 60];
+  let sectionLogoMargin: [number, number, number, number] = [0, 4, 0, 4];
+  let sectionLogoFit: [number, number] = [150, 60];
 
   if (data instanceof CfdiData) {
     contentWidths.push('10%', '*', 'auto', '3%', '42%');

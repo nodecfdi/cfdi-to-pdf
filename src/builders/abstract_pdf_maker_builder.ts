@@ -1,6 +1,7 @@
 import type { BufferOptions, CustomTableLayout, Margins, Style, StyleDictionary } from 'pdfmake/interfaces.js';
 import type AbstractInvoiceData from '../abstract_invoice_data.js';
 import type { CatalogsData, DocumentOptions, DocumentTranslatorInterface } from '../types.js';
+import { wrapCatalog } from '@nodecfdi/sat-micro-catalogs';
 
 export default class AbstractPdfMakerBuilder<T extends AbstractInvoiceData> {
   declare protected _documentTranslator: DocumentTranslatorInterface<T>;
@@ -63,9 +64,154 @@ export default class AbstractPdfMakerBuilder<T extends AbstractInvoiceData> {
   }
 
   protected async defaultCatalogs(): Promise<CatalogsData> {
-    const catalogs = await import('./default_catalogs.js');
+    const { default: cfdi40ExportacionesRaw } = await import('@nodecfdi/sat-micro-catalogs/raw/cfdi_40_exportaciones', {
+      assert: { type: 'json' },
+    });
+    const { default: cfdi40FormasPagoRaw } = await import('@nodecfdi/sat-micro-catalogs/raw/cfdi_40_formas_pago', {
+      assert: { type: 'json' },
+    });
+    const { default: cfdi40ImpuestosRaw } = await import('@nodecfdi/sat-micro-catalogs/raw/cfdi_40_impuestos', {
+      assert: { type: 'json' },
+    });
+    const { default: cfdi40MesesRaw } = await import('@nodecfdi/sat-micro-catalogs/raw/cfdi_40_meses', {
+      assert: { type: 'json' },
+    });
+    const { default: cfdi40MetodosPagoRaw } = await import('@nodecfdi/sat-micro-catalogs/raw/cfdi_40_metodos_pago', {
+      assert: { type: 'json' },
+    });
+    const { default: cfdi40ObjetosImpuestosRaw } = await import(
+      '@nodecfdi/sat-micro-catalogs/raw/cfdi_40_objetos_impuestos',
+      {
+        assert: { type: 'json' },
+      },
+    );
+    const { default: cfdi40PeriodicidadesRaw } = await import(
+      '@nodecfdi/sat-micro-catalogs/raw/cfdi_40_periodicidades',
+      {
+        assert: { type: 'json' },
+      },
+    );
+    const { default: cfdi40RegimenesFiscalesRaw } = await import(
+      '@nodecfdi/sat-micro-catalogs/raw/cfdi_40_regimenes_fiscales',
+      {
+        assert: { type: 'json' },
+      },
+    );
+    const { default: cfdi40TiposComprobantesRaw } = await import(
+      '@nodecfdi/sat-micro-catalogs/raw/cfdi_40_tipos_comprobantes',
+      {
+        assert: { type: 'json' },
+      },
+    );
+    const { default: cfdi40TiposRelacionesRaw } = await import(
+      '@nodecfdi/sat-micro-catalogs/raw/cfdi_40_tipos_relaciones',
+      {
+        assert: { type: 'json' },
+      },
+    );
+    const { default: cfdi40UsosCfdiRaw } = await import('@nodecfdi/sat-micro-catalogs/raw/cfdi_40_usos_cfdi', {
+      assert: { type: 'json' },
+    });
+    const { default: pagosTiposCadenaPagoRaw } = await import(
+      '@nodecfdi/sat-micro-catalogs/raw/pagos_tipos_cadena_pago',
+      {
+        assert: { type: 'json' },
+      },
+    );
+    const { default: retenciones20ClavesRetencionRaw } = await import(
+      '@nodecfdi/sat-micro-catalogs/raw/ret_20_claves_retencion',
+      {
+        assert: { type: 'json' },
+      },
+    );
+    const { default: retenciones20PeriodicidadesRaw } = await import(
+      '@nodecfdi/sat-micro-catalogs/raw/ret_20_periodicidades',
+      {
+        assert: { type: 'json' },
+      },
+    );
+    const { default: retenciones20PeriodosRaw } = await import('@nodecfdi/sat-micro-catalogs/raw/ret_20_periodos', {
+      assert: { type: 'json' },
+    });
+    const { default: retenciones20TiposPagoRaw } = await import(
+      '@nodecfdi/sat-micro-catalogs/raw/ret_20_tipos_pago_retencion',
+      {
+        assert: { type: 'json' },
+      },
+    );
+    const { default: nominaTiposNominasRaw } = await import('@nodecfdi/sat-micro-catalogs/raw/nomina_tipos_nominas', {
+      assert: { type: 'json' },
+    });
+    const { default: nominaTiposPercepcionesRaw } = await import(
+      '@nodecfdi/sat-micro-catalogs/raw/nomina_tipos_percepciones',
+      {
+        assert: { type: 'json' },
+      },
+    );
+    const { default: nominaTiposOtrosPagosRaw } = await import(
+      '@nodecfdi/sat-micro-catalogs/raw/nomina_tipos_otros_pagos',
+      {
+        assert: { type: 'json' },
+      },
+    );
+    const { default: nominaTiposContratosRaw } = await import(
+      '@nodecfdi/sat-micro-catalogs/raw/nomina_tipos_contratos',
+      {
+        assert: { type: 'json' },
+      },
+    );
+    const { default: nominaTiposJornadasRaw } = await import('@nodecfdi/sat-micro-catalogs/raw/nomina_tipos_jornadas', {
+      assert: { type: 'json' },
+    });
+    const { default: nominaTiposRegimenesRaw } = await import(
+      '@nodecfdi/sat-micro-catalogs/raw/nomina_tipos_regimenes',
+      {
+        assert: { type: 'json' },
+      },
+    );
+    const { default: nominaPeriodicidadesPagosRaw } = await import(
+      '@nodecfdi/sat-micro-catalogs/raw/nomina_periodicidades_pagos',
+      {
+        assert: { type: 'json' },
+      },
+    );
+    const { default: nominaRiesgosPuestosRaw } = await import(
+      '@nodecfdi/sat-micro-catalogs/raw/nomina_riesgos_puestos',
+      {
+        assert: { type: 'json' },
+      },
+    );
+    const { default: nominaEstadosRaw } = await import('@nodecfdi/sat-micro-catalogs/raw/nomina_estados', {
+      assert: { type: 'json' },
+    });
 
-    return catalogs.default;
+    return {
+      cfdi40Impuestos: wrapCatalog(cfdi40ImpuestosRaw),
+      cfdi40ObjetosImpuestos: wrapCatalog(cfdi40ObjetosImpuestosRaw),
+      cfdi40UsosCfdi: wrapCatalog(cfdi40UsosCfdiRaw),
+      cfdi40RegimenesFiscales: wrapCatalog(cfdi40RegimenesFiscalesRaw),
+      cfdi40TiposRelaciones: wrapCatalog(cfdi40TiposRelacionesRaw),
+      cfdi40Meses: wrapCatalog(cfdi40MesesRaw),
+      cfdi40Periodicidades: wrapCatalog(cfdi40PeriodicidadesRaw),
+      cfdi40Exportaciones: wrapCatalog(cfdi40ExportacionesRaw),
+      cfdi40MetodosPago: wrapCatalog(cfdi40MetodosPagoRaw),
+      cfdi40FormasPago: wrapCatalog(cfdi40FormasPagoRaw),
+      cfdi40TiposComprobantes: wrapCatalog(cfdi40TiposComprobantesRaw),
+      pagosTiposCadenaPago: wrapCatalog(pagosTiposCadenaPagoRaw),
+      retenciones20ClavesRetencion: wrapCatalog(retenciones20ClavesRetencionRaw),
+      retenciones20Periodicidades: wrapCatalog(retenciones20PeriodicidadesRaw),
+      retenciones20Periodos: wrapCatalog(retenciones20PeriodosRaw),
+      retenciones20TiposPago: wrapCatalog(retenciones20TiposPagoRaw),
+      nominaTiposNominas: wrapCatalog(nominaTiposNominasRaw),
+      nominaTiposPercepciones: wrapCatalog(nominaTiposPercepcionesRaw),
+      nominaTiposOtrosPagos: wrapCatalog(nominaTiposOtrosPagosRaw),
+      nominaTiposContratos: wrapCatalog(nominaTiposContratosRaw),
+      nominaTiposJornadas: wrapCatalog(nominaTiposJornadasRaw),
+      nominaTiposRegimenes: wrapCatalog(nominaTiposRegimenesRaw),
+      nominaPeriodicidadesPagos: wrapCatalog(nominaPeriodicidadesPagosRaw),
+      nominaRiesgosPuestos: wrapCatalog(nominaRiesgosPuestosRaw),
+      nominaEstados: wrapCatalog(nominaEstadosRaw.map(({ estado, texto }) => ({ id: estado, texto }))),
+    };
   }
 
   public layouts(): Record<string, CustomTableLayout> {

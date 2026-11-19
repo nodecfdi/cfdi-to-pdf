@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante
+    xmlns:cfdi="http://www.sat.gob.mx/cfd/4"
+    xmlns:nomina12="http://www.sat.gob.mx/nomina12"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd"
+    Version="4.0"
+    Serie="N"
+    Folio="1"
+    Fecha="2026-04-28T13:24:40"
+    NoCertificado="00001000000000000000"
+    Certificado=""
+    Sello=""
+    SubTotal="5186.10"
+    Descuento="741.10"
+    Moneda="MXN"
+    Total="4445.00"
+    TipoDeComprobante="N"
+    Exportacion="01"
+    LugarExpedicion="97146">
+  <cfdi:Emisor
+      Rfc="AAA010101AAA"
+      Nombre="EMPRESA DEMO PRUEBAS"
+      RegimenFiscal="601"/>
+  <cfdi:Receptor
+      Rfc="XAXX010101000"
+      Nombre="EMPLEADO DEMO PRUEBAS"
+      DomicilioFiscalReceptor="97314"
+      RegimenFiscalReceptor="605"
+      UsoCFDI="CN01"/>
+  <cfdi:Conceptos>
+    <cfdi:Concepto
+        ClaveProdServ="84111505"
+        Cantidad="1"
+        ClaveUnidad="ACT"
+        Descripcion="Pago de nómina"
+        ValorUnitario="5186.10"
+        Importe="5186.10"
+        Descuento="741.10"
+        ObjetoImp="01"/>
+  </cfdi:Conceptos>
+  <cfdi:Complemento>
+    <nomina12:Nomina
+        Version="1.2"
+        TipoNomina="O"
+        FechaPago="2026-04-27"
+        FechaInicialPago="2026-04-16"
+        FechaFinalPago="2026-04-30"
+        NumDiasPagados="15.000"
+        TotalPercepciones="5186.10"
+        TotalDeducciones="741.10"
+        TotalOtrosPagos="0.00">
+      <nomina12:Emisor RegistroPatronal="A0000000000"/>
+      <nomina12:Receptor
+          Curp="XAXX010101HDFXXX01"
+          NumSeguridadSocial="00000000000"
+          FechaInicioRelLaboral="2024-11-01"
+          Antigüedad="P78W"
+          TipoContrato="01"
+          Sindicalizado="No"
+          TipoJornada="08"
+          TipoRegimen="02"
+          NumEmpleado="001"
+          Departamento="Ninguno"
+          Puesto="ADMINISTRADOR"
+          RiesgoPuesto="3"
+          PeriodicidadPago="04"
+          SalarioBaseCotApor="363.26"
+          SalarioDiarioIntegrado="345.74"
+          ClaveEntFed="YUC"/>
+      <nomina12:Percepciones
+          TotalSueldos="5186.10"
+          TotalGravado="5186.10"
+          TotalExento="0.00">
+        <nomina12:Percepcion
+            TipoPercepcion="001"
+            Clave="001"
+            Concepto="Sueldo"
+            ImporteGravado="5186.10"
+            ImporteExento="0.00"/>
+      </nomina12:Percepciones>
+      <nomina12:Deducciones
+          TotalOtrasDeducciones="618.28"
+          TotalImpuestosRetenidos="122.82">
+        <nomina12:Deduccion
+            TipoDeduccion="099"
+            Clave="099"
+            Concepto="Ajuste al neto"
+            Importe="0.10"/>
+        <nomina12:Deduccion
+            TipoDeduccion="001"
+            Clave="052"
+            Concepto="I.M.S.S."
+            Importe="130.09"/>
+        <nomina12:Deduccion
+            TipoDeduccion="002"
+            Clave="045"
+            Concepto="I.S.R. mes"
+            Importe="122.82"/>
+        <nomina12:Deduccion
+            TipoDeduccion="009"
+            Clave="016"
+            Concepto="Préstamo infonavit CF"
+            Importe="488.09"/>
+      </nomina12:Deducciones>
+      <nomina12:OtrosPagos>
+        <nomina12:OtroPago
+            TipoOtroPago="002"
+            Clave="035"
+            Concepto="Subs al Empleo mes"
+            Importe="0.00">
+          <nomina12:SubsidioAlEmpleo SubsidioCausado="264.30"/>
+        </nomina12:OtroPago>
+      </nomina12:OtrosPagos>
+    </nomina12:Nomina>
+    <tfd:TimbreFiscalDigital
+        xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital"
+        xsi:schemaLocation="http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/sitio_internet/cfd/TimbreFiscalDigital/TimbreFiscalDigitalv11.xsd"
+        Version="1.1"
+        UUID="00000000-0000-0000-0000-000000000000"
+        FechaTimbrado="2026-04-28T13:25:27"
+        RfcProvCertif="AAA010101AAA"
+        SelloCFD=""
+        NoCertificadoSAT="00001000000000000000"
+        SelloSAT=""/>
+  </cfdi:Complemento>
+</cfdi:Comprobante>

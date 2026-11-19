@@ -5,13 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [v3.0.0-2](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/compare/v3.0.0-1...v3.0.0-2)
+## [v3.0.0-3](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/compare/v3.0.0-2...v3.0.0-3)
 
 ### Commits
 
+- fix: :bug: resolve correct dynamic import of catalogs json [`e4142ae`](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/commit/e4142ae26c40c9c0ebe02de3aa2e20bb9145edf5)
+- chore: :arrow_up: update dependencies [`9259a3e`](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/commit/9259a3ee4df3babf5f5237c1b96cdb14279365f6)
+
+## [v3.0.0-2](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/compare/v3.0.0-1...v3.0.0-2) - 2025-01-26
+
+### Commits
+
+- chore(release): :tada: 3.0.0-2 [`b118586`](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/commit/b1185868791dffd3cfa91fb163cde9a6c772b1bc)
 - fix: :bug: resolve import of json files using assert type [`a08bb35`](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/commit/a08bb35129916aebdcc1fcc5d02a6e4be360d528)
 - chore: :arrow_up: update dependencies [`76d67da`](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/commit/76d67da553e2cdf99cac241c3138fdbbaedd64db)
-- style: :rotating_light: resolve issues reported by latest eslint rule config [`6ced138`](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/commit/6ced138b12d88fca17ec158ec74603ed6317124c)
 
 ## [v3.0.0-1](https://luffynando.github.com/nodecfdi/cfdi-to-pdf/compare/v3.0.0-0...v3.0.0-1) - 2024-12-26
 

@@ -47,10 +47,26 @@ const generateRelatedDocsContent = (doctoRelacionados: XmlNodes, primaryColor: s
     ].map((cell) => {
       return {
         text: cell,
-        border: [false, false, false, true],
+        border: [false, false, false, true] as [boolean, boolean, boolean, boolean],
       };
     }),
   );
+  relatedDocsCells.unshift([
+    {
+      text: 'DOCUMENTOS RELACIONADOS',
+      color: primaryColor,
+      colSpan: 8,
+      alignment: 'center',
+      border: [false, false, false, true] as [boolean, boolean, boolean, boolean],
+    },
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+  ]);
 
   return relatedDocsCells;
 };
@@ -222,7 +238,7 @@ const usePago20Complement = (
                 text: 'Complemento pago',
                 style: 'tableSubtitleHeader',
                 color: primaryColor,
-                border: [false, true, false, false],
+                border: [false, true, false, false] as [boolean, boolean, boolean, boolean],
               },
             ],
             [
@@ -232,9 +248,9 @@ const usePago20Complement = (
                   body: pagos.flatMap((pago) => {
                     const doctoRelacionados = pago.searchNodes('pago20:DoctoRelacionado');
 
-                    const tablePagosBody: TableCell[] = [];
+                    const tablePagosBody: TableCell[][] = [];
                     tablePagosBody.push(
-                      [{ text: '', border: [false, true, false, false] }],
+                      [{ text: '', border: [false, true, false, false] as [boolean, boolean, boolean, boolean] }],
                       [
                         {
                           table: {
@@ -373,8 +389,8 @@ const usePago20Complement = (
                           },
                           layout: 'tableLayout',
                         },
-                      ],
-                      [{ text: '', border: [false, false, false, true] }],
+                      ] as TableCell[],
+                      [{ text: '', border: [false, false, false, true] as [boolean, boolean, boolean, boolean] }],
                     );
 
                     return tablePagosBody;
