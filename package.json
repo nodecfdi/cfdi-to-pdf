@@ -42,16 +42,17 @@
   },
   "scripts": {
     "prepare": "is-in-ci || husky",
+    "changelog": "auto-changelog -u -p",
+    "commitlint": "commitlint --edit",
+    "lint": "eslint . --fix",
+    "lint:check": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "tool:code": "pnpm run typecheck",
+    "tool:code": "pnpm run lint:check && pnpm run typecheck",
     "tool:build": "pnpm run tool:code && pnpm run test:run",
-    "clean": "del-cli build",
-    "changelog": "auto-changelog -p && git add CHANGELOG.md",
-    "prebuild": "pnpm run tool:code",
-    "build": "pnpm run clean && tsdown",
+    "build": "tsdown",
     "release": "release-it"
   },
   "devDependencies": {
@@ -62,7 +63,6 @@
     "@types/pdfmake": "0.2.11",
     "@vitest/coverage-istanbul": "^5.1.1",
     "auto-changelog": "^2.7.0",
-    "del-cli": "^8.0.1",
     "husky": "^9.1.7",
     "is-in-ci": "^2.0.0",
     "pdfmake": "^0.2.23",
@@ -121,7 +121,40 @@
   },
   "auto-changelog": {
     "template": "keepachangelog",
-    "hideCredit": true
+    "hideCredit": true,
+    "commitLimit": false
   },
-  "unpkg": "./build/iife/index.iife.js"
+  "release-it": {
+    "git": {
+      "commit": true,
+      "tag": true,
+      "push": true,
+      "requireCleanWorkingDir": true,
+      "commitMessage": "chore(release): :tada: v${version}",
+      "tagAnnotation": "chore(release): :tada: v${version}"
+    },
+    "github": {
+      "release": true,
+      "web": true,
+      "releaseName": "Release v${version}"
+    },
+    "npm": {
+      "publish": true,
+      "publishPackageManager": "pnpm",
+      "publishArgs": [
+        "--no-git-checks"
+      ]
+    },
+    "hooks": {
+      "before:init": [
+        "pnpm run lint:check",
+        "pnpm run typecheck",
+        "pnpm test:run"
+      ],
+      "after:bump": [
+        "pnpm run build",
+        "pnpm run changelog"
+      ]
+    }
+  }
 }

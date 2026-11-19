@@ -1,30 +1,39 @@
 import { defineConfig } from 'tsdown';
 
-const entry = [
-  './index.ts',
-  './src/types.ts',
-  './src/builders/node/index.ts',
-  './src/builders/browser/index.ts',
-  './templates/index.ts',
-];
-
 export default defineConfig([
   {
-    entry,
-    outDir: './build',
+    entry: [
+      'index.ts',
+      './src/types.ts',
+      './src/builders/node/index.ts',
+      './src/builders/browser/index.ts',
+      './templates/index.ts',
+    ],
+    clean: true,
     format: 'esm',
-    dts: true,
+    unbundle: true,
+    minify: 'dce-only',
     fixedExtension: false,
+    dts: true,
+    platform: 'neutral',
+    deps: {
+      neverBundle: [/^node:/],
+    },
     target: 'esnext',
-    clean: false,
+    exports: true,
   },
   {
-    entry: { index: './index.ts' },
-    outDir: './build/iife',
-    format: 'iife',
-    fixedExtension: false,
-    globalName: 'CfdiToPdf',
-    target: 'esnext',
+    entry: {
+      index: 'index.ts',
+    },
     clean: false,
+    format: 'iife',
+    globalName: 'ncfdiCfdiToPdf',
+    platform: 'browser',
+    unbundle: false,
+    minify: 'dce-only',
+    fixedExtension: false,
+    dts: false,
+    target: 'esnext',
   },
 ]);
