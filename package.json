@@ -117,7 +117,7 @@
     "sat"
   ],
   "engines": {
-    "node": "^18 || ^20 || ^22"
+    "node": "^22.13.0 || ^24 || ^26"
   },
   "browserslist": [
     "defaults",
