@@ -1,0 +1,14 @@
+{
+  "git": {
+    "requireBranch": "main",
+    "commitMessage": "chore(release): :tada: ${version}",
+    "tagName": "v${version}",
+    "push": false
+  },
+  "github": { "release": false },
+  "npm": { "publish": true, "publishArgs": ["--tag", "latest"] },
+  "hooks": {
+    "before:init": "pnpm run test:run",
+    "after:bump": "pnpm run build && pnpm run changelog"
+  }
+}

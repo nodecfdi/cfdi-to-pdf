@@ -52,8 +52,7 @@
     "changelog": "auto-changelog -p && git add CHANGELOG.md",
     "prebuild": "pnpm run tool:code",
     "build": "pnpm run clean && tsup-node",
-    "release": "np",
-    "version": "pnpm run build && pnpm run changelog"
+    "release": "release-it"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",
@@ -67,8 +66,8 @@
     "del-cli": "^6.0.0",
     "husky": "^9.1.7",
     "is-in-ci": "^1.0.0",
-    "np": "^10.2.0",
     "pdfmake": "^0.2.17",
+    "release-it": "^21.1.2",
     "tsup": "^8.3.6",
     "typescript": "^5.7.3",
     "vitest": "^3.0.4"
@@ -124,12 +123,6 @@
   "auto-changelog": {
     "template": "keepachangelog",
     "hideCredit": true
-  },
-  "np": {
-    "message": "chore(release): :tada: %s",
-    "tag": "latest",
-    "branch": "main",
-    "testScript": "test:run"
   },
   "tsup": {
     "entry": [
