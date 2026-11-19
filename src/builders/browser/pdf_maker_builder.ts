@@ -1,7 +1,7 @@
-import pdfMake from 'pdfmake/build/pdfmake.js';
-import { type BufferOptions, type Style, type TFontDictionary } from 'pdfmake/interfaces.js';
+import type { BufferOptions, Style, TFontDictionary } from 'pdfmake/interfaces.js';
 import type AbstractInvoiceData from '../../abstract_invoice_data.js';
-import { type CatalogsData, type DocumentOptions, type DocumentTranslatorInterface } from '../../types.js';
+import type { CatalogsData, DocumentOptions, DocumentTranslatorInterface } from '../../types.js';
+import pdfMake from 'pdfmake/build/pdfmake.js';
 import AbstractPdfMakerBuilder from '../abstract_pdf_maker_builder.js';
 
 export default class PdfMakerBuilder<T extends AbstractInvoiceData> extends AbstractPdfMakerBuilder<T> {
@@ -46,7 +46,7 @@ export default class PdfMakerBuilder<T extends AbstractInvoiceData> extends Abst
           resolve(pdfBuffer.toString('binary'));
         }, this._options);
       } catch (error) {
-        reject(error as Error);
+        reject(error instanceof Error ? error : new Error(String(error)));
       }
     });
   }
@@ -60,7 +60,7 @@ export default class PdfMakerBuilder<T extends AbstractInvoiceData> extends Abst
           resolve(pdfBase64);
         }, this._options);
       } catch (error) {
-        reject(error as Error);
+        reject(error instanceof Error ? error : new Error(String(error)));
       }
     });
   }
@@ -68,9 +68,7 @@ export default class PdfMakerBuilder<T extends AbstractInvoiceData> extends Abst
   protected async buildPdf(data: T): Promise<pdfMake.TCreatedPdf> {
     const vfsFonts = await import('pdfmake/build/vfs_fonts.js');
     const vfs = 'default' in vfsFonts ? vfsFonts.default : vfsFonts;
-    if (!this._overrideVFS) {
-      this._overrideVFS = vfs as unknown as Record<string, string>;
-    }
+    this._overrideVFS ??= vfs as unknown as Record<string, string>;
 
     const catalogs = this._catalogs ?? (await this.defaultCatalogs());
 

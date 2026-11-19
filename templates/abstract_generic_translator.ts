@@ -1,4 +1,4 @@
-import { type Content } from 'pdfmake/interfaces.js';
+import type { Content } from 'pdfmake/interfaces.js';
 
 export default class AbstractGenericTraslator {
   protected genericSpace(spaces = 1): Content {

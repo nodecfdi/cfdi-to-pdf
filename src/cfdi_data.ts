@@ -1,4 +1,4 @@
-import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
+import type { XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
 import AbstractInvoiceData from './abstract_invoice_data.js';
 
 export default class CfdiData extends AbstractInvoiceData {
@@ -47,8 +47,8 @@ export default class CfdiData extends AbstractInvoiceData {
       this.buildTfdSource();
     }
 
-    this._legendFooter =
-      'Este documento es una representación impresa de un Comprobante Fiscal Digital a través de Internet versión {version}';
+    this._legendFooter
+      = 'Este documento es una representación impresa de un Comprobante Fiscal Digital a través de Internet versión {version}';
   }
 
   public comprobante(): XmlNodeInterface {

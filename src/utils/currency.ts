@@ -36,7 +36,7 @@ const getGroupToCurrency = (rawGroup: string): string => {
   let temporalCurrency = '';
   // Handle hundreds
   if (group.length === 3) {
-    switch (Number.parseInt(group, 10)) {
+    switch (Number(group)) {
       case 100: {
         return 'cien ';
       }
@@ -46,7 +46,7 @@ const getGroupToCurrency = (rawGroup: string): string => {
       }
 
       default: {
-        temporalCurrency += `${hundreds[Number.parseInt(group[0], 10)]} `;
+        temporalCurrency += `${hundreds[Number(group[0])]} `;
       }
     }
 
@@ -54,24 +54,24 @@ const getGroupToCurrency = (rawGroup: string): string => {
   }
 
   // Handle teens and 'basic' numbers
-  if (Number.parseInt(group, 10) <= 15) {
+  if (Number(group) <= 15) {
     // If group is less than 15, select from basics array
     if (group === '00') {
       return temporalCurrency;
     }
 
-    temporalCurrency += `${basics[Number.parseInt(group, 10)]} `;
+    temporalCurrency += `${basics[Number(group)]} `;
   } else {
     // Else look for the number in both teens and basics arrays
     const zeroAtTheEnd = group[1] === '0';
-    if (Number.parseInt(group, 10) === 20) {
+    if (Number(group) === 20) {
       return `${temporalCurrency}veinte `;
     }
 
     temporalCurrency += `${
-      teens[Number.parseInt(group[0], 10)] +
-      (Number.parseInt(group[0], 10) >= 3 && !zeroAtTheEnd ? ' y ' : '') +
-      (zeroAtTheEnd ? '' : basics[Number.parseInt(group[1], 10)])
+      teens[Number(group[0])]
+      + (!zeroAtTheEnd && Number(group[0]) >= 3 ? ' y ' : '')
+      + (zeroAtTheEnd ? '' : basics[Number(group[1])])
     } `;
   }
 
@@ -84,7 +84,7 @@ const evaluateThousandsOfMillions = (
 ): { numberToCurrency: string; integers: string } => {
   const group = integers.slice(0, Math.max(0, integers.length - 9));
   let fixedNumberToCurrency = numberToCurrency;
-  switch (Number.parseInt(group, 10)) {
+  switch (Number(group)) {
     /* istanbul ignore next */
     case 0: {
       break;
@@ -114,7 +114,7 @@ const evaluateMillions = (
   let fixedNumberToCurrency = numberToCurrency;
   const group = integers.slice(0, Math.max(0, integers.length - 6));
   fixedNumberToCurrency += getGroupToCurrency(group);
-  fixedNumberToCurrency += !thousandsOfMillions && Number.parseInt(group, 10) === 1 ? 'millón ' : 'millones ';
+  fixedNumberToCurrency += !thousandsOfMillions && Number(group) === 1 ? 'millón ' : 'millones ';
 
   return {
     numberToCurrency: fixedNumberToCurrency,
@@ -127,6 +127,11 @@ export const toCurrency = (initial: number, moneda = 'MXN'): string => {
   const number = initial.toFixed(2);
   // Separate decimals (only 2) and integers
   let integers = number.slice(0, Math.max(0, number.indexOf('.')));
+  // Maximum supported number is 999,999,999,999.99
+  if (integers.length > 12) {
+    throw new Error('El número es demasiado grande.');
+  }
+
   const decimals = number.slice(number.indexOf('.') + 1);
   const monedaName = moneda === 'MXN' ? 'M.N.' : moneda;
   // Initialize string to store currency
@@ -135,10 +140,6 @@ export const toCurrency = (initial: number, moneda = 'MXN'): string => {
   let noThousands = false;
   let noHundreds = false;
   let thousandsOfMillions = false;
-  // Maximum supported number is 999,999,999,999.99
-  if (integers.length > 12) {
-    throw new Error('El número es demasiado grande.');
-  }
 
   // Evaluate each group of 3 digits (hundreds, thousands, millions, thousands of millions)
   // Evaluate thousands of millions
@@ -159,8 +160,8 @@ export const toCurrency = (initial: number, moneda = 'MXN'): string => {
   // Evaluate thousands
   if (integers.length === 6 || integers.length === 5 || integers.length === 4) {
     const group = integers.slice(0, Math.max(0, integers.length - 3));
-    noThousands = Number.parseInt(group, 10) === 0;
-    switch (Number.parseInt(group, 10)) {
+    noThousands = Number(group) === 0;
+    switch (Number(group)) {
       case 0: {
         break;
       }
@@ -179,7 +180,7 @@ export const toCurrency = (initial: number, moneda = 'MXN'): string => {
   }
 
   // Evaluate hundreds
-  noHundreds = Number.parseInt(integers, 10) === 0;
+  noHundreds = Number(integers) === 0;
   numberToCurrency += getGroupToCurrency(integers);
   numberToCurrency += `${
     (noThousands && noHundreds ? 'de ' : '') + (numberToCurrency === 'un ' ? 'peso ' : 'pesos ') + decimals
@@ -194,13 +195,13 @@ export const toNumber = (currency: number | string): number => {
     fixedCurrency = Number(fixedCurrency);
   }
 
-  return Number.isNaN(fixedCurrency) ? 0 : Number(fixedCurrency);
+  return Number.isNaN(fixedCurrency) ? 0 : fixedCurrency;
 };
 
 export const formatCurrency = (currency: number | string, currencyDisplay: 'symbol' | 'code' = 'symbol'): string => {
   const number = toNumber(currency);
 
-  return Intl.NumberFormat('en-US', {
+  return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
     currencyDisplay,

@@ -1,6 +1,6 @@
-import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
-import { type Content, type TableCell } from 'pdfmake/interfaces.js';
-import { type CatalogsData } from '../../src/types.js';
+import type { XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
+import type { Content, TableCell } from 'pdfmake/interfaces.js';
+import type { CatalogsData } from '../../src/types.js';
 import { formatCurrency } from '../../src/utils/currency.js';
 import genericCfdiConceptoImpuestosContent from './generic_cfdi_concepto_impuestos_content.js';
 

@@ -4,6 +4,7 @@
     "rootDir": "./",
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "types": ["vitest/globals"],
     "strict": true,
     "esModuleInterop": true,
     "isolatedModules": true,

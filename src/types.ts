@@ -1,5 +1,5 @@
-import { type SatCatalog } from '@nodecfdi/sat-micro-catalogs';
-import { type TDocumentDefinitions } from 'pdfmake/interfaces.js';
+import type { SatCatalog } from '@nodecfdi/sat-micro-catalogs';
+import type { TDocumentDefinitions } from 'pdfmake/interfaces.js';
 import type AbstractInvoiceData from './abstract_invoice_data.js';
 
 export type DocumentOptions = Omit<TDocumentDefinitions, 'content' | 'footer'>;
@@ -23,12 +23,12 @@ export interface CatalogsData {
   retenciones20TiposPago: SatCatalog;
 }
 
-export type DocumentTranslatorInterface<T extends AbstractInvoiceData> = {
-  translate(
+export interface DocumentTranslatorInterface<T extends AbstractInvoiceData> {
+  translate: (
     data: T,
     documentDefinitionsOptions: DocumentOptions,
     catalogs: CatalogsData,
     primaryColor: string,
     bgGrayColor: string,
-  ): TDocumentDefinitions;
-};
+  ) => TDocumentDefinitions;
+}

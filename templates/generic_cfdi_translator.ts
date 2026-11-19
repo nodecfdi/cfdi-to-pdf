@@ -1,7 +1,7 @@
-import { XmlNodes } from '@nodecfdi/cfdi-core';
-import { type TDocumentDefinitions } from 'pdfmake/interfaces.js';
+import type { TDocumentDefinitions } from 'pdfmake/interfaces.js';
 import type CfdiData from '../src/cfdi_data.js';
-import { type CatalogsData, type DocumentOptions, type DocumentTranslatorInterface } from '../src/types.js';
+import type { CatalogsData, DocumentOptions, DocumentTranslatorInterface } from '../src/types.js';
+import { XmlNodes } from '@nodecfdi/cfdi-core';
 import AbstractGenericTraslator from './abstract_generic_translator.js';
 import useDonat11Complement from './complements/donat11_complement.js';
 import usePago10Complement from './complements/pago10_complement.js';
@@ -19,8 +19,7 @@ import genericTopContent from './sections/generic_top_content.js';
 
 export default class GenericCfdiTranslator
   extends AbstractGenericTraslator
-  implements DocumentTranslatorInterface<CfdiData>
-{
+  implements DocumentTranslatorInterface<CfdiData> {
   public translate(
     data: CfdiData,
     documentOptions: DocumentOptions,
@@ -61,14 +60,14 @@ export default class GenericCfdiTranslator
       );
     }
 
-    const relacionados =
-      comprobante.getAttribute('Version') === '3.3'
+    const relacionados
+      = comprobante.getAttribute('Version') === '3.3'
         ? comprobante.searchNode('cfdi:CfdiRelacionados')
         : comprobante.searchNodes('cfdi:CfdiRelacionados');
 
     if (
-      relacionados !== undefined &&
-      ((relacionados instanceof XmlNodes && relacionados.length > 0) || !(relacionados instanceof XmlNodes))
+      relacionados !== undefined
+      && ((relacionados instanceof XmlNodes && relacionados.length > 0) || !(relacionados instanceof XmlNodes))
     ) {
       cfdiContent.push(
         genericCfdiRelacionadosContent(relacionados, catalogs, primaryColor, bgGrayColor),

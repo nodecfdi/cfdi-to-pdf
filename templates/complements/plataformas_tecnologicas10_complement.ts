@@ -1,5 +1,5 @@
-import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
-import { type ContentTable, type TableCell } from 'pdfmake/interfaces.js';
+import type { XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
+import type { ContentTable, TableCell } from 'pdfmake/interfaces.js';
 import { formatCurrency } from '../../src/utils/currency.js';
 
 const impuestosTrasladadosPlataformasComplementTable = (
@@ -184,9 +184,9 @@ const impuestosTrasladadosPlataformasComplementTable = (
   }
 
   if (
-    impuestosTrasladadosDelServicio !== undefined ||
-    contribucionGubernamental !== undefined ||
-    comisionDelServicio !== undefined
+    impuestosTrasladadosDelServicio !== undefined
+    || contribucionGubernamental !== undefined
+    || comisionDelServicio !== undefined
   ) {
     impuestosTableBody.push([
       {

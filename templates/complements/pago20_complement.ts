@@ -1,7 +1,7 @@
-import { type XmlNodes } from '@nodecfdi/cfdi-core';
-import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
-import { type Content, type TableCell } from 'pdfmake/interfaces.js';
-import { type CatalogsData } from '../../src/types.js';
+import type { XmlNodes } from '@nodecfdi/cfdi-core';
+import type { XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
+import type { Content, TableCell } from 'pdfmake/interfaces.js';
+import type { CatalogsData } from '../../src/types.js';
 import breakCharacters from '../../src/utils/break_characters.js';
 import { formatCurrency } from '../../src/utils/currency.js';
 
@@ -20,6 +20,22 @@ const generateRelatedDocsContent = (doctoRelacionados: XmlNodes, primaryColor: s
   });
   relatedDocsCells.unshift(
     [
+      {
+        text: 'DOCUMENTOS RELACIONADOS',
+        color: primaryColor,
+        colSpan: 8,
+        alignment: 'center',
+        border: [false, false, false, true],
+      },
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+    ],
+    [
       'UUID',
       'Serie | Folio',
       'Moneda',
@@ -35,22 +51,6 @@ const generateRelatedDocsContent = (doctoRelacionados: XmlNodes, primaryColor: s
       };
     }),
   );
-  relatedDocsCells.unshift([
-    {
-      text: 'DOCUMENTOS RELACIONADOS',
-      color: primaryColor,
-      colSpan: 8,
-      alignment: 'center',
-      border: [false, false, false, true],
-    },
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-  ]);
 
   return relatedDocsCells;
 };
@@ -211,7 +211,7 @@ const usePago20Complement = (
   const totales = pago20.searchNode('pago20:Totales');
   const pagos = pago20.searchNodes('pago20:Pago');
 
-  if (pagos.length > 0 && totales !== undefined) {
+  if (totales !== undefined && pagos.length > 0) {
     currentContent.push(
       {
         table: {

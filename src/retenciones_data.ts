@@ -1,4 +1,4 @@
-import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
+import type { XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
 import AbstractInvoiceData from './abstract_invoice_data.js';
 
 export default class RetencionesData extends AbstractInvoiceData {
@@ -59,8 +59,8 @@ export default class RetencionesData extends AbstractInvoiceData {
       this.buildTfdSource();
     }
 
-    this._legendFooter =
-      'Este documento es una representación impresa de un Comprobante Fiscal Digital por Internet que ampara Retenciones e Información de Pagos versión {version}';
+    this._legendFooter
+      = 'Este documento es una representación impresa de un Comprobante Fiscal Digital por Internet que ampara Retenciones e Información de Pagos versión {version}';
   }
 
   public retenciones(): XmlNodeInterface {

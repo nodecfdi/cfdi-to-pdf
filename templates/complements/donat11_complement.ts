@@ -1,5 +1,5 @@
-import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
-import { type Content } from 'pdfmake/interfaces.js';
+import type { XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
+import type { Content } from 'pdfmake/interfaces.js';
 
 const useDonat11Complement = (
   donat11: XmlNodeInterface,

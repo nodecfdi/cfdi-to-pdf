@@ -1,6 +1,6 @@
-import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
-import { type Content, type TableCell } from 'pdfmake/interfaces.js';
-import { type CatalogsData } from '../../src/types.js';
+import type { XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
+import type { Content, TableCell } from 'pdfmake/interfaces.js';
+import type { CatalogsData } from '../../src/types.js';
 import { toCurrency } from '../../src/utils/currency.js';
 
 const genericCfdiDetailsInfoContent = (

@@ -1,6 +1,6 @@
-import { type TDocumentDefinitions } from 'pdfmake/interfaces.js';
+import type { TDocumentDefinitions } from 'pdfmake/interfaces.js';
 import type RetencionesData from '../src/retenciones_data.js';
-import { type CatalogsData, type DocumentOptions, type DocumentTranslatorInterface } from '../src/types.js';
+import type { CatalogsData, DocumentOptions, DocumentTranslatorInterface } from '../src/types.js';
 import AbstractGenericTraslator from './abstract_generic_translator.js';
 import usePlataformasTecnologicas10Complement from './complements/plataformas_tecnologicas10_complement.js';
 import genericEmisorContent from './sections/generic_emisor_content.js';
@@ -13,8 +13,7 @@ import genericTopContent from './sections/generic_top_content.js';
 
 export default class GenericRetencionesTranslator
   extends AbstractGenericTraslator
-  implements DocumentTranslatorInterface<RetencionesData>
-{
+  implements DocumentTranslatorInterface<RetencionesData> {
   public translate(
     data: RetencionesData,
     documentOptions: DocumentOptions,

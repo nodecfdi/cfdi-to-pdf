@@ -1,5 +1,5 @@
-import { type XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
-import { type TableCell } from 'pdfmake/interfaces.js';
+import type { XmlNodeInterface } from '@nodecfdi/cfdi-core/types';
+import type { TableCell } from 'pdfmake/interfaces.js';
 import { formatCurrency, toNumber } from '../../src/utils/currency.js';
 
 const useImplocal10Complement = (

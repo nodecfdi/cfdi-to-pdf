@@ -1,9 +1,9 @@
+import type { BufferOptions, TFontDictionary } from 'pdfmake/interfaces.js';
+import type AbstractInvoiceData from '../../abstract_invoice_data.js';
+import type { CatalogsData, DocumentOptions, DocumentTranslatorInterface } from '../../types.js';
 import { createWriteStream } from 'node:fs';
 import { buffer } from 'node:stream/consumers';
 import PdfPrinter from 'pdfmake';
-import { type BufferOptions, type TFontDictionary } from 'pdfmake/interfaces.js';
-import type AbstractInvoiceData from '../../abstract_invoice_data.js';
-import { type CatalogsData, type DocumentOptions, type DocumentTranslatorInterface } from '../../types.js';
 import AbstractPdfMakerBuilder from '../abstract_pdf_maker_builder.js';
 
 export default class PdfMakerBuilder<T extends AbstractInvoiceData> extends AbstractPdfMakerBuilder<T> {
@@ -67,7 +67,7 @@ export default class PdfMakerBuilder<T extends AbstractInvoiceData> extends Abst
         resolve();
       });
       pdfDoc.on('error', (error) => {
-        reject(error as Error);
+        reject(error);
       });
 
       pdfDoc.end();
@@ -75,7 +75,7 @@ export default class PdfMakerBuilder<T extends AbstractInvoiceData> extends Abst
   }
 
   public async buildStream(data: T): Promise<NodeJS.ReadableStream> {
-    return await this.buildPdf(data);
+    return this.buildPdf(data);
   }
 
   protected async buildPdf(data: T): Promise<PDFKit.PDFDocument> {

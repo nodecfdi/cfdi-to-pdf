@@ -1,3 +1,4 @@
+import type { CatalogsData } from '../types.js';
 import { wrapCatalog } from '@nodecfdi/sat-micro-catalogs';
 import cfdi40ExportacionesRaw from '@nodecfdi/sat-micro-catalogs/raw/cfdi_40_exportaciones' with { type: 'json' };
 import cfdi40FormasPagoRaw from '@nodecfdi/sat-micro-catalogs/raw/cfdi_40_formas_pago' with { type: 'json' };
@@ -15,7 +16,6 @@ import retenciones20ClavesRetencionRaw from '@nodecfdi/sat-micro-catalogs/raw/re
 import retenciones20PeriodicidadesRaw from '@nodecfdi/sat-micro-catalogs/raw/ret_20_periodicidades' with { type: 'json' };
 import retenciones20PeriodosRaw from '@nodecfdi/sat-micro-catalogs/raw/ret_20_periodos' with { type: 'json' };
 import retenciones20TiposPagoRaw from '@nodecfdi/sat-micro-catalogs/raw/ret_20_tipos_pago_retencion' with { type: 'json' };
-import { type CatalogsData } from '../types.js';
 
 const catalogs: CatalogsData = {
   cfdi40Impuestos: wrapCatalog(cfdi40ImpuestosRaw),
