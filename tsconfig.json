@@ -1,10 +1,20 @@
 {
-  "extends": "@nodecfdi/tsconfig/tsconfig.package.json",
   "compilerOptions": {
-    "rootDir": "./",
-    "outDir": "./build",
+    "target": "ESNext",
+    "module": "NodeNext",
     "lib": ["ESNext", "DOM"],
     "types": ["vitest/globals", "@types/node"],
+    "rootDir": "./",
+    "outDir": "./build",
+    "declaration": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
     "resolveJsonModule": true
   },
   "exclude": ["node_modules", "build", "coverage"]

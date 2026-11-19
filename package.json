@@ -58,7 +58,6 @@
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.6.0",
     "@nodecfdi/cfdi-core": "^0.6.2",
-    "@nodecfdi/tsconfig": "^1.7.3",
     "@types/node": "^22.10.10",
     "@types/pdfmake": "^0.2.10",
     "@vitest/coverage-istanbul": "^3.0.4",
