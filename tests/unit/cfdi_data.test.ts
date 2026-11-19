@@ -1,4 +1,5 @@
 import { nodeFromXmlString } from '@nodecfdi/cfdi-core';
+import { describe, expect, test } from 'vitest';
 import CfdiData from '../../src/cfdi_data.js';
 import { fileContents } from '../../test_helpers/test_utils.js';
 

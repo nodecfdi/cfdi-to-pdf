@@ -1,5 +1,6 @@
 import { existsSync, unlinkSync } from 'node:fs';
 import { nodeFromXmlString } from '@nodecfdi/cfdi-core';
+import { describe, expect, test } from 'vitest';
 import PdfMakerBuilder from '../../src/builders/node/pdf_maker_builder.js';
 import CfdiData from '../../src/cfdi_data.js';
 import RetencionesData from '../../src/retenciones_data.js';

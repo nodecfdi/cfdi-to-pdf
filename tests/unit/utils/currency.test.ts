@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest';
 import { formatCurrency, toCurrency } from '../../../src/utils/currency.js';
 
 describe('currency', () => {
