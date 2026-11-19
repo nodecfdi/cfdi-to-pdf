@@ -1,6 +1,6 @@
 import { nodeFromXmlString } from '@nodecfdi/cfdi-core';
 import RetencionesData from '../../src/retenciones_data.js';
-import { fileContents } from '../test_utils.js';
+import { fileContents } from '../../test_helpers/test_utils.js';
 
 describe('retenciones data', () => {
   test('construct using valid content', () => {
